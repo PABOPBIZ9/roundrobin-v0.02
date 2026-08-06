@@ -1,37 +1,41 @@
 # PuckGold — Round Robin v0.02
 
-Official web presence for **PuckGold: The Founding Four** championship round-robin.
+Official multi-page site for **PuckGoldBiz (PGB)** — Founding Four championship.
 
-## Live site
-
-Once GitHub Pages is enabled, the site is available at:
+## Live
 
 **https://pabopbiz9.github.io/roundrobin-v0.02/**
 
 ## Pages
 
-| Path | Description |
-|------|-------------|
-| `/` (`index.html`) | Full site (v2) — teams, rosters, stadiums, brand kit, media |
-| `/hype.html` | Launch / hype landing page |
-| `/site-v1.html` | Earlier full-site draft |
+| Page | Path |
+|------|------|
+| Home | `/` |
+| Join / OG Gold Puck | `/join.html` |
+| Teams | `/teams.html` |
+| Rosters | `/rosters.html` |
+| Stadiums | `/stadiums.html` |
+| Bracket | `/bracket.html` |
+| Brand kit | `/brand.html` |
+| Media | `/media.html` |
+| Awards | `/awards.html` |
+| Shop | `/shop.html` |
+| Fan Zone / Fantasy | `/fantasy.html` |
+| Sign In | `/signin.html` |
 
-## Source docs
+## Membership CTA
 
-- `PuckGold_Founding_Four_Championship_Book.md`
-- `PuckGold_Kids_Comic_Script.md`
-- `PuckGold_Media_Guide_and_Marketing_Plan.md`
+- **$36 / year** — OG Gold Puck kit (physical puck + premium year)
+- **$12.99 / month** — flexible premium
 
 ## Local preview
-
-Open `index.html` in a browser, or from this folder:
 
 ```bash
 python3 -m http.server 8080
 ```
 
-Then visit `http://localhost:8080`.
+Open `http://localhost:8080`.
 
 ## Deploy
 
-This repo is configured for **GitHub Pages** from the `main` branch root.
+GitHub Pages via Actions workflow on `main`.

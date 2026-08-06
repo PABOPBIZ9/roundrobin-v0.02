@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In — PuckGold</title>
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="assets/img/logo-pgb.svg" type="image/svg+xml">
+</head>
+<body>
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+<div class="page-hero" style="text-align:center">
+  <span class="kicker">Members</span>
+  <h1>SIGN IN</h1>
+  <p style="margin-left:auto;margin-right:auto">Access Fan Zone, shop checkout, and your OG Gold Puck perks.</p>
+</div>
+<section class="section">
+  <div class="signin-box">
+    <form onsubmit="event.preventDefault(); alert('Auth coming soon — membership checkout wires next.');">
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@email.com">
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required placeholder="••••••••">
+      </div>
+      <button class="btn btn-og btn-block" type="submit">Sign in</button>
+    </form>
+    <p class="plan-alt" style="text-align:center;margin-top:1rem">New here? <a href="join.html">Join with the $36 OG Gold Puck</a></p>
+    <div class="cta-row" style="margin-top:1rem">
+      <a href="join.html" class="btn btn-champagne btn-sm btn-block">Create account</a>
+      <a href="fantasy.html" class="btn btn-sapphire btn-sm btn-block">Browse Fan Zone</a>
+    </div>
+  </div>
+</section>
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

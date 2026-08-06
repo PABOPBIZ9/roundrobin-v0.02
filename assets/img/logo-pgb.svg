@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 140" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="shield" x1="20" y1="8" x2="100" y2="130" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1a2744"/>
+      <stop offset=".55" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#050910"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="24" y1="16" x2="96" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f4e2a1"/>
+      <stop offset=".45" stop-color="#d4af37"/>
+      <stop offset="1" stop-color="#8a6a1e"/>
+    </linearGradient>
+    <linearGradient id="puck" x1="44" y1="58" x2="76" y2="92" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f7e7a8"/>
+      <stop offset=".5" stop-color="#d4af37"/>
+      <stop offset="1" stop-color="#6b4f14"/>
+    </linearGradient>
+  </defs>
+  <path d="M60 6C38 6 22 14 16 22v48c0 28 18 48 44 58 26-10 44-30 44-58V22C98 14 82 6 60 6Z" fill="url(#shield)" stroke="url(#gold)" stroke-width="4"/>
+  <path d="M60 16c-16 0-28 5-33 11v40c0 21 13.5 36.5 33 44.5 19.5-8 33-23.5 33-44.5V27c-5-6-17-11-33-11Z" fill="#0a1426" opacity=".55"/>
+  <circle cx="60" cy="74" r="18" fill="url(#puck)"/>
+  <circle cx="60" cy="74" r="18" stroke="#fff3c4" stroke-opacity=".35" stroke-width="1.5"/>
+  <path d="M52 74h16M60 66v16" stroke="#2a1c05" stroke-width="2.2" stroke-linecap="round" opacity=".35"/>
+  <text x="60" y="48" text-anchor="middle" fill="url(#gold)" font-family="Arial Black, Impact, sans-serif" font-size="18" font-weight="900" letter-spacing="1">PGB</text>
+  <path d="M28 96l18-8 8 18M92 96l-18-8-8 18" stroke="url(#gold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

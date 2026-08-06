@@ -1,605 +1,143 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PuckGold — The Founding Four</title>
-<style>
-  :root{
-    --ice-black:#f7f5ef;
-    --ice-panel:#ffffff;
-    --ice-panel-2:#f2efe6;
-    --ice-line:#e3ddcf;
-    --frost:#161a20;
-    --frost-dim:#5c6473;
-    --nav-bg:rgba(247,245,239,.9);
-
-    --gold:#b8912e;
-    --gold-bright:#8a6a1e;
-    --champagne-a:#f6d9c4; --champagne-b:#e0b98f; --champagne-txt:#3a2413;
-    --platinum-a:#eef1f4; --platinum-b:#c7ccd3; --platinum-txt:#1a1d22;
-    --rose-a:#f3c9c9; --rose-b:#d99a9a; --rose-txt:#3a1414;
-
-    --miami-a:#0f9c8c; --miami-b:#d9711a;
-    --mclean-a:#b91c1c; --mclean-b:#9c7a1e;
-    --wash-a:#28518f;  --wash-b:#5c6473;
-    --chatt-a:#5c636c; --chatt-b:#9c5a26;
-  }
-  html[data-theme="dark"]{
-    --ice-black:#070c16;
-    --ice-panel:#0f1a2b;
-    --ice-panel-2:#111e33;
-    --ice-line:#1c2c44;
-    --frost:#eef3fa;
-    --frost-dim:#9db0c9;
-    --nav-bg:rgba(7,12,22,.86);
-
-    --gold:#d4af37;
-    --gold-bright:#f4d878;
-
-    --miami-a:#2dd4bf; --miami-b:#fb923c;
-    --mclean-a:#dc2626; --mclean-b:#e8c15a;
-    --wash-a:#3f6db8;  --wash-b:#c7ccd6;
-    --chatt-a:#8a8f98; --chatt-b:#c07a3e;
-  }
-
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:
-      radial-gradient(1200px 600px at 15% -10%, rgba(120,150,220,.08) 0%, transparent 60%),
-      radial-gradient(900px 500px at 90% 10%, rgba(180,120,220,.06) 0%, transparent 55%),
-      var(--ice-black);
-    color:var(--frost);
-    font-family:-apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
-    overflow-x:hidden;
-    transition:background-color .25s ease, color .25s ease;
-  }
-  .display{
-    font-family:"Arial Narrow", "Helvetica Neue Condensed", Impact, Haettenschweiler, sans-serif;
-    font-weight:900; text-transform:uppercase; letter-spacing:0.02em;
-  }
-  a{color:inherit;}
-
-  .ice-lines{
-    position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.12;
-    background-image:repeating-linear-gradient(115deg, transparent 0 60px, rgba(120,150,220,.15) 60px 61px);
-  }
-
-  /* ---------- nav ---------- */
-  nav{
-    position:sticky; top:0; z-index:50;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:.9rem 4vw;
-    background:var(--nav-bg);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--ice-line);
-    gap:1rem; flex-wrap:wrap;
-  }
-  .logo-link{display:flex; align-items:center; gap:.65rem; text-decoration:none; cursor:pointer;}
-  .logo-mark{width:32px; height:32px; flex-shrink:0;}
-  .logo-word{font-weight:800; letter-spacing:.06em; font-size:1.05rem; color:var(--frost);}
-  .logo-word b{color:var(--gold-bright);}
-  .nav-links{display:flex; gap:1.4rem; font-size:.83rem; letter-spacing:.03em; flex-wrap:wrap; align-items:center;}
-  .nav-links a{text-decoration:none; color:var(--frost-dim); transition:color .15s ease; padding:.3rem 0; border-bottom:1px solid transparent;}
-  .nav-links a:hover{color:var(--gold-bright); border-color:var(--gold-bright);}
-  .nav-right{display:flex; align-items:center; gap:.7rem;}
-  .theme-toggle{
-    font-family:inherit; font-size:.72rem; letter-spacing:.05em; text-transform:uppercase;
-    background:transparent; border:1px solid var(--ice-line); color:var(--frost-dim);
-    padding:.45em 1em; border-radius:999px; cursor:pointer; transition:all .15s ease;
-  }
-  .theme-toggle:hover{border-color:var(--gold-bright); color:var(--gold-bright);}
-  .login-btn{
-    font-family:inherit; font-size:.75rem; letter-spacing:.04em; text-transform:uppercase;
-    background:var(--frost); color:var(--ice-panel); border:none;
-    padding:.55em 1.3em; border-radius:999px; cursor:pointer; font-weight:700;
-  }
-  @media (max-width:960px){ .nav-links a{display:none;} }
-
-  /* ---------- hero ---------- */
-  header.hero{
-    position:relative; z-index:1; min-height:80vh;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center; padding:6vh 6vw 8vh;
-  }
-  .eyebrow{
-    display:inline-flex; align-items:center; gap:.6em;
-    font-size:.76rem; letter-spacing:.3em; text-transform:uppercase;
-    color:var(--gold-bright); margin-bottom:2rem;
-    border:1px solid var(--gold); border-radius:999px;
-    padding:.5em 1.3em; background:rgba(184,145,46,.07);
-  }
-  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--gold-bright); box-shadow:0 0 8px var(--gold-bright); animation:pulse 1.8s infinite ease-in-out;}
-  @keyframes pulse{0%,100%{opacity:1} 50%{opacity:.25}}
-
-  h1.hero-title{
-    font-size:clamp(2.8rem, 8.5vw, 7rem); line-height:.92;
-    background:linear-gradient(180deg, var(--frost) 0%, var(--gold-bright) 55%, var(--gold) 100%);
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-  }
-  .hero-sub{margin-top:1.5rem; font-size:clamp(1rem, 2vw, 1.25rem); color:var(--frost-dim); max-width:660px; font-weight:300;}
-  .hero-sub b{color:var(--frost); font-weight:600;}
-  .puck{
-    width:30px; height:30px; border-radius:50%;
-    background:radial-gradient(circle at 35% 30%, var(--gold-bright), var(--gold) 55%, #6b551c 100%);
-    box-shadow:0 0 30px 6px rgba(184,145,46,.4), 0 0 70px 20px rgba(184,145,46,.12);
-    margin:2.2rem auto 0; animation:float 3.2s ease-in-out infinite;
-  }
-  @keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)}}
-
-  .cta-row{margin-top:2.4rem; display:flex; gap:.8rem; flex-wrap:wrap; justify-content:center;}
-  .btn{
-    font-family:inherit; font-size:.85rem; letter-spacing:.06em; text-transform:uppercase;
-    padding:.85em 1.7em; border-radius:6px; cursor:pointer; text-decoration:none;
-    border:1px solid transparent; transition:transform .15s ease; display:inline-block;
-  }
-  .btn:hover{transform:translateY(-2px);}
-  .btn-gold{background:linear-gradient(180deg, var(--gold-bright), var(--gold)); color:#fff8ea; font-weight:700; box-shadow:0 8px 22px rgba(184,145,46,.25);}
-  .btn-champagne{background:linear-gradient(180deg, var(--champagne-a), var(--champagne-b)); color:var(--champagne-txt); font-weight:700; box-shadow:0 8px 22px rgba(224,185,143,.25);}
-  .btn-platinum{background:linear-gradient(180deg, var(--platinum-a), var(--platinum-b)); color:var(--platinum-txt); font-weight:700; box-shadow:0 8px 22px rgba(199,204,211,.25);}
-  .btn-rose{background:linear-gradient(180deg, var(--rose-a), var(--rose-b)); color:var(--rose-txt); font-weight:700; box-shadow:0 8px 22px rgba(217,154,154,.25);}
-  .btn-ghost{border-color:var(--ice-line); color:var(--frost);}
-  .btn-ghost:hover{border-color:var(--gold-bright);}
-
-  /* ---------- scoreboard ---------- */
-  .scoreboard{
-    position:relative; z-index:1; display:flex; justify-content:center; gap:clamp(1rem,4vw,4rem);
-    flex-wrap:wrap; padding:1.5rem 4vw; border-top:1px solid var(--ice-line); border-bottom:1px solid var(--ice-line);
-    background:var(--ice-panel-2);
-  }
-  .stat{text-align:center;}
-  .stat .num{font-weight:800; font-size:clamp(1.4rem,3vw,2.1rem); color:var(--gold-bright);}
-  .stat .label{font-size:.64rem; letter-spacing:.18em; text-transform:uppercase; color:var(--frost-dim); margin-top:.3rem;}
-
-  section{position:relative; z-index:1; padding:8vh 6vw; max-width:1280px; margin:0 auto; scroll-margin-top:80px;}
-  .section-head{margin-bottom:2.8rem; max-width:660px;}
-  .section-head .kicker{color:var(--gold-bright); font-size:.76rem; letter-spacing:.26em; text-transform:uppercase; margin-bottom:.7rem; display:block;}
-  .section-head h2{font-size:clamp(1.9rem,4vw,2.9rem); line-height:1.06;}
-  .section-head p{color:var(--frost-dim); margin-top:1rem; font-size:1rem; line-height:1.6; font-weight:300;}
-
-  /* ---------- teams ---------- */
-  .team-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:1.1rem;}
-  .team-card{
-    position:relative; border-radius:14px; overflow:hidden; background:var(--ice-panel); border:1px solid var(--ice-line);
-    padding:1.7rem 1.5rem 1.5rem; min-height:270px; display:flex; flex-direction:column; justify-content:flex-end;
-    transition:transform .25s ease, border-color .25s ease;
-  }
-  .team-card::before{content:""; position:absolute; inset:0; opacity:.16; background:radial-gradient(120% 100% at 100% 0%, var(--tc-a), transparent 60%); transition:opacity .25s ease;}
-  .team-card:hover{transform:translateY(-5px); border-color:var(--tc-a);}
-  .team-card:hover::before{opacity:.32;}
-  .team-card .seed{position:relative; font-size:.72rem; letter-spacing:.18em; color:var(--frost-dim); margin-bottom:auto;}
-  .team-card .mono{position:relative; width:44px; height:44px; border-radius:50%; background:var(--tc-a); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.1rem; color:#fff; margin-bottom:.6rem;}
-  .team-card h3{position:relative; font-size:1.4rem;}
-  .team-card .arena{position:relative; font-size:.8rem; color:var(--tc-a); margin-top:.3rem; font-weight:700;}
-  .team-card .motto{position:relative; font-size:.83rem; color:var(--frost-dim); margin-top:.6rem; font-style:italic; font-weight:300;}
-  .team-card .record{position:relative; font-size:.72rem; color:var(--frost-dim); margin-top:.8rem; letter-spacing:.06em;}
-  .t-miami{--tc-a:var(--miami-a);} .t-mclean{--tc-a:var(--mclean-a);} .t-wash{--tc-a:var(--wash-a);} .t-chatt{--tc-a:var(--chatt-a);}
-
-  /* ---------- rosters ---------- */
-  .roster-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:1.1rem;}
-  .roster-card{background:var(--ice-panel); border:1px solid var(--ice-line); border-radius:14px; padding:1.4rem; border-top:3px solid var(--tc-a);}
-  .roster-card h3{font-size:1.1rem; margin-bottom:.9rem;}
-  table.roster-table{width:100%; border-collapse:collapse; font-size:.82rem;}
-  .roster-table th{text-align:left; color:var(--frost-dim); font-weight:600; font-size:.7rem; letter-spacing:.06em; text-transform:uppercase; padding:.4rem .3rem; border-bottom:1px solid var(--ice-line);}
-  .roster-table td{padding:.45rem .3rem; border-bottom:1px solid var(--ice-line);}
-  .roster-table td.num{color:var(--tc-a); font-weight:700; width:2.5rem;}
-
-  /* ---------- stadiums ---------- */
-  .stadium-list{display:flex; flex-direction:column; gap:1.2rem;}
-  .stadium-row{display:grid; grid-template-columns:220px 1fr; gap:1.5rem; align-items:center; background:var(--ice-panel); border:1px solid var(--ice-line); border-radius:14px; padding:1.5rem;}
-  @media (max-width:700px){ .stadium-row{grid-template-columns:1fr;} }
-  .stadium-visual{height:130px; border-radius:10px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; border:1px solid var(--ice-line);}
-  .stadium-visual span{font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.9); z-index:1;}
-  .sv-miami{background:linear-gradient(135deg, #0e463f, #234020);}
-  .sv-mclean{background:linear-gradient(135deg, #451212, #33260a);}
-  .sv-wash{background:linear-gradient(135deg, #12233d, #202c3d);}
-  .sv-chatt{background:linear-gradient(135deg, #2f2f31, #43301a);}
-  .stadium-visual::before{content:""; position:absolute; inset:0; background:repeating-linear-gradient(100deg, transparent 0 18px, rgba(255,255,255,.06) 18px 19px);}
-  .stadium-info h3{font-size:1.25rem; margin-bottom:.3rem;}
-  .stadium-info .home-team{font-size:.8rem; margin-bottom:.6rem; font-weight:700;}
-  .stadium-info p{color:var(--frost-dim); font-size:.9rem; line-height:1.55; font-weight:300;}
-  .feature-tags{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.7rem;}
-  .feature-tags span{font-size:.68rem; padding:.3em .8em; border-radius:999px; border:1px solid var(--ice-line); color:var(--frost-dim);}
-
-  /* ---------- bracket ---------- */
-  .bracket{display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.3rem; align-items:center;}
-  @media (max-width:800px){ .bracket{grid-template-columns:1fr;} }
-  .bcol{display:flex; flex-direction:column; gap:1.1rem;}
-  .bcol.mid{justify-content:center; gap:2.6rem;}
-  .matchup{background:var(--ice-panel); border:1px solid var(--ice-line); border-radius:10px; padding:1rem 1.1rem; font-size:.9rem;}
-  .matchup .vs{color:var(--frost-dim); font-size:.7rem; letter-spacing:.14em; margin:.3rem 0;}
-  .matchup .win{color:var(--gold-bright); font-weight:700;}
-  .final-card{background:linear-gradient(160deg, rgba(184,145,46,.14), rgba(184,145,46,.02)); border:1px solid var(--gold); border-radius:12px; padding:1.3rem;}
-  .final-card .tag{font-size:.68rem; letter-spacing:.22em; color:var(--gold-bright); text-transform:uppercase; margin-bottom:.6rem; display:block;}
-  .final-card .champ{font-size:1.2rem; font-weight:800; margin-top:.4rem;}
-
-  /* ---------- brand kit ---------- */
-  .brand-block{background:var(--ice-panel); border:1px solid var(--ice-line); border-radius:14px; padding:1.8rem; margin-bottom:1.2rem;}
-  .brand-block h3{font-size:1rem; letter-spacing:.05em; text-transform:uppercase; color:var(--gold-bright); margin-bottom:1.2rem;}
-  .logo-showcase{display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;}
-  .logo-showcase .logo-mark{width:56px; height:56px;}
-  .type-scale div{margin-bottom:.9rem;}
-  .type-scale .sample{font-family:"Arial Narrow", Impact, sans-serif; font-weight:900; text-transform:uppercase;}
-  .type-scale .h1s{font-size:2.6rem;} .type-scale .h2s{font-size:1.9rem;} .type-scale .h3s{font-size:1.3rem;} .type-scale .bodys{font-size:.95rem; font-weight:400; text-transform:none; font-family:-apple-system,sans-serif;}
-  .type-scale .meta{font-size:.7rem; color:var(--frost-dim); letter-spacing:.05em; text-transform:none;}
-  .btn-showcase{display:flex; gap:.8rem; flex-wrap:wrap;}
-
-  .brand-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:1.1rem;}
-  .brand-card{background:var(--ice-panel); border:1px solid var(--ice-line); border-radius:14px; padding:1.5rem;}
-  .brand-card h4{font-size:1.05rem; margin-bottom:.9rem;}
-  .swatches{display:flex; gap:.5rem; margin-bottom:.9rem;}
-  .swatch{flex:1; height:52px; border-radius:8px; display:flex; align-items:flex-end; padding:.4rem; font-size:.62rem; color:#fff; font-weight:700;}
-  .brand-spec{font-size:.78rem; color:var(--frost-dim); line-height:1.85;}
-  .brand-spec b{color:var(--frost);}
-  .wordmark-sm{font-weight:900; text-transform:uppercase; font-size:1.35rem; margin-bottom:.3rem;}
-
-  /* ---------- awards ---------- */
-  .award-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:1rem;}
-  .award-card{background:var(--ice-panel); border:1px solid var(--ice-line); border-radius:12px; padding:1.3rem;}
-  .award-card h4{font-size:1rem; margin-bottom:.4rem;}
-  .award-card p{font-size:.8rem; color:var(--frost-dim); line-height:1.5; font-weight:300;}
-  .award-card .winner{color:var(--gold-bright); font-size:.82rem; font-weight:700; margin-top:.5rem;}
-
-  /* ---------- media center ---------- */
-  .media-grid{display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;}
-  @media (max-width:800px){ .media-grid{grid-template-columns:1fr;} }
-  .media-card{background:var(--ice-panel); border:1px solid var(--ice-line); border-radius:14px; overflow:hidden;}
-  .media-visual{height:230px; position:relative; display:flex; align-items:center; justify-content:center;}
-  .mv-trailer{background:linear-gradient(135deg,#14100a,#3a2e0a);}
-  .mv-comic{background:linear-gradient(135deg,#1e0a22,#0a1e26);}
-  .play-btn{width:58px; height:58px; border-radius:50%; background:rgba(244,216,120,.95); display:flex; align-items:center; justify-content:center; box-shadow:0 0 30px rgba(244,216,120,.35);}
-  .play-btn::after{content:""; border-style:solid; border-width:10px 0 10px 16px; border-color:transparent transparent transparent #1a1400; margin-left:4px;}
-  .media-tag{position:absolute; bottom:.8rem; left:.9rem; font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.85);}
-  .media-dur{position:absolute; bottom:.8rem; right:.9rem; font-size:.68rem; color:rgba(255,255,255,.85); background:rgba(0,0,0,.5); padding:.2em .6em; border-radius:4px;}
-  .media-body{padding:1.3rem 1.4rem;}
-  .media-body h3{font-size:1.1rem; margin-bottom:.4rem;}
-  .media-body p{font-size:.85rem; color:var(--frost-dim); font-weight:300; line-height:1.5; margin-bottom:.8rem;}
-  details.script-toggle summary{cursor:pointer; font-size:.78rem; color:var(--gold-bright); letter-spacing:.04em; text-transform:uppercase; list-style:none;}
-  details.script-toggle summary::-webkit-details-marker{display:none;}
-  details.script-toggle summary::before{content:"▸ "; }
-  details.script-toggle[open] summary::before{content:"▾ ";}
-  .script-body{margin-top:.8rem; font-size:.82rem; color:var(--frost-dim); line-height:1.7; font-weight:300; border-left:2px solid var(--ice-line); padding-left:1rem;}
-  .script-body b{color:var(--frost);}
-
-  /* ---------- story ---------- */
-  .story{display:grid; grid-template-columns:1.1fr .9fr; gap:2.6rem; align-items:center;}
-  @media (max-width:800px){ .story{grid-template-columns:1fr;} }
-  .story blockquote{font-size:clamp(1.15rem, 2.3vw, 1.6rem); line-height:1.4; font-weight:300; border-left:2px solid var(--gold); padding-left:1.3rem;}
-  .story blockquote b{color:var(--gold-bright); font-weight:700;}
-  .miracle-score{background:var(--ice-panel); border:1px solid var(--ice-line); border-radius:14px; padding:1.8rem; text-align:center;}
-  .miracle-score .score{font-size:2.8rem; font-weight:900; color:var(--gold-bright);}
-  .miracle-score .who{font-size:.8rem; color:var(--frost-dim); letter-spacing:.1em; margin-top:.4rem;}
-
-  footer{position:relative; z-index:1; text-align:center; padding:6vh 6vw 7vh; border-top:1px solid var(--ice-line);}
-  footer h2{font-size:clamp(1.6rem,4vw,2.3rem); margin-bottom:1rem;}
-  footer p{color:var(--frost-dim); margin-bottom:1.8rem;}
-  footer .foot-note{margin-top:2.6rem; font-size:.68rem; color:var(--frost-dim); letter-spacing:.06em;}
-</style>
+<title>PuckGold — Official Site | Teams, Scores, Shop & Fan Zone</title>
+<meta name="description" content="PuckGoldBiz (PGB) Hockey League — Founding Four championship. Join with the $36 OG Gold Puck membership.">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="assets/img/logo-pgb.svg" type="image/svg+xml">
 </head>
 <body>
-
 <div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
 
-<nav>
-  <a href="#" class="logo-link" onclick="location.reload(); return false;" title="Refresh PuckGold home">
-    <svg class="logo-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="20" cy="20" r="19" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
-      <circle cx="20" cy="20" r="12" fill="var(--gold)"/>
-      <text x="20" y="25" text-anchor="middle" font-size="11" font-weight="800" fill="#fff8ea" font-family="Arial, sans-serif">PG</text>
-    </svg>
-    <span class="logo-word">PUCK<b>GOLD</b></span>
-  </a>
-  <div class="nav-links">
-    <a href="#teams">Teams</a>
-    <a href="#rosters">Rosters</a>
-    <a href="#stadiums">Stadiums</a>
-    <a href="#bracket">Bracket</a>
-    <a href="#brand">Brand kit</a>
-    <a href="#media">Media</a>
-    <a href="#awards">Awards</a>
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="live-pill"><i></i> Season One · Founding Four</div>
+    <h1 class="display">PUCK<span style="color:var(--gold-bright)">GOLD</span><br><em>LAUNCH</em></h1>
+    <p class="hero-lead">Four teams. One golden crown. Claim your limited OG Gold Puck and unlock a year of premium membership to help launch the league.</p>
+    <div class="cta-row">
+      <a href="join.html" class="btn btn-og">$36 OG Gold Puck</a>
+      <a href="fantasy.html" class="btn btn-sapphire">Fan Zone</a>
+      <a href="shop.html" class="btn btn-platinum">Shop</a>
+      <a href="media.html" class="btn btn-champagne">Watch highlights</a>
+      <a href="bracket.html" class="btn btn-ruby">Live bracket</a>
+    </div>
+    <div class="hero-puck" aria-hidden="true"></div>
   </div>
-  <div class="nav-right">
-    <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">Dark mode</button>
-    <button class="login-btn" onclick="return false;">Log in / Sign up</button>
-  </div>
-</nav>
+</section>
 
-<header class="hero" id="home">
-  <span class="eyebrow"><span class="dot"></span> PUCKGOLD.COM PRESENTS</span>
-  <h1 class="display hero-title">THE<br>FOUNDING FOUR</h1>
-  <p class="hero-sub">Four teams. Four virtual stadiums. One golden crown.<br>
-  <b>Miami Mighty Geckz · McLean Cardinals · Washington Whoomp! · Chattanooga Choo Choo</b></p>
-  <div class="puck"></div>
-  <div class="cta-row">
-    <a href="#bracket" class="btn btn-gold">Get tickets</a>
-    <a href="#brand" class="btn btn-platinum">Platinum access</a>
-    <a href="#brand" class="btn btn-champagne">Champagne suite</a>
-    <a href="#brand" class="btn btn-rose">Rose gold membership</a>
-    <a href="#media" class="btn btn-ghost">Watch highlights</a>
+<div class="band">
+  <div class="band-inner">
+    <div class="stat-row">
+      <div class="stat"><div class="num">4</div><div class="label">Teams</div></div>
+      <div class="stat"><div class="num">4</div><div class="label">Stadiums</div></div>
+      <div class="stat"><div class="num">6–5</div><div class="label">Final agg.</div></div>
+      <div class="stat"><div class="num">$36</div><div class="label">OG Gold Puck</div></div>
+    </div>
+    <a href="join.html" class="btn btn-rose btn-sm">Become a founding member</a>
   </div>
-</header>
-
-<div class="scoreboard">
-  <div class="stat"><div class="num">4</div><div class="label">Teams</div></div>
-  <div class="stat"><div class="num">4</div><div class="label">Stadiums</div></div>
-  <div class="stat"><div class="num">6</div><div class="label">Round-robin games</div></div>
-  <div class="stat"><div class="num">6–5</div><div class="label">Final aggregate</div></div>
-  <div class="stat"><div class="num">1</div><div class="label">Golden Cup</div></div>
 </div>
 
-<!-- TEAMS -->
-<section id="teams">
+<section class="section section-wide">
+  <div class="section-head">
+    <span class="kicker">Featured</span>
+    <h2>Jump in like game day.</h2>
+    <p>Shop, compete, and follow the Founding Four — built for phones first, arena loud second.</p>
+  </div>
+  <div class="grid-4 home-tiles">
+    <a class="tile" href="join.html">
+      <span class="eyebrow-link">Membership</span>
+      <h3>OG Gold Puck</h3>
+      <p class="motto">Physical gold puck + 1 year premium. Or $12.99/mo.</p>
+    </a>
+    <a class="tile" href="shop.html">
+      <span class="eyebrow-link">Merch</span>
+      <h3>Official Shop</h3>
+      <p class="motto">Jerseys, hats, pucks, and Founding Four drops.</p>
+    </a>
+    <a class="tile" href="fantasy.html">
+      <span class="eyebrow-link">Fan Zone</span>
+      <h3>Fantasy + Rewards</h3>
+      <p class="motto">Earn points. Win pucks, gift cards, and swag.</p>
+    </a>
+    <a class="tile" href="teams.html">
+      <span class="eyebrow-link">League</span>
+      <h3>Meet the Teams</h3>
+      <p class="motto">Geckz · Cardinals · Whoomp! · Choo Choo</p>
+    </a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="og-panel">
+    <div>
+      <span class="kicker">Limited founding offer</span>
+      <h2 class="display" style="font-size:clamp(2.4rem,8vw,3.8rem);margin:.2rem 0 .6rem">THE $36 OG GOLD PUCK</h2>
+      <p style="color:var(--muted);max-width:34rem">Think HBO Max energy for hockey culture — a premium year that ships a real gold puck badge, signed/team/dev edition variants TBD, and Founding Four access while we get off the ground.</p>
+      <ul class="perk-list">
+        <li>Physical limited-edition OG Gold Puck shipped to you</li>
+        <li>One year premium membership (streaming vibes, member perks TBD)</li>
+        <li>Fan Zone point boost + early shop drops</li>
+        <li>Founding supporter status forever</li>
+      </ul>
+      <div class="cta-row">
+        <a href="join.html" class="btn btn-og">Claim for $36 / year</a>
+        <a href="join.html#monthly" class="btn btn-ghost">Or $12.99 / month</a>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <div class="price">$36<small>FIRST YEAR · OG SPECIAL</small></div>
+      <div class="hero-puck" style="margin:1.4rem auto 0;width:88px;height:88px"></div>
+      <p class="plan-alt">Prefer flexible? <a href="join.html#monthly">Go monthly at $12.99</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-wide">
   <div class="section-head">
     <span class="kicker">The Franchises</span>
     <h2>Four identities. One ice.</h2>
-    <p>Each Founding Four team brings its own colors, its own crowd, and its own home arena into the tournament.</p>
   </div>
-  <div class="team-grid">
-    <div class="team-card t-miami"><span class="seed">#3 SEED</span><div class="mono">M</div><h3 class="display">Mighty Geckz</h3><div class="arena">Neon Reef Stadium — Miami</div><div class="motto">"Small creature. Massive heart."</div><div class="record">1-1-1 · 4 PTS</div></div>
-    <div class="team-card t-mclean"><span class="seed">#1 SEED</span><div class="mono">C</div><h3 class="display">Cardinals</h3><div class="arena">Cardinal Perch Gardens — McLean</div><div class="motto">"Precision creates champions."</div><div class="record">3-0-0 · 9 PTS</div></div>
-    <div class="team-card t-wash"><span class="seed">#2 SEED</span><div class="mono">W</div><h3 class="display">Whoomp!</h3><div class="arena">The District Dome — Washington</div><div class="motto">"Make history."</div><div class="record">2-1-0 · 6 PTS</div></div>
-    <div class="team-card t-chatt"><span class="seed">#4 SEED</span><div class="mono">T</div><h3 class="display">Choo Choo</h3><div class="arena">Terminal Arena — Chattanooga</div><div class="motto">"Every journey starts here."</div><div class="record">0-3-0 · 0 PTS</div></div>
-  </div>
-</section>
-
-<!-- ROSTERS -->
-<section id="rosters">
-  <div class="section-head">
-    <span class="kicker">Full Rosters</span>
-    <h2>Meet the players.</h2>
-    <p>Starting lineups for each Founding Four franchise.</p>
-  </div>
-  <div class="roster-grid">
-    <div class="roster-card t-miami" style="--tc-a:var(--miami-a)">
-      <h3>Miami Mighty Geckz</h3>
-      <table class="roster-table"><tr><th>#</th><th>Player</th><th>Pos</th></tr>
-        <tr><td class="num">9</td><td>Kai Sandoval</td><td>C</td></tr>
-        <tr><td class="num">14</td><td>Milo Reyes</td><td>LW</td></tr>
-        <tr><td class="num">77</td><td>Dashiell Cruz</td><td>RW</td></tr>
-        <tr><td class="num">4</td><td>Tobias Marsh</td><td>D</td></tr>
-        <tr><td class="num">22</td><td>Ronan Vega</td><td>D</td></tr>
-        <tr><td class="num">30</td><td>Emmett Solis</td><td>G</td></tr>
-      </table>
-    </div>
-    <div class="roster-card t-mclean" style="--tc-a:var(--mclean-a)">
-      <h3>McLean Cardinals</h3>
-      <table class="roster-table"><tr><th>#</th><th>Player</th><th>Pos</th></tr>
-        <tr><td class="num">7</td><td>Nathaniel Cross</td><td>C</td></tr>
-        <tr><td class="num">11</td><td>Julian Ashford</td><td>LW</td></tr>
-        <tr><td class="num">19</td><td>Desmond Pierce</td><td>RW</td></tr>
-        <tr><td class="num">2</td><td>Harrison Wells</td><td>D</td></tr>
-        <tr><td class="num">5</td><td>Sebastian Kane</td><td>D</td></tr>
-        <tr><td class="num">35</td><td>Theodore Lang</td><td>G</td></tr>
-      </table>
-    </div>
-    <div class="roster-card t-wash" style="--tc-a:var(--wash-a)">
-      <h3>Washington Whoomp!</h3>
-      <table class="roster-table"><tr><th>#</th><th>Player</th><th>Pos</th></tr>
-        <tr><td class="num">10</td><td>Marcus Doyle</td><td>C</td></tr>
-        <tr><td class="num">17</td><td>Elliot Graves</td><td>LW</td></tr>
-        <tr><td class="num">23</td><td>Preston Hale</td><td>RW</td></tr>
-        <tr><td class="num">6</td><td>Oliver Banks</td><td>D</td></tr>
-        <tr><td class="num">8</td><td>Damian Rourke</td><td>D</td></tr>
-        <tr><td class="num">31</td><td>Felix Ward</td><td>G</td></tr>
-      </table>
-    </div>
-    <div class="roster-card t-chatt" style="--tc-a:var(--chatt-a)">
-      <h3>Chattanooga Choo Choo</h3>
-      <table class="roster-table"><tr><th>#</th><th>Player</th><th>Pos</th></tr>
-        <tr><td class="num">12</td><td>Wyatt Combs</td><td>C</td></tr>
-        <tr><td class="num">16</td><td>Gunnar Voss</td><td>LW</td></tr>
-        <tr><td class="num">21</td><td>Silas Bratton</td><td>RW</td></tr>
-        <tr><td class="num">3</td><td>Coen Whitfield</td><td>D</td></tr>
-        <tr><td class="num">44</td><td>Boone Larkin</td><td>D</td></tr>
-        <tr><td class="num">33</td><td>Asher Doss</td><td>G</td></tr>
-      </table>
-    </div>
+  <div class="grid-4">
+    <a class="tile t-miami" href="teams.html">
+      <span class="seed">#3 Seed</span>
+      <div class="mono">M</div>
+      <h3>Mighty Geckz</h3>
+      <div class="arena">Neon Reef — Miami</div>
+      <div class="motto">"Small creature. Massive heart."</div>
+      <div class="record">Champions · 6–5 agg.</div>
+    </a>
+    <a class="tile t-mclean" href="teams.html">
+      <span class="seed">#1 Seed</span>
+      <div class="mono">C</div>
+      <h3>Cardinals</h3>
+      <div class="arena">Cardinal Perch — McLean</div>
+      <div class="motto">"Precision creates champions."</div>
+      <div class="record">Finalist · 3–0 RR</div>
+    </a>
+    <a class="tile t-wash" href="teams.html">
+      <span class="seed">#2 Seed</span>
+      <div class="mono">W</div>
+      <h3>Whoomp!</h3>
+      <div class="arena">District Dome — Wash.</div>
+      <div class="motto">"Make history."</div>
+      <div class="record">Semifinalist</div>
+    </a>
+    <a class="tile t-chatt" href="teams.html">
+      <span class="seed">#4 Seed</span>
+      <div class="mono">T</div>
+      <h3>Choo Choo</h3>
+      <div class="arena">Terminal Arena — Chatt.</div>
+      <div class="motto">"Every journey starts here."</div>
+      <div class="record">Sportsmanship winners</div>
+    </a>
   </div>
 </section>
 
-<!-- STADIUMS -->
-<section id="stadiums">
-  <div class="section-head">
-    <span class="kicker">Virtual Venues</span>
-    <h2>Take the tour.</h2>
-    <p>Every Founding Four team plays home games in a stadium built entirely around its identity.</p>
-  </div>
-  <div class="stadium-list">
-    <div class="stadium-row">
-      <div class="stadium-visual sv-miami"><span>NEON REEF STADIUM</span></div>
-      <div class="stadium-info"><h3>Neon Reef Stadium</h3><div class="home-team" style="color:var(--miami-a)">Home of the Miami Mighty Geckz</div>
-      <p>An open-air, oceanfront rink built for a party. Neon-lit boards throw turquoise and pink light across the ice, palm trees ring the upper concourse, and a yacht dock sits just beyond the glass.</p>
-      <div class="feature-tags"><span>Oceanfront ice</span><span>Neon boards</span><span>Yacht dock</span><span>Night games</span></div></div>
-    </div>
-    <div class="stadium-row">
-      <div class="stadium-visual sv-mclean"><span>CARDINAL PERCH GARDENS</span></div>
-      <div class="stadium-info"><h3>Cardinal Perch Gardens</h3><div class="home-team" style="color:var(--mclean-a)">Home of the McLean Cardinals</div>
-      <p>A refined arena built into a formal park, framed by ancient oak trees and sharp red-glass architecture. Tiered stone terraces and a championship plaza greet fans at the gate.</p>
-      <div class="feature-tags"><span>Formal gardens</span><span>Glass architecture</span><span>Championship plaza</span></div></div>
-    </div>
-    <div class="stadium-row">
-      <div class="stadium-visual sv-wash"><span>THE DISTRICT DOME</span></div>
-      <div class="stadium-info"><h3>The District Dome</h3><div class="home-team" style="color:var(--wash-a)">Home of Washington Whoomp!</div>
-      <p>A monumental domed arena inspired by classic civic architecture — grand columns, a glass roof patterned with stars, and sightlines to a reflecting pool outside.</p>
-      <div class="feature-tags"><span>Domed roof</span><span>360° scoreboard</span><span>Reflecting pool views</span></div></div>
-    </div>
-    <div class="stadium-row">
-      <div class="stadium-visual sv-chatt"><span>TERMINAL ARENA</span></div>
-      <div class="stadium-info"><h3>Terminal Arena</h3><div class="home-team" style="color:var(--chatt-b)">Home of the Chattanooga Choo Choo</div>
-      <p>A converted historic train station turned hockey barn — exposed brick, heavy timber trusses, and arched windows overlooking a vintage locomotive.</p>
-      <div class="feature-tags"><span>Converted train station</span><span>Steam-whistle horn</span><span>Clock tower</span></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- BRACKET -->
-<section id="bracket">
-  <div class="section-head">
-    <span class="kicker">The Road to Gold</span>
-    <h2>Round robin to the Golden Final.</h2>
-    <p>Seeded by round-robin points, the Founding Four collapse into a knockout — capped by a best-of-two, aggregate-goals Championship.</p>
-  </div>
-  <div class="bracket">
-    <div class="bcol">
-      <div class="matchup"><div>#1 McLean Cardinals</div><div class="vs">VS</div><div>#4 Chattanooga Choo Choo</div><div class="vs win">McLean advances, 6–2</div></div>
-      <div class="matchup"><div>#2 Washington Whoomp!</div><div class="vs">VS</div><div>#3 Miami Mighty Geckz</div><div class="vs win">Miami advances, 3–2 (OT)</div></div>
-    </div>
-    <div class="bcol mid">
-      <div class="final-card"><span class="tag">The Golden Final</span><div>McLean Cardinals</div><div class="vs">vs</div><div>Miami Mighty Geckz</div><div class="champ display">MIAMI WINS<br>6–5 AGGREGATE</div></div>
-    </div>
-    <div class="bcol">
-      <div class="matchup"><b>Game 1 —</b> McLean 3, Miami 1</div>
-      <div class="matchup"><b>Game 2 —</b> Miami 5, McLean 4 (OT)<br><span class="vs win">Down 3-1, Miami storms back</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- BRAND KIT -->
-<section id="brand">
-  <div class="section-head">
-    <span class="kicker">Brand Kit</span>
-    <h2>Colors, marks, and voice.</h2>
-    <p>A quick-reference kit — logo lockup, type scale, button system, and each team's palette — for anyone building graphics, jerseys, or social content.</p>
-  </div>
-
-  <div class="brand-block">
-    <h3>Logo lockup</h3>
-    <div class="logo-showcase">
-      <svg class="logo-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="19" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
-        <circle cx="20" cy="20" r="12" fill="var(--gold)"/>
-        <text x="20" y="25" text-anchor="middle" font-size="11" font-weight="800" fill="#fff8ea" font-family="Arial, sans-serif">PG</text>
-      </svg>
-      <span class="logo-word" style="font-size:1.6rem">PUCK<b>GOLD</b></span>
-      <span class="type-scale meta" style="align-self:center">Mark + wordmark · always pair on light or dark, never on busy imagery without a scrim</span>
-    </div>
-  </div>
-
-  <div class="brand-block">
-    <h3>Type scale</h3>
-    <div class="type-scale">
-      <div class="sample h1s">Founding Four</div>
-      <div class="sample h2s">Golden Final</div>
-      <div class="sample h3s">Round Robin</div>
-      <div class="bodys">Body copy uses the system sans-serif at 15–16px, weight 300–400, for readability at length.</div>
-    </div>
-  </div>
-
-  <div class="brand-block">
-    <h3>Button system</h3>
-    <div class="btn-showcase">
-      <a href="#" class="btn btn-gold" onclick="return false;">Gold — primary</a>
-      <a href="#" class="btn btn-champagne" onclick="return false;">Champagne — premium</a>
-      <a href="#" class="btn btn-platinum" onclick="return false;">Platinum — VIP</a>
-      <a href="#" class="btn btn-rose" onclick="return false;">Rose gold — loyalty</a>
-      <a href="#" class="btn btn-ghost" onclick="return false;">Ghost — secondary</a>
-    </div>
-  </div>
-
-  <div class="brand-grid">
-    <div class="brand-card"><div class="wordmark-sm" style="color:var(--miami-a)">Mighty Geckz</div>
-      <div class="swatches"><div class="swatch" style="background:var(--miami-a)">#0F9C8C</div><div class="swatch" style="background:var(--miami-b)">#D9711A</div></div>
-      <div class="brand-spec"><b>Voice:</b> playful, fast, a little cocky<br><b>Motto:</b> "Small creature. Massive heart."</div>
-    </div>
-    <div class="brand-card"><div class="wordmark-sm" style="color:var(--mclean-a)">Cardinals</div>
-      <div class="swatches"><div class="swatch" style="background:var(--mclean-a)">#B91C1C</div><div class="swatch" style="background:var(--mclean-b)">#9C7A1E</div></div>
-      <div class="brand-spec"><b>Voice:</b> formal, confident, understated<br><b>Motto:</b> "Precision creates champions."</div>
-    </div>
-    <div class="brand-card"><div class="wordmark-sm" style="color:var(--wash-a)">Whoomp!</div>
-      <div class="swatches"><div class="swatch" style="background:var(--wash-a)">#28518F</div><div class="swatch" style="background:var(--wash-b)">#5C6473</div></div>
-      <div class="brand-spec"><b>Voice:</b> strategic, civic, a little grand<br><b>Motto:</b> "Make history."</div>
-    </div>
-    <div class="brand-card"><div class="wordmark-sm" style="color:var(--chatt-b)">Choo Choo</div>
-      <div class="swatches"><div class="swatch" style="background:var(--chatt-a)">#5C636C</div><div class="swatch" style="background:var(--chatt-b)">#9C5A26</div></div>
-      <div class="brand-spec"><b>Voice:</b> blue-collar, warm, no-nonsense<br><b>Motto:</b> "Every journey starts here."</div>
-    </div>
-  </div>
-</section>
-
-<!-- MEDIA CENTER -->
-<section id="media">
-  <div class="section-head">
-    <span class="kicker">Media Center</span>
-    <h2>Watch, read, relive it.</h2>
-    <p>The hype trailer and the companion kids' comic — scripts included so you can hand them straight to a video editor or illustrator.</p>
-  </div>
-  <div class="media-grid">
-    <div class="media-card">
-      <div class="media-visual mv-trailer"><div class="play-btn"></div><span class="media-tag">Trailer</span><span class="media-dur">0:90</span></div>
-      <div class="media-body">
-        <h3>"The Golden Age Begins"</h3>
-        <p>The 90-second hype trailer — four stadiums, four words, one championship goal.</p>
-        <details class="script-toggle"><summary>View script</summary>
-          <div class="script-body">
-            <b>0:00–0:10</b> — Dark arena. Golden puck spins in a spotlight. VO: "Four teams entered. Only one would become legend."<br>
-            <b>0:10–0:25</b> — Neon Reef Stadium. VO: "Speed."<br>
-            <b>0:25–0:40</b> — Cardinal Perch Gardens. VO: "Power."<br>
-            <b>0:40–0:55</b> — The District Dome. VO: "Tradition."<br>
-            <b>0:55–1:10</b> — Terminal Arena. VO: "Heart."<br>
-            <b>1:10–1:30</b> — Championship goal, gold confetti. VO: "The first chapter of PuckGold begins." Title card.
-          </div>
-        </details>
-      </div>
-    </div>
-    <div class="media-card">
-      <div class="media-visual mv-comic"><div class="play-btn" style="background:rgba(184,145,46,.95);"></div><span class="media-tag">Comic · Issue #1</span><span class="media-dur">13 pages</span></div>
-      <div class="media-body">
-        <h3>PuckGold Kidz: "The Golden Puck"</h3>
-        <p>An original all-ages comic starring mascot versions of the Founding Four — Gecko Gus, Cardy, Dome-ster, and Chuggy.</p>
-        <details class="script-toggle"><summary>Read a preview</summary>
-          <div class="script-body">
-            Gecko Gus falls behind early and feels discouraged — until Chuggy skates over: <b>"Everybody has a slow start sometimes. Wanna try again together?"</b> Gus gets back up, skates his fastest lap yet, and scores the game's most joyful goal. Every issue ends with a "Locker Room Lesson" page for young readers.
-          </div>
-        </details>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- AWARDS -->
-<section id="awards">
-  <div class="section-head">
-    <span class="kicker">Trophy Case</span>
-    <h2>Season One hardware.</h2>
-    <p>The individual and team honors handed out at the end of the Founding Four Championship.</p>
-  </div>
-  <div class="award-grid">
-    <div class="award-card"><h4>The PuckGold Cup</h4><p>Championship trophy — gold puck on a crystal ice base, all four crests engraved around the rim.</p><div class="winner">Miami Mighty Geckz</div></div>
-    <div class="award-card"><h4>The Golden Gecko Award</h4><p>Tournament MVP — 8 goals, 5 assists across the semifinal and final, including the OT winner.</p><div class="winner">Miami forward</div></div>
-    <div class="award-card"><h4>The Wall Trophy</h4><p>Best Goaltender — fewest goals allowed through the round robin.</p><div class="winner">McLean Cardinals</div></div>
-    <div class="award-card"><h4>The Conductor's Crest</h4><p>Sportsmanship Award — hard-nosed, clean play all tournament long.</p><div class="winner">Chattanooga Choo Choo</div></div>
-    <div class="award-card"><h4>The Clutch Award</h4><p>Most important moment of the tournament.</p><div class="winner">Miami's OT winner, Game 2</div></div>
-    <div class="award-card"><h4>The Golden Stick</h4><p>Tournament scoring leader across all games.</p><div class="winner">Assign with your roster</div></div>
-  </div>
-</section>
-
-<!-- STORY -->
-<section id="story">
-  <div class="story">
-    <blockquote>Down two goals on aggregate with under a minute left, Miami tied it, forced overtime, and won it on a <b>breakaway triple-deke</b> — completing the biggest comeback in PuckGold history before the league was even a day old.</blockquote>
-    <div class="miracle-score"><div class="score">5–4</div><div class="who">MIGHTY GECKZ OVER CARDINALS<br>GAME TWO · OVERTIME</div></div>
-  </div>
-</section>
-
-<footer>
-  <h2 class="display">The Golden Age Begins.</h2>
-  <p>Full schedules, standings, and the official tournament media guide are live at PuckGold.com.</p>
-  <div class="cta-row" style="justify-content:center;">
-    <a href="#teams" class="btn btn-gold">Meet the teams</a>
-    <a href="#bracket" class="btn btn-ghost">See the bracket</a>
-  </div>
-  <div class="foot-note">PUCKGOLDBIZ (PGB) HOCKEY LEAGUE — FOUNDING FOUR CHAMPIONSHIP — SEASON ONE</div>
-</footer>
-
-<script>
-  function toggleTheme(){
-    const html = document.documentElement;
-    const isDark = html.getAttribute('data-theme') === 'dark';
-    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-    document.getElementById('themeBtn').textContent = isDark ? 'Dark mode' : 'Light mode';
-  }
-</script>
-
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/site.js"></script>
 </body>
 </html>
