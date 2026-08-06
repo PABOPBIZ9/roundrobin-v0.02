@@ -128,8 +128,122 @@
     setInterval(tick, 1000);
   }
 
+  // VeeFriends-style sound + preview toggle (starts ON)
+  function initAVExperience() {
+    const STORAGE_KEY = "pgb-av-on";
+    const audioSrc = "assets/media/majestic-frost.mp3";
+    const saved = localStorage.getItem(STORAGE_KEY);
+    // Default ON unless user previously turned it off
+    let enabled = saved === null ? true : saved === "1";
+
+    const audio = new Audio(audioSrc);
+    audio.loop = true;
+    audio.preload = "auto";
+    audio.volume = 0.55;
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "av-toggle";
+    btn.id = "avToggle";
+    btn.innerHTML = `
+      <span class="av-toggle-tip" id="avTip">Sound on</span>
+      <span class="av-bars" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </span>
+    `;
+    document.body.appendChild(btn);
+
+    const stages = document.querySelectorAll("[data-av-stage]");
+    const scenes = Array.from(document.querySelectorAll(".hero-scene"));
+    let sceneTimer = null;
+    let sceneIndex = 0;
+    let unlockBound = false;
+
+    function setUi() {
+      btn.setAttribute("aria-pressed", enabled ? "true" : "false");
+      btn.setAttribute(
+        "aria-label",
+        enabled ? "Mute sound and pause previews" : "Play sound and previews"
+      );
+      const tip = document.getElementById("avTip");
+      if (tip) tip.textContent = enabled ? "Sound on" : "Sound off";
+      stages.forEach((el) => {
+        el.classList.toggle("is-av-on", enabled);
+        el.classList.toggle("is-av-off", !enabled);
+      });
+      document.documentElement.classList.toggle("av-on", enabled);
+      document.documentElement.classList.toggle("av-off", !enabled);
+    }
+
+    function showScene(i) {
+      if (!scenes.length) return;
+      scenes.forEach((s, idx) => s.classList.toggle("is-active", idx === i));
+    }
+
+    function startScenes() {
+      if (!scenes.length || sceneTimer) return;
+      showScene(sceneIndex);
+      sceneTimer = setInterval(() => {
+        sceneIndex = (sceneIndex + 1) % scenes.length;
+        showScene(sceneIndex);
+      }, 5200);
+    }
+
+    function stopScenes() {
+      if (sceneTimer) {
+        clearInterval(sceneTimer);
+        sceneTimer = null;
+      }
+    }
+
+    async function tryPlay() {
+      if (!enabled) return;
+      try {
+        await audio.play();
+      } catch (_) {
+        // Autoplay with sound blocked — keep UI ON and unlock on first gesture
+        if (!unlockBound) {
+          unlockBound = true;
+          const unlock = async () => {
+            if (!enabled) return;
+            try {
+              await audio.play();
+            } catch (_) {}
+            window.removeEventListener("pointerdown", unlock);
+            window.removeEventListener("keydown", unlock);
+            unlockBound = false;
+          };
+          window.addEventListener("pointerdown", unlock, { once: true });
+          window.addEventListener("keydown", unlock, { once: true });
+        }
+      }
+    }
+
+    function apply() {
+      localStorage.setItem(STORAGE_KEY, enabled ? "1" : "0");
+      setUi();
+      if (enabled) {
+        startScenes();
+        tryPlay();
+      } else {
+        audio.pause();
+        stopScenes();
+      }
+    }
+
+    btn.addEventListener("click", () => {
+      enabled = !enabled;
+      apply();
+    });
+
+    // Kick off in ON state (or restore prior preference)
+    apply();
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     mount();
     initCountdown();
+    initAVExperience();
   });
 })();
+
