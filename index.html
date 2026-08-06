@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PuckGold — Official Site | Teams, Scores, Shop & Fan Zone</title>
 <meta name="description" content="PuckGoldBiz (PGB) Hockey League — Founding Four championship. Join with the $36 OG Gold Puck membership.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
 <link rel="stylesheet" href="assets/css/site.css">
 <link rel="icon" href="assets/brand/favicon/favicon.ico" type="image/x-icon">
 <link rel="icon" href="assets/brand/favicon/favicon-32.png" type="image/png" sizes="32x32">
@@ -17,31 +18,63 @@
 <section class="hero" id="hero" data-av-stage>
   <div class="hero-bg" aria-hidden="true">
     <div class="hero-scenes" id="heroScenes">
-      <div class="hero-scene hero-scene-video is-active" data-scene="0">
-        <video id="heroVideo" class="hero-video" muted playsinline loop preload="auto" poster="">
-          <source src="assets/media/shoulders-of-giants.mp4" type="video/mp4">
-        </video>
-        <span class="scene-label">Shoulders of Giants · Preview</span>
+      <div class="hero-scene is-active" data-scene="0" style="--scene:linear-gradient(145deg,#0a1224 0%,#12100a 50%,#0b1424 100%)">
+        <div class="scene-shot">
+          <img src="assets/brand/lockup/primary-master.png" alt="" class="scene-logo">
+          <div class="scene-copy">
+            <span class="scene-kicker">Official mark</span>
+            <strong>PGB</strong>
+            <em>Founding Four</em>
+          </div>
+        </div>
       </div>
       <div class="hero-scene" data-scene="1" style="--scene:linear-gradient(135deg,#06261f 0%,#0a1a33 45%,#050910 100%)">
-        <span class="scene-label">Neon Reef · Miami</span>
+        <div class="scene-shot">
+          <span class="scene-mono" style="background:var(--miami)">M</span>
+          <div class="scene-copy">
+            <span class="scene-kicker">Neon Reef · Miami</span>
+            <strong>Mighty Geckz</strong>
+            <em>Small creature. Massive heart.</em>
+          </div>
+        </div>
       </div>
       <div class="hero-scene" data-scene="2" style="--scene:linear-gradient(135deg,#3a1212 0%,#1a1408 45%,#050910 100%)">
-        <span class="scene-label">Cardinal Perch · McLean</span>
+        <div class="scene-shot">
+          <span class="scene-mono" style="background:var(--mclean)">C</span>
+          <div class="scene-copy">
+            <span class="scene-kicker">Cardinal Perch · McLean</span>
+            <strong>Cardinals</strong>
+            <em>Precision creates champions.</em>
+          </div>
+        </div>
       </div>
       <div class="hero-scene" data-scene="3" style="--scene:linear-gradient(135deg,#12233d 0%,#0b1424 45%,#050910 100%)">
-        <span class="scene-label">District Dome · Washington</span>
+        <div class="scene-shot">
+          <span class="scene-mono" style="background:var(--wash)">W</span>
+          <div class="scene-copy">
+            <span class="scene-kicker">District Dome · Wash.</span>
+            <strong>Whoomp!</strong>
+            <em>Make history.</em>
+          </div>
+        </div>
       </div>
       <div class="hero-scene" data-scene="4" style="--scene:linear-gradient(135deg,#2a2118 0%,#1a120c 45%,#050910 100%)">
-        <span class="scene-label">Terminal Arena · Chattanooga</span>
+        <div class="scene-shot">
+          <img src="assets/brand/icon/icon-gold.png" alt="" class="scene-icon">
+          <div class="scene-copy">
+            <span class="scene-kicker">OG Gold · $36</span>
+            <strong>Claim your puck</strong>
+            <em>Physical puck + premium year.</em>
+          </div>
+        </div>
       </div>
     </div>
     <div class="hero-scrim"></div>
   </div>
   <div class="hero-inner">
     <div class="live-pill"><i></i> Season One · Founding Four</div>
-    <h1 class="display">PUCK<span style="color:var(--gold-bright)">GOLD</span><br><em>LAUNCH</em></h1>
-    <p class="hero-lead">Four teams. One golden crown. Claim your limited OG Gold Puck and unlock a year of premium membership to help launch the league.</p>
+    <h1 class="display">PUCK<span style="color:var(--gold-bright)">GOLD</span> <em>LAUNCH</em></h1>
+    <p class="hero-lead">Four teams. One golden crown. Claim your limited OG Gold Puck and unlock a year of premium membership.</p>
     <div class="cta-row">
       <a href="join.html" class="btn btn-og">$36 OG Gold Puck</a>
     </div>

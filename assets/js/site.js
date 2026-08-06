@@ -1,4 +1,23 @@
 (function () {
+  const THEME_KEY = "pgb-theme";
+  function getTheme() {
+    const saved = localStorage.getItem(THEME_KEY);
+    if (saved === "light" || saved === "dark") return saved;
+    return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+  }
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme === "light" ? "light" : "dark");
+    localStorage.setItem(THEME_KEY, theme === "light" ? "light" : "dark");
+    const btn = document.getElementById("themeToggle");
+    if (btn) {
+      const isLight = theme === "light";
+      btn.setAttribute("aria-pressed", isLight ? "true" : "false");
+      btn.setAttribute("aria-label", isLight ? "Switch to dark mode" : "Switch to light mode");
+      btn.title = isLight ? "Dark mode" : "Light mode";
+    }
+  }
+  applyTheme(getTheme());
+
   const path = (location.pathname.split("/").pop() || "index.html").toLowerCase();
   const active = path === "" ? "index.html" : path;
 
@@ -75,6 +94,10 @@
               .map((a) => `<a href="${a.href}" class="${a.cls}${isActive(a.href) ? " active" : ""}">${a.label}</a>`)
               .join("")}
           </div>
+          <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch to light mode" title="Light mode">
+            <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 0110.5 3 7 7 0 1019 16.5c.7-.6 1.4-1.3 2-2z"/></svg>
+            <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          </button>
           <a href="join.html" class="btn btn-og btn-sm">$36 OG Gold Puck</a>
           <a href="signin.html" class="btn btn-ghost btn-sm hide-sm">Sign In</a>
           <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileDrawer" aria-label="Open menu">
@@ -112,6 +135,12 @@
     btn?.addEventListener("click", () => {
       const open = drawer.classList.toggle("open");
       btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+
+    applyTheme(getTheme());
+    document.getElementById("themeToggle")?.addEventListener("click", () => {
+      const next = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
+      applyTheme(next);
     });
 
     if (footer) {
@@ -205,7 +234,7 @@
     setInterval(tick, 1000);
   }
 
-  // VeeFriends-style sound + preview toggle (starts ON)
+  // Sound + icon/text scene carousel (no video)
   function initAVExperience() {
     const STORAGE_KEY = "pgb-av-on";
     const playlist = [
@@ -213,7 +242,6 @@
       "assets/media/sport-action.mp3",
     ];
     const saved = localStorage.getItem(STORAGE_KEY);
-    // Default ON unless user previously turned it off
     let enabled = saved === null ? true : saved === "1";
     let trackIndex = 0;
 
@@ -245,12 +273,6 @@
 
     const stages = document.querySelectorAll("[data-av-stage]");
     const scenes = Array.from(document.querySelectorAll(".hero-scene"));
-    const video = document.getElementById("heroVideo");
-    if (video) {
-      video.muted = true;
-      video.playsInline = true;
-      video.loop = true;
-    }
 
     let sceneTimer = null;
     let sceneIndex = 0;
@@ -260,7 +282,7 @@
       btn.setAttribute("aria-pressed", enabled ? "true" : "false");
       btn.setAttribute(
         "aria-label",
-        enabled ? "Mute sound and pause previews" : "Play sound and previews"
+        enabled ? "Mute sound and pause scene previews" : "Play sound and scene previews"
       );
       const tip = document.getElementById("avTip");
       if (tip) tip.textContent = enabled ? "Sound on" : "Sound off";
@@ -272,20 +294,9 @@
       document.documentElement.classList.toggle("av-off", !enabled);
     }
 
-    function syncVideo() {
-      if (!video) return;
-      const isVideoScene = scenes[sceneIndex]?.classList.contains("hero-scene-video");
-      if (enabled && isVideoScene) {
-        video.play().catch(() => {});
-      } else {
-        video.pause();
-      }
-    }
-
     function showScene(i) {
       if (!scenes.length) return;
       scenes.forEach((s, idx) => s.classList.toggle("is-active", idx === i));
-      syncVideo();
     }
 
     function startScenes() {
@@ -294,12 +305,11 @@
       if (sceneTimer) return;
       const tick = () => {
         if (!enabled) return;
-        const delay = scenes[sceneIndex]?.classList.contains("hero-scene-video") ? 10000 : 5200;
         sceneTimer = setTimeout(() => {
           sceneIndex = (sceneIndex + 1) % scenes.length;
           showScene(sceneIndex);
           tick();
-        }, delay);
+        }, 4800);
       };
       tick();
     }
@@ -309,23 +319,19 @@
         clearTimeout(sceneTimer);
         sceneTimer = null;
       }
-      if (video) video.pause();
     }
 
     async function tryPlay() {
       if (!enabled) return;
       try {
         await audio.play();
-        syncVideo();
       } catch (_) {
-        // Autoplay with sound blocked — keep UI ON and unlock on first gesture
         if (!unlockBound) {
           unlockBound = true;
           const unlock = async () => {
             if (!enabled) return;
             try {
               await audio.play();
-              syncVideo();
             } catch (_) {}
             window.removeEventListener("pointerdown", unlock);
             window.removeEventListener("keydown", unlock);
@@ -354,7 +360,6 @@
       apply();
     });
 
-    // Kick off in ON state (or restore prior preference)
     apply();
   }
 
