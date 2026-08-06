@@ -3,111 +3,645 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fan Zone — Fantasy, Prizes & Leaderboard | PuckGold</title>
+<title>Fan Zone — Fantasy, Prizes & Giveaway | PuckGold</title>
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
 <link rel="stylesheet" href="assets/css/site.css">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <link rel="icon" href="assets/brand/favicon/favicon-32.png?v=3" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/app/apple-touch-icon.png?v=3">
+<style>
+  .fz{background:#f4f6fa;color:#121826}
+  .fz .ice-lines{opacity:.04}
+
+  .fz-nav{
+    position:sticky;top:64px;z-index:45;
+    background:rgba(11,18,32,.96);color:#fff;
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .fz-nav-inner{
+    max-width:1400px;margin:0 auto;padding:.75rem 4vw;
+    display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;align-items:center;justify-content:space-between;
+  }
+  .fz-links{display:flex;flex-wrap:wrap;gap:.35rem 1rem}
+  .fz-links a{
+    font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    color:rgba(255,255,255,.72);padding:.3rem 0;border-bottom:2px solid transparent;
+  }
+  .fz-links a:hover,.fz-links a.is-active{color:#f0d78c;border-color:#d4af37}
+  .fz-nav .btn-pill{
+    border-radius:999px;padding:.7em 1.2em;background:#fff;color:#121826;
+    font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  }
+
+  .fz-hero{
+    position:relative;overflow:hidden;color:#fff;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(212,175,55,.28), transparent 40%),
+      radial-gradient(circle at 10% 80%, rgba(61,111,191,.25), transparent 45%),
+      linear-gradient(145deg,#0b1220 0%, #163a74 48%, #7a1524 120%);
+    padding:3.5rem 4vw 3rem;
+  }
+  .fz-hero::before{
+    content:"";position:absolute;inset:0;opacity:.12;pointer-events:none;
+    background-image:radial-gradient(circle at center, rgba(255,255,255,.35) 0 1px, transparent 1.5px);
+    background-size:28px 28px;
+  }
+  .fz-hero-grid{
+    position:relative;z-index:1;max-width:1400px;margin:0 auto;
+    display:grid;gap:2rem;align-items:center;
+  }
+  @media(min-width:900px){.fz-hero-grid{grid-template-columns:1.15fr .85fr}}
+  .fz-brand{display:flex;align-items:center;gap:.7rem;margin-bottom:1rem}
+  .fz-brand img{width:48px;height:auto}
+  .fz-brand span{
+    font-family:var(--display);font-size:1.6rem;letter-spacing:.12em;
+  }
+  .fz-hero h1{
+    font-family:var(--display);font-size:clamp(2.8rem,8vw,4.8rem);
+    letter-spacing:.03em;line-height:.95;max-width:14ch;
+  }
+  .fz-hero p{margin-top:.9rem;max-width:34rem;color:rgba(255,255,255,.86);font-size:1.05rem}
+  .fz-hero .cta-row{margin-top:1.4rem}
+  .btn-pill{
+    border-radius:999px;padding:.95em 1.55em;display:inline-flex;align-items:center;
+    font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    background:#fff;color:#121826;border:none;
+  }
+  .btn-pill:hover{transform:translateY(-2px);filter:brightness(.97)}
+  .btn-pill-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.45)}
+  .fz-phones{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;align-items:end;
+  }
+  .phone{
+    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+    border-radius:18px;padding:.85rem .7rem 1rem;min-height:210px;
+    box-shadow:0 18px 40px rgba(0,0,0,.28);
+  }
+  .phone:nth-child(2){transform:translateY(-18px);background:rgba(255,255,255,.12)}
+  .phone .label{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-bottom:.55rem}
+  .phone strong{display:block;font-size:.92rem;line-height:1.25;margin-bottom:.55rem}
+  .phone ol{margin:0;padding-left:1.1rem;font-size:.78rem;color:rgba(255,255,255,.85)}
+  .phone .mini-btn{
+    margin-top:.8rem;display:inline-block;border-radius:999px;padding:.4em .8em;
+    background:#d4af37;color:#1a1400;font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  }
+  .tier-coins{display:flex;justify-content:center;gap:.6rem;margin-top:1rem;flex-wrap:wrap}
+  .coin{
+    width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:.58rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+    border:2px solid rgba(255,255,255,.5);box-shadow:0 8px 20px rgba(0,0,0,.25);
+  }
+  .coin-rookie{background:linear-gradient(145deg,#c07a3e,#78350f);color:#fff}
+  .coin-pro{background:linear-gradient(145deg,#eef1f4,#9aa3b2);color:#1a1d22}
+  .coin-legend{background:linear-gradient(145deg,#f0d78c,#d4af37,#8a6a1e);color:#1a1400}
+
+  .fz-split{
+    max-width:1400px;margin:0 auto;padding:2.8rem 4vw;
+    display:grid;gap:1.5rem;
+  }
+  @media(min-width:800px){.fz-split{grid-template-columns:1fr 1fr}}
+  .fz-split article h2{
+    font-family:var(--display);font-size:clamp(1.8rem,4vw,2.4rem);letter-spacing:.04em;color:#0b1220;
+  }
+  .fz-split article p{margin-top:.55rem;color:#5c6473;max-width:34rem}
+
+  .fz-section{max-width:1400px;margin:0 auto;padding:2.5rem 4vw}
+  .fz-section h2{
+    font-family:var(--display);font-size:clamp(2rem,5vw,2.8rem);letter-spacing:.04em;color:#0b1220;
+  }
+  .fz-section .lead{margin:.45rem 0 1.4rem;color:#5c6473;max-width:40rem}
+  .kicker-dark{display:block;color:#163a74;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;margin-bottom:.45rem}
+
+  .tier-grid{display:grid;gap:1rem}
+  @media(min-width:900px){.tier-grid{grid-template-columns:repeat(3,1fr)}}
+  .tier-card{
+    background:#fff;border:1px solid rgba(18,24,38,.08);padding:1.4rem;min-height:280px;
+    display:flex;flex-direction:column;
+  }
+  .tier-card .lvl{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:#5c6473}
+  .tier-card h3{font-family:var(--display);font-size:2rem;letter-spacing:.06em;margin:.2rem 0}
+  .tier-card .xp{font-size:.85rem;font-weight:700;color:#163a74;margin-bottom:.8rem}
+  .tier-card ul{list-style:none;display:grid;gap:.45rem;margin:0 0 1rem;padding:0;flex:1}
+  .tier-card li{font-size:.88rem;color:#3a4250;padding-left:1rem;position:relative}
+  .tier-card li::before{content:"";position:absolute;left:0;top:.55rem;width:6px;height:6px;border-radius:50%;background:#d4af37}
+  .tier-card.locked{opacity:.92}
+  .tier-card .lock-tag{
+    align-self:flex-start;font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    background:#eef1f6;color:#5c6473;padding:.3em .65em;border-radius:999px;margin-bottom:.7rem;
+  }
+
+  .giveaway{
+    background:linear-gradient(100deg, rgba(194,59,74,.18), rgba(212,175,55,.16));
+    border:1px solid rgba(194,59,74,.35);
+    border-radius:12px;padding:1.2rem 1.3rem;
+    display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center;
+  }
+  .giveaway strong{display:block;font-size:1.1rem;margin-bottom:.25rem}
+  .giveaway span{color:#5c6473;font-size:.9rem}
+  .countdown{display:flex;gap:.55rem}
+  .countdown div{
+    min-width:58px;text-align:center;background:rgba(11,18,32,.08);border-radius:8px;padding:.45rem .35rem;
+  }
+  .countdown strong{display:block;font-family:var(--display);font-size:1.5rem;line-height:1;color:#0b1220}
+  .countdown span{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:#5c6473}
+
+  .prize-grid{display:grid;gap:1rem}
+  @media(min-width:800px){.prize-grid{grid-template-columns:1fr 1fr}}
+  .prize-card{
+    background:#fff;border:1px solid rgba(18,24,38,.08);padding:1.4rem;overflow:hidden;position:relative;
+  }
+  .prize-card .phase{
+    font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#163a74;
+  }
+  .prize-card h3{font-family:var(--display);font-size:2rem;letter-spacing:.04em;margin:.35rem 0}
+  .prize-card p{color:#5c6473;font-size:.92rem}
+  .prize-visual{
+    margin-top:1rem;height:120px;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);font-size:1.6rem;letter-spacing:.06em;color:#fff;
+  }
+  .event-prizes{display:grid;gap:.8rem;margin-top:1.2rem}
+  @media(min-width:700px){.event-prizes{grid-template-columns:repeat(3,1fr)}}
+  .event-prize{
+    background:#fff;border:1px solid rgba(18,24,38,.08);padding:1.1rem;
+  }
+  .event-prize .place{font-family:var(--display);font-size:1.8rem;color:#d4af37}
+  .event-prize h4{font-size:1rem;margin:.2rem 0}
+  .event-prize p{font-size:.85rem;color:#5c6473}
+
+  .zone-grid{display:grid;gap:1rem}
+  @media(min-width:800px){.zone-grid{grid-template-columns:repeat(3,1fr)}}
+  .zone{
+    background:#0b1220;color:#fff;padding:1.3rem;border-radius:10px;min-height:180px;
+  }
+  .zone.alt{background:linear-gradient(160deg,#163a74,#0b1220)}
+  .zone.hot{background:linear-gradient(160deg,#7a1524,#1a1408)}
+  .zone .count{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;opacity:.7}
+  .zone h3{font-family:var(--display);font-size:1.9rem;margin:.25rem 0 .5rem}
+  .zone p{font-size:.9rem;color:rgba(255,255,255,.8)}
+
+  .score-table,.stats-table{width:100%;border-collapse:collapse;font-size:.88rem;background:#fff}
+  .score-table th,.score-table td,.stats-table th,.stats-table td{
+    padding:.75rem .5rem;border-bottom:1px solid rgba(18,24,38,.08);text-align:left;
+  }
+  .score-table th,.stats-table th{
+    font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:#8a93a3;font-weight:800;
+  }
+  .score-wrap,.stats-wrap{
+    background:#fff;border:1px solid rgba(18,24,38,.08);border-radius:10px;overflow:auto;
+  }
+
+  .stat-cards{display:grid;gap:.8rem;margin-bottom:1.2rem}
+  @media(min-width:800px){.stat-cards{grid-template-columns:repeat(4,1fr)}}
+  .stat-card{
+    background:linear-gradient(145deg,#7a1524,#c23b4a 55%,#163a74);
+    color:#fff;border-radius:12px;padding:1rem;min-height:120px;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .stat-card .cat{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;opacity:.8}
+  .stat-card .val{font-family:var(--display);font-size:2.2rem;line-height:1;margin:.35rem 0}
+  .stat-card .who{font-size:.82rem;font-weight:700}
+  .stat-card .team{font-size:.72rem;opacity:.75}
+
+  .player-cell{display:flex;align-items:center;gap:.65rem}
+  .avatar{
+    width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:.75rem;color:#fff;flex-shrink:0;
+  }
+  .player-cell b{display:block;font-size:.88rem}
+  .player-cell small{display:block;color:#8a93a3;font-size:.72rem}
+  .form{display:flex;gap:.3rem}
+  .form i{
+    width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+    font-size:.62rem;font-weight:800;font-style:normal;
+    border:1px solid rgba(18,24,38,.15);color:#0b1220;
+  }
+  .form i.on{background:#0b1220;color:#fff;border-color:#0b1220}
+
+  .rules-steps{display:grid;gap:1rem;margin:1.2rem 0}
+  @media(min-width:800px){.rules-steps{grid-template-columns:repeat(3,1fr)}}
+  .step{
+    background:#fff;border:1px solid rgba(18,24,38,.08);padding:1.2rem;
+  }
+  .step .n{font-family:var(--display);font-size:2rem;color:#d4af37}
+  .step h3{font-size:1.05rem;margin:.2rem 0 .45rem}
+  .step p{font-size:.88rem;color:#5c6473}
+
+  .fz-cta{
+    margin:1rem 4vw 3.5rem;max-width:1400px;margin-left:auto;margin-right:auto;
+    background:linear-gradient(135deg,#0b1220,#163a74);
+    color:#fff;padding:2.2rem;border-radius:12px;text-align:center;
+  }
+  .fz-cta h2{font-family:var(--display);font-size:clamp(2rem,5vw,3rem);letter-spacing:.04em}
+  .fz-cta p{margin:.6rem auto 1.2rem;max-width:34rem;color:rgba(255,255,255,.82)}
+  .fz-cta .cta-row{justify-content:center}
+</style>
 </head>
-<body>
+<body class="fz">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
 
-<div class="page-hero">
-  <span class="kicker">Fan Zone · Fantasy · Rewards</span>
-  <h1>ENTER THE<br>GOLD RUSH</h1>
-  <p>Farm points. Climb the board. Win OG pucks, gift cards, jerseys, and swag. Members only energy — everyone can start stacking today.</p>
-  <div class="cta-row" style="margin-top:1.2rem">
-    <a href="join.html" class="btn btn-og">Join to 2× rewards</a>
-    <a href="#leaderboard" class="btn btn-sapphire">View leaderboard</a>
-    <a href="#prizes" class="btn btn-champagne">See prizes</a>
-  </div>
-</div>
-
-<section class="section">
-  <div class="fomo-banner">
-    <div>
-      <strong style="display:block;font-size:1.05rem">Weekly giveaway closes soon</strong>
-      <span style="color:var(--muted);font-size:.9rem">OG Gold Puck + $50 shop card — enter by earning 500 pts this week.</span>
+<nav class="fz-nav" aria-label="Fan Zone">
+  <div class="fz-nav-inner">
+    <div class="fz-links">
+      <a href="#home" class="is-active">Home</a>
+      <a href="#giveaway">Giveaway</a>
+      <a href="#prizes">Prizes</a>
+      <a href="#rules">Rules</a>
+      <a href="#stats">Stats</a>
+      <a href="shop.html">Shop</a>
     </div>
-    <div class="countdown" id="countdown" aria-label="Countdown timer"></div>
+    <a class="btn-pill" href="signin.html">Sign up / Log in</a>
+  </div>
+</nav>
+
+<section class="fz-hero" id="home">
+  <div class="fz-hero-grid">
+    <div>
+      <div class="fz-brand">
+        <img src="assets/brand/lockup/primary-master.png?v=3" alt="">
+        <span>FAN ZONE X</span>
+      </div>
+      <h1>YOUR ACCESS INSIDE THE ROPES</h1>
+      <p>Content. Players. Teams. Games. Rewards. Fan Zone brings you closer to the Founding Four — on and off the ice. Build a Fantasy roster, earn XP, and enter the weekly giveaway.</p>
+      <div class="cta-row">
+        <a class="btn-pill" href="signin.html">Sign up free</a>
+        <a class="btn-pill btn-pill-ghost" href="#rules">How to play</a>
+        <a class="btn-pill btn-pill-ghost" href="#giveaway">Enter giveaway</a>
+      </div>
+    </div>
+    <div>
+      <div class="fz-phones" aria-hidden="true">
+        <div class="phone">
+          <div class="label">Day 1 prediction</div>
+          <strong>Who wins tonight?</strong>
+          <ol><li>Geckz</li><li>Cardinals</li><li>Whoomp!</li></ol>
+        </div>
+        <div class="phone">
+          <div class="label">Top 3 players</div>
+          <strong>Save your ranking</strong>
+          <ol><li>A. Rivera</li><li>J. Cole</li><li>M. Hart</li></ol>
+          <span class="mini-btn">Save ranking</span>
+        </div>
+        <div class="phone">
+          <div class="label">Player select</div>
+          <strong>Lock · Open · Drop</strong>
+          <ol><li>2 Stars</li><li>1 Flex</li><li>1 Sleeper</li></ol>
+        </div>
+      </div>
+      <div class="tier-coins">
+        <div class="coin coin-rookie">Rookie</div>
+        <div class="coin coin-pro">Pro</div>
+        <div class="coin coin-legend">Legend</div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="section" id="prizes">
-  <div class="section-head">
-    <span class="kicker">Mock prize vault</span>
-    <h2>What you can win</h2>
-    <p>Placeholder rewards for launch — real fulfillment partners TBD.</p>
-  </div>
-  <div class="grid-4">
-    <div class="tile"><span class="seed">Legendary</span><h3>OG Gold Puck</h3><p class="motto">Limited physical puck + badge.</p></div>
-    <div class="tile"><span class="seed">Epic</span><h3>$100 Gift Card</h3><p class="motto">Spend anywhere in the PGB shop.</p></div>
-    <div class="tile"><span class="seed">Rare</span><h3>Team Jersey</h3><p class="motto">Pick your Founding Four club.</p></div>
-    <div class="tile"><span class="seed">Common</span><h3>Swag Pack</h3><p class="motto">Hat, stickers, digital badge.</p></div>
+<section class="fz-split">
+  <article>
+    <h2>PLAY GAMES. EARN XP.</h2>
+    <p>Build your Fantasy team, make predictions, run bracket challenges, and complete Fan Zone quests to earn XP and climb the tiers.</p>
+  </article>
+  <article>
+    <h2>UNLOCK INCREDIBLE REWARDS</h2>
+    <p>The higher your tier, the better the rewards — from shop credit and merch to OG Gold Puck entries and VIP draws.</p>
+  </article>
+</section>
+
+<section class="fz-section" id="tiers">
+  <span class="kicker-dark">Climb the tiers</span>
+  <h2>ROOKIE · PRO · LEGEND</h2>
+  <p class="lead">XP is the Fan Zone currency. Earn it by playing — unlock better rewards as you climb. Inspired by <a href="https://livx.livgolf.com/" target="_blank" rel="noopener" style="color:#163a74;text-decoration:underline">LIV X</a>.</p>
+  <div class="tier-grid">
+    <article class="tier-card locked">
+      <div class="lock-tag">Level 1 · Locked</div>
+      <div class="lvl">Level 1</div>
+      <h3>ROOKIE</h3>
+      <div class="xp">0 – 1,999 XP</div>
+      <ul>
+        <li>Trivia, polls &amp; predictions</li>
+        <li>Insider team updates</li>
+        <li>Odds to win signed merch</li>
+        <li>Early shop drop alerts</li>
+      </ul>
+      <a class="btn btn-platinum btn-sm" href="signin.html">Sign up to unlock</a>
+    </article>
+    <article class="tier-card locked">
+      <div class="lock-tag">Level 2 · Locked</div>
+      <div class="lvl">Level 2</div>
+      <h3>PRO</h3>
+      <div class="xp">2,000 – 7,999 XP</div>
+      <ul>
+        <li>Shop voucher drawings</li>
+        <li>Behind-the-scenes media access</li>
+        <li>Ticket / stream perks (TBD)</li>
+        <li>Boosted Fantasy scoring tips</li>
+      </ul>
+      <a class="btn btn-sapphire btn-sm" href="#rules">How to earn XP</a>
+    </article>
+    <article class="tier-card locked">
+      <div class="lock-tag">Level 3 · Locked</div>
+      <div class="lvl">Level 3</div>
+      <h3>LEGEND</h3>
+      <div class="xp">8,000+ XP</div>
+      <ul>
+        <li>VIP hospitality prize draws</li>
+        <li>OG Gold Puck priority entries</li>
+        <li>Clubhouse / arena tour chances</li>
+        <li>Season-ending Legend drop</li>
+      </ul>
+      <a class="btn btn-og btn-sm" href="join.html">Members climb faster</a>
+    </article>
   </div>
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <span class="kicker">How to farm points</span>
-    <h2>Play the meta</h2>
-  </div>
-  <div class="grid-2">
-    <div class="tile"><h3>Buy & shop</h3><p class="motto">+50 pts per $1 spent · OG members get +20%</p></div>
-    <div class="tile"><h3>Watch media</h3><p class="motto">+25 pts per highlight · daily cap 200</p></div>
-    <div class="tile"><h3>Share & invite</h3><p class="motto">+150 pts per friend who joins</p></div>
-    <div class="tile"><h3>Vote & play</h3><p class="motto">Predictions, polls, bracket challenges</p></div>
-  </div>
-  <div class="cta-row" style="margin-top:1.2rem">
-    <a href="join.html" class="btn btn-ruby">Unlock member multiplier</a>
-    <a href="shop.html" class="btn btn-platinum">Shop to earn</a>
+<section class="fz-section" id="giveaway">
+  <span class="kicker-dark">This week</span>
+  <h2>WEEKLY GIVEAWAY</h2>
+  <p class="lead">Enter by earning Fan Zone points. One winner every week while Season One launches.</p>
+  <div class="giveaway">
+    <div>
+      <strong>OG Gold Puck + $50 shop card</strong>
+      <span>Need 500 pts this week to enter. OG members get a 2× XP multiplier on Fantasy games.</span>
+      <div class="cta-row" style="margin-top:.9rem">
+        <a class="btn btn-ruby btn-sm" href="signin.html">Enter giveaway</a>
+        <a class="btn btn-ghost btn-sm" href="join.html" style="border-color:rgba(18,24,38,.15);color:#121826">2× with $36 OG</a>
+      </div>
+    </div>
+    <div class="countdown" id="countdown" aria-label="Giveaway countdown"></div>
   </div>
 </section>
 
-<section class="section" id="leaderboard">
-  <div class="section-head">
-    <span class="kicker">Live board</span>
-    <h2>Member leaderboard</h2>
-    <p>Mock standings — connect accounts later for real scoring.</p>
+<section class="fz-section" id="prizes">
+  <span class="kicker-dark">Prize vault</span>
+  <h2>PRIZES</h2>
+  <p class="lead">Prizes for top Fantasy scorers each event and each Phase — plus the weekly Fan Zone giveaway. Structure inspired by <a href="https://fantasy.livgolf.com/en/prizes" target="_blank" rel="noopener" style="color:#163a74;text-decoration:underline">LIV Golf Fantasy prizes</a>.</p>
+  <div class="prize-grid">
+    <article class="prize-card">
+      <div class="phase">Phase 1</div>
+      <h3>FOUNDING FOUR GEAR HAUL</h3>
+      <p>Top the leaderboard across the first stretch of Season One and win a full merch kit — jersey, hat, and OG Gold Puck entry.</p>
+      <div class="prize-visual" style="background:linear-gradient(135deg,#0b1220,#8a6a1e)">JERSEY + HAT</div>
+    </article>
+    <article class="prize-card">
+      <div class="phase">Phase 2</div>
+      <h3>PREMIUM TECH + SHOP CREDIT</h3>
+      <p>Finish Phase 2 on top and take home premium tech (mock: tablet) plus $150 PGB shop credit as the race heats up.</p>
+      <div class="prize-visual" style="background:linear-gradient(135deg,#163a74,#0b1220)">$150 CREDIT</div>
+    </article>
   </div>
-  <div class="tile" style="overflow-x:auto">
-    <table class="leaderboard">
+
+  <h3 style="margin:2rem 0 .8rem;font-family:var(--display);font-size:1.8rem;letter-spacing:.04em">THIS WEEKEND · EVENT PRIZES</h3>
+  <div class="event-prizes">
+    <article class="event-prize">
+      <div class="place">1st</div>
+      <h4>Signed Team Pin Flag</h4>
+      <p>Finish #1 for the event — signed flag from the winning Founding Four club.</p>
+    </article>
+    <article class="event-prize">
+      <div class="place">2nd</div>
+      <h4>Signed Puck Pair</h4>
+      <p>Two signed pucks — the perfect add to any superfan collection.</p>
+    </article>
+    <article class="event-prize">
+      <div class="place">3rd</div>
+      <h4>PGB Accessory Set</h4>
+      <p>Exclusive tee / sticker / lanyard set from the official shop.</p>
+    </article>
+  </div>
+</section>
+
+<section class="fz-section" id="rules">
+  <span class="kicker-dark">The rules</span>
+  <h2>HOW FANTASY WORKS</h2>
+  <p class="lead">Sign up, build a roster, score every game day. Adapted from the <a href="https://fantasy.livgolf.com/en/rules" target="_blank" rel="noopener" style="color:#163a74;text-decoration:underline">LIV Fantasy rulebook</a> for PGB ice.</p>
+
+  <div class="rules-steps">
+    <article class="step">
+      <div class="n">01</div>
+      <h3>Phase 1 · Open ice</h3>
+      <p>First stretch of Season One. Pick 4 players each event. Your best scores carry into Phase 2.</p>
+    </article>
+    <article class="step">
+      <div class="n">02</div>
+      <h3>Phase 2 · Team chip</h3>
+      <p>Add one Founding Four team to your lineup + play an MVP Chip to multiply a sleeper.</p>
+    </article>
+    <article class="step">
+      <div class="n">03</div>
+      <h3>Phase 3 · Bracket final</h3>
+      <p>Championship format: pick 3 teams + 3 players as the bracket locks for the Final.</p>
+    </article>
+  </div>
+
+  <h3 style="font-family:var(--display);font-size:1.8rem;letter-spacing:.04em;margin:1.5rem 0 .8rem">ROSTER ZONES</h3>
+  <div class="zone-grid">
+    <article class="zone">
+      <div class="count">2 Players</div>
+      <h3>LOCK ZONE</h3>
+      <p>Season stars. Consistent scorers who lock your floor every game day.</p>
+    </article>
+    <article class="zone alt">
+      <div class="count">1 Player</div>
+      <h3>OPEN ZONE</h3>
+      <p>Anyone’s game. A heater can vault them into Lock; a cold week drops them.</p>
+    </article>
+    <article class="zone hot">
+      <div class="count">1 Player</div>
+      <h3>DROP ZONE</h3>
+      <p>Sleepers on the edge. High upside — MVP Chip hits 4× here.</p>
+    </article>
+  </div>
+
+  <h3 style="font-family:var(--display);font-size:1.8rem;letter-spacing:.04em;margin:2rem 0 .8rem">PLAYER SCORING</h3>
+  <div class="score-wrap">
+    <table class="score-table">
       <thead>
-        <tr><th>Pos</th><th>Member</th><th>Team</th><th>Points</th></tr>
+        <tr><th>Play</th><th>Points</th><th>Play</th><th>Points</th></tr>
       </thead>
       <tbody>
-        <tr><td class="rank">1</td><td>GoldRushGus</td><td>Mighty Geckz</td><td class="points">12,480</td></tr>
-        <tr><td class="rank">2</td><td>CardinalQueen</td><td>Cardinals</td><td class="points">11,205</td></tr>
-        <tr><td class="rank">3</td><td>WhoompWave</td><td>Whoomp!</td><td class="points">10,940</td></tr>
-        <tr><td class="rank">4</td><td>ChooChief</td><td>Choo Choo</td><td class="points">9,880</td></tr>
-        <tr><td class="rank">5</td><td>PuckCollector</td><td>League</td><td class="points">9,210</td></tr>
-        <tr><td class="rank">6</td><td>SapphireSkate</td><td>Whoomp!</td><td class="points">8,640</td></tr>
-        <tr><td class="rank">7</td><td>ChampagneIce</td><td>Cardinals</td><td class="points">8,105</td></tr>
-        <tr><td class="rank">8</td><td>RubyRail</td><td>Choo Choo</td><td class="points">7,770</td></tr>
+        <tr><td>Goal</td><td>+6</td><td>Assist</td><td>+4</td></tr>
+        <tr><td>Game winner</td><td>+3</td><td>Shootout goal</td><td>+2</td></tr>
+        <tr><td>Plus / minus (+)</td><td>+1</td><td>Penalty minutes (2)</td><td>-1</td></tr>
+        <tr><td>Hat trick bonus</td><td>+5</td><td>Shutout (G)</td><td>+8</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-family:var(--display);font-size:1.8rem;letter-spacing:.04em;margin:2rem 0 .8rem">EVENT FINISH BONUS</h3>
+  <div class="score-wrap">
+    <table class="score-table">
+      <thead><tr><th>Team result</th><th>Points</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>1st in round-robin week</td><td>+50</td><td>Phase 2 team chip</td></tr>
+        <tr><td>2nd</td><td>+35</td><td></td></tr>
+        <tr><td>3rd</td><td>+25</td><td></td></tr>
+        <tr><td>4th</td><td>+15</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tile" style="margin-top:1.4rem;background:#fff;border:1px solid rgba(18,24,38,.08);padding:1.2rem">
+    <ul class="perk-list" style="margin:0">
+      <li>One account per person. Lineups lock 15 minutes before puck drop.</li>
+      <li>Personal scores update live; league ranks refresh end of day.</li>
+      <li>MVP Chip (Phase 2): Lock 2× · Open 3× · Drop 4× — once per event.</li>
+      <li>Giveaway entries require the weekly point threshold; prize claim may need active OG membership.</li>
+      <li>Create or join a private league with friends from your Fan Zone profile (coming with accounts).</li>
+    </ul>
+  </div>
+</section>
+
+<section class="fz-section" id="stats">
+  <span class="kicker-dark">Leaderboards</span>
+  <h2>PLAYER STATS</h2>
+  <p class="lead">Mock Season One board — connect real scoring later. Browse like <a href="https://fantasy.livgolf.com/en/player-stats" target="_blank" rel="noopener" style="color:#163a74;text-decoration:underline">LIV player stats</a>.</p>
+
+  <div class="stat-cards">
+    <article class="stat-card">
+      <div class="cat">Most points</div>
+      <div class="val">186</div>
+      <div>
+        <div class="who">A. Rivera</div>
+        <div class="team">Mighty Geckz</div>
+      </div>
+    </article>
+    <article class="stat-card">
+      <div class="cat">Best form</div>
+      <div class="val">+42</div>
+      <div>
+        <div class="who">J. Cole</div>
+        <div class="team">Cardinals</div>
+      </div>
+    </article>
+    <article class="stat-card">
+      <div class="cat">Last event</div>
+      <div class="val">28</div>
+      <div>
+        <div class="who">M. Hart</div>
+        <div class="team">Whoomp!</div>
+      </div>
+    </article>
+    <article class="stat-card">
+      <div class="cat">Best average</div>
+      <div class="val">22.4</div>
+      <div>
+        <div class="who">T. Boone</div>
+        <div class="team">Choo Choo</div>
+      </div>
+    </article>
+  </div>
+
+  <div class="stats-wrap">
+    <table class="stats-table">
+      <thead>
+        <tr>
+          <th>Pos</th>
+          <th>Player</th>
+          <th>Last</th>
+          <th>Avg</th>
+          <th>Total</th>
+          <th>Form</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>1</b></td>
+          <td><div class="player-cell"><span class="avatar" style="background:#0f766e">AR</span><span><b>A. Rivera</b><small>Mighty Geckz</small></span></div></td>
+          <td>24</td><td>23.3</td><td><b>186</b></td>
+          <td><div class="form"><i class="on">1</i><i class="on">2</i><i>4</i></div></td>
+        </tr>
+        <tr>
+          <td><b>2</b></td>
+          <td><div class="player-cell"><span class="avatar" style="background:#991b1b">JC</span><span><b>J. Cole</b><small>Cardinals</small></span></div></td>
+          <td>21</td><td>21.0</td><td><b>168</b></td>
+          <td><div class="form"><i class="on">1</i><i>3</i><i class="on">2</i></div></td>
+        </tr>
+        <tr>
+          <td><b>3</b></td>
+          <td><div class="player-cell"><span class="avatar" style="background:#1e3a8a">MH</span><span><b>M. Hart</b><small>Whoomp!</small></span></div></td>
+          <td>28</td><td>19.8</td><td><b>158</b></td>
+          <td><div class="form"><i class="on">1</i><i class="on">1</i><i>5</i></div></td>
+        </tr>
+        <tr>
+          <td><b>4</b></td>
+          <td><div class="player-cell"><span class="avatar" style="background:#78350f">TB</span><span><b>T. Boone</b><small>Choo Choo</small></span></div></td>
+          <td>18</td><td>22.4</td><td><b>157</b></td>
+          <td><div class="form"><i>3</i><i class="on">2</i><i class="on">2</i></div></td>
+        </tr>
+        <tr>
+          <td><b>5</b></td>
+          <td><div class="player-cell"><span class="avatar" style="background:#0f766e">SK</span><span><b>S. Kim</b><small>Mighty Geckz</small></span></div></td>
+          <td>16</td><td>18.1</td><td><b>145</b></td>
+          <td><div class="form"><i>4</i><i>3</i><i class="on">2</i></div></td>
+        </tr>
+        <tr>
+          <td><b>6</b></td>
+          <td><div class="player-cell"><span class="avatar" style="background:#991b1b">EP</span><span><b>E. Park</b><small>Cardinals</small></span></div></td>
+          <td>19</td><td>17.5</td><td><b>140</b></td>
+          <td><div class="form"><i class="on">2</i><i>4</i><i>3</i></div></td>
+        </tr>
+        <tr>
+          <td><b>7</b></td>
+          <td><div class="player-cell"><span class="avatar" style="background:#1e3a8a">DL</span><span><b>D. Lewis</b><small>Whoomp!</small></span></div></td>
+          <td>14</td><td>16.2</td><td><b>130</b></td>
+          <td><div class="form"><i>5</i><i>4</i><i>3</i></div></td>
+        </tr>
+        <tr>
+          <td><b>8</b></td>
+          <td><div class="player-cell"><span class="avatar" style="background:#78350f">NR</span><span><b>N. Ruiz</b><small>Choo Choo</small></span></div></td>
+          <td>12</td><td>15.0</td><td><b>120</b></td>
+          <td><div class="form"><i>6</i><i>5</i><i>4</i></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-head" style="margin-top:2.2rem">
+    <span class="kicker-dark">Member board</span>
+    <h2 style="font-size:clamp(1.8rem,4vw,2.4rem)">FAN LEADERBOARD</h2>
+  </div>
+  <div class="stats-wrap">
+    <table class="stats-table">
+      <thead><tr><th>Pos</th><th>Member</th><th>Team</th><th>XP</th><th>Fantasy pts</th></tr></thead>
+      <tbody>
+        <tr><td><b>1</b></td><td>GoldRushGus</td><td>Mighty Geckz</td><td>9,420</td><td><b>12,480</b></td></tr>
+        <tr><td><b>2</b></td><td>CardinalQueen</td><td>Cardinals</td><td>8,105</td><td><b>11,205</b></td></tr>
+        <tr><td><b>3</b></td><td>WhoompWave</td><td>Whoomp!</td><td>7,880</td><td><b>10,940</b></td></tr>
+        <tr><td><b>4</b></td><td>ChooChief</td><td>Choo Choo</td><td>6,210</td><td><b>9,880</b></td></tr>
+        <tr><td><b>5</b></td><td>PuckCollector</td><td>League</td><td>5,940</td><td><b>9,210</b></td></tr>
       </tbody>
     </table>
   </div>
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <span class="kicker">Rules snapshot</span>
-    <h2>Keep it clean</h2>
-  </div>
-  <div class="tile">
-    <ul class="perk-list">
-      <li>One account per person. Invites must be real joins.</li>
-      <li>Points settle daily · leaderboard refreshes hourly (mock).</li>
-      <li>Giveaways require an active membership at claim time.</li>
-      <li>Prize pool and tiers will update as we launch for real.</li>
-    </ul>
-    <a href="join.html" class="btn btn-og">Start earning — $36 OG</a>
+<section class="fz-cta">
+  <h2>ARE YOU READY TO PLAY?</h2>
+  <p>The ice is clear and the vibes are flowing. Join Fan Zone, lead your Fantasy team, and chase the weekly giveaway.</p>
+  <div class="cta-row">
+    <a class="btn-pill" href="signin.html">Start free</a>
+    <a class="btn-pill btn-pill-ghost" href="join.html">Go OG · $36</a>
+    <a class="btn-pill btn-pill-ghost" href="#prizes">View prizes</a>
   </div>
 </section>
 
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/site.js"></script>
+<script>
+(function () {
+  const links = document.querySelectorAll(".fz-links a[href^='#']");
+  const sections = Array.from(links).map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+  function setActive() {
+    let current = sections[0];
+    for (const s of sections) {
+      if (s.getBoundingClientRect().top <= 140) current = s;
+    }
+    links.forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === "#" + current.id));
+  }
+  window.addEventListener("scroll", setActive, { passive: true });
+  setActive();
+})();
+</script>
 </body>
 </html>
