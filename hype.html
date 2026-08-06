@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PuckGold — The Founding Four</title>
+<style>
+  :root{
+    --ice-black:#070c16;
+    --ice-panel:#0f1a2b;
+    --ice-line:#1c2c44;
+    --gold:#d4af37;
+    --gold-bright:#f4d878;
+    --frost:#eef3fa;
+    --frost-dim:#9db0c9;
+
+    --miami-a:#2dd4bf; --miami-b:#fb923c;
+    --mclean-a:#dc2626; --mclean-b:#e8c15a;
+    --wash-a:#3f6db8;  --wash-b:#c7ccd6;
+    --chatt-a:#8a8f98; --chatt-b:#c07a3e;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 15% -10%, #10203a 0%, transparent 60%),
+      radial-gradient(900px 500px at 90% 10%, #1a1230 0%, transparent 55%),
+      var(--ice-black);
+    color:var(--frost);
+    font-family:-apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    overflow-x:hidden;
+  }
+
+  .display{
+    font-family:"Arial Narrow", "Helvetica Neue Condensed", Impact, Haettenschweiler, sans-serif;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+  }
+
+  /* ---------- background ice texture ---------- */
+  .ice-lines{
+    position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.15;
+    background-image:repeating-linear-gradient(115deg, transparent 0 60px, rgba(255,255,255,.05) 60px 61px);
+  }
+
+  /* ---------- hero ---------- */
+  header{
+    position:relative; z-index:1;
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding:6vh 6vw 8vh;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:.6em;
+    font-size:.78rem; letter-spacing:.32em; text-transform:uppercase;
+    color:var(--gold-bright); margin-bottom:2.2rem;
+    border:1px solid rgba(212,175,55,.35); border-radius:999px;
+    padding:.5em 1.3em; background:rgba(212,175,55,.06);
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--gold-bright); box-shadow:0 0 8px var(--gold-bright); animation:pulse 1.8s infinite ease-in-out;}
+  @keyframes pulse{0%,100%{opacity:1} 50%{opacity:.25}}
+
+  h1.hero-title{
+    font-size:clamp(3.2rem, 10vw, 8.5rem);
+    line-height:.92;
+    background:linear-gradient(180deg, #ffffff 0%, #f4d878 45%, #b8912e 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    filter:drop-shadow(0 0 40px rgba(212,175,55,.25));
+  }
+  .hero-sub{
+    margin-top:1.6rem;
+    font-size:clamp(1rem, 2vw, 1.35rem);
+    color:var(--frost-dim);
+    max-width:640px;
+    font-weight:300;
+    letter-spacing:.01em;
+  }
+  .hero-sub b{color:var(--frost); font-weight:600;}
+
+  .puck{
+    width:34px; height:34px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--gold-bright), var(--gold) 55%, #6b551c 100%);
+    box-shadow:0 0 30px 6px rgba(212,175,55,.55), 0 0 70px 20px rgba(212,175,55,.18);
+    margin:2.6rem auto 0;
+    animation:float 3.2s ease-in-out infinite;
+  }
+  @keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)}}
+
+  .cta-row{margin-top:3rem; display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;}
+  .btn{
+    font-family:inherit; font-size:.95rem; letter-spacing:.08em; text-transform:uppercase;
+    padding:.95em 2em; border-radius:6px; cursor:pointer; text-decoration:none;
+    border:1px solid transparent; transition:transform .15s ease, box-shadow .15s ease;
+    display:inline-block;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-gold{background:linear-gradient(180deg, var(--gold-bright), var(--gold)); color:#1a1400; font-weight:700; box-shadow:0 8px 24px rgba(212,175,55,.25);}
+  .btn-ghost{border-color:rgba(255,255,255,.25); color:var(--frost);}
+  .btn-ghost:hover{border-color:rgba(255,255,255,.6);}
+
+  /* ---------- scoreboard strip ---------- */
+  .scoreboard{
+    position:relative; z-index:1;
+    display:flex; justify-content:center; gap:clamp(1rem,4vw,4rem);
+    flex-wrap:wrap;
+    padding:1.6rem 4vw;
+    border-top:1px solid var(--ice-line); border-bottom:1px solid var(--ice-line);
+    background:rgba(255,255,255,.02);
+  }
+  .stat{text-align:center;}
+  .stat .num{font-family:inherit; font-weight:800; font-size:clamp(1.6rem,3vw,2.4rem); color:var(--gold-bright);}
+  .stat .label{font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; color:var(--frost-dim); margin-top:.3rem;}
+
+  /* ---------- sections ---------- */
+  section{position:relative; z-index:1; padding:9vh 6vw; max-width:1280px; margin:0 auto;}
+  .section-head{margin-bottom:3.2rem; max-width:640px;}
+  .section-head .kicker{color:var(--gold-bright); font-size:.78rem; letter-spacing:.28em; text-transform:uppercase; margin-bottom:.8rem; display:block;}
+  .section-head h2{font-size:clamp(2rem,4.2vw,3.2rem); line-height:1.05;}
+  .section-head p{color:var(--frost-dim); margin-top:1rem; font-size:1.02rem; line-height:1.6; font-weight:300;}
+
+  /* ---------- team grid ---------- */
+  .team-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:1.2rem;
+  }
+  .team-card{
+    position:relative; border-radius:14px; overflow:hidden;
+    background:var(--ice-panel); border:1px solid var(--ice-line);
+    padding:1.8rem 1.6rem 1.6rem; min-height:280px;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .team-card::before{
+    content:""; position:absolute; inset:0; opacity:.35;
+    background:radial-gradient(120% 100% at 100% 0%, var(--tc-a), transparent 60%);
+    transition:opacity .25s ease;
+  }
+  .team-card:hover{transform:translateY(-6px); border-color:var(--tc-a);}
+  .team-card:hover::before{opacity:.55;}
+  .team-card .seed{position:relative; font-size:.75rem; letter-spacing:.2em; color:var(--frost-dim); margin-bottom:auto;}
+  .team-card .mark{position:relative; font-size:2.4rem; margin-bottom:.4rem;}
+  .team-card h3{position:relative; font-size:1.5rem; letter-spacing:.01em;}
+  .team-card .arena{position:relative; font-size:.82rem; color:var(--tc-a); margin-top:.3rem; font-weight:600; letter-spacing:.03em;}
+  .team-card .motto{position:relative; font-size:.85rem; color:var(--frost-dim); margin-top:.7rem; font-style:italic; font-weight:300;}
+
+  .t-miami{--tc-a:var(--miami-a); --tc-b:var(--miami-b);}
+  .t-mclean{--tc-a:var(--mclean-a); --tc-b:var(--mclean-b);}
+  .t-wash{--tc-a:var(--wash-a); --tc-b:var(--wash-b);}
+  .t-chatt{--tc-a:var(--chatt-a); --tc-b:var(--chatt-b);}
+
+  /* ---------- bracket ---------- */
+  .bracket{
+    display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.4rem; align-items:center;
+  }
+  @media (max-width:800px){ .bracket{grid-template-columns:1fr;} }
+  .bcol{display:flex; flex-direction:column; gap:1.2rem;}
+  .bcol.mid{justify-content:center; gap:3rem;}
+  .matchup{
+    background:var(--ice-panel); border:1px solid var(--ice-line); border-radius:10px; padding:1rem 1.2rem;
+    font-size:.92rem;
+  }
+  .matchup .vs{color:var(--frost-dim); font-size:.72rem; letter-spacing:.15em; margin:.3rem 0;}
+  .matchup .win{color:var(--gold-bright); font-weight:700;}
+  .final-card{
+    background:linear-gradient(160deg, rgba(212,175,55,.14), rgba(212,175,55,.02));
+    border:1px solid rgba(212,175,55,.45); border-radius:12px; padding:1.4rem;
+  }
+  .final-card .tag{font-size:.7rem; letter-spacing:.25em; color:var(--gold-bright); text-transform:uppercase; margin-bottom:.6rem; display:block;}
+  .final-card .champ{font-size:1.3rem; font-weight:800; margin-top:.4rem;}
+
+  /* ---------- story / countdown footer ---------- */
+  .story{
+    display:grid; grid-template-columns:1.1fr .9fr; gap:3rem; align-items:center;
+  }
+  @media (max-width:800px){ .story{grid-template-columns:1fr;} }
+  .story blockquote{
+    font-size:clamp(1.3rem, 2.6vw, 1.9rem); line-height:1.4; font-weight:300;
+    border-left:2px solid var(--gold); padding-left:1.4rem; color:var(--frost);
+  }
+  .story blockquote b{color:var(--gold-bright); font-weight:700;}
+  .miracle-score{
+    background:var(--ice-panel); border:1px solid var(--ice-line); border-radius:14px; padding:2rem;
+    text-align:center;
+  }
+  .miracle-score .score{font-size:3.2rem; font-weight:900; color:var(--gold-bright);}
+  .miracle-score .who{font-size:.85rem; color:var(--frost-dim); letter-spacing:.1em; margin-top:.4rem;}
+
+  footer{
+    position:relative; z-index:1;
+    text-align:center; padding:6vh 6vw 8vh; border-top:1px solid var(--ice-line);
+  }
+  footer h2{font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:1rem;}
+  footer p{color:var(--frost-dim); margin-bottom:2rem;}
+  footer .foot-note{margin-top:3rem; font-size:.72rem; color:#4a5977; letter-spacing:.08em;}
+</style>
+</head>
+<body>
+
+<div class="ice-lines"></div>
+
+<header>
+  <span class="eyebrow"><span class="dot"></span> PUCKGOLD.COM PRESENTS</span>
+  <h1 class="display hero-title">THE<br>FOUNDING FOUR</h1>
+  <p class="hero-sub">Four teams. Four virtual stadiums. One golden crown.<br>
+  <b>Miami Mighty Geckz · McLean Cardinals · Washington Whoompt · Chattanooga Choo Choo</b></p>
+  <div class="puck"></div>
+  <div class="cta-row">
+    <a href="#bracket" class="btn btn-gold">See the bracket</a>
+    <a href="#teams" class="btn btn-ghost">Meet the teams</a>
+  </div>
+</header>
+
+<div class="scoreboard">
+  <div class="stat"><div class="num">4</div><div class="label">Teams</div></div>
+  <div class="stat"><div class="num">4</div><div class="label">Stadiums</div></div>
+  <div class="stat"><div class="num">6</div><div class="label">Round-robin games</div></div>
+  <div class="stat"><div class="num">6–5</div><div class="label">Final aggregate</div></div>
+  <div class="stat"><div class="num">1</div><div class="label">Golden Cup</div></div>
+</div>
+
+<section id="teams">
+  <div class="section-head">
+    <span class="kicker">The Franchises</span>
+    <h2>Four identities. One ice.</h2>
+    <p>Each Founding Four team brings its own colors, its own crowd, and its own home arena into the tournament.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card t-miami">
+      <span class="seed">#3 SEED</span>
+      <div class="mark">🦎</div>
+      <h3 class="display">Mighty Geckz</h3>
+      <div class="arena">Neon Reef Stadium — Miami</div>
+      <div class="motto">"Small creature. Massive heart."</div>
+    </div>
+    <div class="team-card t-mclean">
+      <span class="seed">#1 SEED</span>
+      <div class="mark">🐦</div>
+      <h3 class="display">Cardinals</h3>
+      <div class="arena">Cardinal Perch Gardens — McLean</div>
+      <div class="motto">"Precision creates champions."</div>
+    </div>
+    <div class="team-card t-wash">
+      <span class="seed">#2 SEED</span>
+      <div class="mark">🏛️</div>
+      <h3 class="display">Whoompt</h3>
+      <div class="arena">The District Dome — Washington</div>
+      <div class="motto">"Make history."</div>
+    </div>
+    <div class="team-card t-chatt">
+      <span class="seed">#4 SEED</span>
+      <div class="mark">🚂</div>
+      <h3 class="display">Choo Choo</h3>
+      <div class="arena">Terminal Arena — Chattanooga</div>
+      <div class="motto">"Every journey starts here."</div>
+    </div>
+  </div>
+</section>
+
+<section id="bracket">
+  <div class="section-head">
+    <span class="kicker">The Road to Gold</span>
+    <h2>Round robin to the Golden Final.</h2>
+    <p>Seeded by round-robin points, the Founding Four collapse into a knockout — capped by a best-of-two, aggregate-goals Championship.</p>
+  </div>
+
+  <div class="bracket">
+    <div class="bcol">
+      <div class="matchup">
+        <div>#1 McLean Cardinals</div>
+        <div class="vs">VS</div>
+        <div>#4 Chattanooga Choo Choo</div>
+        <div class="vs win">McLean advances, 6–2</div>
+      </div>
+      <div class="matchup">
+        <div>#2 Washington Whoompt</div>
+        <div class="vs">VS</div>
+        <div>#3 Miami Mighty Geckz</div>
+        <div class="vs win">Miami advances, 3–2 (OT)</div>
+      </div>
+    </div>
+
+    <div class="bcol mid">
+      <div class="final-card">
+        <span class="tag">The Golden Final</span>
+        <div>McLean Cardinals</div>
+        <div class="vs">vs</div>
+        <div>Miami Mighty Geckz</div>
+        <div class="champ display">🏆 MIAMI WINS<br>6–5 AGGREGATE</div>
+      </div>
+    </div>
+
+    <div class="bcol">
+      <div class="matchup"><b>Game 1 —</b> McLean 3, Miami 1</div>
+      <div class="matchup"><b>Game 2 —</b> Miami 5, McLean 4 (OT)<br><span class="vs win">Down 3-1, Miami storms back</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="story">
+    <blockquote>
+      Down two goals on aggregate with under a minute left, Miami tied it, forced overtime, and won it on a <b>breakaway triple-deke</b> — completing the biggest comeback in PuckGold history before the league was even a day old.
+    </blockquote>
+    <div class="miracle-score">
+      <div class="score">5–4</div>
+      <div class="who">MIGHTY GECKZ OVER CARDINALS<br>GAME TWO · OVERTIME</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <h2 class="display">The Golden Age Begins.</h2>
+  <p>Full schedules, standings, and the official tournament media guide are live at PuckGold.com.</p>
+  <div class="cta-row" style="justify-content:center;">
+    <a href="#" class="btn btn-gold">Get tickets</a>
+    <a href="#" class="btn btn-ghost">Watch the recap</a>
+  </div>
+  <div class="foot-note">PUCKGOLDBIZ (PGB) HOCKEY LEAGUE — FOUNDING FOUR CHAMPIONSHIP — SEASON ONE</div>
+</footer>
+
+</body>
+</html>
