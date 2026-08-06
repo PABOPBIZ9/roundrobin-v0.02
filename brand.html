@@ -3,64 +3,150 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brand Kit — PuckGold</title>
+<title>Brand Kit — PGB / PuckGold</title>
 <link rel="stylesheet" href="assets/css/site.css">
-<link rel="icon" href="assets/img/logo-pgb.svg" type="image/svg+xml">
+<link rel="icon" href="assets/brand/favicon/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="assets/brand/app/apple-touch-icon.png">
+<style>
+  .bk-hero{padding:3rem 4vw 1.5rem;max-width:1400px;margin:0 auto}
+  .bk-hero h1{font-family:var(--display);font-size:clamp(2.8rem,9vw,4.8rem)}
+  .bk-grid{display:grid;gap:1rem;grid-template-columns:1fr}
+  @media(min-width:700px){.bk-grid{grid-template-columns:1fr 1fr}}
+  @media(min-width:1100px){.bk-grid-3{grid-template-columns:repeat(3,1fr)}.bk-grid-4{grid-template-columns:repeat(4,1fr)}}
+  .bk-card{
+    background:#fff;color:#111;border:1px solid rgba(0,0,0,.08);border-radius:14px;
+    padding:1.2rem;display:flex;flex-direction:column;gap:.75rem;min-height:220px;
+  }
+  .bk-card.dark{background:#000;color:#fff;border-color:#222}
+  .bk-card .label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;opacity:.6}
+  .bk-card .stage{
+    flex:1;display:flex;align-items:center;justify-content:center;padding:.5rem;
+  }
+  .bk-card img{max-width:100%;max-height:180px;object-fit:contain}
+  .bk-card.tall .stage img{max-height:260px}
+  .swatch-row{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem}
+  @media(min-width:800px){.swatch-row{grid-template-columns:repeat(6,1fr)}}
+  .swatch-card{border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,.08);background:#fff}
+  .swatch-card .chip{height:88px}
+  .swatch-card .meta{padding:.7rem .8rem;font-size:.78rem}
+  .swatch-card .meta b{display:block;font-size:.85rem;margin-bottom:.15rem}
+  .dl{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+  .dl a{color:#0047A1;text-decoration:underline;text-underline-offset:2px}
+  .bk-card.dark .dl a{color:#D4AF37}
+</style>
 </head>
 <body>
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
-<div class="page-hero">
-  <span class="kicker">Brand Kit</span>
-  <h1>BRAND</h1>
-  <p>Logo, type, buttons, and team palettes for graphics, jerseys, and social.</p>
+
+<div class="bk-hero">
+  <span class="kicker">Official brand system</span>
+  <h1>PGB BRAND KIT</h1>
+  <p style="color:var(--muted);max-width:40rem;margin-top:.7rem">Uber-style asset library — primary badge, horizontal lockup, icon-only, wordmark, light/dark, transparent, favicon, and app icons. Built for website, marketing, and merch.</p>
+  <div class="cta-row">
+    <a class="btn btn-og btn-sm" href="assets/brand/lockup/primary-master.png" download>Download primary PNG</a>
+    <a class="btn btn-platinum btn-sm" href="assets/brand/lockup/horizontal-lockup.png" download>Horizontal lockup</a>
+    <a class="btn btn-sapphire btn-sm" href="assets/brand/favicon/favicon.ico" download>Favicon</a>
+  </div>
 </div>
-<section class="section">
-  <div class="tile" style="margin-bottom:1rem">
-    <span class="kicker">Primary mark</span>
-    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:.8rem">
-      <img src="assets/img/logo-pgb.svg" alt="PGB crest" width="96" height="112">
-      <div>
-        <div class="logo-word" style="font-size:2.4rem">PUCK<span>GOLD</span></div>
-        <div class="logo-sub">PGB · NHL/NBA-style crest + wordmark</div>
-      </div>
-    </div>
-  </div>
-  <div class="tile" style="margin-bottom:1rem">
-    <span class="kicker">Button system</span>
-    <div class="cta-row" style="margin-top:.9rem">
-      <a href="join.html" class="btn btn-og">OG Gold</a>
-      <span class="btn btn-champagne">Champagne</span>
-      <span class="btn btn-platinum">Platinum</span>
-      <span class="btn btn-ruby">Ruby</span>
-      <span class="btn btn-sapphire">Sapphire</span>
-      <span class="btn btn-rose">Rose Gold</span>
-      <span class="btn btn-ghost">Ghost</span>
-    </div>
-  </div>
-  <div class="grid-2">
-    <div class="tile">
-      <h3 style="color:var(--miami)">Mighty Geckz</h3>
-      <div class="swatches"><div class="swatch" style="background:#0f9c8c">Teal</div><div class="swatch" style="background:#d9711a">Orange</div></div>
-      <p style="color:var(--muted);font-size:.88rem"><b style="color:var(--text)">Voice:</b> playful, fast, a little cocky</p>
-    </div>
-    <div class="tile">
-      <h3 style="color:var(--mclean)">Cardinals</h3>
-      <div class="swatches"><div class="swatch" style="background:#b91c1c">Crimson</div><div class="swatch" style="background:#9c7a1e">Gold</div></div>
-      <p style="color:var(--muted);font-size:.88rem"><b style="color:var(--text)">Voice:</b> formal, confident, understated</p>
-    </div>
-    <div class="tile">
-      <h3 style="color:var(--wash)">Whoomp!</h3>
-      <div class="swatches"><div class="swatch" style="background:#28518f">Navy</div><div class="swatch" style="background:#5c6473">Steel</div></div>
-      <p style="color:var(--muted);font-size:.88rem"><b style="color:var(--text)">Voice:</b> strategic, civic, a little grand</p>
-    </div>
-    <div class="tile">
-      <h3 style="color:var(--chatt)">Choo Choo</h3>
-      <div class="swatches"><div class="swatch" style="background:#5c636c">Iron</div><div class="swatch" style="background:#9c5a26">Copper</div></div>
-      <p style="color:var(--muted);font-size:.88rem"><b style="color:var(--text)">Voice:</b> blue-collar, warm, no-nonsense</p>
+
+<section class="section section-wide section-light">
+  <div class="section-inner" style="padding:2.5rem 4vw 1rem">
+    <div class="section-head"><span class="kicker">Palette</span><h2>Official colors</h2></div>
+    <div class="swatch-row">
+      <div class="swatch-card"><div class="chip" style="background:#E5E7EB"></div><div class="meta"><b>Platinum</b>#E5E7EB</div></div>
+      <div class="swatch-card"><div class="chip" style="background:#D4AF37"></div><div class="meta"><b>Championship Gold</b>#D4AF37</div></div>
+      <div class="swatch-card"><div class="chip" style="background:#F5E6B3"></div><div class="meta"><b>Champagne</b>#F5E6B3</div></div>
+      <div class="swatch-card"><div class="chip" style="background:#A6122F"></div><div class="meta"><b>Ruby</b>#A6122F</div></div>
+      <div class="swatch-card"><div class="chip" style="background:#0047A1"></div><div class="meta"><b>Sapphire</b>#0047A1</div></div>
+      <div class="swatch-card"><div class="chip" style="background:#000"></div><div class="meta"><b>Midnight</b>#000000</div></div>
     </div>
   </div>
 </section>
+
+<section class="section section-wide">
+  <div class="section-head"><span class="kicker">Primary</span><h2>Lockups</h2></div>
+  <div class="bk-grid bk-grid-3">
+    <article class="bk-card tall dark">
+      <div class="label">Primary vertical · full color</div>
+      <div class="stage"><img src="assets/brand/lockup/primary-master.png" alt="PGB primary logo"></div>
+      <div class="dl"><a href="assets/brand/lockup/primary-master.png" download>PNG transparent</a></div>
+    </article>
+    <article class="bk-card tall">
+      <div class="label">Primary · on light</div>
+      <div class="stage"><img src="assets/brand/lockup/primary-master-on-white.png" alt="PGB on white"></div>
+      <div class="dl"><a href="assets/brand/lockup/primary-master-on-white.png" download>PNG on white</a></div>
+    </article>
+    <article class="bk-card">
+      <div class="label">Horizontal lockup · wide</div>
+      <div class="stage"><img src="assets/brand/lockup/horizontal-lockup-on-midnight.png" alt="PGB horizontal" style="background:#000;padding:1rem;border-radius:8px"></div>
+      <div class="dl"><a href="assets/brand/lockup/horizontal-lockup.png" download>PNG transparent</a> · <a href="assets/brand/svg/logo-horizontal.svg" download>SVG</a></div>
+    </article>
+  </div>
+</section>
+
+<section class="section section-wide section-light">
+  <div class="section-inner" style="padding:3rem 4vw">
+    <div class="section-head"><span class="kicker">Badge system</span><h2>Colorways</h2></div>
+    <div class="bk-grid bk-grid-4">
+      <article class="bk-card tall"><div class="label">Full color</div><div class="stage"><img src="assets/brand/lockup/badge-fullcolor.png" alt=""></div></article>
+      <article class="bk-card tall dark"><div class="label">Gold on midnight</div><div class="stage"><img src="assets/brand/lockup/badge-gold-on-midnight.png" alt=""></div></article>
+      <article class="bk-card tall dark"><div class="label">Platinum on midnight</div><div class="stage"><img src="assets/brand/lockup/badge-platinum-on-midnight.png" alt=""></div></article>
+      <article class="bk-card tall"><div class="label">Mono light</div><div class="stage"><img src="assets/brand/lockup/badge-mono-light.png" alt=""></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="section section-wide">
+  <div class="section-head"><span class="kicker">Icon only</span><h2>Mark system</h2></div>
+  <div class="bk-grid bk-grid-4">
+    <article class="bk-card dark"><div class="label">Icon · full</div><div class="stage"><img src="assets/brand/icon/icon-stars-tower.png" alt=""></div></article>
+    <article class="bk-card dark"><div class="label">Icon · gold</div><div class="stage"><img src="assets/brand/icon/icon-gold.png" alt=""></div></article>
+    <article class="bk-card dark"><div class="label">Icon · platinum</div><div class="stage"><img src="assets/brand/icon/icon-platinum.png" alt=""></div></article>
+    <article class="bk-card"><div class="label">Icon · midnight</div><div class="stage"><img src="assets/brand/icon/icon-midnight.png" alt=""></div></article>
+    <article class="bk-card dark"><div class="label">Circle emblem</div><div class="stage"><img src="assets/brand/icon/emblem-circle-gold.png" alt=""></div></article>
+    <article class="bk-card dark"><div class="label">App icon · dark</div><div class="stage"><img src="assets/brand/app/icon-dark.png" alt=""></div></article>
+    <article class="bk-card"><div class="label">App icon · light</div><div class="stage"><img src="assets/brand/app/icon-light.png" alt=""></div></article>
+    <article class="bk-card"><div class="label">Favicon 192</div><div class="stage"><img src="assets/brand/favicon/favicon-192.png" alt="" style="width:96px"></div></article>
+  </div>
+</section>
+
+<section class="section section-wide section-light">
+  <div class="section-inner" style="padding:3rem 4vw">
+    <div class="section-head"><span class="kicker">Wordmark</span><h2>Typography lockups</h2></div>
+    <div class="bk-grid bk-grid-3">
+      <article class="bk-card"><div class="label">Midnight</div><div class="stage"><img src="assets/brand/wordmark/wordmark-midnight.png" alt="PGB"></div></article>
+      <article class="bk-card dark"><div class="label">Championship gold</div><div class="stage"><img src="assets/brand/wordmark/wordmark-gold.png" alt="PGB"></div></article>
+      <article class="bk-card dark"><div class="label">Platinum / white</div><div class="stage"><img src="assets/brand/wordmark/wordmark-white.png" alt="PGB"></div></article>
+      <article class="bk-card"><div class="label">Spaced + star</div><div class="stage"><img src="assets/brand/wordmark/pgb-spaced-star.png" alt="P G B"></div></article>
+      <article class="bk-card dark"><div class="label">Block from sheet</div><div class="stage"><img src="assets/brand/wordmark/pgb-block-a.png" alt="PGB"></div></article>
+      <article class="bk-card"><div class="label">From master crop</div><div class="stage"><img src="assets/brand/wordmark/wordmark-from-master.png" alt="PGB"></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="section section-wide">
+  <div class="section-head"><span class="kicker">In the wild</span><h2>Usage</h2></div>
+  <div class="bk-grid">
+    <article class="bk-card dark" style="min-height:280px">
+      <div class="label">Stadium jumbotron</div>
+      <div class="stage"><img src="assets/brand/mockup/jumbotron.png" alt="PGB on jumbotron" style="max-height:240px"></div>
+    </article>
+    <article class="bk-card">
+      <div class="label">File guide</div>
+      <div style="font-size:.92rem;line-height:1.7;color:#333">
+        <b>Website header:</b> horizontal lockup<br>
+        <b>Mobile / favicon:</b> <code>favicon/favicon.ico</code><br>
+        <b>App / PWA:</b> <code>app/apple-touch-icon.png</code><br>
+        <b>Dark UI:</b> gold / platinum / white marks<br>
+        <b>Light UI:</b> midnight / full-color badge<br>
+        <b>SVG masters:</b> <code>assets/brand/svg/</code><br>
+        <b>Full README:</b> <a href="assets/brand/README.md">assets/brand/README.md</a>
+      </div>
+    </article>
+  </div>
+</section>
+
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/site.js"></script>
 </body>
