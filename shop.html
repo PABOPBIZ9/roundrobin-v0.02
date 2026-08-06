@@ -9,116 +9,526 @@
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <link rel="icon" href="assets/brand/favicon/favicon-32.png?v=3" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/app/apple-touch-icon.png?v=3">
+<style>
+  /* LIV-style commerce surface */
+  .shop-page{background:#f5f6f8;color:#121826}
+  .shop-page .ice-lines{opacity:.04}
+
+  .shop-catnav{
+    position:sticky;top:64px;z-index:40;
+    background:rgba(245,246,248,.94);backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(18,24,38,.08);
+  }
+  .shop-catnav-inner{
+    max-width:1400px;margin:0 auto;padding:.7rem 4vw;
+    display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;align-items:center;justify-content:space-between;
+  }
+  .shop-cats{display:flex;flex-wrap:wrap;gap:.2rem .9rem}
+  .shop-cats a{
+    font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    color:#3a4250;padding:.35rem 0;border-bottom:2px solid transparent;
+  }
+  .shop-cats a:hover,.shop-cats a.is-active{color:#121826;border-color:#121826}
+  .shop-utils{display:flex;gap:.65rem;align-items:center;font-size:.78rem;font-weight:700;color:#5c6473}
+  .shop-bag{
+    display:inline-flex;align-items:center;gap:.4rem;
+    color:#121826;text-transform:uppercase;letter-spacing:.08em;
+  }
+  .shop-bag b{
+    min-width:1.35rem;height:1.35rem;border-radius:999px;background:#121826;color:#fff;
+    display:inline-flex;align-items:center;justify-content:center;font-size:.68rem;
+  }
+
+  .shop-hero{
+    position:relative;min-height:min(58vh,520px);min-height:min(58svh,520px);
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    overflow:hidden;color:#fff;
+  }
+  .shop-hero-bg{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(180deg, rgba(5,9,16,.35) 0%, rgba(5,9,16,.55) 45%, rgba(5,9,16,.78) 100%),
+      radial-gradient(circle at 70% 40%, rgba(212,175,55,.28), transparent 45%),
+      linear-gradient(135deg, #0a1a33 0%, #1a1408 48%, #0b1220 100%);
+  }
+  .shop-hero-bg::after{
+    content:"";position:absolute;inset:0;
+    background-image:url("assets/brand/lockup/primary-master.png?v=3");
+    background-repeat:no-repeat;background-position:88% 55%;background-size:min(38vw,280px);
+    opacity:.22;filter:drop-shadow(0 20px 40px rgba(0,0,0,.4));
+  }
+  .shop-hero-inner{position:relative;z-index:1;padding:3.5rem 4vw;max-width:40rem}
+  .shop-hero .mark{
+    width:56px;height:auto;margin:0 auto .9rem;
+    filter:drop-shadow(0 8px 18px rgba(0,0,0,.35));
+  }
+  .shop-hero h1{
+    font-family:var(--display);font-size:clamp(3.4rem,12vw,6.5rem);
+    letter-spacing:.04em;line-height:.9;
+  }
+  .shop-hero p{margin:.85rem auto 0;max-width:28rem;color:rgba(255,255,255,.86);font-size:1.02rem}
+  .shop-hero .cta-row{justify-content:center;margin-top:1.35rem}
+  .btn-pill{
+    border-radius:999px;padding:.95em 1.7em;
+    background:#fff;color:#121826;border:none;
+    font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  }
+  .btn-pill:hover{filter:brightness(.96);transform:translateY(-2px)}
+  .btn-pill-dark{background:#121826;color:#fff}
+
+  .team-rail{
+    background:#fff;border-bottom:1px solid rgba(18,24,38,.06);
+    padding:1.35rem 4vw;
+  }
+  .team-rail-inner{
+    max-width:1400px;margin:0 auto;
+    display:flex;flex-wrap:wrap;gap:1rem 1.4rem;justify-content:center;align-items:center;
+  }
+  .team-chip{
+    display:flex;flex-direction:column;align-items:center;gap:.45rem;
+    width:88px;text-decoration:none;color:#121826;
+  }
+  .team-chip .orb{
+    width:72px;height:72px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);font-size:1.55rem;color:#fff;
+    box-shadow:0 8px 20px rgba(15,23,42,.12);
+    transition:transform .15s;
+  }
+  .team-chip:hover .orb{transform:translateY(-3px) scale(1.04)}
+  .team-chip span{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#5c6473;text-align:center}
+  .orb-geckz{background:linear-gradient(145deg,#2dd4bf,#0f766e)}
+  .orb-cards{background:linear-gradient(145deg,#ef4444,#991b1b)}
+  .orb-whoomp{background:linear-gradient(145deg,#3f6db8,#1e3a8a)}
+  .orb-choo{background:linear-gradient(145deg,#c07a3e,#78350f)}
+  .orb-league{
+    background:#0b1220;
+    background-image:url("assets/brand/lockup/primary-master.png?v=3");
+    background-size:68%;background-repeat:no-repeat;background-position:center;
+  }
+
+  .shop-section{max-width:1400px;margin:0 auto;padding:2.75rem 4vw 1rem}
+  .shop-section-head{
+    display:flex;flex-wrap:wrap;gap:.8rem 1.2rem;
+    justify-content:space-between;align-items:flex-end;margin-bottom:1.25rem;
+  }
+  .shop-section-head h2{
+    font-family:var(--display);font-size:clamp(2rem,5vw,2.8rem);letter-spacing:.04em;color:#121826;
+  }
+  .shop-section-head p{color:#5c6473;font-size:.95rem;margin-top:.25rem}
+  .shop-tabs{display:flex;flex-wrap:wrap;gap:.2rem 1rem;align-items:center}
+  .shop-tabs button{
+    font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    color:#8a93a3;padding:.35rem 0;border-bottom:2px solid transparent;background:none;
+  }
+  .shop-tabs button.is-active{color:#121826;border-color:#121826}
+  .shop-arrows{display:flex;gap:.35rem}
+  .shop-arrows button{
+    width:36px;height:36px;border-radius:50%;border:1px solid rgba(18,24,38,.12);
+    background:#fff;color:#121826;font-size:1rem;line-height:1;
+  }
+  .shop-arrows button:hover{border-color:#121826}
+
+  .product-rail{
+    display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,1fr);
+    gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding-bottom:.5rem;-webkit-overflow-scrolling:touch;
+  }
+  @media(min-width:900px){
+    .product-rail.grid-static{
+      display:grid;grid-auto-flow:row;grid-template-columns:repeat(4,1fr);
+      overflow:visible;
+    }
+  }
+  .shop-product{
+    scroll-snap-align:start;background:transparent;border:none;
+    display:flex;flex-direction:column;gap:.65rem;text-align:left;
+  }
+  .shop-product .viz{
+    position:relative;aspect-ratio:1;border-radius:4px;overflow:hidden;
+    background:#ebeff4;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .shop-product .viz img{width:58%;height:auto;object-fit:contain}
+  .shop-product .viz .mono-mark{
+    font-family:var(--display);font-size:clamp(2rem,5vw,2.8rem);letter-spacing:.04em;color:#fff;
+  }
+  .shop-badge{
+    position:absolute;left:.65rem;top:.65rem;
+    font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+    padding:.35em .65em;border-radius:999px;
+  }
+  .badge-best{background:#e8d5a8;color:#3a2413}
+  .badge-new{background:#163a74;color:#fff}
+  .badge-out{background:#121826;color:#fff}
+  .shop-product h3{font-size:.95rem;font-weight:700;color:#121826;line-height:1.3}
+  .shop-product .maker{font-size:.78rem;color:#5c6473;margin-top:.15rem}
+  .shop-product .price{font-weight:800;margin-top:.35rem;color:#121826}
+  .shop-product .colors{font-size:.72rem;color:#8a93a3;margin-top:.15rem}
+  .shop-product .choose{
+    margin-top:.35rem;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    color:#163a74;text-decoration:underline;text-underline-offset:3px;
+  }
+
+  .shop-promo{
+    margin:2rem 4vw;max-width:1400px;margin-left:auto;margin-right:auto;
+    display:grid;gap:0;background:#fff;border:1px solid rgba(18,24,38,.06);
+    overflow:hidden;
+  }
+  @media(min-width:800px){.shop-promo{grid-template-columns:1.05fr .95fr;min-height:320px}}
+  .shop-promo-visual{
+    min-height:220px;
+    background:
+      radial-gradient(circle at 40% 50%, rgba(212,175,55,.25), transparent 50%),
+      linear-gradient(145deg,#0b1220,#1a1408);
+    display:flex;align-items:center;justify-content:center;padding:2rem;
+  }
+  .shop-promo-visual img{width:min(220px,50%);height:auto}
+  .shop-promo-copy{padding:2.2rem 2rem;display:flex;flex-direction:column;justify-content:center}
+  .shop-promo-copy h2{font-family:var(--display);font-size:clamp(2.2rem,5vw,3.2rem);letter-spacing:.04em;color:#121826}
+  .shop-promo-copy p{margin:.7rem 0 1.2rem;color:#5c6473;max-width:28rem}
+
+  .shop-banner{
+    margin:2rem 4vw;max-width:1400px;margin-left:auto;margin-right:auto;
+    min-height:280px;border-radius:4px;overflow:hidden;position:relative;
+    display:flex;align-items:flex-end;color:#fff;
+  }
+  .shop-banner-bg{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(90deg, rgba(5,9,16,.82) 0%, rgba(5,9,16,.35) 70%),
+      linear-gradient(135deg,#3a1212,#0b1220);
+  }
+  .shop-banner-inner{position:relative;z-index:1;padding:2.2rem}
+  .shop-banner h2{font-family:var(--display);font-size:clamp(2.4rem,6vw,3.8rem);letter-spacing:.04em}
+  .shop-banner p{margin:.5rem 0 1rem;color:rgba(255,255,255,.82);max-width:28rem}
+
+  .shop-collab{
+    max-width:1400px;margin:0 auto;padding:1rem 4vw 3.5rem;
+    display:grid;gap:1rem;
+  }
+  @media(min-width:800px){.shop-collab{grid-template-columns:1.2fr 1fr}}
+  .collab-card{
+    background:#fff;border:1px solid rgba(18,24,38,.06);padding:1.8rem;
+    min-height:200px;display:flex;flex-direction:column;justify-content:flex-end;
+  }
+  .collab-card.dark{
+    background:linear-gradient(145deg,#0b1220,#163a74);color:#fff;border:none;
+  }
+  .collab-card h3{font-family:var(--display);font-size:2rem;letter-spacing:.04em}
+  .collab-card p{margin:.45rem 0 1rem;font-size:.92rem;opacity:.8}
+
+  .shop-product[hidden]{display:none !important}
+</style>
 </head>
-<body>
+<body class="shop-page">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
-<div class="page-hero">
-  <span class="kicker">Official merchandise</span>
-  <h1>SHOP</h1>
-  <p>Gear up for the Founding Four. Best sellers, team drops, and the OG Gold Puck kit.</p>
-</div>
 
-<section class="section section-wide">
-  <div class="fomo-banner" style="margin-bottom:1.5rem">
-    <div>
-      <strong style="display:block;margin-bottom:.25rem">New York energy. Founding Four heat.</strong>
-      <span style="color:var(--muted);font-size:.9rem">Members earn Fan Zone points on every order.</span>
+<nav class="shop-catnav" aria-label="Shop categories">
+  <div class="shop-catnav-inner">
+    <div class="shop-cats">
+      <a href="#best" class="is-active">Best Sellers</a>
+      <a href="#teams">Teams</a>
+      <a href="#headwear">Headwear</a>
+      <a href="#clothing">Clothing</a>
+      <a href="#accessories">Accessories</a>
     </div>
-    <a href="join.html" class="btn btn-og btn-sm">Shop + join $36</a>
+    <div class="shop-utils">
+      <a href="signin.html">Account</a>
+      <a class="shop-bag" href="signin.html">Bag <b id="bagCount">0</b></a>
+    </div>
   </div>
+</nav>
 
-  <div class="section-head">
-    <span class="kicker">Best sellers</span>
-    <h2>Featured drops</h2>
-  </div>
-  <div class="grid-4">
-    <article class="product">
-      <div class="product-visual" style="color:var(--gold-bright)">OG PUCK</div>
-      <div class="product-body">
-        <div class="brand">PuckGold · Limited</div>
-        <h3>OG Gold Puck Membership Kit</h3>
-        <div class="price-tag">$36.00</div>
-        <a href="join.html" class="btn btn-og btn-sm btn-block" style="margin-top:.6rem">Get the deal</a>
-      </div>
-    </article>
-    <article class="product">
-      <div class="product-visual" style="color:var(--miami)">GECKZ</div>
-      <div class="product-body">
-        <div class="brand">Mighty Geckz</div>
-        <h3>Champions Home Jersey</h3>
-        <div class="price-tag">$120.00</div>
-        <a href="signin.html" class="btn btn-platinum btn-sm btn-block" style="margin-top:.6rem">Add to bag</a>
-      </div>
-    </article>
-    <article class="product">
-      <div class="product-visual" style="color:var(--mclean)">CARDS</div>
-      <div class="product-body">
-        <div class="brand">Cardinals</div>
-        <h3>9Seventy Pro Hat</h3>
-        <div class="price-tag">$40.00</div>
-        <a href="signin.html" class="btn btn-champagne btn-sm btn-block" style="margin-top:.6rem">Add to bag</a>
-      </div>
-    </article>
-    <article class="product">
-      <div class="product-visual" style="color:var(--wash)">WHOOMP</div>
-      <div class="product-body">
-        <div class="brand">Whoomp!</div>
-        <h3>District Dome Hoodie</h3>
-        <div class="price-tag">$85.00</div>
-        <a href="signin.html" class="btn btn-sapphire btn-sm btn-block" style="margin-top:.6rem">Add to bag</a>
-      </div>
-    </article>
-    <article class="product">
-      <div class="product-visual" style="color:var(--chatt)">CHOO</div>
-      <div class="product-body">
-        <div class="brand">Choo Choo</div>
-        <h3>Terminal Arena Tee</h3>
-        <div class="price-tag">$36.00</div>
-        <a href="signin.html" class="btn btn-rose btn-sm btn-block" style="margin-top:.6rem">Add to bag</a>
-      </div>
-    </article>
-    <article class="product">
-      <div class="product-visual" style="color:var(--gold)">PGB</div>
-      <div class="product-body">
-        <div class="brand">League</div>
-        <h3>PGB Crest Snapback</h3>
-        <div class="price-tag">$40.00</div>
-        <a href="signin.html" class="btn btn-platinum btn-sm btn-block" style="margin-top:.6rem">Add to bag</a>
-      </div>
-    </article>
-    <article class="product">
-      <div class="product-visual" style="color:var(--ruby-a)">RUBY</div>
-      <div class="product-body">
-        <div class="brand">Collectibles</div>
-        <h3>Signed Pin Flag (Mock)</h3>
-        <div class="price-tag">$75.00</div>
-        <a href="signin.html" class="btn btn-ruby btn-sm btn-block" style="margin-top:.6rem">Add to bag</a>
-      </div>
-    </article>
-    <article class="product">
-      <div class="product-visual" style="color:var(--champagne-b)">VIP</div>
-      <div class="product-body">
-        <div class="brand">Accessories</div>
-        <h3>Champagne Suite Scarf</h3>
-        <div class="price-tag">$48.00</div>
-        <a href="signin.html" class="btn btn-champagne btn-sm btn-block" style="margin-top:.6rem">Add to bag</a>
-      </div>
-    </article>
-  </div>
-
-  <div class="section-head" style="margin-top:2.5rem">
-    <span class="kicker">Shop by team</span>
-    <h2>Represent.</h2>
-  </div>
-  <div class="cta-row">
-    <a href="teams.html" class="btn btn-ghost">Mighty Geckz</a>
-    <a href="teams.html" class="btn btn-ghost">Cardinals</a>
-    <a href="teams.html" class="btn btn-ghost">Whoomp!</a>
-    <a href="teams.html" class="btn btn-ghost">Choo Choo</a>
+<section class="shop-hero">
+  <div class="shop-hero-bg" aria-hidden="true"></div>
+  <div class="shop-hero-inner">
+    <img class="mark" src="assets/brand/lockup/primary-master.png?v=3" alt="">
+    <h1>FOUNDING FOUR</h1>
+    <p>The wait is over. Gear up for Season One — jerseys, hats, and the limited OG Gold Puck.</p>
+    <div class="cta-row">
+      <a class="btn btn-pill" href="#best">Shop Best Sellers</a>
+    </div>
   </div>
 </section>
+
+<section class="team-rail" id="teams" aria-label="Shop by team">
+  <div class="team-rail-inner">
+    <a class="team-chip" href="#best" data-filter="league"><div class="orb orb-league" aria-hidden="true"></div><span>PGB</span></a>
+    <a class="team-chip" href="#best" data-filter="geckz"><div class="orb orb-geckz">M</div><span>Geckz</span></a>
+    <a class="team-chip" href="#best" data-filter="cards"><div class="orb orb-cards">C</div><span>Cardinals</span></a>
+    <a class="team-chip" href="#best" data-filter="whoomp"><div class="orb orb-whoomp">W</div><span>Whoomp!</span></a>
+    <a class="team-chip" href="#best" data-filter="choo"><div class="orb orb-choo">T</div><span>Choo Choo</span></a>
+  </div>
+</section>
+
+<section class="shop-section" id="best">
+  <div class="shop-section-head">
+    <div>
+      <h2>BEST SELLERS</h2>
+      <div class="shop-tabs" role="tablist" aria-label="Best seller filters">
+        <button type="button" class="is-active" data-tab="featured">Featured</button>
+        <button type="button" data-tab="geckz">Mighty Geckz</button>
+        <button type="button" data-tab="cards">Cardinals</button>
+        <button type="button" data-tab="whoomp">Whoomp!</button>
+        <button type="button" data-tab="choo">Choo Choo</button>
+      </div>
+    </div>
+    <div class="shop-arrows">
+      <button type="button" id="railPrev" aria-label="Previous">←</button>
+      <button type="button" id="railNext" aria-label="Next">→</button>
+    </div>
+  </div>
+  <div class="product-rail grid-static" id="productRail">
+    <article class="shop-product" data-team="league" data-tab="featured">
+      <div class="viz">
+        <span class="shop-badge badge-best">Best Seller</span>
+        <img src="assets/brand/lockup/primary-master.png?v=3" alt="">
+      </div>
+      <div>
+        <h3>OG Gold Puck Membership Kit</h3>
+        <div class="maker">PuckGold · Limited</div>
+        <div class="price">$36.00</div>
+        <div class="colors">1 kit</div>
+        <a class="choose" href="join.html">Get the deal</a>
+      </div>
+    </article>
+    <article class="shop-product" data-team="geckz" data-tab="featured geckz">
+      <div class="viz" style="background:linear-gradient(160deg,#0e463f,#234020)">
+        <span class="shop-badge badge-best">Best Seller</span>
+        <span class="mono-mark">GECKZ</span>
+      </div>
+      <div>
+        <h3>Mighty Geckz | Champions Home Jersey</h3>
+        <div class="maker">PuckGold</div>
+        <div class="price">$120.00</div>
+        <div class="colors">2 colors</div>
+        <a class="choose" href="signin.html">Choose options</a>
+      </div>
+    </article>
+    <article class="shop-product" data-team="cards" data-tab="featured cards">
+      <div class="viz" style="background:linear-gradient(160deg,#451212,#33260a)">
+        <span class="shop-badge badge-new">New</span>
+        <span class="mono-mark">CARDS</span>
+      </div>
+      <div>
+        <h3>Cardinals | 9Seventy Pro Hat</h3>
+        <div class="maker">New Era style</div>
+        <div class="price">$40.00</div>
+        <div class="colors">2 colors</div>
+        <a class="choose" href="signin.html">Choose options</a>
+      </div>
+    </article>
+    <article class="shop-product" data-team="whoomp" data-tab="featured whoomp">
+      <div class="viz" style="background:linear-gradient(160deg,#12233d,#202c3d)">
+        <span class="mono-mark">WHOOMP</span>
+      </div>
+      <div>
+        <h3>Whoomp! | District Dome Hoodie</h3>
+        <div class="maker">PuckGold</div>
+        <div class="price">$85.00</div>
+        <div class="colors">1 color</div>
+        <a class="choose" href="signin.html">Choose options</a>
+      </div>
+    </article>
+    <article class="shop-product" data-team="choo" data-tab="featured choo">
+      <div class="viz" style="background:linear-gradient(160deg,#2f2f31,#43301a)">
+        <span class="mono-mark">CHOO</span>
+      </div>
+      <div>
+        <h3>Choo Choo | Terminal Arena Tee</h3>
+        <div class="maker">PuckGold</div>
+        <div class="price">$36.00</div>
+        <div class="colors">1 color</div>
+        <a class="choose" href="signin.html">Choose options</a>
+      </div>
+    </article>
+    <article class="shop-product" data-team="league" data-tab="featured">
+      <div class="viz">
+        <img src="assets/brand/app/apple-touch-icon.png?v=3" alt="" style="width:72%;border-radius:18%">
+      </div>
+      <div>
+        <h3>PGB | Crest Snapback</h3>
+        <div class="maker">PuckGold</div>
+        <div class="price">$40.00</div>
+        <div class="colors">3 colors</div>
+        <a class="choose" href="signin.html">Choose options</a>
+      </div>
+    </article>
+    <article class="shop-product" data-team="geckz" data-tab="geckz">
+      <div class="viz" style="background:linear-gradient(160deg,#134e4a,#042f2e)">
+        <span class="shop-badge badge-new">New</span>
+        <span class="mono-mark">REEF</span>
+      </div>
+      <div>
+        <h3>Mighty Geckz | Neon Reef Polo</h3>
+        <div class="maker">PuckGold</div>
+        <div class="price">$99.00</div>
+        <div class="colors">2 colors</div>
+        <a class="choose" href="signin.html">Choose options</a>
+      </div>
+    </article>
+    <article class="shop-product" data-team="cards" data-tab="cards">
+      <div class="viz" style="background:linear-gradient(160deg,#7f1d1d,#1c1917)">
+        <span class="shop-badge badge-out">Sold out</span>
+        <span class="mono-mark">PERCH</span>
+      </div>
+      <div>
+        <h3>Cardinals | Perch Performance Hat</h3>
+        <div class="maker">New Era style</div>
+        <div class="price">$40.00</div>
+        <div class="colors">1 color</div>
+        <span class="choose" style="color:#8a93a3;text-decoration:none">Notify me</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="shop-promo" id="headwear">
+  <div class="shop-promo-visual">
+    <img src="assets/brand/lockup/primary-master.png?v=3" alt="PGB">
+  </div>
+  <div class="shop-promo-copy">
+    <h2>FINISH THE LOOK</h2>
+    <p>Shop the latest headwear from your favourite Founding Four teams — snapbacks, pros, and arena classics.</p>
+    <a class="btn btn-pill btn-pill-dark" href="#hats">Shop Headwear</a>
+  </div>
+</section>
+
+<section class="shop-section" id="hats">
+  <div class="shop-section-head">
+    <div>
+      <h2>HEADWEAR</h2>
+      <p>The latest drops from the PGB shop.</p>
+    </div>
+  </div>
+  <div class="product-rail grid-static">
+    <article class="shop-product">
+      <div class="viz" style="background:#ebeff4">
+        <span class="shop-badge badge-best">Best Seller</span>
+        <img src="assets/brand/icon/emblem-circle-gold.png?v=3" alt="" style="width:48%">
+      </div>
+      <div>
+        <h3>PGB | Circle Emblem Hat</h3>
+        <div class="maker">PuckGold</div>
+        <div class="price">$40.00</div>
+        <div class="colors">2 colors</div>
+        <a class="choose" href="signin.html">Choose options</a>
+      </div>
+    </article>
+    <article class="shop-product">
+      <div class="viz" style="background:linear-gradient(160deg,#0e463f,#234020)">
+        <span class="mono-mark" style="font-size:1.8rem">M</span>
+      </div>
+      <div>
+        <h3>Mighty Geckz | 9Forty Legacy Hat</h3>
+        <div class="maker">New Era style</div>
+        <div class="price">$40.00</div>
+        <div class="colors">2 colors</div>
+        <a class="choose" href="signin.html">Choose options</a>
+      </div>
+    </article>
+    <article class="shop-product">
+      <div class="viz" style="background:linear-gradient(160deg,#451212,#1a1408)">
+        <span class="mono-mark" style="font-size:1.8rem">C</span>
+      </div>
+      <div>
+        <h3>Cardinals | Classic Logo Hat</h3>
+        <div class="maker">New Era style</div>
+        <div class="price">$40.00</div>
+        <div class="colors">1 color</div>
+        <a class="choose" href="signin.html">Choose options</a>
+      </div>
+    </article>
+    <article class="shop-product">
+      <div class="viz" style="background:linear-gradient(160deg,#12233d,#0b1220)">
+        <span class="shop-badge badge-new">New</span>
+        <span class="mono-mark" style="font-size:1.8rem">W</span>
+      </div>
+      <div>
+        <h3>Whoomp! | Low Profile Team Hat</h3>
+        <div class="maker">PuckGold</div>
+        <div class="price">$40.00</div>
+        <div class="colors">1 color</div>
+        <a class="choose" href="signin.html">Choose options</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="shop-banner" id="clothing">
+  <div class="shop-banner-bg" aria-hidden="true"></div>
+  <div class="shop-banner-inner">
+    <h2>GECKZ CHAMPIONS DROP</h2>
+    <p>Explore the new Mighty Geckz collection — home jersey, reef polo, and championship hoodies.</p>
+    <a class="btn btn-pill" href="#best" data-jump="geckz">Shop the drop</a>
+  </div>
+</section>
+
+<section class="shop-collab" id="accessories">
+  <div class="collab-card dark">
+    <div class="kicker" style="color:#f0d78c">Limited</div>
+    <h3>OG GOLD PUCK</h3>
+    <p>Physical puck + one year premium membership. Founding Four forever status.</p>
+    <a class="btn btn-og btn-sm" href="join.html" style="align-self:flex-start">Claim for $36</a>
+  </div>
+  <div class="collab-card">
+    <div class="kicker" style="color:#163a74">Accessories</div>
+    <h3>FINISH YOUR KIT</h3>
+    <p>Scarves, pins, and suite accessories — members earn Fan Zone points on every order.</p>
+    <a class="btn btn-pill btn-pill-dark" href="fantasy.html" style="align-self:flex-start">Fan Zone perks</a>
+  </div>
+</section>
+
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/site.js"></script>
+<script>
+(function () {
+  const tabs = document.querySelectorAll(".shop-tabs button");
+  const products = Array.from(document.querySelectorAll("#productRail .shop-product"));
+  const rail = document.getElementById("productRail");
+
+  function applyTab(tab) {
+    tabs.forEach((b) => b.classList.toggle("is-active", b.dataset.tab === tab));
+    products.forEach((p) => {
+      const tags = (p.dataset.tab || "").split(/\s+/);
+      if (tab === "featured") {
+        p.hidden = !tags.includes("featured");
+      } else {
+        p.hidden = p.dataset.team !== tab && !tags.includes(tab);
+      }
+    });
+  }
+
+  tabs.forEach((btn) => btn.addEventListener("click", () => applyTab(btn.dataset.tab)));
+
+  document.querySelectorAll("[data-filter]").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      const f = el.getAttribute("data-filter");
+      if (!f || f === "league") return;
+      e.preventDefault();
+      applyTab(f);
+      document.getElementById("best")?.scrollIntoView({ behavior: "smooth" });
+    });
+  });
+
+  document.querySelectorAll("[data-jump]").forEach((el) => {
+    el.addEventListener("click", () => {
+      const t = el.getAttribute("data-jump");
+      if (t) applyTab(t);
+    });
+  });
+
+  document.getElementById("railPrev")?.addEventListener("click", () => {
+    rail?.scrollBy({ left: -280, behavior: "smooth" });
+  });
+  document.getElementById("railNext")?.addEventListener("click", () => {
+    rail?.scrollBy({ left: 280, behavior: "smooth" });
+  });
+
+  applyTab("featured");
+})();
+</script>
 </body>
 </html>
