@@ -15,16 +15,22 @@
 <section class="hero" id="hero" data-av-stage>
   <div class="hero-bg" aria-hidden="true">
     <div class="hero-scenes" id="heroScenes">
-      <div class="hero-scene is-active" data-scene="0" style="--scene:linear-gradient(135deg,#06261f 0%,#0a1a33 45%,#050910 100%)">
+      <div class="hero-scene hero-scene-video is-active" data-scene="0">
+        <video id="heroVideo" class="hero-video" muted playsinline loop preload="auto" poster="">
+          <source src="assets/media/shoulders-of-giants.mp4" type="video/mp4">
+        </video>
+        <span class="scene-label">Shoulders of Giants · Preview</span>
+      </div>
+      <div class="hero-scene" data-scene="1" style="--scene:linear-gradient(135deg,#06261f 0%,#0a1a33 45%,#050910 100%)">
         <span class="scene-label">Neon Reef · Miami</span>
       </div>
-      <div class="hero-scene" data-scene="1" style="--scene:linear-gradient(135deg,#3a1212 0%,#1a1408 45%,#050910 100%)">
+      <div class="hero-scene" data-scene="2" style="--scene:linear-gradient(135deg,#3a1212 0%,#1a1408 45%,#050910 100%)">
         <span class="scene-label">Cardinal Perch · McLean</span>
       </div>
-      <div class="hero-scene" data-scene="2" style="--scene:linear-gradient(135deg,#12233d 0%,#0b1424 45%,#050910 100%)">
+      <div class="hero-scene" data-scene="3" style="--scene:linear-gradient(135deg,#12233d 0%,#0b1424 45%,#050910 100%)">
         <span class="scene-label">District Dome · Washington</span>
       </div>
-      <div class="hero-scene" data-scene="3" style="--scene:linear-gradient(135deg,#2a2118 0%,#1a120c 45%,#050910 100%)">
+      <div class="hero-scene" data-scene="4" style="--scene:linear-gradient(135deg,#2a2118 0%,#1a120c 45%,#050910 100%)">
         <span class="scene-label">Terminal Arena · Chattanooga</span>
       </div>
     </div>

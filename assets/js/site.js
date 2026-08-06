@@ -131,15 +131,23 @@
   // VeeFriends-style sound + preview toggle (starts ON)
   function initAVExperience() {
     const STORAGE_KEY = "pgb-av-on";
-    const audioSrc = "assets/media/majestic-frost.mp3";
+    const playlist = [
+      "assets/media/majestic-frost.mp3",
+      "assets/media/sport-action.mp3",
+    ];
     const saved = localStorage.getItem(STORAGE_KEY);
     // Default ON unless user previously turned it off
     let enabled = saved === null ? true : saved === "1";
+    let trackIndex = 0;
 
-    const audio = new Audio(audioSrc);
-    audio.loop = true;
+    const audio = new Audio(playlist[trackIndex]);
     audio.preload = "auto";
     audio.volume = 0.55;
+    audio.addEventListener("ended", () => {
+      trackIndex = (trackIndex + 1) % playlist.length;
+      audio.src = playlist[trackIndex];
+      if (enabled) audio.play().catch(() => {});
+    });
 
     const btn = document.createElement("button");
     btn.type = "button";
@@ -155,6 +163,13 @@
 
     const stages = document.querySelectorAll("[data-av-stage]");
     const scenes = Array.from(document.querySelectorAll(".hero-scene"));
+    const video = document.getElementById("heroVideo");
+    if (video) {
+      video.muted = true;
+      video.playsInline = true;
+      video.loop = true;
+    }
+
     let sceneTimer = null;
     let sceneIndex = 0;
     let unlockBound = false;
@@ -175,31 +190,51 @@
       document.documentElement.classList.toggle("av-off", !enabled);
     }
 
+    function syncVideo() {
+      if (!video) return;
+      const isVideoScene = scenes[sceneIndex]?.classList.contains("hero-scene-video");
+      if (enabled && isVideoScene) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    }
+
     function showScene(i) {
       if (!scenes.length) return;
       scenes.forEach((s, idx) => s.classList.toggle("is-active", idx === i));
+      syncVideo();
     }
 
     function startScenes() {
-      if (!scenes.length || sceneTimer) return;
+      if (!scenes.length) return;
       showScene(sceneIndex);
-      sceneTimer = setInterval(() => {
-        sceneIndex = (sceneIndex + 1) % scenes.length;
-        showScene(sceneIndex);
-      }, 5200);
+      if (sceneTimer) return;
+      const tick = () => {
+        if (!enabled) return;
+        const delay = scenes[sceneIndex]?.classList.contains("hero-scene-video") ? 10000 : 5200;
+        sceneTimer = setTimeout(() => {
+          sceneIndex = (sceneIndex + 1) % scenes.length;
+          showScene(sceneIndex);
+          tick();
+        }, delay);
+      };
+      tick();
     }
 
     function stopScenes() {
       if (sceneTimer) {
-        clearInterval(sceneTimer);
+        clearTimeout(sceneTimer);
         sceneTimer = null;
       }
+      if (video) video.pause();
     }
 
     async function tryPlay() {
       if (!enabled) return;
       try {
         await audio.play();
+        syncVideo();
       } catch (_) {
         // Autoplay with sound blocked — keep UI ON and unlock on first gesture
         if (!unlockBound) {
@@ -208,6 +243,7 @@
             if (!enabled) return;
             try {
               await audio.play();
+              syncVideo();
             } catch (_) {}
             window.removeEventListener("pointerdown", unlock);
             window.removeEventListener("keydown", unlock);
