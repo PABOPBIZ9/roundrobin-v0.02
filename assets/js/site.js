@@ -98,8 +98,12 @@
             <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 0110.5 3 7 7 0 1019 16.5c.7-.6 1.4-1.3 2-2z"/></svg>
             <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
           </button>
-          <a href="join.html" class="btn btn-og btn-sm">$36 OG Gold Puck</a>
-          <a href="signin.html" class="btn btn-ghost btn-sm hide-sm">Sign In</a>
+          <button type="button" class="nav-bag" id="navBagBtn" aria-label="Open bag">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 016 0"/></svg>
+            <span class="bag-count" id="navBagCount" data-count="0"></span>
+          </button>
+          <a href="signin.html" class="btn btn-signin btn-sm">Sign In</a>
+          <a href="join.html" class="btn btn-og btn-sm hide-sm">$36 OG</a>
           <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileDrawer" aria-label="Open menu">
             <span></span><span></span><span></span>
           </button>
@@ -111,8 +115,8 @@
         <a href="shop.html" class="${isActive("shop.html") ? "active" : ""}">Shop</a>
         <a href="media.html" class="${isActive("media.html") ? "active" : ""}">Watch</a>
         <a href="bracket.html" class="${isActive("bracket.html") ? "active" : ""}">Live Bracket</a>
-        <a href="signin.html" class="${isActive("signin.html") ? "active" : ""}">Sign In</a>
         <div class="drawer-ctas">
+          <a href="signin.html" class="btn btn-signin btn-block">Sign In / Log In</a>
           <a href="join.html" class="btn btn-og btn-block">Join — $36 OG Gold Puck</a>
         </div>
       </div>
@@ -237,24 +241,40 @@
     setInterval(tick, 1000);
   }
 
-  // Sound + icon/text scene carousel (no video)
+  // Sound + icon/text scene carousel (no tip labels)
   function initAVExperience() {
     const STORAGE_KEY = "pgb-av-on";
+    function abs(path) {
+      try {
+        return new URL(path, document.baseURI || window.location.href).href;
+      } catch (_) {
+        return path;
+      }
+    }
     const playlist = [
-      "assets/media/majestic-frost.mp3",
-      "assets/media/sport-action.mp3",
+      abs("assets/media/majestic-frost.mp3"),
+      abs("assets/media/sport-action.mp3"),
     ];
     const saved = localStorage.getItem(STORAGE_KEY);
+    // Default ON; if previously off, still start ready — user can tap sapphire button
     let enabled = saved === null ? true : saved === "1";
     let trackIndex = 0;
 
-    const audio = new Audio(playlist[trackIndex]);
+    const audio = new Audio();
     audio.preload = "auto";
-    audio.volume = 0.55;
+    audio.volume = 0.8;
+    audio.loop = false;
+    audio.src = playlist[trackIndex];
     audio.addEventListener("ended", () => {
       trackIndex = (trackIndex + 1) % playlist.length;
       audio.src = playlist[trackIndex];
+      audio.load();
       if (enabled) audio.play().catch(() => {});
+    });
+    audio.addEventListener("error", () => {
+      trackIndex = (trackIndex + 1) % playlist.length;
+      audio.src = playlist[trackIndex];
+      audio.load();
     });
 
     const btn = document.createElement("button");
@@ -262,7 +282,6 @@
     btn.className = "av-toggle";
     btn.id = "avToggle";
     btn.innerHTML = `
-      <span class="av-toggle-tip" id="avTip">Sound on</span>
       <span class="av-bars" aria-hidden="true">
         <span></span><span></span><span></span><span></span>
       </span>
@@ -279,16 +298,11 @@
 
     let sceneTimer = null;
     let sceneIndex = 0;
-    let unlockBound = false;
 
     function setUi() {
       btn.setAttribute("aria-pressed", enabled ? "true" : "false");
-      btn.setAttribute(
-        "aria-label",
-        enabled ? "Mute sound and pause scene previews" : "Play sound and scene previews"
-      );
-      const tip = document.getElementById("avTip");
-      if (tip) tip.textContent = enabled ? "Sound on" : "Sound off";
+      btn.setAttribute("aria-label", enabled ? "Mute soundtrack" : "Play soundtrack");
+      btn.title = enabled ? "Mute" : "Play";
       stages.forEach((el) => {
         el.classList.toggle("is-av-on", enabled);
         el.classList.toggle("is-av-off", !enabled);
@@ -327,22 +341,10 @@
     async function tryPlay() {
       if (!enabled) return;
       try {
+        if (audio.readyState < 2) audio.load();
         await audio.play();
       } catch (_) {
-        if (!unlockBound) {
-          unlockBound = true;
-          const unlock = async () => {
-            if (!enabled) return;
-            try {
-              await audio.play();
-            } catch (_) {}
-            window.removeEventListener("pointerdown", unlock);
-            window.removeEventListener("keydown", unlock);
-            unlockBound = false;
-          };
-          window.addEventListener("pointerdown", unlock, { once: true });
-          window.addEventListener("keydown", unlock, { once: true });
-        }
+        // Browser blocked autoplay — next user gesture on the sapphire button will play
       }
     }
 
@@ -358,9 +360,29 @@
       }
     }
 
-    btn.addEventListener("click", () => {
+    // Click is a user gesture — play/pause reliably here
+    btn.addEventListener("click", async () => {
       enabled = !enabled;
-      apply();
+      localStorage.setItem(STORAGE_KEY, enabled ? "1" : "0");
+      setUi();
+      if (enabled) {
+        startScenes();
+        try {
+          audio.currentTime = Math.min(audio.currentTime || 0, 0.01);
+          if (!audio.src) audio.src = playlist[trackIndex];
+          await audio.play();
+        } catch (err) {
+          // Force reload then retry once
+          audio.src = playlist[trackIndex];
+          audio.load();
+          try {
+            await audio.play();
+          } catch (_) {}
+        }
+      } else {
+        audio.pause();
+        stopScenes();
+      }
     });
 
     apply();

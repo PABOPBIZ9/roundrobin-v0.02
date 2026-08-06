@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fan Zone — Fantasy, Prizes & Giveaway | PuckGold</title>
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/site.css?v=4">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <link rel="icon" href="assets/brand/favicon/favicon-32.png?v=3" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/app/apple-touch-icon.png?v=3">
@@ -13,27 +13,57 @@
   .fz{background:#f4f6fa;color:#121826}
   .fz .ice-lines{opacity:.04}
 
-  .fz-nav{
-    position:sticky;top:64px;z-index:45;
-    background:rgba(11,18,32,.96);color:#fff;
-    border-bottom:1px solid rgba(255,255,255,.08);
+  .fz-shell{
+    display:grid;grid-template-columns:1fr;min-height:calc(100vh - 64px);
   }
-  .fz-nav-inner{
-    max-width:1400px;margin:0 auto;padding:.75rem 4vw;
-    display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;align-items:center;justify-content:space-between;
+  @media(min-width:960px){
+    .fz-shell{grid-template-columns:250px 1fr}
   }
-  .fz-links{display:flex;flex-wrap:wrap;gap:.35rem 1rem}
-  .fz-links a{
-    font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
-    color:rgba(255,255,255,.72);padding:.3rem 0;border-bottom:2px solid transparent;
+  .fz-sidebar{background:transparent;padding:1rem}
+  @media(min-width:960px){
+    .fz-sidebar{
+      position:sticky;top:64px;align-self:start;height:calc(100vh - 64px);
+      padding:1.25rem 0.75rem 1.25rem 1.25rem;overflow:auto;
+    }
   }
-  .fz-links a:hover,.fz-links a.is-active{color:#f0d78c;border-color:#d4af37}
-  .fz-nav .btn-pill{
-    border-radius:999px;padding:.7em 1.2em;background:#fff;color:#121826;
-    font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  .fz-side-card{
+    background:#0b1220;color:#fff;border-radius:16px;padding:1.25rem 1.1rem 1.4rem;
+    box-shadow:0 16px 40px rgba(5,9,16,.25);
   }
-
+  .fz-side-logo{
+    display:flex;align-items:center;gap:.65rem;margin-bottom:1.35rem;padding-bottom:1rem;
+    border-bottom:1px solid rgba(255,255,255,.1);
+  }
+  .fz-side-logo img{width:40px;height:auto}
+  .fz-side-logo span{font-family:var(--display);font-size:1.35rem;letter-spacing:.1em}
+  .fz-side-nav{display:flex;flex-direction:column;gap:.15rem}
+  .fz-side-nav a{
+    font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+    color:rgba(255,255,255,.55);padding:.7rem .55rem;border-radius:8px;
+  }
+  .fz-side-nav a:hover{color:#fff;background:rgba(255,255,255,.06)}
+  .fz-side-nav a.is-active{color:#fff;background:rgba(61,111,191,.4)}
+  .fz-side-auth{
+    margin-top:.9rem;background:#eef1f6;color:#121826;border-radius:14px;padding:.85rem 1rem;
+  }
+  .fz-side-auth a{display:block;font-size:.82rem;font-weight:700;color:#163a74;padding:.35rem 0}
+  .fz-side-auth a.primary{
+    margin-top:.35rem;text-align:center;border-radius:999px;padding:.65rem .8rem;
+    background:linear-gradient(180deg,#5b9fff,#163a74);color:#fff;
+  }
+  .fz-mobile-bar{
+    display:flex;gap:.5rem;overflow-x:auto;padding:.75rem 4vw;
+    background:#0b1220;position:sticky;top:64px;z-index:40;
+  }
+  .fz-mobile-bar a{
+    flex:0 0 auto;font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+    color:rgba(255,255,255,.65);padding:.45rem .7rem;border-radius:999px;border:1px solid rgba(255,255,255,.12);
+  }
+  .fz-mobile-bar a.is-active{color:#fff;background:rgba(61,111,191,.45);border-color:transparent}
+  @media(min-width:960px){.fz-mobile-bar{display:none}}
+  .fz-main{min-width:0}
   .fz-hero{
+
     position:relative;overflow:hidden;color:#fff;
     background:
       radial-gradient(circle at 80% 20%, rgba(212,175,55,.28), transparent 40%),
@@ -241,19 +271,39 @@
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
 
-<nav class="fz-nav" aria-label="Fan Zone">
-  <div class="fz-nav-inner">
-    <div class="fz-links">
+<div class="fz-shell">
+  <aside class="fz-sidebar" aria-label="Fan Zone categories">
+    <div class="fz-side-card">
+      <div class="fz-side-logo">
+        <img src="assets/brand/lockup/primary-master.png?v=3" alt="">
+        <span>FAN ZONE</span>
+      </div>
+      <nav class="fz-side-nav" id="fzSideNav">
+        <a href="#home" class="is-active">Home</a>
+        <a href="#giveaway">Giveaway</a>
+        <a href="#prizes">Prizes</a>
+        <a href="#rules">Rules</a>
+        <a href="#stats">Stats</a>
+        <a href="#tiers">Tiers / XP</a>
+        <a href="shop.html">Shop</a>
+      </nav>
+    </div>
+    <div class="fz-side-auth">
+      <a href="signin.html">Log in</a>
+      <a class="primary" href="signin.html">Sign up</a>
+      <a href="mailto:hello@puckgold.com" style="font-size:.75rem;color:#5c6473;margin-top:.4rem">Contact us</a>
+    </div>
+  </aside>
+  <div class="fz-main">
+    <nav class="fz-mobile-bar" id="fzMobileNav" aria-label="Fan Zone sections">
       <a href="#home" class="is-active">Home</a>
       <a href="#giveaway">Giveaway</a>
       <a href="#prizes">Prizes</a>
       <a href="#rules">Rules</a>
       <a href="#stats">Stats</a>
-      <a href="shop.html">Shop</a>
-    </div>
-    <a class="btn-pill" href="signin.html">Sign up / Log in</a>
-  </div>
-</nav>
+      <a href="#tiers">Tiers</a>
+    </nav>
+
 
 <section class="fz-hero" id="home">
   <div class="fz-hero-grid">
@@ -626,17 +676,23 @@
   </div>
 </section>
 
+</div><!-- /.fz-main -->
+</div><!-- /.fz-shell -->
 <footer class="site-footer" id="site-footer"></footer>
-<script src="assets/js/site.js"></script>
+<script src="assets/js/site.js?v=4"></script>
+<script src="assets/js/cart.js?v=4"></script>
 <script>
 (function () {
-  const links = document.querySelectorAll(".fz-links a[href^='#']");
-  const sections = Array.from(links).map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+  const links = document.querySelectorAll("#fzSideNav a[href^='#'], #fzMobileNav a[href^='#']");
+  const sections = ["home","giveaway","prizes","rules","stats","tiers"]
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
   function setActive() {
     let current = sections[0];
     for (const s of sections) {
       if (s.getBoundingClientRect().top <= 140) current = s;
     }
+    if (!current) return;
     links.forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === "#" + current.id));
   }
   window.addEventListener("scroll", setActive, { passive: true });
