@@ -1,3 +1,2 @@
-Primary logo is a 3D metallic raster badge.
-Use `../lockup/primary-master.png` (transparent).
-SVG outline versions can be dropped here when available.
+Official logo SVGs embed the transparent PNG master (single PGB badge, no tagline).
+Source of truth: `../lockup/primary-master.png`

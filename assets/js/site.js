@@ -81,7 +81,7 @@
     header.innerHTML = `
       <div class="nav-wrap">
         <a class="logo-link" href="index.html" aria-label="PuckGold home">
-          <img class="logo-mark" src="assets/brand/lockup/primary-master.png" alt="PGB" width="42" height="70" style="width:42px;height:auto;object-fit:contain">
+          <img class="logo-mark" src="assets/brand/lockup/primary-master.png?v=3" alt="PGB" width="42" height="70" style="width:42px;height:auto;object-fit:contain">
           <div>
             <div class="logo-word">PUCK<span>GOLD</span></div>
             <span class="logo-sub">PGB LEAGUE</span>
@@ -157,7 +157,10 @@
         <div class="footer-shell">
           <div class="footer-top">
             <div class="footer-brand">
-              <div class="logo-word">PUCK<span>GOLD</span></div>
+              <a class="footer-logo" href="index.html" aria-label="PuckGold home">
+                <img src="assets/brand/lockup/primary-master.png?v=3" alt="PGB" width="56" height="80">
+                <div class="logo-word">PUCK<span>GOLD</span></div>
+              </a>
               <p>PuckGoldBiz (PGB) — the Founding Four era. Premium membership, Fan Zone rewards, and the coldest game on earth.</p>
               <div class="cta-row" style="margin-top:1rem">
                 <a href="join.html" class="btn btn-og btn-sm">$36 OG Gold Puck</a>

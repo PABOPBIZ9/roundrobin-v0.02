@@ -554,6 +554,8 @@ footer.site-footer{
 @media (min-width:900px){
   .footer-top{grid-template-columns:1.2fr repeat(3,1fr);gap:2.2rem}
 }
+.footer-logo{display:inline-flex;align-items:center;gap:.75rem;margin-bottom:.35rem}
+.footer-logo img{width:52px;height:auto;object-fit:contain}
 .footer-brand .logo-word{font-size:2rem;color:#0b1220}
 .footer-brand .logo-word span{color:#8a6a1e}
 .footer-brand p{margin-top:.7rem;color:#5c6473;font-size:.92rem;max-width:28rem;line-height:1.55}
