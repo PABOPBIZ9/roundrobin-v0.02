@@ -3,54 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brand Kit — PGB / PuckGold</title>
+<title>Assets — PGB Brand Kit</title>
 <link rel="stylesheet" href="assets/css/site.css">
 <link rel="icon" href="assets/brand/favicon/favicon.ico" type="image/x-icon">
 <link rel="apple-touch-icon" href="assets/brand/app/apple-touch-icon.png">
 <style>
-  .bk-hero{padding:3rem 4vw 1.5rem;max-width:1400px;margin:0 auto}
-  .bk-hero h1{font-family:var(--display);font-size:clamp(2.8rem,9vw,4.8rem)}
+  .assets-hero{padding:3rem 4vw 1.5rem;max-width:1400px;margin:0 auto}
+  .assets-hero h1{font-family:var(--display);font-size:clamp(2.8rem,9vw,4.8rem);letter-spacing:.02em}
+  .assets-sub{color:var(--muted);max-width:38rem;margin-top:.7rem;line-height:1.55}
+  .cat-nav{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.4rem 0 0;max-width:1400px;padding:0 4vw}
+  .cat-nav a{
+    font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+    padding:.55rem .9rem;border:1px solid rgba(255,255,255,.18);color:var(--platinum);
+    text-decoration:none;background:rgba(0,0,0,.35);
+  }
+  .cat-nav a:hover{border-color:var(--gold);color:var(--gold)}
   .bk-grid{display:grid;gap:1rem;grid-template-columns:1fr}
   @media(min-width:700px){.bk-grid{grid-template-columns:1fr 1fr}}
   @media(min-width:1100px){.bk-grid-3{grid-template-columns:repeat(3,1fr)}.bk-grid-4{grid-template-columns:repeat(4,1fr)}}
   .bk-card{
-    background:#fff;color:#111;border:1px solid rgba(0,0,0,.08);border-radius:14px;
-    padding:1.2rem;display:flex;flex-direction:column;gap:.75rem;min-height:220px;
+    background:#fff;color:#111;border:1px solid rgba(0,0,0,.08);
+    padding:1.1rem;display:flex;flex-direction:column;gap:.7rem;min-height:210px;
   }
   .bk-card.dark{background:#000;color:#fff;border-color:#222}
   .bk-card .label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;opacity:.6}
-  .bk-card .stage{
-    flex:1;display:flex;align-items:center;justify-content:center;padding:.5rem;
-  }
-  .bk-card img{max-width:100%;max-height:180px;object-fit:contain}
-  .bk-card.tall .stage img{max-height:260px}
-  .swatch-row{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem}
-  @media(min-width:800px){.swatch-row{grid-template-columns:repeat(6,1fr)}}
-  .swatch-card{border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,.08);background:#fff}
-  .swatch-card .chip{height:88px}
-  .swatch-card .meta{padding:.7rem .8rem;font-size:.78rem}
-  .swatch-card .meta b{display:block;font-size:.85rem;margin-bottom:.15rem}
+  .bk-card .stage{flex:1;display:flex;align-items:center;justify-content:center;padding:.4rem}
+  .bk-card img{max-width:100%;max-height:170px;object-fit:contain}
+  .bk-card.tall .stage img{max-height:240px}
   .dl{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
   .dl a{color:#0047A1;text-decoration:underline;text-underline-offset:2px}
   .bk-card.dark .dl a{color:#D4AF37}
+  .swatch-row{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem}
+  @media(min-width:800px){.swatch-row{grid-template-columns:repeat(6,1fr)}}
+  .swatch-card{overflow:hidden;border:1px solid rgba(0,0,0,.08);background:#fff}
+  .swatch-card .chip{height:88px}
+  .swatch-card .meta{padding:.7rem .8rem;font-size:.78rem}
+  .swatch-card .meta b{display:block;font-size:.85rem;margin-bottom:.15rem}
+  .folder-map{
+    display:grid;gap:.6rem;grid-template-columns:1fr;font-size:.9rem;
+  }
+  @media(min-width:800px){.folder-map{grid-template-columns:1fr 1fr}}
+  .folder-item{
+    border:1px solid rgba(255,255,255,.12);padding:.85rem 1rem;background:rgba(0,0,0,.25);
+  }
+  .folder-item code{color:var(--gold);font-size:.8rem}
+  .folder-item span{display:block;color:var(--muted);font-size:.8rem;margin-top:.25rem}
+  .guide-img{width:100%;height:auto;border:1px solid rgba(0,0,0,.08);background:#fff}
 </style>
 </head>
 <body>
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
 
-<div class="bk-hero">
-  <span class="kicker">Official brand system</span>
-  <h1>PGB BRAND KIT</h1>
-  <p style="color:var(--muted);max-width:40rem;margin-top:.7rem">Uber-style asset library — primary badge, horizontal lockup, icon-only, wordmark, light/dark, transparent, favicon, and app icons. Built for website, marketing, and merch.</p>
+<div class="assets-hero">
+  <span class="kicker">Assets.puckgold</span>
+  <h1>BRAND KIT</h1>
+  <p class="assets-sub">Uber-style asset library — logos by colorway, icon, wordmark, favicon, app icons, guidelines, and empty drop folders for photography, fonts, templates, motion, and co-marketing.</p>
   <div class="cta-row">
-    <a class="btn btn-og btn-sm" href="assets/brand/lockup/primary-master.png" download>Download primary PNG</a>
-    <a class="btn btn-platinum btn-sm" href="assets/brand/lockup/horizontal-lockup.png" download>Horizontal lockup</a>
-    <a class="btn btn-sapphire btn-sm" href="assets/brand/favicon/favicon.ico" download>Favicon</a>
+    <a class="btn btn-og btn-sm" href="brand-kit/Downloads/PGB-Brand-Kit.zip" download>Download full kit (ZIP)</a>
+    <a class="btn btn-platinum btn-sm" href="brand-kit/Downloads/PGB-Logos-Only.zip" download>Logos only</a>
+    <a class="btn btn-sapphire btn-sm" href="brand-kit/README.md">Folder guide</a>
   </div>
 </div>
 
-<section class="section section-wide section-light">
+<nav class="cat-nav" aria-label="Asset categories">
+  <a href="#logos">Logos</a>
+  <a href="#colorways">Colorways</a>
+  <a href="#icon">Icon</a>
+  <a href="#wordmark">Wordmark</a>
+  <a href="#app">App / Favicon</a>
+  <a href="#colors">Colors</a>
+  <a href="#guidelines">Guidelines</a>
+  <a href="#folders">Drop folders</a>
+  <a href="#comarketing">Co-marketing</a>
+</nav>
+
+<section class="section section-wide section-light" id="colors">
   <div class="section-inner" style="padding:2.5rem 4vw 1rem">
     <div class="section-head"><span class="kicker">Palette</span><h2>Official colors</h2></div>
     <div class="swatch-row">
@@ -64,86 +92,142 @@
   </div>
 </section>
 
-<section class="section section-wide">
-  <div class="section-head"><span class="kicker">Primary</span><h2>Lockups</h2></div>
+<section class="section section-wide" id="logos">
+  <div class="section-head"><span class="kicker">Logos</span><h2>Primary &amp; horizontal</h2></div>
   <div class="bk-grid bk-grid-3">
     <article class="bk-card tall dark">
-      <div class="label">Primary vertical · full color</div>
+      <div class="label">Primary · full color</div>
       <div class="stage"><img src="assets/brand/lockup/primary-master.png" alt="PGB primary logo"></div>
-      <div class="dl"><a href="assets/brand/lockup/primary-master.png" download>PNG transparent</a></div>
+      <div class="dl">
+        <a href="brand-kit/Logos/Primary/Color/PNG/PGB_Primary_Color_RGB_Transparent.png" download>PNG</a> ·
+        <a href="brand-kit/Logos/Primary/Color/SVG/PGB_Primary_Color.svg" download>SVG</a>
+      </div>
     </article>
     <article class="bk-card tall">
       <div class="label">Primary · on light</div>
       <div class="stage"><img src="assets/brand/lockup/primary-master-on-white.png" alt="PGB on white"></div>
-      <div class="dl"><a href="assets/brand/lockup/primary-master-on-white.png" download>PNG on white</a></div>
+      <div class="dl"><a href="brand-kit/Logos/Primary/Color/PNG/PGB_Primary_Color_RGB_On-White.png" download>PNG on white</a></div>
     </article>
     <article class="bk-card">
-      <div class="label">Horizontal lockup · wide</div>
-      <div class="stage"><img src="assets/brand/lockup/horizontal-lockup-on-midnight.png" alt="PGB horizontal" style="background:#000;padding:1rem;border-radius:8px"></div>
-      <div class="dl"><a href="assets/brand/lockup/horizontal-lockup.png" download>PNG transparent</a> · <a href="assets/brand/svg/logo-horizontal.svg" download>SVG</a></div>
+      <div class="label">Horizontal lockup</div>
+      <div class="stage"><img src="assets/brand/lockup/horizontal-lockup-on-midnight.png" alt="PGB horizontal" style="background:#000;padding:1rem"></div>
+      <div class="dl">
+        <a href="brand-kit/Logos/Horizontal/Color/PNG/PGB_Horizontal_Color_RGB_Transparent.png" download>PNG</a> ·
+        <a href="brand-kit/Logos/Horizontal/Color/SVG/PGB_Horizontal_Color.svg" download>SVG</a>
+      </div>
     </article>
   </div>
 </section>
 
-<section class="section section-wide section-light">
+<section class="section section-wide section-light" id="colorways">
   <div class="section-inner" style="padding:3rem 4vw">
-    <div class="section-head"><span class="kicker">Badge system</span><h2>Colorways</h2></div>
+    <div class="section-head"><span class="kicker">Colorways</span><h2>Approved logo colors</h2></div>
     <div class="bk-grid bk-grid-4">
-      <article class="bk-card tall"><div class="label">Full color</div><div class="stage"><img src="assets/brand/lockup/badge-fullcolor.png" alt=""></div></article>
-      <article class="bk-card tall dark"><div class="label">Gold on midnight</div><div class="stage"><img src="assets/brand/lockup/badge-gold-on-midnight.png" alt=""></div></article>
-      <article class="bk-card tall dark"><div class="label">Platinum on midnight</div><div class="stage"><img src="assets/brand/lockup/badge-platinum-on-midnight.png" alt=""></div></article>
-      <article class="bk-card tall"><div class="label">Mono light</div><div class="stage"><img src="assets/brand/lockup/badge-mono-light.png" alt=""></div></article>
+      <article class="bk-card tall"><div class="label">Full color</div><div class="stage"><img src="assets/brand/lockup/badge-fullcolor.png" alt=""></div>
+        <div class="dl"><a href="brand-kit/Logos/Badge/Full-Color/PNG/" >Open folder</a></div></article>
+      <article class="bk-card tall dark"><div class="label">Gold</div><div class="stage"><img src="assets/brand/lockup/badge-gold-on-midnight.png" alt=""></div>
+        <div class="dl"><a href="brand-kit/Logos/Primary/Gold/PNG/PGB_Primary_Gold_RGB_Transparent.png" download>PNG</a></div></article>
+      <article class="bk-card tall dark"><div class="label">Platinum</div><div class="stage"><img src="assets/brand/lockup/badge-platinum-on-midnight.png" alt=""></div>
+        <div class="dl"><a href="brand-kit/Logos/Primary/Platinum/PNG/PGB_Primary_Platinum_RGB_Transparent.png" download>PNG</a></div></article>
+      <article class="bk-card tall"><div class="label">Mono light / white</div><div class="stage"><img src="assets/brand/lockup/badge-mono-light.png" alt=""></div>
+        <div class="dl"><a href="brand-kit/Logos/Primary/White/PNG/PGB_Primary_White_RGB_Transparent.png" download>PNG</a></div></article>
     </div>
   </div>
 </section>
 
-<section class="section section-wide">
-  <div class="section-head"><span class="kicker">Icon only</span><h2>Mark system</h2></div>
+<section class="section section-wide" id="icon">
+  <div class="section-head"><span class="kicker">Icon</span><h2>Mark system</h2></div>
   <div class="bk-grid bk-grid-4">
-    <article class="bk-card dark"><div class="label">Icon · full</div><div class="stage"><img src="assets/brand/icon/icon-stars-tower.png" alt=""></div></article>
-    <article class="bk-card dark"><div class="label">Icon · gold</div><div class="stage"><img src="assets/brand/icon/icon-gold.png" alt=""></div></article>
-    <article class="bk-card dark"><div class="label">Icon · platinum</div><div class="stage"><img src="assets/brand/icon/icon-platinum.png" alt=""></div></article>
-    <article class="bk-card"><div class="label">Icon · midnight</div><div class="stage"><img src="assets/brand/icon/icon-midnight.png" alt=""></div></article>
-    <article class="bk-card dark"><div class="label">Circle emblem</div><div class="stage"><img src="assets/brand/icon/emblem-circle-gold.png" alt=""></div></article>
-    <article class="bk-card dark"><div class="label">App icon · dark</div><div class="stage"><img src="assets/brand/app/icon-dark.png" alt=""></div></article>
-    <article class="bk-card"><div class="label">App icon · light</div><div class="stage"><img src="assets/brand/app/icon-light.png" alt=""></div></article>
-    <article class="bk-card"><div class="label">Favicon 192</div><div class="stage"><img src="assets/brand/favicon/favicon-192.png" alt="" style="width:96px"></div></article>
+    <article class="bk-card dark"><div class="label">Icon · full</div><div class="stage"><img src="assets/brand/icon/icon-stars-tower.png" alt=""></div>
+      <div class="dl"><a href="brand-kit/Logos/Icon/Full-Color/PNG/PGB_Icon_FullColor_RGB_Transparent.png" download>PNG</a></div></article>
+    <article class="bk-card dark"><div class="label">Icon · gold</div><div class="stage"><img src="assets/brand/icon/icon-gold.png" alt=""></div>
+      <div class="dl"><a href="brand-kit/Logos/Icon/Gold/PNG/PGB_Icon_Gold_RGB_Transparent.png" download>PNG</a></div></article>
+    <article class="bk-card dark"><div class="label">Icon · platinum</div><div class="stage"><img src="assets/brand/icon/icon-platinum.png" alt=""></div>
+      <div class="dl"><a href="brand-kit/Logos/Icon/Platinum/PNG/PGB_Icon_Platinum_RGB_Transparent.png" download>PNG</a></div></article>
+    <article class="bk-card"><div class="label">Icon · midnight</div><div class="stage"><img src="assets/brand/icon/icon-midnight.png" alt=""></div>
+      <div class="dl"><a href="brand-kit/Logos/Icon/Midnight/PNG/PGB_Icon_Midnight_RGB_Transparent.png" download>PNG</a></div></article>
+    <article class="bk-card dark"><div class="label">Circle emblem</div><div class="stage"><img src="assets/brand/icon/emblem-circle-gold.png" alt=""></div>
+      <div class="dl"><a href="brand-kit/Logos/Icon/Emblem/PNG/PGB_Emblem_Circle_Gold_RGB_Transparent.png" download>PNG</a></div></article>
+    <article class="bk-card dark" id="app"><div class="label">App · dark</div><div class="stage"><img src="assets/brand/app/icon-dark.png" alt=""></div>
+      <div class="dl"><a href="brand-kit/App-Icons/Social/PGB_Social_Dark_RGB_Transparent.png" download>PNG</a></div></article>
+    <article class="bk-card"><div class="label">App · light</div><div class="stage"><img src="assets/brand/app/icon-light.png" alt=""></div>
+      <div class="dl"><a href="brand-kit/App-Icons/Social/PGB_Social_Light_RGB_Transparent.png" download>PNG</a></div></article>
+    <article class="bk-card"><div class="label">Favicon 192</div><div class="stage"><img src="assets/brand/favicon/favicon-192.png" alt="" style="width:96px"></div>
+      <div class="dl"><a href="brand-kit/Favicon/favicon.ico" download>ICO</a></div></article>
   </div>
 </section>
 
-<section class="section section-wide section-light">
+<section class="section section-wide section-light" id="wordmark">
   <div class="section-inner" style="padding:3rem 4vw">
-    <div class="section-head"><span class="kicker">Wordmark</span><h2>Typography lockups</h2></div>
+    <div class="section-head"><span class="kicker">Wordmark</span><h2>Letterforms</h2></div>
     <div class="bk-grid bk-grid-3">
       <article class="bk-card"><div class="label">Midnight</div><div class="stage"><img src="assets/brand/wordmark/wordmark-midnight.png" alt="PGB"></div></article>
       <article class="bk-card dark"><div class="label">Championship gold</div><div class="stage"><img src="assets/brand/wordmark/wordmark-gold.png" alt="PGB"></div></article>
-      <article class="bk-card dark"><div class="label">Platinum / white</div><div class="stage"><img src="assets/brand/wordmark/wordmark-white.png" alt="PGB"></div></article>
-      <article class="bk-card"><div class="label">Spaced + star</div><div class="stage"><img src="assets/brand/wordmark/pgb-spaced-star.png" alt="P G B"></div></article>
-      <article class="bk-card dark"><div class="label">Block from sheet</div><div class="stage"><img src="assets/brand/wordmark/pgb-block-a.png" alt="PGB"></div></article>
-      <article class="bk-card"><div class="label">From master crop</div><div class="stage"><img src="assets/brand/wordmark/wordmark-from-master.png" alt="PGB"></div></article>
+      <article class="bk-card dark"><div class="label">White</div><div class="stage"><img src="assets/brand/wordmark/wordmark-white.png" alt="PGB"></div></article>
     </div>
   </div>
 </section>
 
-<section class="section section-wide">
-  <div class="section-head"><span class="kicker">In the wild</span><h2>Usage</h2></div>
-  <div class="bk-grid">
-    <article class="bk-card dark" style="min-height:280px">
-      <div class="label">Stadium jumbotron</div>
-      <div class="stage"><img src="assets/brand/mockup/jumbotron.png" alt="PGB on jumbotron" style="max-height:240px"></div>
+<section class="section section-wide" id="guidelines">
+  <div class="section-head"><span class="kicker">User guide</span><h2>Clear space · size · do / don’t</h2></div>
+  <div class="bk-grid bk-grid-3">
+    <article class="bk-card" style="min-height:auto">
+      <div class="label">Clear space</div>
+      <img class="guide-img" src="brand-kit/Guidelines/visuals/PGB_Clearspace.png" alt="Clear space diagram">
     </article>
-    <article class="bk-card">
-      <div class="label">File guide</div>
-      <div style="font-size:.92rem;line-height:1.7;color:#333">
-        <b>Website header:</b> horizontal lockup<br>
-        <b>Mobile / favicon:</b> <code>favicon/favicon.ico</code><br>
-        <b>App / PWA:</b> <code>app/apple-touch-icon.png</code><br>
-        <b>Dark UI:</b> gold / platinum / white marks<br>
-        <b>Light UI:</b> midnight / full-color badge<br>
-        <b>SVG masters:</b> <code>assets/brand/svg/</code><br>
-        <b>Full README:</b> <a href="assets/brand/README.md">assets/brand/README.md</a>
-      </div>
+    <article class="bk-card" style="min-height:auto">
+      <div class="label">Minimum size</div>
+      <img class="guide-img" src="brand-kit/Guidelines/visuals/PGB_Minimum-Size.png" alt="Minimum size diagram">
     </article>
+    <article class="bk-card" style="min-height:auto">
+      <div class="label">Do / don’t</div>
+      <img class="guide-img" src="brand-kit/Guidelines/visuals/PGB_Do-Dont.png" alt="Do and don't examples">
+    </article>
+  </div>
+  <p style="margin:1.2rem 4vw 0;color:var(--muted);font-size:.9rem;max-width:1400px">
+    Full docs: <a href="brand-kit/Guidelines/01-Logo-Overview.md" style="color:var(--gold)">Logo overview</a> ·
+    <a href="brand-kit/Guidelines/05-Do-and-Dont.md" style="color:var(--gold)">Do &amp; don’t</a> ·
+    <a href="brand-kit/Guidelines/06-Co-Marketing.md" style="color:var(--gold)">Co-marketing</a>
+  </p>
+</section>
+
+<section class="section section-wide section-light" id="comarketing">
+  <div class="section-inner" style="padding:3rem 4vw">
+    <div class="section-head"><span class="kicker">Partnerships</span><h2>Co-marketing</h2></div>
+    <div class="bk-grid">
+      <article class="bk-card" style="min-height:auto">
+        <div class="label">Equal visual weight</div>
+        <img class="guide-img" src="brand-kit/Guidelines/visuals/PGB_CoMarketing-equal-weight.png" alt="Co-marketing equal weight">
+      </article>
+      <article class="bk-card">
+        <div class="label">Partner drop zone</div>
+        <div style="font-size:.92rem;line-height:1.7;color:#333">
+          Drop official partner logos into<br>
+          <code>brand-kit/Partnerships/Co-Marketing/DROP-PARTNER-LOGOS-HERE/</code><br><br>
+          Export approved lockups to<br>
+          <code>.../approved-lockups/</code><br><br>
+          Never fuse marks into one logo. Keep clear space between brands.
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section-wide" id="folders">
+  <div class="section-head"><span class="kicker">Library</span><h2>Drop folders ready</h2></div>
+  <div class="folder-map" style="max-width:1400px;margin:0 auto;padding:0 4vw 2rem">
+    <div class="folder-item"><code>Logos/</code><span>Primary · Horizontal · Badge · Icon · Wordmark — Color / Midnight / White / Gold / Platinum</span></div>
+    <div class="folder-item"><code>App-Icons/</code> + <code>Favicon/</code><span>iOS, Android, social, 16–512 ICO</span></div>
+    <div class="folder-item"><code>Typography/DROP-FONTS-HERE/</code><span>Licensed display + body fonts</span></div>
+    <div class="folder-item"><code>Photography/DROP-PHOTOS-HERE/</code><span>Arena, product, lifestyle masters</span></div>
+    <div class="folder-item"><code>Illustrations/DROP-ILLUSTRATIONS-HERE/</code><span>Vector / comic / diagrams</span></div>
+    <div class="folder-item"><code>Templates/</code><span>Social · Email · Presentations · Merch</span></div>
+    <div class="folder-item"><code>Motion/DROP-VIDEO-AUDIO-HERE/</code><span>Stingers, endcards, audio beds</span></div>
+    <div class="folder-item"><code>Partnerships/Co-Marketing/</code><span>Partner logos + approved lockups</span></div>
+  </div>
+  <div class="cta-row" style="padding:0 4vw 2rem">
+    <a class="btn btn-og btn-sm" href="brand-kit/Downloads/PGB-Brand-Kit.zip" download>Download PGB-Brand-Kit.zip</a>
+    <a class="btn btn-champagne btn-sm" href="brand-kit/README.md">Open README</a>
   </div>
 </section>
 
