@@ -657,11 +657,15 @@
       audio.load();
     });
 
+    // Always rebuild — remove any stale play/pause control from older caches
+    document.getElementById("avToggle")?.remove();
+    document.querySelectorAll("button.av-toggle").forEach((el) => el.remove());
+
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "av-toggle";
     btn.id = "avToggle";
-    // VeeFriends-style: pulsing rings when off, dancing EQ when on
+    // VeeFriends-style: pulsing rings when off, dancing EQ when on (same on every page)
     btn.innerHTML = `
       <span class="av-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
       <span class="av-label">Turn sound on</span>
@@ -670,6 +674,7 @@
     if (heroSlot) {
       heroSlot.appendChild(btn);
     } else {
+      btn.classList.add("av-float");
       document.body.appendChild(btn);
     }
 
