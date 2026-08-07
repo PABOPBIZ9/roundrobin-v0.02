@@ -62,6 +62,7 @@
     { href: "ads-affiliate.html", label: "Advertise Affiliate" },
     { href: "affiliates.html", label: "Consumer Affiliates" },
     { href: "talent.html", label: "Talent Community" },
+    { href: "developers.html", label: "Developer Hub" },
     { href: "partners.html", label: "Partners" },
     { href: "brand.html", label: "Brand Kit" },
   ];
@@ -145,6 +146,7 @@
       isActive("talent.html") ||
       isActive("advertise.html") ||
       isActive("ads-affiliate.html") ||
+      isActive("developers.html") ||
       active.startsWith("affiliates");
     const fanActive =
       isActive("fantasy.html") ||
@@ -255,6 +257,7 @@
         <a href="ads-affiliate.html">Advertise Affiliate</a>
         <a href="affiliates.html">Consumer Affiliates</a>
         <a href="talent.html">Talent Community</a>
+        <a href="developers.html">Developer Hub</a>
         <a href="support.html">Help Center</a>
         <a href="contact.html">Contact</a>
         <a href="partners.html">Partners</a>

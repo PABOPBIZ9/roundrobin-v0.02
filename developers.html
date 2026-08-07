@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PuckGold for Developers — Studio, Kits, Games &amp; APIs</title>
+<meta name="description" content="PuckGold Developer Hub — Ice Studio, Camera Kit, Spectacles-ready AR, Snap Kit-style plugins, Marketing API, unique items &amp; creator promos.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=26">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .dv-hero{
+    color:#fff;padding:3rem 4vw 2.5rem;position:relative;overflow:hidden;
+    background:
+      radial-gradient(circle at 78% 20%, rgba(240,215,140,.3), transparent 38%),
+      radial-gradient(circle at 12% 85%, rgba(61,111,191,.4), transparent 42%),
+      linear-gradient(145deg,#050910,#0b1220 48%,#163a74);
+  }
+  .dv-hero-inner{max-width:1100px;margin:0 auto}
+  .dv-hero h1{font-family:var(--display);font-size:clamp(2.5rem,8vw,4.2rem);letter-spacing:.03em;line-height:.94;margin:.35rem 0;max-width:16ch}
+  .dv-hero p{color:rgba(255,255,255,.82);max-width:40rem;line-height:1.55;margin:.75rem 0 1.2rem;font-size:1.05rem}
+  .dv-wrap{max-width:1100px;margin:0 auto;padding:2.25rem 4vw 4rem}
+  .dv-wrap h2{font-family:var(--display);font-size:clamp(1.7rem,4vw,2.3rem);letter-spacing:.04em;margin:0 0 .5rem}
+  .dv-wrap .lead{color:#5c6473;max-width:40rem;line-height:1.5;margin:0 0 1.25rem}
+  .dv-grid{display:grid;gap:.85rem}
+  @media(min-width:800px){.dv-grid.two{grid-template-columns:1fr 1fr}.dv-grid.three{grid-template-columns:repeat(3,1fr)}}
+  .dv-card{
+    background:#fff;border:1px solid rgba(18,24,38,.08);border-radius:16px;padding:1.35rem;
+    display:flex;flex-direction:column;min-height:180px;
+  }
+  .dv-card .ico{
+    width:48px;height:48px;border-radius:12px;display:grid;place-items:center;font-size:1.4rem;margin-bottom:.75rem;
+    background:linear-gradient(145deg,#0b1220,#163a74);color:#f0d78c;
+  }
+  .dv-card h3{font-size:1.15rem;margin:0 0 .4rem}
+  .dv-card p{font-size:.9rem;color:#5c6473;line-height:1.5;flex:1;margin:0 0 1rem}
+  .dv-promo{
+    border-radius:16px;padding:1.4rem;color:#fff;margin:2rem 0;
+    background:
+      radial-gradient(circle at 90% 20%, rgba(240,215,140,.35), transparent 40%),
+      linear-gradient(145deg,#0b1220,#7a1524 70%);
+  }
+  .dv-promo h2{color:#fff;margin:0 0 .4rem}
+  .dv-promo p{color:rgba(255,255,255,.8);margin:0 0 1rem;max-width:36rem;line-height:1.5}
+  .dv-items{display:grid;gap:.65rem;grid-template-columns:1fr 1fr}
+  @media(min-width:800px){.dv-items{grid-template-columns:repeat(4,1fr)}}
+  .dv-item{
+    background:#0b1220;color:#fff;border-radius:12px;padding:1rem;border:1px solid rgba(255,255,255,.08);
+  }
+  .dv-item strong{display:block;font-size:.95rem;margin-bottom:.25rem}
+  .dv-item span{font-size:.75rem;color:rgba(255,255,255,.65);line-height:1.4}
+  .dv-item .rare{color:#f0d78c;font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+  .dv-sub{
+    display:flex;flex-wrap:wrap;gap:.35rem;padding:.7rem 4vw;background:#0b1220;position:sticky;top:64px;z-index:30;
+  }
+  .dv-sub a{
+    font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+    color:rgba(255,255,255,.55);padding:.4rem .7rem;border-radius:999px;
+  }
+  .dv-sub a:hover,.dv-sub a.is-active{color:#0b1220;background:#f0d78c}
+</style>
+</head>
+<body>
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+
+<section class="dv-hero">
+  <div class="dv-hero-inner">
+    <span class="kicker" style="color:#f0d78c">PuckGold for Developers</span>
+    <h1>BUILD ON THE COLDEST PLATFORM</h1>
+    <p>
+      Ice Studio, Camera Kit, Bitmoji-style avatars, Connected Lenses for events, Games, and Marketing API —
+      a Snap-for-Developers energy hub for sports, live social, streaming, and shopping.
+      Modeled on <a href="https://developers.snap.com/" style="color:#f0d78c">Snap for Developers</a> &amp;
+      <a href="https://developers.snap.com/lens-studio/overview/getting-started/lens-studio-overview" style="color:#f0d78c">Lens Studio</a>.
+    </p>
+    <div class="cta-row">
+      <a href="#studio" class="btn btn-founding btn-sm">Explore Ice Studio</a>
+      <a href="talent.html?role=creator" class="btn btn-ghost btn-sm">Creator signup</a>
+      <a href="gems.html" class="btn btn-ghost btn-sm">Gems economy</a>
+      <button type="button" class="btn btn-ghost btn-sm" id="askPucky">Ask Pucky</button>
+    </div>
+  </div>
+</section>
+
+<nav class="dv-sub" aria-label="Developer hub">
+  <a href="#studio" class="is-active">Ice Studio</a>
+  <a href="#kits">Kits</a>
+  <a href="#games">Games</a>
+  <a href="#api">APIs</a>
+  <a href="#items">Unique items</a>
+  <a href="#promos">Promos</a>
+  <a href="#rewards">Creator rewards</a>
+</nav>
+
+<div class="dv-wrap">
+  <h2 id="studio">Build immersive experiences</h2>
+  <p class="lead">Desktop-class tools for AR on ice — Face Lenses for front cam energy, World Lenses for arena floors, Asset Library for Founding Four kits.</p>
+  <div class="dv-grid two" style="margin-bottom:2rem">
+    <div class="dv-card" id="studio">
+      <div class="ico">❄</div>
+      <h3>Ice Studio</h3>
+      <p>Build AR Lenses for Fan Village, Party Zone, and live shopping try-ons. Pair to mobile preview. Publish to PuckGold + partner surfaces.</p>
+      <a href="talent.html?role=creator" class="btn btn-platinum btn-sm">Get started</a>
+    </div>
+    <div class="dv-card">
+      <div class="ico">📷</div>
+      <h3>Camera Kit</h3>
+      <p>Bring PuckGold Lenses into your iOS, Android, and web apps — stream overlays, try-on, and gift effects.</p>
+      <a href="contact.html" class="btn btn-ghost btn-sm">Request access</a>
+    </div>
+  </div>
+
+  <h2 id="kits">Kits &amp; platforms</h2>
+  <div class="dv-grid three" style="margin-bottom:2rem">
+    <div class="dv-card">
+      <div class="ico">🧩</div>
+      <h3>Puck Kit</h3>
+      <p>Login, Bitmoji-style avatars, creative kit, and share-to-story plugins for partner apps.</p>
+      <a href="brand.html" class="btn btn-ghost btn-sm">Brand assets</a>
+    </div>
+    <div class="dv-card">
+      <div class="ico">🥽</div>
+      <h3>Spectacles / AR wearables</h3>
+      <p>Design for next-gen glasses — arena waypoints, live score pins, gift rain in FOV.</p>
+      <a href="talent.html" class="btn btn-ghost btn-sm">Join talent</a>
+    </div>
+    <div class="dv-card">
+      <div class="ico">📣</div>
+      <h3>Marketing API</h3>
+      <p>Tailored ad solutions — Advertise / Launch, affiliate links, promo codes, and lead forms.</p>
+      <a href="advertise.html" class="btn btn-ghost btn-sm">Advertise hub</a>
+    </div>
+  </div>
+
+  <h2 id="games">Games &amp; Fan Zone</h2>
+  <p class="lead">Ship quizzes, aura votes, LockerVision try-ons, and gem sinks that feed leaderboards.</p>
+  <div class="dv-grid two" style="margin-bottom:2rem">
+    <div class="dv-card">
+      <div class="ico">🎮</div>
+      <h3>Game Zone SDK (preview)</h3>
+      <p>Hooks for XP, quests, and Sapphire sinks. Drop content into the vault; we wire play loops.</p>
+      <a href="play.html" class="btn btn-platinum btn-sm">Open Game Zone</a>
+    </div>
+    <div class="dv-card">
+      <div class="ico">💎</div>
+      <h3>Gems &amp; digital gifts API</h3>
+      <p>Catalog gifts, price in Sapphires/Rubies, fire alerts on stream — Twitch/TikTok-style economy.</p>
+      <a href="gems.html" class="btn btn-ghost btn-sm">Gems economy</a>
+    </div>
+  </div>
+
+  <div class="dv-promo" id="promos">
+    <span class="kicker" style="color:#f0d78c">Dev promos · limited</span>
+    <h2>FOUNDING DEV DROP</h2>
+    <p>Ship a Lens or Game Zone quest this wave → unlock unique OG items, 2,000 bonus Sapphires, and Advertise Affiliate Silver tier review.</p>
+    <div class="cta-row">
+      <a href="talent.html?role=creator" class="btn btn-founding btn-sm">Claim via Talent signup</a>
+      <a href="ads-affiliate.html" class="btn btn-ghost btn-sm">Advertise Affiliate</a>
+      <a href="promos.html" class="btn btn-ghost btn-sm">All promos</a>
+    </div>
+  </div>
+
+  <h2 id="items">Unique items for creators</h2>
+  <p class="lead">Dev-only cosmetics and economy items — not in the public shop until you unlock them.</p>
+  <div class="dv-items" style="margin-bottom:2rem">
+    <div class="dv-item"><div class="rare">Legendary</div><strong>Dev Ghost Puck</strong><span>Profile badge — Ice Studio founders</span></div>
+    <div class="dv-item"><div class="rare">Epic</div><strong>Lens Rain Alert</strong><span>Stream alert when gifts hit</span></div>
+    <div class="dv-item"><div class="rare">Rare</div><strong>Camera Kit Frame</strong><span>Cam border for live shopping</span></div>
+    <div class="dv-item"><div class="rare">Promo</div><strong>2,000 Sapphires</strong><span>Founding Dev Drop reward</span></div>
+  </div>
+
+  <h2 id="api">APIs &amp; docs</h2>
+  <div class="dv-grid three" style="margin-bottom:2rem">
+    <div class="dv-card">
+      <h3>API reference</h3>
+      <p>Scores, standings, media hub, gift webhooks — docs expanding as Supabase lands.</p>
+      <a href="support.html" class="btn btn-ghost btn-sm">Help Center</a>
+    </div>
+    <div class="dv-card">
+      <h3>Social plugins</h3>
+      <p>Embed Lenses, Spotlights-style clips, Stories, and profiles on partner sites.</p>
+      <a href="media.html" class="btn btn-ghost btn-sm">Media Hub</a>
+    </div>
+    <div class="dv-card">
+      <h3 id="rewards">Creator rewards</h3>
+      <p>Top Lenses &amp; Game Zone content earn Sapphires, Rubies, and affiliate boosts.</p>
+      <a href="affiliates.html" class="btn btn-ghost btn-sm">Affiliates</a>
+    </div>
+  </div>
+
+  <h2>Other ways in</h2>
+  <div class="dv-grid three">
+    <div class="dv-card">
+      <h3>Franchise / operators</h3>
+      <p>Own a team — not a Lens. Different desk.</p>
+      <a href="apply.html" class="btn btn-platinum btn-sm">Apply</a>
+    </div>
+    <div class="dv-card">
+      <h3>Partners &amp; advertise</h3>
+      <p>Sponsored Lenses + launch campaigns.</p>
+      <a href="advertise.html" class="btn btn-ghost btn-sm">Advertise</a>
+    </div>
+    <div class="dv-card">
+      <h3>Ask Pucky</h3>
+      <p>Friendly AI on every page — routes you to the right signup.</p>
+      <button type="button" class="btn btn-founding btn-sm" id="askPucky2">Chat with Pucky</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=27"></script>
+<script src="assets/js/support-widget.js?v=2"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script>
+document.getElementById("askPucky")?.addEventListener("click", () => {
+  window.dispatchEvent(new CustomEvent("pgb:open-pucky", { detail: { prompt: "developer" } }));
+});
+document.getElementById("askPucky2")?.addEventListener("click", () => {
+  window.dispatchEvent(new CustomEvent("pgb:open-pucky", { detail: { prompt: "developer" } }));
+});
+</script>
+</body>
+</html>
