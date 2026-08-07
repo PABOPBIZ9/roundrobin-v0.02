@@ -1,4 +1,4 @@
-/** PuckGold virtual gift packs — bonus rolls, send/open, leaderboard XP */
+/** PuckGold virtual gift packs — custom amounts, FOMO bonus, SOL boost, farm XP */
 (function () {
   const GIFTS_KEY = "pgb-virtual-gifts";
   const PLAY_KEY = "pgb-play";
@@ -18,6 +18,8 @@
     { id: "og-suite", name: "Virtual Suite Key (7d)", rarity: "Rare" },
     { id: "og-stickers", name: "Founding Four Sticker Pack", rarity: "Rare" },
     { id: "og-aura", name: "Aura Vote Boost ×3", rarity: "Epic" },
+    { id: "og-frame", name: "Profile Frame · Gold", rarity: "Epic" },
+    { id: "og-badge", name: "Whale Farmer Badge", rarity: "Legendary" },
   ];
 
   const TRACKS = [
@@ -27,29 +29,40 @@
     { id: "strobe", name: "Strobe OT", src: "" },
   ];
 
-  /** Weighted pack rip — averages ~18–35% with rare god-tier hits up to 1000× */
+  /** Preset Roblox-style stack sizes */
+  const PRESETS = [
+    { amt: 35, name: "Starter Stack", tag: "ENTRY", tone: "" },
+    { amt: 88, name: "Lucky Eighty-Eight", tag: "HOT", tone: "hot" },
+    { amt: 150, name: "Mid Ice", tag: "", tone: "" },
+    { amt: 350, name: "Whale Pack", tag: "PUSH", tone: "whale" },
+    { amt: 1000, name: "Vault Key", tag: "MAX", tone: "whale" },
+  ];
+
+  const MIN_AMT = 10;
+  const MAX_AMT = 5000;
+
+  function clampAmount(n) {
+    const v = Math.round(Number(n) || 0);
+    return Math.min(MAX_AMT, Math.max(MIN_AMT, v));
+  }
+
   function rollBonus() {
     const r = Math.random();
     let mult;
     let tier;
     if (r < 0.62) {
-      // Common: 5%–40% → avg ~22%
       mult = 1 + (0.05 + Math.random() * 0.35);
       tier = "Common";
     } else if (r < 0.88) {
-      // Uncommon: 40%–120%
       mult = 1 + (0.4 + Math.random() * 0.8);
       tier = "Uncommon";
     } else if (r < 0.97) {
-      // Rare: 2×–10×
       mult = 2 + Math.random() * 8;
       tier = "Rare";
     } else if (r < 0.995) {
-      // Epic: 10×–100×
       mult = 10 + Math.random() * 90;
       tier = "Epic";
     } else {
-      // Legendary: 100×–1000×
       mult = 100 + Math.random() * 900;
       tier = "Legendary";
     }
@@ -83,24 +96,42 @@
     localStorage.setItem(GIFTS_KEY, JSON.stringify(map));
   }
 
+  function snapshotBonus(paySol) {
+    const m = window.PGBBonusMarket?.getMarket?.() || { cardBonusPct: 35, solBonusPct: 10 };
+    return {
+      cardBonusPct: m.cardBonusPct,
+      solBonusPct: paySol ? m.solBonusPct : 0,
+      marketLabel: m.label || "LIVE",
+      snapAt: new Date().toISOString(),
+    };
+  }
+
   function createGift(payload) {
     const id = uid();
     const map = readGifts();
+    const amount = clampAmount(payload.amount);
+    const paySol = !!payload.paySol;
+    const snap = snapshotBonus(paySol);
     const gift = {
       id,
       createdAt: new Date().toISOString(),
       openedAt: null,
-      amount: Number(payload.amount) || 25,
-      bonusPctFixed: 35,
+      amount,
+      bonusPctFixed: snap.cardBonusPct,
+      solBonusPct: snap.solBonusPct,
+      paySol,
+      payMethod: paySol ? "sol" : "card",
       toEmail: payload.toEmail || "",
       toName: payload.toName || "Friend",
       fromName: payload.fromName || "A PuckGold fan",
+      fromHandle: payload.fromHandle || "",
       note: payload.note || "",
       vibe: payload.vibe || "sapphire",
       music: payload.music || "silent",
       countdownSec: payload.countdownSec || 8.5,
       status: "sent",
       reveal: null,
+      marketSnap: snap,
     };
     map[id] = gift;
     writeGifts(map);
@@ -117,16 +148,23 @@
     if (!g) return null;
     if (g.reveal) return g;
     const roll = rollBonus();
-    const og = pickOgDrops(2 + Math.floor(Math.random() * 2)); // 2–3
+    const og = pickOgDrops(2 + Math.floor(Math.random() * 2));
     const base = g.amount;
-    const withCardBonus = base * 1.35; // advertised 35% card bonus
-    const final = withCardBonus * roll.mult;
-    const farmPts = Math.round(50 + base * 2 + Math.min(roll.mult, 50) * 10);
+    const cardPct = g.bonusPctFixed != null ? g.bonusPctFixed : 35;
+    const solPct = g.paySol ? g.solBonusPct || 0 : 0;
+    const withCardBonus = base * (1 + cardPct / 100);
+    const withSol = withCardBonus * (1 + solPct / 100);
+    const final = withSol * roll.mult;
+    const farmPts = Math.round(50 + base * 2 + Math.min(roll.mult, 50) * 10 + (g.paySol ? 40 : 0));
     g.reveal = {
       roll,
       og,
       base,
+      cardBonusPct: cardPct,
+      solBonusPct: solPct,
+      paySol: !!g.paySol,
       withCardBonus: Math.round(withCardBonus * 100) / 100,
+      withSolBonus: Math.round(withSol * 100) / 100,
       finalCredit: Math.round(final * 100) / 100,
       farmPts,
     };
@@ -141,10 +179,20 @@
   function addFarmPoints(pts, reason) {
     try {
       const prev = JSON.parse(localStorage.getItem(PLAY_KEY) || "{}");
-      prev.xp = (prev.xp || 0) + pts;
-      prev.giftFarm = (prev.giftFarm || 0) + pts;
-      prev.lastGift = { pts, reason, at: new Date().toISOString() };
+      const n = Number(pts) || 0;
+      // Unify ledger: points drives leaderboard; xp kept as alias
+      prev.points = (prev.points || 0) + n;
+      prev.xp = (prev.xp || 0) + n;
+      if ((prev.xp || 0) > (prev.points || 0) && !prev._migratedXp) {
+        prev.points = Math.max(prev.points || 0, prev.xp || 0);
+        prev._migratedXp = true;
+      }
+      prev.giftFarm = (prev.giftFarm || 0) + n;
+      prev.lastGift = { pts: n, reason, at: new Date().toISOString() };
       localStorage.setItem(PLAY_KEY, JSON.stringify(prev));
+      try {
+        window.dispatchEvent(new CustomEvent("pgb-play-update"));
+      } catch (_) {}
     } catch (_) {}
   }
 
@@ -152,10 +200,27 @@
     return new URL(`gift-open.html?g=${encodeURIComponent(id)}`, location.href).href;
   }
 
+  function previewCredit(amount, paySol) {
+    if (window.PGBBonusMarket) return window.PGBBonusMarket.creditFor(clampAmount(amount), { paySol });
+    const base = clampAmount(amount);
+    const withCard = base * 1.35;
+    return {
+      amount: base,
+      cardBonusPct: 35,
+      solBonusPct: paySol ? 10 : 0,
+      withCard: Math.round(withCard * 100) / 100,
+      total: Math.round(withCard * (paySol ? 1.1 : 1) * 100) / 100,
+    };
+  }
+
   window.PGBGiftPack = {
     VIBES,
     OG_DROPS,
     TRACKS,
+    PRESETS,
+    MIN_AMT,
+    MAX_AMT,
+    clampAmount,
     rollBonus,
     pickOgDrops,
     createGift,
@@ -163,5 +228,6 @@
     openGift,
     giftUrl,
     addFarmPoints,
+    previewCredit,
   };
 })();

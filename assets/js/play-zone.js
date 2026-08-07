@@ -128,6 +128,13 @@
   function ensure() {
     const s = load();
     if (typeof s.points !== "number") s.points = 0;
+    if (typeof s.xp !== "number") s.xp = 0;
+    // Migrate gift/gem xp side-ledger into board points once
+    if (!s._migratedXp && (s.xp || 0) > (s.points || 0)) {
+      s.points = (s.points || 0) + ((s.xp || 0) - (s.points || 0));
+      s._migratedXp = true;
+      save(s);
+    }
     if (typeof s.quizzes !== "number") s.quizzes = 0;
     if (typeof s.streak !== "number") s.streak = 0;
     if (!s.done) s.done = {};
@@ -138,6 +145,7 @@
   function addPoints(n, questId) {
     const s = ensure();
     s.points += n;
+    s.xp = (s.xp || 0) + n;
     if (questId) {
       s.done[questId] = { at: Date.now(), day: todayKey(), pts: n };
     }

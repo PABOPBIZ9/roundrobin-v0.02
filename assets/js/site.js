@@ -18,6 +18,15 @@
   }
   applyTheme(getTheme());
 
+  // Capture affiliate / profile share refs (7-day window)
+  try {
+    const ref = new URLSearchParams(location.search).get("ref");
+    if (ref) {
+      localStorage.setItem("pgb-aff-ref", ref);
+      localStorage.setItem("pgb-aff-ref-at", String(Date.now()));
+    }
+  } catch (_) {}
+
   const path = (location.pathname.split("/").pop() || "index.html").toLowerCase();
   const active = path === "" ? "index.html" : path;
 
@@ -80,8 +89,9 @@
     { href: "fantasy.html#prizes", label: "Prizes" },
     { href: "gems.html", label: "Sapphires · Rubies · Coins" },
     { href: "gems.html?tab=gifts", label: "Digital gifts" },
-    { href: "gifts.html", label: "Gift Cards · 35% bonus" },
+    { href: "gifts.html", label: "Gift Cards · Live FOMO" },
     { href: "gifts.html#send", label: "Send a gift pack" },
+    { href: "profile.html", label: "My profile · share link" },
     { href: "join.html", label: "League Pass · Plans" },
   ];
 
@@ -156,6 +166,7 @@
       isActive("gifts.html") ||
       isActive("gems.html") ||
       isActive("gift-open.html") ||
+      isActive("profile.html") ||
       isActive("play.html") ||
       isActive("lockervision.html") ||
       isActive("lv-game.html") ||
@@ -259,7 +270,8 @@
         <a href="fantasy.html">Fantasy &amp; Giveaway</a>
         <a href="gems.html">Sapphires · Rubies · Coins</a>
         <a href="gems.html?tab=gifts">Digital gifts</a>
-        <a href="gifts.html">Gift Cards</a>
+        <a href="gifts.html">Gift Cards · Live FOMO</a>
+        <a href="profile.html">My profile · share link</a>
         <div class="drawer-group">More</div>
         <a href="about.html">About PuckGold</a>
         <a href="format.html">League Format</a>
@@ -365,8 +377,9 @@
               <a href="shop.html">Shop</a>
               <a href="gems.html">Sapphires · Rubies · Coins</a>
               <a href="gems.html?tab=gifts">Digital gifts</a>
-              <a href="gifts.html">Gift Cards · 35% bonus</a>
+              <a href="gifts.html">Gift Cards · Live FOMO</a>
               <a href="gifts.html#send">Send a gift pack</a>
+              <a href="profile.html">My profile · share link</a>
               <a href="join.html">League Pass / Tickets</a>
               <a href="awards.html">Awards</a>
               <a href="stats.html">Player Stats</a>

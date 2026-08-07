@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Fan Profile — PuckGold</title>
+<meta name="description" content="PuckGold fan profile — share link, verify socials, tip, subscribe, comment, climb the farm board.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=29">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .pf{max-width:720px;margin:0 auto;padding:1.25rem 4vw 3.5rem}
+  .pf-hero{
+    border-radius:18px;padding:1.35rem;color:#fff;margin-bottom:1rem;
+    background:linear-gradient(145deg,#0b1220,#163a74 55%,#7a1524);
+    border:1px solid rgba(240,215,140,.25);
+  }
+  .pf-top{display:flex;gap:.9rem;align-items:center}
+  .pf-av{
+    width:72px;height:72px;border-radius:50%;background:linear-gradient(145deg,#f0d78c,#d4af37);
+    display:grid;place-items:center;font-size:2rem;flex-shrink:0;border:3px solid rgba(255,255,255,.35);
+  }
+  .pf-av.gold-frame{box-shadow:0 0 0 3px #f0d78c,0 0 24px rgba(212,175,55,.45)}
+  .pf-hero h1{font-family:var(--display);font-size:clamp(1.8rem,5vw,2.4rem);margin:0;letter-spacing:.04em}
+  .pf-hero .handle{color:#f0d78c;font-weight:800;font-size:.9rem}
+  .pf-hero .bio{margin:.55rem 0 0;color:rgba(255,255,255,.8);font-size:.9rem;line-height:1.45}
+  .pf-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem;margin-top:1rem}
+  .pf-stats div{background:rgba(0,0,0,.25);border-radius:10px;padding:.55rem;text-align:center}
+  .pf-stats strong{display:block;font-family:var(--display);font-size:1.35rem}
+  .pf-stats span{font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+  .pf-actions{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+  .pf-card{
+    background:#fff;border:1px solid rgba(18,24,38,.08);border-radius:14px;padding:1rem;margin-bottom:.85rem;
+  }
+  .pf-card h2{font-size:.95rem;margin:0 0 .65rem}
+  .link-row{
+    display:flex;align-items:center;gap:.55rem;padding:.65rem .7rem;border-radius:10px;
+    background:#f4f6fa;margin-bottom:.4rem;font-size:.85rem;
+  }
+  .link-row a{flex:1;font-weight:700;color:#163a74;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .link-row .ok{color:#15803d;font-size:.7rem;font-weight:800}
+  .link-form{display:grid;gap:.45rem;grid-template-columns:1fr}
+  @media(min-width:560px){.link-form{grid-template-columns:140px 1fr auto auto}}
+  .link-form select,.link-form input{padding:.6rem .7rem;border-radius:8px;border:1px solid rgba(18,24,38,.12);font:inherit}
+  .cmt{border-bottom:1px solid rgba(18,24,38,.06);padding:.65rem 0}
+  .cmt strong{font-size:.85rem}
+  .cmt p{margin:.25rem 0;font-size:.88rem;line-height:1.4}
+  .cmt .meta{font-size:.72rem;color:#5c6473}
+  .edit-grid{display:grid;gap:.55rem}
+  .edit-grid label{font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#5c6473}
+  .edit-grid input,.edit-grid textarea{width:100%;padding:.65rem .75rem;border-radius:8px;border:1px solid rgba(18,24,38,.12);font:inherit}
+  .share-box{font-family:ui-monospace,Menlo,monospace;font-size:.75rem;background:#0b1220;color:#f0d78c;padding:.75rem;border-radius:10px;word-break:break-all}
+</style>
+</head>
+<body>
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+
+<div class="pf" id="pfRoot">
+  <p style="color:var(--muted)">Loading profile…</p>
+</div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=29"></script>
+<script src="assets/js/support-widget.js?v=3"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/gems-economy.js?v=1"></script>
+<script src="assets/js/fan-profile.js?v=1"></script>
+<script>
+(function () {
+  const PF = window.PGBProfile;
+  const params = new URLSearchParams(location.search);
+  // Capture affiliate ref
+  const ref = params.get("ref");
+  if (ref) {
+    try {
+      localStorage.setItem("pgb-aff-ref", ref);
+      localStorage.setItem("pgb-aff-ref-at", String(Date.now()));
+    } catch (_) {}
+  }
+
+  let viewing = params.get("u") || "";
+  const mine = PF.ensureHandle();
+  if (!viewing) viewing = mine.handle;
+  const isSelf = PF.slugify(viewing) === mine.handle;
+
+  function playPts() {
+    try {
+      const p = JSON.parse(localStorage.getItem("pgb-play") || "{}");
+      return p.points || p.xp || 0;
+    } catch (_) {
+      return 0;
+    }
+  }
+
+  function render() {
+    const profile = PF.getByHandle(viewing) || (isSelf ? mine : null);
+    if (!profile) {
+      document.getElementById("pfRoot").innerHTML = `
+        <div class="pf-card">
+          <h2>Profile not found</h2>
+          <p style="color:#5c6473">Claim your handle and share it like TikTok / Whatnot.</p>
+          <a class="btn btn-founding btn-sm" href="profile.html">Create my profile</a>
+        </div>`;
+      return;
+    }
+
+    document.title = `@${profile.handle} — PuckGold`;
+    const pts = isSelf ? playPts() : 0;
+    const tiers = PF.unlockTiers(pts);
+    const goldFrame = tiers.find((t) => t.id === "frame")?.unlocked;
+    const share = PF.shareUrl(profile.handle);
+    const cmts = PF.comments(profile.handle);
+    const subbed = PF.isSubscribed(profile.handle);
+
+    document.getElementById("pfRoot").innerHTML = `
+      <div class="pf-hero">
+        <div class="pf-top">
+          <div class="pf-av ${goldFrame ? "gold-frame" : ""}">${profile.avatar || "🏒"}</div>
+          <div>
+            <h1>${profile.displayName || "Fan"}</h1>
+            <div class="handle">@${profile.handle}</div>
+          </div>
+        </div>
+        <p class="bio">${profile.bio || ""}</p>
+        <div class="pf-stats">
+          <div><strong>${isSelf ? pts : "—"}</strong><span>XP</span></div>
+          <div><strong>${profile.subscribers || 0}</strong><span>Subs</span></div>
+          <div><strong>${profile.tipsReceived || 0}</strong><span>Tips</span></div>
+          <div><strong>${(profile.links || []).filter((l) => l.verified).length}</strong><span>Verified</span></div>
+        </div>
+        <div class="pf-actions">
+          <button type="button" class="btn btn-founding btn-sm" id="btnShare">Copy share link</button>
+          ${
+            isSelf
+              ? ""
+              : `<button type="button" class="btn btn-sapphire btn-sm" id="btnSub">${subbed ? "Subscribed" : "Subscribe"}</button>
+                 <button type="button" class="btn btn-ghost btn-sm" id="btnTip">Tip 50 coins</button>`
+          }
+          <a href="gifts.html#send" class="btn btn-ghost btn-sm">Send gift</a>
+          <a href="play.html#board" class="btn btn-ghost btn-sm">Leaderboard</a>
+        </div>
+      </div>
+
+      <div class="pf-card">
+        <h2>Share link · TikTok / Whatnot style</h2>
+        <div class="share-box" id="shareBox">${share}</div>
+      </div>
+
+      <div class="pf-card">
+        <h2>Links · verify to farm XP (Linktree energy)</h2>
+        <div id="linkList"></div>
+        ${
+          isSelf
+            ? `<div class="link-form" style="margin-top:.75rem">
+                <select id="platSel">${PF.PLATFORMS.map((p) => `<option value="${p.id}">${p.label} (+${p.pts})</option>`).join("")}</select>
+                <input id="platUrl" placeholder="https://…">
+                <button type="button" class="btn btn-platinum btn-sm" id="btnSaveLink">Save</button>
+                <button type="button" class="btn btn-founding btn-sm" id="btnVerify">Verify · farm</button>
+              </div>`
+            : ""
+        }
+      </div>
+
+      ${
+        isSelf
+          ? `<div class="pf-card">
+              <h2>Edit profile</h2>
+              <div class="edit-grid">
+                <div><label>Display name</label><input id="edName" value="${profile.displayName || ""}"></div>
+                <div><label>Handle</label><input id="edHandle" value="${profile.handle || ""}"></div>
+                <div><label>Bio</label><textarea id="edBio" rows="3">${profile.bio || ""}</textarea></div>
+                <div><label>Avatar emoji</label><input id="edAv" value="${profile.avatar || "🏒"}" maxlength="4"></div>
+                <button type="button" class="btn btn-founding btn-sm" id="btnSaveProf">Save profile</button>
+              </div>
+            </div>
+            <div class="pf-card">
+              <h2>Unlocks</h2>
+              <div class="og-row" style="display:flex;flex-wrap:wrap;gap:.35rem">
+                ${tiers
+                  .map(
+                    (t) =>
+                      `<span style="font-size:.7rem;font-weight:800;padding:.35rem .55rem;border-radius:8px;background:${t.unlocked ? "#e8f5e9" : "#f4f6fa"};color:${t.unlocked ? "#15803d" : "#5c6473"}">${t.unlocked ? "✓" : "🔒"} ${t.label}</span>`
+                  )
+                  .join("")}
+              </div>
+            </div>`
+          : ""
+      }
+
+      <div class="pf-card">
+        <h2>Comments · upvote</h2>
+        <form id="cmtForm" style="display:flex;gap:.4rem;margin-bottom:.75rem">
+          <input id="cmtText" placeholder="Say something…" style="flex:1;padding:.65rem .75rem;border-radius:999px;border:1px solid rgba(18,24,38,.12);font:inherit" maxlength="280">
+          <button class="btn btn-sapphire btn-sm" type="submit">Post</button>
+        </form>
+        <div id="cmtList"></div>
+      </div>
+    `;
+
+    // links
+    const list = document.getElementById("linkList");
+    const links = profile.links || [];
+    list.innerHTML = links.length
+      ? links
+          .map((l) => {
+            const meta = PF.PLATFORMS.find((p) => p.id === l.platform);
+            return `<div class="link-row">
+              <strong style="min-width:72px">${meta?.label || l.platform}</strong>
+              <a href="${l.url}" target="_blank" rel="noopener">${l.url}</a>
+              ${l.verified ? `<span class="ok">VERIFIED</span>` : `<span style="color:#8a93a3;font-size:.7rem">pending</span>`}
+            </div>`;
+          })
+          .join("")
+      : `<p style="color:#5c6473;font-size:.85rem">No links yet — connect TikTok, Whatnot, IG…</p>`;
+
+    document.getElementById("cmtList").innerHTML = cmts.length
+      ? cmts
+          .map(
+            (c) => `
+        <div class="cmt">
+          <strong>${c.from}${c.fromHandle ? " · @" + c.fromHandle : ""}</strong>
+          <p>${c.text}</p>
+          <div class="meta">${new Date(c.at).toLocaleString()} · ${c.ups || 0} ups
+            <button type="button" data-up="${c.id}" style="margin-left:.5rem;font-weight:800;color:#163a74;background:none;border:0;cursor:pointer">▲ Upvote</button>
+          </div>
+        </div>`
+          )
+          .join("")
+      : `<p style="color:#5c6473;font-size:.85rem">No comments yet — be first.</p>`;
+
+    document.getElementById("btnShare")?.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(share);
+        document.getElementById("btnShare").textContent = "Copied!";
+        setTimeout(() => (document.getElementById("btnShare").textContent = "Copy share link"), 1200);
+      } catch (_) {}
+    });
+
+    document.getElementById("btnSub")?.addEventListener("click", () => {
+      PF.subscribe(profile.handle);
+      render();
+    });
+    document.getElementById("btnTip")?.addEventListener("click", () => {
+      const r = PF.tip(profile.handle, 50);
+      if (!r.ok) {
+        alert("Need Coins — grab a gems pack first.");
+        location.href = "gems.html";
+        return;
+      }
+      render();
+    });
+
+    document.getElementById("btnSaveLink")?.addEventListener("click", () => {
+      PF.setLink(document.getElementById("platSel").value, document.getElementById("platUrl").value);
+      render();
+    });
+    document.getElementById("btnVerify")?.addEventListener("click", () => {
+      const plat = document.getElementById("platSel").value;
+      const url = document.getElementById("platUrl").value;
+      if (url) PF.setLink(plat, url);
+      const r = PF.verifyLink(plat);
+      alert(r.pts ? `Verified · +${r.pts} XP farmed` : "Already verified");
+      render();
+    });
+
+    document.getElementById("btnSaveProf")?.addEventListener("click", () => {
+      PF.saveMyProfile({
+        displayName: document.getElementById("edName").value,
+        handle: document.getElementById("edHandle").value,
+        bio: document.getElementById("edBio").value,
+        avatar: document.getElementById("edAv").value || "🏒",
+      });
+      viewing = PF.myProfile().handle;
+      history.replaceState(null, "", `profile.html?u=${encodeURIComponent(viewing)}`);
+      render();
+    });
+
+    document.getElementById("cmtForm")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const text = document.getElementById("cmtText").value.trim();
+      if (!text) return;
+      PF.addComment(profile.handle, text);
+      document.getElementById("cmtText").value = "";
+      render();
+    });
+
+    document.getElementById("cmtList")?.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-up]");
+      if (!b) return;
+      PF.upvote(b.dataset.up, profile.handle);
+      render();
+    });
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
