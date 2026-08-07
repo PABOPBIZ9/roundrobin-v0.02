@@ -31,12 +31,15 @@
 .pgb-support-panel{
   position:fixed;right:1rem;bottom:5.5rem;z-index:91;width:min(380px,calc(100vw - 1.5rem));
   background:#fff;color:#121826;border-radius:18px;box-shadow:0 20px 50px rgba(5,9,16,.35);
-  border:1px solid rgba(18,24,38,.08);overflow:hidden;display:none;flex-direction:column;max-height:min(78vh,620px);
+  border:1px solid rgba(18,24,38,.08);overflow:hidden;display:none;flex-direction:column;
+  max-height:min(78vh,620px);min-height:0;
 }
 .pgb-support-panel.is-open{display:flex}
+.pgb-support-panel.is-open.is-chat{height:min(78vh,620px)}
+.pgb-support-home{display:flex;flex-direction:column;min-height:0;overflow:auto}
 .pgb-support-head{
   padding:.85rem 1rem;background:linear-gradient(135deg,#0b1220,#163a74);color:#fff;
-  display:flex;align-items:center;gap:.65rem;
+  display:flex;align-items:center;gap:.5rem;flex-shrink:0;
 }
 .pgb-support-head .pucky-face{width:40px;height:40px;flex-shrink:0}
 .pgb-support-head .who{flex:1;min-width:0}
@@ -44,7 +47,10 @@
 .pgb-support-head small{font-size:.68rem;opacity:.7}
 .pgb-support-head button{
   border:0;background:transparent;color:rgba(255,255,255,.7);font-size:1.2rem;cursor:pointer;line-height:1;
+  width:36px;height:36px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;
 }
+.pgb-speak-btn{font-size:1rem !important;background:rgba(255,255,255,.08) !important}
+.pgb-speak-btn[aria-pressed="true"]{background:rgba(240,215,140,.2) !important;color:#f0d78c !important}
 .pgb-support-disc{font-size:.68rem;color:#8a93a3;padding:.55rem 1rem 0;line-height:1.35}
 .pgb-quick{
   display:flex;flex-wrap:wrap;gap:.35rem;padding:.65rem .75rem .25rem;
@@ -69,25 +75,61 @@
 
 .pgb-chat{display:none;flex-direction:column;flex:1;min-height:0}
 .pgb-chat.is-on{display:flex}
-.pgb-chat-msgs{flex:1;overflow:auto;padding:.85rem;display:flex;flex-direction:column;gap:.55rem;background:#f8fafc}
+.pgb-chat-msgs{flex:1;overflow:auto;padding:.85rem;display:flex;flex-direction:column;gap:.55rem;background:#f8fafc;min-height:220px}
 .pgb-bubble{
   max-width:88%;padding:.65rem .8rem;border-radius:14px;font-size:.86rem;line-height:1.4;
 }
 .pgb-bubble.bot{background:#fff;border:1px solid rgba(18,24,38,.08);align-self:flex-start}
 .pgb-bubble.user{background:#163a74;color:#fff;align-self:flex-end}
-.pgb-bubble .cta-stack{display:grid;gap:.3rem;margin-top:.45rem}
-.pgb-bubble .cta-stack a{
-  color:#163a74;font-weight:800;font-size:.8rem;text-decoration:none;
+.pgb-bubble-links{padding:.45rem .65rem}
+.pgb-bubble .cta-stack{display:grid;gap:.3rem}
+.pgb-bubble .cta-stack a,.pgb-bubble .cta-stack .pgb-seed{
+  color:#163a74;font-weight:800;font-size:.8rem;text-decoration:none;text-align:left;
+  border:0;background:transparent;cursor:pointer;padding:.2rem 0;font:inherit;
 }
-.pgb-chat-form{display:flex;gap:.4rem;padding:.65rem;border-top:1px solid rgba(18,24,38,.08);background:#fff}
+.pgb-typing{display:inline-flex;gap:5px;align-items:center;min-width:52px}
+.pgb-typing span{
+  width:7px;height:7px;border-radius:50%;background:#8a93a3;
+  animation:puckyDot 1s ease-in-out infinite;
+}
+.pgb-typing span:nth-child(2){animation-delay:.15s}
+.pgb-typing span:nth-child(3){animation-delay:.3s}
+@keyframes puckyDot{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
+.pgb-chat-form{
+  display:flex;gap:.35rem;padding:.65rem;border-top:1px solid rgba(18,24,38,.08);background:#fff;flex-shrink:0;
+  align-items:center;
+}
 .pgb-chat-form input{
-  flex:1;border:1px solid rgba(18,24,38,.12);border-radius:999px;padding:.65rem .85rem;font:inherit;
+  flex:1;min-width:0;border:1px solid rgba(18,24,38,.12);border-radius:999px;padding:.65rem .85rem;font:inherit;
 }
-.pgb-chat-form button{
+.pgb-chat-form button[type="submit"]{
   border:0;border-radius:999px;padding:.65rem 1rem;background:#0b1220;color:#fff;font-weight:800;cursor:pointer;font-size:.75rem;
+  flex-shrink:0;
+}
+.pgb-mic{
+  width:42px;height:42px;border-radius:999px;border:1px solid rgba(18,24,38,.12);background:#f4f6fa;
+  cursor:pointer;flex-shrink:0;font-size:1.05rem;display:inline-flex;align-items:center;justify-content:center;
+}
+.pgb-mic.is-hot{
+  background:#7a1524;border-color:#7a1524;color:#fff;
+  box-shadow:0 0 0 0 rgba(122,21,36,.45);
+  animation:puckyMic 1.2s ease-out infinite;
+}
+@keyframes puckyMic{
+  0%{box-shadow:0 0 0 0 rgba(122,21,36,.45)}
+  70%{box-shadow:0 0 0 12px rgba(122,21,36,0)}
+  100%{box-shadow:0 0 0 0 rgba(122,21,36,0)}
 }
 .pgb-chat-back{
-  border:0;background:transparent;color:#163a74;font-weight:800;font-size:.72rem;padding:.5rem .85rem 0;cursor:pointer;text-align:left;
+  border:0;background:transparent;color:#163a74;font-weight:800;font-size:.72rem;padding:.5rem .85rem 0;cursor:pointer;text-align:left;flex-shrink:0;
+}
+@media(max-width:520px){
+  .pgb-support-fab{right:max(.75rem,env(safe-area-inset-right));bottom:max(.75rem,env(safe-area-inset-bottom))}
+  .pgb-support-panel{
+    right:max(.5rem,env(safe-area-inset-right));left:max(.5rem,env(safe-area-inset-left));
+    width:auto;bottom:calc(4.75rem + env(safe-area-inset-bottom));
+  }
+  .pgb-support-panel.is-open.is-chat{height:min(82vh,640px)}
 }
 
 .pgb-lang-bar{

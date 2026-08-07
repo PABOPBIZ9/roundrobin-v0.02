@@ -1,15 +1,15 @@
-/** Pucky — friendly character AI that drives help + conversions */
+/** Pucky — talks (TTS + mic) and routes fans to Pass, gems, gifts, franchise, LV, and more */
 (function () {
   if (window.__pgbSupportMounted) return;
   window.__pgbSupportMounted = true;
 
   const PUCKY_SVG = `<svg class="pucky-face" viewBox="0 0 64 64" aria-hidden="true">
     <defs>
-      <linearGradient id="pg" x1="0" y1="0" x2="1" y2="1">
+      <linearGradient id="pgPucky" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stop-color="#f0d78c"/><stop offset="100%" stop-color="#d4af37"/>
       </linearGradient>
     </defs>
-    <circle cx="32" cy="32" r="30" fill="url(#pg)"/>
+    <circle cx="32" cy="32" r="30" fill="url(#pgPucky)"/>
     <circle cx="32" cy="34" r="22" fill="#0b1220"/>
     <circle cx="32" cy="34" r="18" fill="#163a74"/>
     <ellipse cx="32" cy="38" rx="10" ry="6" fill="#0b1220" opacity=".35"/>
@@ -21,110 +21,346 @@
     <circle cx="14" cy="18" r="3" fill="#fff" opacity=".55"/>
   </svg>`;
 
-  function t(key) {
-    return window.PGB_I18N ? window.PGB_I18N.t(key) : key;
+  const INTENTS = [
+    {
+      id: "pass",
+      re: /pass|membership|ticket|sign ?up|join|founding|\$36|league pass|assinatura|abonnement|会員/,
+      msg: "Founding membership locks a free limited gold puck plus a year of Premium League Pass for thirty-six dollars. Or ride twelve ninety-nine a month.",
+      links: [
+        { href: "join.html", label: "League Pass / Founding · $36" },
+        { href: "expansion.html", label: "Expansion Weekend clock" },
+        { href: "signin.html", label: "Sign in" },
+      ],
+      follow: "Want me to open the founding offer, or the monthly plan?",
+    },
+    {
+      id: "gems",
+      re: /sapphire|ruby|gem|coin|digital gift|bits|robux|douyin|wallet/,
+      msg: "Sapphires, Rubies, and Coins power digital gifts — TikTok and Twitch style. Buy packs, tip creators, stack your wallet.",
+      links: [
+        { href: "gems.html", label: "Buy Sapphires" },
+        { href: "gems.html?tab=gifts", label: "Digital gifts" },
+        { href: "gifts.html", label: "Gift cards · 35% bonus" },
+      ],
+      follow: "Packs, gifts, or gift cards — which lane?",
+    },
+    {
+      id: "gifts",
+      re: /gift card|gift pack|pack rip|virtual gift|bonus|35%/,
+      msg: "Gift cards come with a thirty-five percent bonus plus OG digital drops. You can also send a friend a viral pack-rip reveal.",
+      links: [
+        { href: "gifts.html", label: "Gift cards" },
+        { href: "gifts.html#send", label: "Send a gift pack" },
+        { href: "gems.html", label: "Gems & digital gifts" },
+      ],
+      follow: "Buying for yourself or sending a pack?",
+    },
+    {
+      id: "franchise",
+      re: /franchise|owner|operator|team owner|own a team|franquia|フランチャイズ|프랜차이즈|加盟|франшиз/,
+      msg: "Franchise and owner-operator applications are open for Founding Four and the First Thirty-Two. I’ll walk you to the apply desk.",
+      links: [
+        { href: "apply.html", label: "Franchise / Owner apply" },
+        { href: "expansion.html", label: "Expansion Weekend" },
+        { href: "advertise.html#lead", label: "Launch lead gen" },
+      ],
+      follow: "Ready to start the application?",
+    },
+    {
+      id: "lockervision",
+      re: /locker|outfit|jersey|pads|uniform|kit|rink|lv\b/,
+      msg: "LockerVision shows every game outfit — jersey, pads, helmet, and ice rink — for the Founding Four. Home Ice, Road White, Alternate, Classic, Goalie.",
+      links: [
+        { href: "lockervision.html", label: "LockerVision home" },
+        { href: "lv-schedule.html", label: "Outfit schedule" },
+        { href: "lv-edition.html?edition=home", label: "Browse editions" },
+      ],
+      follow: "Want a team locker or tonight’s game outfit?",
+    },
+    {
+      id: "retro",
+      re: /retro|throwback|nhl.?94|sixteen.?bit|16.?bit|pixel|shimmer/,
+      msg: "PGB Retro League is our nineteen ninety-four throwback — shimmer logo, championship crests, Game Zone energy.",
+      links: [
+        { href: "retro.html", label: "Retro League page" },
+        { href: "brand.html#retro", label: "Brand kit · Retro" },
+        { href: "play.html", label: "Game Zone" },
+      ],
+      follow: "Crests, shimmer motion, or Game Zone?",
+    },
+    {
+      id: "schedule",
+      re: /schedule|scores|standings|stats|bracket|when|game night|faceoff/,
+      msg: "Scores, schedule, stats, standings, and the playoff bracket are all live. Outfit links jump straight into LockerVision.",
+      links: [
+        { href: "schedule.html", label: "Schedule" },
+        { href: "scores.html", label: "Scores" },
+        { href: "standings.html", label: "Standings" },
+        { href: "stats.html", label: "Stats" },
+      ],
+      follow: "Scores, standings, or outfit schedule?",
+    },
+    {
+      id: "play",
+      re: /quiz|game zone|farm|xp|leaderboard|play zone/,
+      msg: "Game Zone is timed quizzes, daily farms, and fan XP. Climb the board while you learn the league.",
+      links: [
+        { href: "play.html", label: "Open Game Zone" },
+        { href: "play.html#board", label: "Fan leaderboard" },
+        { href: "lockervision.html", label: "LockerVision" },
+      ],
+      follow: "Quiz, farm quests, or the leaderboard?",
+    },
+    {
+      id: "dev",
+      re: /dev|lens|studio|camera kit|sdk|api|ar\b|spectacles|ice studio/,
+      msg: "Developer Hub has Ice Studio, Camera Kit, Puck Kit, Games, Marketing API, and founding developer drops.",
+      links: [
+        { href: "developers.html", label: "Developer Hub" },
+        { href: "talent.html?role=creator", label: "Creator / talent signup" },
+        { href: "gems.html", label: "Gems for creators" },
+      ],
+      follow: "Studio, Camera Kit, or founding dev drop?",
+    },
+    {
+      id: "ads_aff",
+      re: /advertise affiliate|ad spend|ads affiliate|b2b affiliate/,
+      msg: "Advertise Affiliate pays up to thirty percent on ad spend you refer. B2B lane.",
+      links: [
+        { href: "ads-affiliate.html", label: "Advertise Affiliate" },
+        { href: "advertise.html", label: "Advertise / Launch" },
+      ],
+      follow: "Want the affiliate FAQ or the apply form?",
+    },
+    {
+      id: "affiliate",
+      re: /affiliate|creator|clipper|influencer|аффил|アフィリ|제휴|联盟|afiliad|partner/,
+      msg: "Consumer affiliates and the Talent Community — create links, earn, and grow with Founding Four drops.",
+      links: [
+        { href: "affiliates.html", label: "Consumer Affiliates" },
+        { href: "talent.html?role=affiliate", label: "Talent signup" },
+        { href: "partners.html", label: "Brand partners" },
+      ],
+      follow: "Creator links or Talent Community signup?",
+    },
+    {
+      id: "advertise",
+      re: /advertise|launch|campaign|brand|sponsor|广告|publicit|werbung/,
+      msg: "Advertise and Launch covers brand campaigns and franchise lead gen. Let’s get your brief in.",
+      links: [
+        { href: "advertise.html#lead", label: "Start a launch" },
+        { href: "partners.html", label: "Partners" },
+        { href: "developers.html#promos", label: "Sponsored Lenses promo" },
+      ],
+      follow: "Brand campaign or franchise leads?",
+    },
+    {
+      id: "shop",
+      re: /shop|merch|order|track|shipping|jersey|hat|puck|pedido|commande|注文|주문|заказ/,
+      msg: "Official Shop has jerseys, hats, pucks, and Founding Four drops. Digital lives in gifts and gems.",
+      links: [
+        { href: "shop.html", label: "Shop" },
+        { href: "gifts.html", label: "Gift cards" },
+        { href: "gems.html", label: "Gems" },
+      ],
+      follow: "Physical merch or digital gifts?",
+    },
+    {
+      id: "experience",
+      re: /event|venue|stadium|party|experience|fan village|会場|경기장/,
+      msg: "Event Experience covers Fan Village, Party Zone, and the soundtrack — game-day energy beyond the glass.",
+      links: [
+        { href: "experience.html", label: "Event Experience" },
+        { href: "schedule.html", label: "Schedule" },
+        { href: "join.html", label: "Get tickets / Pass" },
+      ],
+      follow: "Village, Party Zone, or tickets?",
+    },
+    {
+      id: "signin",
+      re: /sign ?in|log ?in|account|password|auth|dynamic|whop/,
+      msg: "Sign In is live as a member gate. Full Dynamic wallet login and Whop checkout are next on the wiring list — you can still join founding now.",
+      links: [
+        { href: "signin.html", label: "Sign in" },
+        { href: "join.html", label: "Join · $36 founding" },
+        { href: "support.html", label: "Help Center" },
+      ],
+      follow: "Sign in page or founding join?",
+    },
+    {
+      id: "help",
+      re: /help|support|human|agent|call|phone|contact|faq/,
+      msg: "I’ve got you. Help Center for self-serve, or Contact for a human. You can also email hello at puckgold.com.",
+      links: [
+        { href: "support.html", label: "Help Center" },
+        { href: "contact.html", label: "Contact Us" },
+        { href: "mailto:hello@puckgold.com", label: "hello@puckgold.com" },
+      ],
+      follow: "Help Center or a human contact form?",
+    },
+    {
+      id: "earn",
+      re: /sell|sales|revenue|money|earn|monet|make money/,
+      msg: "Ways to ball out: gift cards, gems, consumer affiliates, ads affiliate, Talent, or own a franchise.",
+      links: [
+        { href: "gifts.html", label: "Gift cards" },
+        { href: "gems.html", label: "Gems economy" },
+        { href: "affiliates.html", label: "Affiliates" },
+        { href: "ads-affiliate.html", label: "Ads Affiliate" },
+        { href: "apply.html", label: "Own a team" },
+      ],
+      follow: "Affiliate, gems, or franchise?",
+    },
+    {
+      id: "hello",
+      re: /^(hi|hey|hello|yo|sup|hola|bonjour|hallo)\b|how are you|who are you|what can you/,
+      msg: "Hey — I’m Pucky, your PuckGold guide. I talk, listen, and route you to League Pass, gems, gifts, LockerVision, franchise, affiliates, advertise, and the Dev Hub.",
+      links: [
+        { href: "join.html", label: "League Pass" },
+        { href: "gems.html", label: "Gems" },
+        { href: "lockervision.html", label: "LockerVision" },
+        { href: "apply.html", label: "Franchise" },
+      ],
+      follow: "What do you want to do first?",
+    },
+  ];
+
+  const FOLLOW_MAP = {
+    pass: { yes: "join.html", open: "join.html", founding: "join.html", monthly: "join.html" },
+    gems: { packs: "gems.html", gifts: "gems.html?tab=gifts", cards: "gifts.html" },
+    gifts: { myself: "gifts.html", send: "gifts.html#send", pack: "gifts.html#send" },
+    franchise: { yes: "apply.html", apply: "apply.html", start: "apply.html" },
+    lockervision: { team: "lv-team.html", game: "lv-schedule.html", schedule: "lv-schedule.html" },
+    schedule: { scores: "scores.html", standings: "standings.html", outfit: "lv-schedule.html" },
+  };
+
+  const QUICK = [
+    { label: "League Pass", q: "I want a league pass" },
+    { label: "Gems", q: "Tell me about sapphires and gems" },
+    { label: "Gift cards", q: "gift cards with bonus" },
+    { label: "LockerVision", q: "show me lockervision outfits" },
+    { label: "Own a team", q: "I want to own a franchise" },
+    { label: "Affiliates", q: "affiliate creator program" },
+    { label: "Advertise", q: "advertise and launch" },
+    { label: "Developers", q: "developer ice studio" },
+  ];
+
+  let lastIntent = null;
+  let speakOn = localStorage.getItem("pgb-pucky-speak") !== "0";
+  let listening = false;
+  let recognition = null;
+
+  function speakText(text) {
+    if (!speakOn || !window.speechSynthesis) return;
+    try {
+      window.speechSynthesis.cancel();
+      const clean = String(text || "")
+        .replace(/[🏒💎🎁🎟️❄⭐❓📢🔗💬←→]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+      if (!clean) return;
+      const u = new SpeechSynthesisUtterance(clean);
+      u.rate = 1.02;
+      u.pitch = 1.05;
+      u.volume = 1;
+      const lang = window.PGB_I18N?.getLang?.() || "en";
+      u.lang = lang === "en" ? "en-US" : lang;
+      const voices = window.speechSynthesis.getVoices?.() || [];
+      const prefer =
+        voices.find((v) => /en(-|_)US/i.test(v.lang) && /female|samantha|google US/i.test(v.name)) ||
+        voices.find((v) => /^en/i.test(v.lang));
+      if (prefer) u.voice = prefer;
+      window.speechSynthesis.speak(u);
+    } catch (_) {}
+  }
+
+  function stopSpeak() {
+    try {
+      window.speechSynthesis?.cancel();
+    } catch (_) {}
+  }
+
+  function getRecognition() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) return null;
+    if (recognition) return recognition;
+    recognition = new SR();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = "en-US";
+    return recognition;
   }
 
   function replyFor(text) {
-    const q = String(text || "").toLowerCase();
-    const links = [];
-    let msg = "";
-
-    if (/dev|lens|studio|camera kit|sdk|api|ar\b|spectacles/.test(q)) {
-      msg = "Pucky here 🏒 — Developer Hub has Ice Studio, Camera Kit, unique items, and founding dev promos.";
-      links.push({ href: "developers.html", label: "Developer Hub" });
-      links.push({ href: "talent.html?role=creator", label: "Creator / talent signup" });
-      links.push({ href: "gems.html", label: "Gems for creators" });
-    } else if (/franchise|owner|operator|team owner|franquia|フランチャイズ|프랜차이즈|加盟|франшиз/.test(q)) {
-      msg = "Want to own a team? I’ll walk you to the franchise desk — Founding Four / First 32.";
-      links.push({ href: "apply.html", label: "Franchise / Owner apply" });
-      links.push({ href: "expansion.html", label: "Expansion Weekend" });
-      links.push({ href: "advertise.html#lead", label: "Launch lead gen" });
-    } else if (/affiliate|аффил|アフィリ|제휴|联盟|afiliad/.test(q) && /ad|advertise|spend|b2b|广告/.test(q)) {
-      msg = "Advertise Affiliate — earn up to 30% on ad spend you refer.";
-      links.push({ href: "ads-affiliate.html", label: "Advertise Affiliate" });
-      links.push({ href: "advertise.html", label: "Advertise / Launch" });
-    } else if (/affiliate|creator|clipper|influencer|аффил|アフィリ|제휴|联盟|afiliad|partner/.test(q)) {
-      msg = "Creators & affiliates — consumer links + Talent Community.";
-      links.push({ href: "affiliates.html", label: "Consumer Affiliates" });
-      links.push({ href: "talent.html?role=affiliate", label: "Talent signup" });
-      links.push({ href: "partners.html", label: "Brand partners" });
-    } else if (/advertise|launch|campaign|brand|sponsor|广告|publicit|werbung/.test(q)) {
-      msg = "Let’s launch — brand campaigns and franchise lead gen.";
-      links.push({ href: "advertise.html#lead", label: "Start a launch" });
-      links.push({ href: "partners.html", label: "Partners" });
-      links.push({ href: "developers.html#promos", label: "Sponsored Lenses promo" });
-    } else if (/sapphire|ruby|gem|coin|digital gift|bits|robux|douyin/.test(q)) {
-      msg = "Sapphires, Rubies, Coins — buy packs and send digital gifts TikTok/Twitch style.";
-      links.push({ href: "gems.html", label: "Buy Sapphires" });
-      links.push({ href: "gems.html?tab=gifts", label: "Digital gifts" });
-      links.push({ href: "gifts.html", label: "Gift cards · 35% bonus" });
-    } else if (/gift card|gift pack|pack rip|virtual gift/.test(q)) {
-      msg = "Gift cards with +35% bonus + OG drops — or send a viral pack-rip to a friend.";
-      links.push({ href: "gifts.html", label: "Gift cards" });
-      links.push({ href: "gifts.html#send", label: "Send a gift pack" });
-      links.push({ href: "gems.html", label: "Gems & digital gifts" });
-    } else if (/pass|membership|ticket|sign ?up|join|founding|assinatura|abonnement|会員/.test(q)) {
-      msg = "Founding membership + Premium League Pass — puck shipped on the $36 deal.";
-      links.push({ href: "join.html", label: "League Pass / Founding" });
-      links.push({ href: "signin.html", label: "Sign in" });
-      links.push({ href: "promos.html", label: "Promotions" });
-    } else if (/shop|merch|order|track|shipping|pedido|commande|注文|주문|заказ/.test(q)) {
-      msg = "Shop physical + digital — or load gems for live gifts.";
-      links.push({ href: "shop.html", label: "Shop" });
-      links.push({ href: "gifts.html", label: "Gift cards" });
-      links.push({ href: "gems.html", label: "Gems" });
-    } else if (/language|idioma|langue|sprache|язык|语言|言語|언어/.test(q)) {
-      msg = "Pick your language / region from the bar at the bottom of any page.";
-      links.push({ href: "#", label: "Open languages", action: "lang" });
-    } else if (/event|venue|stadium|party|experience|会場|경기장/.test(q)) {
-      msg = "Fan Village, Party Zone, soundtrack — Event Experience.";
-      links.push({ href: "experience.html", label: "Event Experience" });
-      links.push({ href: "schedule.html", label: "Schedule" });
-      links.push({ href: "join.html", label: "Get tickets / Pass" });
-    } else if (/help|support|human|agent|call|phone/.test(q)) {
-      msg = "I’ve got you — Help Center or a human.";
-      links.push({ href: "support.html", label: "Help Center" });
-      links.push({ href: "contact.html", label: "Contact Us" });
-      links.push({ href: "mailto:hello@puckgold.com", label: "hello@puckgold.com" });
-    } else if (/sell|sales|revenue|money|earn|monet/.test(q)) {
-      msg = "Ways to ball out: gift cards, gems, affiliates, advertise, or own a franchise.";
-      links.push({ href: "gifts.html", label: "Sell gift cards vibe" });
-      links.push({ href: "gems.html", label: "Gems economy" });
-      links.push({ href: "affiliates.html", label: "Affiliates" });
-      links.push({ href: "ads-affiliate.html", label: "Ads Affiliate" });
-      links.push({ href: "apply.html", label: "Own a team" });
-    } else {
-      msg =
-        "Hey — I’m Pucky 🏒 Your friendly PuckGold guide. I can help with League Pass, gems, gift cards, affiliates, franchise ownership, Advertise, or the Developer Hub.";
-      links.push({ href: "join.html", label: "Sign up / League Pass" });
-      links.push({ href: "gems.html", label: "Buy Sapphires" });
-      links.push({ href: "gifts.html", label: "Gift cards · 35%" });
-      links.push({ href: "apply.html", label: "Own a franchise" });
-      links.push({ href: "affiliates.html", label: "Affiliates" });
-      links.push({ href: "developers.html", label: "Developer Hub" });
-      links.push({ href: "advertise.html", label: "Advertise / Launch" });
+    const q = String(text || "").toLowerCase().trim();
+    if (!q) {
+      return {
+        msg: "Say something — Pass, gems, LockerVision, franchise — I’m listening.",
+        links: QUICK.slice(0, 4).map((x) => ({ href: "#", label: x.label, seed: x.q })),
+        intent: null,
+      };
     }
 
-    return { msg, links };
-  }
+    // Follow-up shortcuts after last intent
+    if (lastIntent && /^(yes|yeah|yep|ok|okay|sure|do it|open|show me|please)\b/.test(q)) {
+      const map = FOLLOW_MAP[lastIntent.id];
+      const href = map?.yes || map?.open || lastIntent.links?.[0]?.href;
+      if (href) {
+        return {
+          msg: `On it — opening ${lastIntent.links?.[0]?.label || "that page"} for you.`,
+          links: [{ href, label: "Open now" }, ...(lastIntent.links || []).slice(0, 2)],
+          intent: lastIntent,
+          navigate: href,
+        };
+      }
+    }
 
-  const QUICK = [
-    { label: "League Pass", q: "league pass signup" },
-    { label: "Gems", q: "sapphires gems" },
-    { label: "Gift cards", q: "gift cards" },
-    { label: "Own a team", q: "franchise owner" },
-    { label: "Affiliates", q: "affiliate creator" },
-    { label: "Advertise", q: "advertise launch" },
-    { label: "Developers", q: "developer ice studio" },
-    { label: "Help", q: "help support" },
-  ];
+    if (lastIntent && /more|tell me more|details|how|price|cost|what/.test(q)) {
+      return {
+        msg: `${lastIntent.msg} ${lastIntent.follow || ""}`,
+        links: lastIntent.links,
+        intent: lastIntent,
+      };
+    }
+
+    let best = null;
+    let bestScore = 0;
+    for (const intent of INTENTS) {
+      if (intent.re.test(q)) {
+        const score = (q.match(intent.re) || []).length + (intent.id === lastIntent?.id ? 0.5 : 0);
+        if (score >= bestScore) {
+          bestScore = score;
+          best = intent;
+        }
+      }
+    }
+
+    if (!best) {
+      return {
+        msg: "I can help with League Pass, Sapphires and gems, gift cards, LockerVision outfits, franchise ownership, affiliates, advertise, Game Zone, Retro League, or the Developer Hub. What do you want?",
+        links: [
+          { href: "join.html", label: "League Pass" },
+          { href: "gems.html", label: "Gems" },
+          { href: "lockervision.html", label: "LockerVision" },
+          { href: "apply.html", label: "Franchise" },
+          { href: "developers.html", label: "Dev Hub" },
+        ],
+        intent: null,
+      };
+    }
+
+    return {
+      msg: `${best.msg}${best.follow ? " " + best.follow : ""}`,
+      links: best.links,
+      intent: best,
+    };
+  }
 
   function ensureCss() {
     if (document.querySelector("link[data-pgb-support-css]")) return;
     const l = document.createElement("link");
     l.rel = "stylesheet";
-    l.href = "assets/css/support-widget.css?v=2";
+    l.href = "assets/css/support-widget.css?v=3";
     l.dataset.pgbSupportCss = "1";
     document.head.appendChild(l);
   }
@@ -133,10 +369,18 @@
     ensureCss();
     if (document.getElementById("pgbSupportRoot")) return;
 
+    // Warm voices for TTS
+    try {
+      window.speechSynthesis?.getVoices?.();
+      window.speechSynthesis?.addEventListener?.("voiceschanged", () => {
+        window.speechSynthesis.getVoices();
+      });
+    } catch (_) {}
+
     const root = document.createElement("div");
     root.id = "pgbSupportRoot";
     root.innerHTML = `
-      <div class="pgb-pucky-bubble" id="pgbPuckyNudge">Need a hand? I can get you Pass, gems, gifts, or a franchise app 🏒</div>
+      <div class="pgb-pucky-bubble" id="pgbPuckyNudge">Need a hand? Tap me — I talk and can get you Pass, gems, or a franchise app.</div>
       <button type="button" class="pgb-support-fab" id="pgbSupportFab" aria-label="Chat with Pucky" aria-expanded="false">
         ${PUCKY_SVG}
         <span class="dot" aria-hidden="true"></span>
@@ -146,23 +390,24 @@
           ${PUCKY_SVG}
           <div class="who">
             <strong>Pucky</strong>
-            <small>Friendly AI · here to help you ball out</small>
+            <small id="pgbPuckyStatus">Online · talks &amp; listens</small>
           </div>
+          <button type="button" class="pgb-speak-btn" id="pgbSpeakToggle" aria-pressed="${speakOn ? "true" : "false"}" title="Voice on/off">${speakOn ? "🔊" : "🔇"}</button>
           <button type="button" id="pgbSupportClose" aria-label="Close">×</button>
         </div>
-        <div id="pgbSupportHome">
-          <p class="pgb-support-disc">I route you to signups, sales, partnerships, affiliates, franchise, gift cards, gems &amp; more.</p>
+        <div id="pgbSupportHome" class="pgb-support-home">
+          <p class="pgb-support-disc">I speak answers out loud, hear your mic, and route you to signups, LockerVision, gems, gifts, franchise &amp; more.</p>
           <div class="pgb-quick" id="pgbQuick"></div>
           <div class="pgb-support-menu">
             <button type="button" data-act="chat"><span class="ico">💬</span><span>Chat with Pucky</span></button>
             <a href="join.html"><span class="ico">🎟️</span><span>League Pass / founding</span></a>
             <a href="gems.html"><span class="ico">💎</span><span>Sapphires · Rubies · Coins</span></a>
             <a href="gifts.html"><span class="ico">🎁</span><span>Gift cards · 35% bonus</span></a>
+            <a href="lockervision.html"><span class="ico">👕</span><span>LockerVision outfits</span></a>
             <a href="apply.html"><span class="ico">🏒</span><span>Franchise / own a team</span></a>
             <a href="affiliates.html"><span class="ico">🔗</span><span>Affiliates</span></a>
             <a href="advertise.html"><span class="ico">📢</span><span>Advertise / Launch</span></a>
             <a href="developers.html"><span class="ico">❄</span><span>Developer Hub</span></a>
-            <a href="talent.html"><span class="ico">⭐</span><span>Talent Community</span></a>
             <a href="support.html"><span class="ico">❓</span><span>Help Center</span></a>
           </div>
           <div class="pgb-support-foot">
@@ -171,9 +416,10 @@
         </div>
         <div class="pgb-chat" id="pgbChat">
           <button type="button" class="pgb-chat-back" id="pgbChatBack">← Menu</button>
-          <div class="pgb-chat-msgs" id="pgbChatMsgs"></div>
+          <div class="pgb-chat-msgs" id="pgbChatMsgs" role="log" aria-live="polite"></div>
           <form class="pgb-chat-form" id="pgbChatForm">
-            <input id="pgbChatInput" placeholder="Ask Pucky anything…" autocomplete="off">
+            <button type="button" class="pgb-mic" id="pgbMicBtn" aria-label="Talk to Pucky" title="Hold to talk">🎤</button>
+            <input id="pgbChatInput" placeholder="Type or tap mic…" autocomplete="off" enterkeyhint="send">
             <button type="submit">Send</button>
           </form>
         </div>
@@ -208,12 +454,25 @@
     const langPop = document.getElementById("pgbLangPop");
     const nudge = document.getElementById("pgbPuckyNudge");
     const quick = document.getElementById("pgbQuick");
+    const status = document.getElementById("pgbPuckyStatus");
+    const speakBtn = document.getElementById("pgbSpeakToggle");
+    const micBtn = document.getElementById("pgbMicBtn");
+    const input = document.getElementById("pgbChatInput");
 
     quick.innerHTML = QUICK.map((q) => `<button type="button" data-q="${q.q}">${q.label}</button>`).join("");
 
+    if (!getRecognition()) {
+      micBtn.hidden = true;
+      micBtn.title = "Voice input not supported in this browser";
+    }
+
+    function setStatus(text) {
+      if (status) status.textContent = text;
+    }
+
     function refreshLangLabel() {
       const code = window.PGB_I18N?.getLang() || "en";
-      const meta = window.PGB_I18N?.languages.find((l) => l.code === code);
+      const meta = window.PGB_I18N?.languages?.find((l) => l.code === code);
       const el = document.getElementById("pgbLangCurrent");
       if (el) el.textContent = meta ? meta.label : code;
     }
@@ -242,12 +501,21 @@
       div.className = `pgb-bubble ${who}`;
       div.textContent = text;
       msgs.appendChild(div);
-      if (links && links.length) {
+      if (links?.length) {
         const wrap = document.createElement("div");
-        wrap.className = "pgb-bubble bot";
+        wrap.className = "pgb-bubble bot pgb-bubble-links";
         const stack = document.createElement("div");
         stack.className = "cta-stack";
         links.forEach((l) => {
+          if (l.seed) {
+            const b = document.createElement("button");
+            b.type = "button";
+            b.className = "pgb-seed";
+            b.textContent = "→ " + l.label;
+            b.addEventListener("click", () => ask(l.seed));
+            stack.appendChild(b);
+            return;
+          }
           const a = document.createElement("a");
           a.href = l.href || "#";
           a.textContent = "→ " + l.label;
@@ -263,43 +531,78 @@
         msgs.appendChild(wrap);
       }
       msgs.scrollTop = msgs.scrollHeight;
+      return div;
+    }
+
+    function showTyping() {
+      const el = document.createElement("div");
+      el.className = "pgb-bubble bot pgb-typing";
+      el.innerHTML = `<span></span><span></span><span></span>`;
+      el.dataset.typing = "1";
+      msgs.appendChild(el);
+      msgs.scrollTop = msgs.scrollHeight;
+      return el;
     }
 
     function ask(text) {
-      addBubble(text, "user");
-      const { msg, links } = replyFor(text);
-      setTimeout(() => addBubble(msg, "bot", links), 220);
-      try {
-        const key = "pgb-support-chat";
-        const prev = JSON.parse(localStorage.getItem(key) || "[]");
-        prev.push({ q: text, at: new Date().toISOString() });
-        localStorage.setItem(key, JSON.stringify(prev.slice(-40)));
-      } catch (_) {}
+      const q = String(text || "").trim();
+      if (!q) return;
+      addBubble(q, "user");
+      setStatus("Pucky is thinking…");
+      const typing = showTyping();
+      const delay = 380 + Math.min(900, q.length * 12);
+
+      setTimeout(() => {
+        typing.remove();
+        const { msg, links, intent, navigate } = replyFor(q);
+        if (intent) lastIntent = intent;
+        addBubble(msg, "bot", links);
+        setStatus(speakOn ? "Speaking…" : "Online · talks & listens");
+        speakText(msg);
+        if (speakOn) {
+          const done = () => setStatus("Online · talks & listens");
+          setTimeout(done, Math.min(12000, msg.length * 55));
+        }
+        try {
+          const key = "pgb-support-chat";
+          const prev = JSON.parse(localStorage.getItem(key) || "[]");
+          prev.push({ q, intent: intent?.id || null, at: new Date().toISOString() });
+          localStorage.setItem(key, JSON.stringify(prev.slice(-40)));
+        } catch (_) {}
+        if (navigate && /^(yes|yeah|yep|ok|open|do it)/i.test(q)) {
+          setTimeout(() => {
+            location.href = navigate;
+          }, 1200);
+        }
+      }, delay);
     }
 
     function openChat(seed) {
       home.style.display = "none";
       chat.classList.add("is-on");
+      panel.classList.add("is-chat");
       nudge?.classList.remove("is-on");
       if (!msgs.childElementCount) {
-        addBubble(
-          "Hey — I’m Pucky 🏒 Tap a shortcut or tell me what you want: Pass, gems, gifts, franchise, affiliates, advertise, or developers.",
-          "bot",
-          [
-            { href: "join.html", label: "League Pass" },
-            { href: "gems.html", label: "Gems" },
-            { href: "apply.html", label: "Franchise" },
-            { href: "developers.html", label: "Dev Hub" },
-          ]
-        );
+        const intro =
+          "Hey — I’m Pucky. I talk out loud and I listen on the mic. Ask about League Pass, gems, gift cards, LockerVision, franchise, affiliates, or developers.";
+        addBubble(intro, "bot", [
+          { href: "join.html", label: "League Pass" },
+          { href: "gems.html", label: "Gems" },
+          { href: "lockervision.html", label: "LockerVision" },
+          { href: "apply.html", label: "Franchise" },
+        ]);
+        speakText(intro);
       }
       if (seed) setTimeout(() => ask(seed), 280);
-      document.getElementById("pgbChatInput")?.focus();
+      input?.focus();
     }
 
     function showHome() {
+      stopSpeak();
       chat.classList.remove("is-on");
+      panel.classList.remove("is-chat");
       home.style.display = "";
+      setStatus("Online · talks & listens");
     }
 
     function openPanel(seed) {
@@ -310,17 +613,83 @@
       else showHome();
     }
 
+    function toggleListen() {
+      const rec = getRecognition();
+      if (!rec) {
+        addBubble("Voice input isn’t available in this browser. Type your question instead.", "bot");
+        return;
+      }
+      if (listening) {
+        try {
+          rec.stop();
+        } catch (_) {}
+        listening = false;
+        micBtn.classList.remove("is-hot");
+        setStatus("Online · talks & listens");
+        return;
+      }
+      stopSpeak();
+      listening = true;
+      micBtn.classList.add("is-hot");
+      setStatus("Listening… speak now");
+      rec.onresult = (ev) => {
+        const said = ev.results?.[0]?.[0]?.transcript || "";
+        listening = false;
+        micBtn.classList.remove("is-hot");
+        if (said) {
+          input.value = said;
+          ask(said);
+          input.value = "";
+        } else {
+          setStatus("Didn’t catch that — try again");
+        }
+      };
+      rec.onerror = () => {
+        listening = false;
+        micBtn.classList.remove("is-hot");
+        setStatus("Mic error — type instead");
+        addBubble("I couldn’t hear that. Check mic permissions, or type your question.", "bot");
+      };
+      rec.onend = () => {
+        listening = false;
+        micBtn.classList.remove("is-hot");
+      };
+      try {
+        rec.start();
+      } catch (_) {
+        listening = false;
+        micBtn.classList.remove("is-hot");
+        setStatus("Mic busy — try again");
+      }
+    }
+
+    speakBtn?.addEventListener("click", () => {
+      speakOn = !speakOn;
+      localStorage.setItem("pgb-pucky-speak", speakOn ? "1" : "0");
+      speakBtn.setAttribute("aria-pressed", speakOn ? "true" : "false");
+      speakBtn.textContent = speakOn ? "🔊" : "🔇";
+      if (!speakOn) stopSpeak();
+      else speakText("Voice on. I’m Pucky.");
+      setStatus(speakOn ? "Voice on" : "Voice muted");
+    });
+
+    micBtn?.addEventListener("click", toggleListen);
+
     fab?.addEventListener("click", () => {
       const open = panel.classList.toggle("is-open");
       fab.setAttribute("aria-expanded", open ? "true" : "false");
       if (open) {
         showHome();
         nudge?.classList.remove("is-on");
+        if (speakOn) speakText("Hey, I’m Pucky. Tap chat and ask me anything.");
+      } else {
+        stopSpeak();
       }
     });
     document.getElementById("pgbSupportClose")?.addEventListener("click", () => {
       panel.classList.remove("is-open");
       fab.setAttribute("aria-expanded", "false");
+      stopSpeak();
     });
     document.querySelector('[data-act="chat"]')?.addEventListener("click", () => openChat());
     document.getElementById("pgbChatBack")?.addEventListener("click", showHome);
@@ -333,8 +702,7 @@
 
     document.getElementById("pgbChatForm")?.addEventListener("submit", (e) => {
       e.preventDefault();
-      const input = document.getElementById("pgbChatInput");
-      const text = (input.value || "").trim();
+      const text = (input?.value || "").trim();
       if (!text) return;
       input.value = "";
       ask(text);
@@ -367,14 +735,28 @@
         gems: "sapphires gems",
         gifts: "gift cards",
         affiliate: "affiliate creator",
+        lockervision: "lockervision outfits",
       };
       openPanel(map[prompt] || prompt || "");
     });
 
+    // Public API for pages
+    window.Pucky = {
+      open: openPanel,
+      ask: (q) => {
+        openPanel();
+        openChat(q);
+      },
+      speak: speakText,
+      setSpeak(on) {
+        speakOn = !!on;
+        localStorage.setItem("pgb-pucky-speak", speakOn ? "1" : "0");
+      },
+    };
+
     refreshLangLabel();
     window.PGB_I18N?.apply(document);
 
-    // Gentle nudge once per session
     try {
       if (!sessionStorage.getItem("pgb-pucky-nudge")) {
         setTimeout(() => {

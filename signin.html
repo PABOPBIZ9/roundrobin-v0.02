@@ -2,25 +2,30 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Sign In — PuckGold</title>
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=13">
+<link rel="stylesheet" href="assets/css/site.css?v=29">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
-<link rel="icon" href="assets/brand/favicon/favicon-32.png?v=3" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="assets/brand/app/apple-touch-icon.png?v=3">
+<style>
+  .auth-page{max-width:420px;margin:0 auto;padding:1.25rem 4vw 2.5rem}
+  .auth-page .kicker{display:block;margin-bottom:.25rem}
+  .auth-page h1{font-family:var(--display);font-size:clamp(2.2rem,8vw,3.2rem);letter-spacing:.04em;margin:0 0 .35rem;line-height:1}
+  .auth-page .lead{color:var(--muted);font-size:.9rem;margin:0 0 1rem;line-height:1.45}
+  .auth-page .signin-box{margin:0;padding:1.15rem}
+  .auth-page .cta-row{display:grid;gap:.45rem;margin-top:.85rem}
+  .auth-page .plan-alt{margin-top:.85rem;text-align:center;font-size:.85rem}
+</style>
 </head>
 <body>
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
-<div class="page-hero" style="text-align:center">
+<main class="auth-page">
   <span class="kicker">Members</span>
   <h1>SIGN IN</h1>
-  <p style="margin-left:auto;margin-right:auto">Access Fan Zone, shop checkout, and your OG Gold Puck perks.</p>
-</div>
-<section class="section">
+  <p class="lead">Access Fan Zone, shop checkout, and your OG Gold Puck perks.</p>
   <div class="signin-box">
-    <form onsubmit="event.preventDefault(); alert('Auth coming soon — membership checkout wires next.');">
+    <form id="signinForm">
       <div class="field">
         <label for="email">Email</label>
         <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@email.com">
@@ -31,17 +36,31 @@
       </div>
       <button class="btn btn-signin btn-block" type="submit">Sign in</button>
     </form>
-    <p class="plan-alt" style="text-align:center;margin-top:1rem">New here? <a href="join.html">Join with the $36 OG Gold Puck</a></p>
-    <div class="cta-row" style="margin-top:1rem">
+    <p class="plan-alt">New here? <a href="join.html">Join with the $36 OG Gold Puck</a></p>
+    <div class="cta-row">
       <a href="join.html" class="btn btn-champagne btn-sm btn-block">Create account</a>
       <a href="fantasy.html" class="btn btn-sapphire btn-sm btn-block">Browse Fan Zone</a>
+      <button type="button" class="btn btn-ghost btn-sm btn-block" id="askPucky">Ask Pucky about sign-in</button>
     </div>
   </div>
-</section>
+</main>
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=27"></script>
-<script src="assets/js/support-widget.js?v=2"></script>
+<script src="assets/js/site.js?v=29"></script>
+<script src="assets/js/support-widget.js?v=3"></script>
 <script src="assets/js/cart.js?v=6"></script>
+<script>
+document.getElementById("signinForm")?.addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (window.Pucky) {
+    window.Pucky.ask("I want to sign in to my account");
+  } else {
+    alert("Auth wiring next — Dynamic + Whop. Pucky can help meanwhile.");
+  }
+});
+document.getElementById("askPucky")?.addEventListener("click", () => {
+  window.Pucky?.ask("help me sign in");
+});
+</script>
 </body>
 </html>
