@@ -362,6 +362,7 @@
               <a href="apply.html">Franchise / Owner apply</a>
               <a href="advertise.html">Advertise / Launch</a>
               <a href="talent.html">Talent Community</a>
+              <a href="developers.html">Developer Hub</a>
               <a href="partners.html">Partners</a>
               <a href="brand.html">Brand Kit</a>
               <a href="media.html">Media Hub</a>
