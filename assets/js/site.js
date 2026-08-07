@@ -215,24 +215,15 @@
           </div>
         </nav>
         <div class="nav-actions">
-          <a href="expansion.html" class="nav-count-chip" title="Expansion Weekend countdown">
-            <span class="nav-count-label">Expand</span>
-            <span class="nav-count-time" id="navEventCountdown">--:--:--:--</span>
-          </a>
           <a href="join.html" class="nav-pill nav-pill-og" title="$36 OG Offer — Gold Puck + 1-year Premium League Pass">
             <span class="og-short">$36 OG</span>
             <span class="og-full">$36 OG Offer</span>
           </a>
-          <a href="shop.html" class="nav-pill nav-pill-shop">Shop</a>
           <button type="button" class="nav-bag" id="navBagBtn" data-open-cart aria-label="Open bag">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 016 0"/></svg>
             <span class="bag-count" id="navBagCount" data-count="0"></span>
           </button>
           <a href="signin.html" class="nav-pill nav-pill-signin">Sign In</a>
-          <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch to light mode" title="Light mode">
-            <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 0110.5 3 7 7 0 1019 16.5c.7-.6 1.4-1.3 2-2z"/></svg>
-            <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-          </button>
           <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileDrawer" aria-label="Open menu">
             <span></span><span></span><span></span>
           </button>
@@ -295,6 +286,11 @@
           <a href="join.html" class="btn btn-founding btn-block">$36 OG Offer · Gold Puck + Pass</a>
           <a href="shop.html" class="btn btn-sapphire btn-block">Shop</a>
           <a href="signin.html" class="btn btn-signin btn-block">Sign In</a>
+          <button class="theme-toggle theme-toggle-drawer" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch to light mode" title="Light mode">
+            <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 0110.5 3 7 7 0 1019 16.5c.7-.6 1.4-1.3 2-2z"/></svg>
+            <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            <span class="theme-toggle-label">Theme</span>
+          </button>
         </div>
       </div>
     `;
@@ -589,17 +585,15 @@
     }
     ogEnd = Number(ogEnd);
 
-    const navEl = document.getElementById("navEventCountdown");
-    const navLabel = document.querySelector(".nav-count-label");
+    const navEl = null;
+    const navLabel = null;
     const heroEl = document.getElementById("heroCountdown");
     const heroBoxes = document.getElementById("heroCountdownBoxes");
     const ogEl = document.getElementById("ogCountdown");
     const eventEl = document.getElementById("eventCountdown");
-    if (navLabel) navLabel.textContent = "Expand";
 
     const tick = () => {
       const left = EVENT_END - Date.now();
-      if (navEl) navEl.textContent = left <= 0 ? "LIVE" : livClock(left);
       if (heroEl) heroEl.textContent = left <= 0 ? "LIVE" : livClock(left);
       if (heroBoxes) heroBoxes.innerHTML = clockHtml(left);
       if (eventEl) eventEl.innerHTML = clockHtml(left);
@@ -642,8 +636,8 @@
       abs("assets/media/sport-action.mp3"),
     ];
     const saved = localStorage.getItem(STORAGE_KEY);
-    // Default ON; if previously off, still start ready — user can tap sapphire button
-    let enabled = saved === null ? true : saved === "1";
+    // Default OFF so the VeeFriends pulse rings invite the first tap
+    let enabled = saved === "1";
     let trackIndex = 0;
 
     const audio = new Audio();
@@ -667,15 +661,10 @@
     btn.type = "button";
     btn.className = "av-toggle";
     btn.id = "avToggle";
-    // VeeFriends-style round play/pause (not volume speaker)
+    // VeeFriends-style: pulsing rings when off, dancing EQ when on
     btn.innerHTML = `
-      <svg class="av-ico av-ico-play" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M8 5.5v13l11-6.5L8 5.5z"/>
-      </svg>
-      <svg class="av-ico av-ico-pause" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M7 5h3.5v14H7V5zm6.5 0H17v14h-3.5V5z"/>
-      </svg>
-      <span class="av-label">Play soundtrack</span>
+      <span class="av-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+      <span class="av-label">Turn sound on</span>
     `;
     const heroSlot = document.getElementById("heroAvSlot");
     if (heroSlot) {
@@ -692,10 +681,11 @@
     let sceneIndex = 0;
 
     function setUi() {
+      btn.classList.toggle("on", enabled);
       btn.setAttribute("aria-pressed", enabled ? "true" : "false");
-      btn.setAttribute("aria-label", enabled ? "Pause soundtrack" : "Play soundtrack");
-      btn.title = enabled ? "Pause soundtrack" : "Play soundtrack";
-      if (label) label.textContent = enabled ? "Pause soundtrack" : "Play soundtrack";
+      btn.setAttribute("aria-label", enabled ? "Turn sound off" : "Turn sound on");
+      btn.title = enabled ? "Sound on — tap to mute" : "Sound off — tap to play";
+      if (label) label.textContent = enabled ? "Turn sound off" : "Turn sound on";
       stages.forEach((el) => {
         el.classList.toggle("is-av-on", enabled);
         el.classList.toggle("is-av-off", !enabled);
