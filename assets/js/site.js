@@ -43,6 +43,8 @@
 
   const newsLinks = [
     { href: "news.html", label: "Newsroom" },
+    { href: "founding-four.html", label: "Championship Book · How Miami Stole the Cup" },
+    { href: "news-article.html?id=expansion-prizes", label: "Expansion Prize Vault" },
     { href: "media-guide.html", label: "2026 Media Guide" },
     { href: "fact-sheet.html", label: "League Fact Sheet" },
     { href: "media-rosters.html", label: "2026 Rosters (Press)" },
@@ -55,7 +57,6 @@
     { href: "video-recaps.html", label: "Game Recaps" },
     { href: "puck-personality.html", label: "Puck Personality" },
     { href: "podcasts.html", label: "Podcasts" },
-    { href: "media-videos.html", label: "All Video" },
     { href: "hype.html", label: "Hype Trailer" },
   ];
 
@@ -65,6 +66,7 @@
     { href: "standings.html", label: "Player standings" },
     { href: "standings.html?view=teams", label: "Team standings" },
     { href: "bracket.html", label: "Playoff bracket" },
+    { href: "founding-four.html", label: "Founding Four lore" },
     { href: "awards.html", label: "The Hardware · Trophies" },
     { href: "apply.html", label: "Franchise / Owner apply" },
     { href: "advertise.html", label: "Advertise / Launch" },
@@ -186,6 +188,7 @@
       isActive("puck-personality.html") ||
       isActive("podcasts.html") ||
       isActive("expansion.html") ||
+      isActive("founding-four.html") ||
       isActive("media-guide.html") ||
       active.startsWith("transcript");
     const formatActive =

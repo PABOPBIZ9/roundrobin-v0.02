@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Article — PuckGold</title>
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=39">
+<link rel="stylesheet" href="assets/css/site.css?v=40">
 <link rel="stylesheet" href="assets/css/nhl-league.css?v=2">
 <link rel="stylesheet" href="assets/css/media-guide.css?v=1">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
@@ -13,66 +13,167 @@
   .art{max-width:720px;margin:0 auto;padding:2rem 4vw 3.5rem}
   .art .cat{font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#8a93a3}
   .art h1{font-family:var(--display);font-size:clamp(2.2rem,6vw,3.4rem);letter-spacing:.03em;margin:.4rem 0 .7rem;line-height:.95}
-  .art .dek{font-size:1.1rem;color:#5c6473;margin-bottom:1.5rem}
+  .art .dek{font-size:1.1rem;color:#5c6473;margin-bottom:1.5rem;line-height:1.45}
   .art .body p{margin:0 0 1rem;line-height:1.65;color:#121826}
+  .art .body h2{font-family:var(--display);font-size:1.55rem;letter-spacing:.04em;margin:1.75rem 0 .65rem}
   .art .body a{color:#163a74;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+  .art .body ul{margin:0 0 1rem;padding-left:1.2rem;line-height:1.55;color:#121826}
+  .art .body li{margin-bottom:.35rem}
+  .art .body table{width:100%;border-collapse:collapse;font-size:.88rem;margin:1rem 0 1.25rem}
+  .art .body th,.art .body td{padding:.5rem .55rem;border-bottom:1px solid rgba(18,24,38,.08);text-align:left}
+  .art .body th{font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;color:#5c6473}
+  .art .pull{
+    border-left:3px solid #d4af37;padding:.2rem 0 .2rem .9rem;margin:1.25rem 0;
+    font-family:var(--display);font-size:1.25rem;line-height:1.3;color:#10203a;
+  }
   .art-cta{margin-top:2rem;padding:1.2rem;border-radius:14px;background:#0b1220;color:#fff}
 </style>
 </head>
 <body class="nhl-light">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
-<nav class="nhl-sub"><a href="news.html" class="is-active">← Newsroom</a><a href="expansion.html">Expansion</a><a href="media-guide.html">Media Guide</a></nav>
+<nav class="nhl-sub">
+  <a href="news.html" class="is-active">← Newsroom</a>
+  <a href="founding-four.html">Championship Book</a>
+  <a href="expansion.html">Expansion</a>
+  <a href="awards.html">Hardware</a>
+</nav>
 <article class="art" id="artRoot"></article>
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=39"></script>
+<script src="assets/js/site.js?v=40"></script>
 <script src="assets/js/support-widget.js?v=5"></script>
 <script src="assets/js/cart.js?v=8"></script>
-<script src="assets/js/tournament-data.js?v=1"></script>
+<script src="assets/js/tournament-data.js?v=2"></script>
 <script>
 (function () {
-  const id = new URLSearchParams(location.search).get("id") || "expansion-24h";
+  const id = new URLSearchParams(location.search).get("id") || "founding-four-recap";
   const meta = window.PGBNews.byId(id) || window.PGBNews.all()[0];
   document.title = meta.title + " — PuckGold";
 
   const bodies = {
+    "founding-four-recap": `
+      <p>Four teams walked into the inaugural PuckGold Founding Four Championship. One team was supposed to walk out with the Cup. It wasn't the one anybody picked.</p>
+      <p>This is the story of Season One — from the opening faceoff at Terminal Arena to the golden confetti falling on Neon Reef Stadium three nights later.</p>
+      <h2>The Field</h2>
+      <p><strong>McLean Cardinals</strong> — disciplined, defense-first, built to win from day one. <strong>Washington Whoomp!</strong> — tactical, the quiet overachiever. <strong>Miami Mighty Geckz</strong> — fast, flashy, completely unproven. <strong>Chattanooga Choo Choo</strong> — physical, blue-collar, everybody's second favorite.</p>
+      <p class="pull">Nobody had played a competitive game as a franchise. By Sunday night, one of them had a trophy.</p>
+      <h2>Round Robin — The Empire Looks Unbeatable</h2>
+      <p>McLean announced itself immediately: 4–1 over Chattanooga at Terminal Arena, then 5–2 over Washington at Cardinal Perch Gardens. Closing the robin 3–0 didn't feel like a hot start — it felt like a coronation. Nine goals for, five against.</p>
+      <p>Washington did what a #2 seed does: OT win over Miami in Game 1, then 4–3 over Chattanooga. Miami opened with that OT loss, bounced back 4–2 at Neon Reef, and needed a miracle just to survive a 3–2 loss to McLean in Game 6 — sneaking into the #3 seed on goal differential.</p>
+      <table>
+        <thead><tr><th>Seed</th><th>Team</th><th>Record</th><th>PTS</th><th>GD</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>McLean Cardinals</td><td>3–0–0</td><td>9</td><td>+7</td></tr>
+          <tr><td>2</td><td>Washington Whoomp!</td><td>2–1–0</td><td>6</td><td>−1</td></tr>
+          <tr><td>3</td><td>Miami Mighty Geckz</td><td>1–1–1</td><td>4</td><td>0</td></tr>
+          <tr><td>4</td><td>Chattanooga Choo Choo</td><td>0–3–0</td><td>0</td><td>−6</td></tr>
+        </tbody>
+      </table>
+      <h2>Semifinals — One Chalk, One Chaos</h2>
+      <p><strong>McLean 6, Chattanooga 2</strong> went as advertised. <strong>Miami 3, Washington 2 (OT)</strong> was the gut-punch — #3 knocking out #2 on a clutch breakaway.</p>
+      <h2>Golden Final</h2>
+      <p><strong>Game 1 · Cardinal Perch:</strong> McLean 3, Miami 1. Clinical. Aggregate 3–1 Empire.</p>
+      <p><strong>Game 2 · Neon Reef — “The Miracle Game”:</strong> McLean up 2–0 early (5–1 agg). Miami clawed back. Third period: three unanswered. Aggregate knotted 6–6. Overtime: rebound breakaway, triple-deke, top shelf.</p>
+      <p class="pull">FINAL: Miami 5, McLean 4 (OT) · Aggregate Miami 6–5 · First-ever PuckGold Champions.</p>
+      <p>McLean played the better hockey for five and a half of six Golden Final periods. It didn't matter. That's the pitch: <strong>nobody's out of it until the horn sounds.</strong></p>
+      <p>Read the <a href="founding-four.html">Championship Book</a> · period-by-period <a href="news-article.html?id=miracle-game">Miracle Game</a> · hardware on <a href="awards.html">awards.html</a> · source PDF in <a href="assets/lore/founding-four/Founding-Four-Recap-How-Miami-Stole-The-Cup.pdf">lore vault</a>.</p>`,
+
+    "miracle-game": `
+      <p>Entering Game 2 of the Golden Final, McLean led the aggregate <strong>3–1</strong>. Neon Reef was survival mode for everyone else.</p>
+      <h2>1st Period — The Cup feels decided</h2>
+      <p>McLean doesn't blink. Two power-play goals. Game 2–0 Cardinals. Aggregate <strong>5–1</strong>. Miami's building goes quiet for the first time all tournament. Coronation copy starts writing itself.</p>
+      <h2>2nd Period — A pulse</h2>
+      <p>Miami power-play goal, then a converted penalty shot. Game 3–2 McLean. Aggregate still <strong>6–3</strong>. By any reasonable measure, finished. By Miami measure: alive.</p>
+      <h2>3rd Period — The period Season One is remembered for</h2>
+      <p>Three unanswered Geckz goals. The building shakes louder with every one. Game tied 4–4. Aggregate knotted <strong>6–6</strong> with under a minute left. McLean nearly wins it in regulation. They don't.</p>
+      <h2>Overtime — Triple-deke, top shelf</h2>
+      <p>McLean presses. Shot blocked. Rebound springs Miami on a clean breakaway. Signature move of the tournament: <strong>triple-deke, buried top shelf.</strong></p>
+      <p class="pull">Miami 5, McLean 4 (OT) · Aggregate 6–5 · Golden confetti · First champions.</p>
+      <p>Clip Crown energy. Clutch Award. Golden Gecko night. Watch path: <a href="video-recaps.html">recaps</a> · <a href="scores.html">scores</a> · <a href="founding-four.html">championship book</a>.</p>`,
+
+    "empire-fallen": `
+      <p>For five and a half of the six periods in the Golden Final, the McLean Cardinals played the better hockey. Depth. Discipline. Suffocating structure. Game 1 was a statement: 3–1 at Cardinal Perch Gardens. Game 2's first period looked like a coronation — two power-play goals, aggregate 5–1.</p>
+      <p>Then Neon Reef remembered who it is.</p>
+      <p>Empires don't lose on paper. They lose when a #3 seed that needed a tiebreaker just to make the playoffs decides the horn hasn't sounded yet. McLean takes home The Wall Trophy and the Golden Finalist Plate. Miami takes the Cup.</p>
+      <p>Redemption path starts this weekend — <a href="expansion.html">Expansion Weekend</a> puts the Empire back on the ice with twelve new invite markets watching.</p>`,
+
+    "choochoo-heart": `
+      <p>Zero points. Zero wins. Everything in the fans' hearts.</p>
+      <p>Chattanooga Choo Choo left the Founding Four round robin 0–3–0 and still skated off as the league's blue-collar conscience — three physical, hard-nosed losses that never once looked like a basement team. The Conductor's Crest (sportsmanship) was never a consolation prize. It was the truth of the weekend.</p>
+      <p>Terminal Arena hosted the tournament's opening night. The steam-whistle horn still owns the highlight packages. This weekend, the Railroad Rebels ride again in the First 16.</p>
+      <p><a href="team.html?team=chattanooga-choo-choo">Team vault</a> · <a href="awards.html#conductors-crest">Conductor's Crest</a> · <a href="expansion.html">Expansion pools</a>.</p>`,
+
+    "expansion-prizes": `
+      <p>The Miracle Game closed Season One's origin chapter. This weekend the ice opens wider — and the fan prize vault opens with it.</p>
+      <h2>Major announcements</h2>
+      <ul>
+        <li><strong>First 16 is LIVE</strong> — Founding Four + 12 invite clubs under one weekend clock.</li>
+        <li><strong>$36 OG Offer still open</strong> — gold puck shipped + 1-year Pass · <strong>5× XP</strong> for members.</li>
+        <li><strong>Fan Zone farming weekend</strong> — likes, votes, comments, quests all count.</li>
+        <li><strong>Clip Crown submissions open Saturday</strong> — viral Expansion moments feed the crown.</li>
+        <li><strong>Road to PuckGold 128</strong> — First 32 applications stay open via <a href="apply.html">apply.html</a>.</li>
+      </ul>
+      <h2>Exciting prizes · all weekend</h2>
+      <ul>
+        <li><strong>Weekend Merch Kit</strong> — jersey + hat + OG entry for top Fan Zone board by Sunday horn</li>
+        <li><strong>Expansion Clip Crown</strong> — best fan-submitted clip Sat–Sun</li>
+        <li><strong>Neon Reef Party Pack</strong> — $50 shop + gift card for 500+ XP farmed (OG = 5×)</li>
+        <li><strong>Golden Finalist flash raffle</strong> — active OG Pass members auto-entered</li>
+        <li><strong>Conductor's Crest fan vote</strong> — sportsmanship shoutouts all weekend</li>
+        <li><strong>Founding Four commemorative print</strong> — share your profile · 3 friends join Fan Zone</li>
+      </ul>
+      <p>Enter the farm: <a href="signin.html">create your vibe</a> · <a href="fantasy.html#prizes">prize vault</a> · <a href="checkout.html?offer=og">unlock 5×</a> · countdown on <a href="expansion.html">expansion.html</a>.</p>`,
+
     "expansion-24h": `
       <p>The Founding Four just made history. Now the ice opens wider.</p>
       <p><strong>Founding Expansion Weekend</strong> brings twelve invite markets alongside Miami, McLean, Washington, and Chattanooga — sixteen teams, four pools, Sunday knockout, Sudden Death Strobe OT.</p>
-      <p>Faceoff is on a <a href="expansion.html">24-hour countdown</a>. That clock also drives the founding sales window: free limited gold puck + Premium League Pass, weekend jersey energy, and gift cards for the group chat.</p>
-      <p>Press: grab the <a href="media-guide.html">2026 Media Guide</a>. Fans: <a href="join.html">lock the founding offer</a> before the horn.</p>`,
+      <p>Faceoff rides the <a href="expansion.html">sitewide countdown</a>. That clock also drives the founding sales window: free limited gold puck + Premium League Pass, weekend jersey energy, and gift cards for the group chat.</p>
+      <p>Catch up on lore: <a href="founding-four.html">How Miami stole the Cup</a>. Press: <a href="media-guide.html">2026 Media Guide</a>. Fans: <a href="checkout.html?offer=og">lock the founding offer</a> before the horn.</p>`,
+
     "golden-final-recap": `
       <p>McLean took Game 1, 3–1. Neon Reef answered.</p>
-      <p>Game 2 went to overtime — Miami 5–4 — and the aggregate flipped to <strong>6–5 Geckz</strong>. Kai Sandoval’s night becomes Firehorse lore; the Clip Crown race writes itself.</p>
-      <p>Watch the <a href="video-watch.html?type=recap&gameid=0022500005">G2 recap</a> and <a href="video-watch.html?type=condensed&gameid=0022500005">condensed cut</a>. Full scores on <a href="scores.html">scores.html</a>. Hardware on <a href="awards.html">awards.html</a>.</p>`,
+      <p>Game 2 went to overtime — Miami 5–4 — and the aggregate flipped to <strong>6–5 Geckz</strong>. The triple-deke OT winner becomes Clip Crown lore; the Golden Gecko writes itself.</p>
+      <p>Full longform: <a href="news-article.html?id=founding-four-recap">How Miami stole the Cup</a> · period-by-period <a href="news-article.html?id=miracle-game">Miracle Game</a> · <a href="founding-four.html">Championship Book</a> · hardware on <a href="awards.html">awards.html</a>.</p>`,
+
     "media-guide-drop": `
       <p>Our Season One booklet is live — LIV Media Guide DNA, Founding Four soul.</p>
       <p>Section 1 League · Section 2 Teams · Section 3 Results · Section 4 Records. Contacts, broadcast notes, and vault paths for partners.</p>
-      <p>Open the <a href="media-guide.html">Media Guide</a>. Drop print PDFs into <code>assets/vault/content/media-guide/</code>. Apply for weekend coverage via <a href="media-accreditation.html">accreditation</a>.</p>`,
+      <p>Open the <a href="media-guide.html">Media Guide</a>. Lore vault: <a href="founding-four.html">Championship Book</a>. Apply for weekend coverage via <a href="media-accreditation.html">accreditation</a>.</p>`,
+
     "booth-bomb-audio": `
       <p>Miami’s booth went late-night radio — latin-jazz cadence, Spanish on the breakaways — and the win outro hit like a reef siren.</p>
-      <p>Drop <code>main.mp3</code> into <code>assets/teams/miami-mighty-geckz/09-Audio/</code> (goal-horn, walkout-intro, goal-call, win-outro). Blast the horn from the <a href="team.html?team=miami-mighty-geckz#audio">team vault page</a>. More shows on <a href="podcasts.html">podcasts</a>.</p>`,
+      <p>Drop <code>main.mp3</code> into <code>assets/teams/miami-mighty-geckz/09-Audio/</code>. Blast the horn from the <a href="team.html?team=miami-mighty-geckz#audio">team vault page</a>. More shows on <a href="podcasts.html">podcasts</a>.</p>`,
+
     "hardware-stack": `
       <p>The trophy case is no longer a draft doodle.</p>
-      <p>Underdog Division Crown, The Puck Gold One, Firehorse MVP, Player of the Tournament, Golden Puck Scorer, Iron &amp; Glass Goalie, Clip Crown, Aura Vote Champion — plus spirit awards.</p>
-      <p>Hi-res landing zones: <code>assets/hardware/trophies/{id}/</code>. Browse <a href="awards.html">The Hardware</a>.</p>`,
+      <ul>
+        <li><strong>PuckGold Cup / The Puck Gold One</strong> — Miami Mighty Geckz</li>
+        <li><strong>Golden Gecko Award</strong> — playoff MVP (8G, 5A + OT winner)</li>
+        <li><strong>The Wall Trophy</strong> — McLean goaltending</li>
+        <li><strong>Conductor's Crest</strong> — Chattanooga sportsmanship</li>
+        <li><strong>The Clutch Award</strong> — Miracle Game OT winner</li>
+        <li><strong>Golden Stick / Clip Crown / Firehorse</strong> — full stack on awards</li>
+      </ul>
+      <p>Browse <a href="awards.html">The Hardware</a>. Story behind the Cup: <a href="founding-four.html">Championship Book</a>.</p>`,
+
     "how-to-watch-weekend": `
       <p>Pools A–D tip under the countdown. Format stays Banana Hockey: 3×3:33, pulled goalies, aura votes, 9-man strobe OT.</p>
       <p>Watch path: <a href="scores.html">Scores</a> → <a href="video-recaps.html">Recaps</a> → <a href="video-condensed.html">Condensed</a>. Earn XP in <a href="play.html">Game Zone</a> while you wait.</p>
-      <p>Buy path: <a href="join.html">Founding Pass</a> · <a href="shop.html">Shop</a> · <a href="gifts.html">Gift cards</a>. Full slate on <a href="expansion.html">expansion.html</a>.</p>`,
+      <p>Prize path: <a href="news-article.html?id=expansion-prizes">weekend prize vault</a> · <a href="checkout.html?offer=og">Founding Pass</a> · <a href="shop.html">Shop</a>. Full slate on <a href="expansion.html">expansion.html</a>.</p>`,
   };
 
   document.getElementById("artRoot").innerHTML = `
     <div class="cat">${meta.cat} · ${meta.date}</div>
     <h1>${meta.title}</h1>
     <p class="dek">${meta.dek}</p>
-    <div class="body">${bodies[meta.id] || bodies["expansion-24h"]}</div>
+    <div class="body">${bodies[meta.id] || bodies["founding-four-recap"]}</div>
     <div class="art-cta">
-      <strong style="color:#f0d78c">Expansion Weekend</strong>
-      <p style="margin:.4rem 0 0.8rem;color:rgba(255,255,255,.8)">Faceoff in ~24 hours. Lock the founding offer while the clock runs.</p>
+      <strong style="color:#f0d78c">Expansion Weekend · Prize Vault Live</strong>
+      <p style="margin:.4rem 0 0.8rem;color:rgba(255,255,255,.8)">Farm likes, votes &amp; quests. OG Pass = 5×. Faceoff clock is running.</p>
       <a href="expansion.html" class="btn btn-founding btn-sm">Open countdown</a>
-      <a href="join.html" class="btn btn-platinum btn-sm">Buy Pass · $36</a>
+      <a href="fantasy.html#prizes" class="btn btn-platinum btn-sm">See prizes</a>
+      <a href="checkout.html?offer=og" class="btn btn-ghost btn-sm" data-claim-og style="border-color:rgba(255,255,255,.3);color:#fff">$36 OG · 5×</a>
     </div>
   `;
 })();
