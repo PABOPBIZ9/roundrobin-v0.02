@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Zone — Play · Farm · Climb | PuckGold</title>
+<meta name="description" content="PuckGold Game Zone — timed quizzes, learning quests, and daily farming to climb the fan leaderboard.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=13">
+<link rel="stylesheet" href="assets/css/play-zone.css?v=1">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+</head>
+<body class="pz-light">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+
+<section class="pz-hero">
+  <span class="kicker">Play doesn’t stop at the horn</span>
+  <h1>GAME ZONE</h1>
+  <p>Learn the league. Crush timed quizzes. Clear farming quests. Stack XP and climb the fan leaderboard — NBA Play energy, PuckGold ice.</p>
+  <div class="cta-row">
+    <button type="button" class="btn btn-founding btn-sm" id="heroQuiz">Play timed quiz</button>
+    <a href="#board" class="btn btn-platinum btn-sm">Fan leaderboard</a>
+    <a href="standings.html" class="btn btn-ghost btn-sm">Team standings</a>
+  </div>
+</section>
+
+<div class="pz-wrap">
+  <div class="pz-statbar" id="pzStats"></div>
+
+  <div class="section-head" style="margin-bottom:1rem">
+    <h2 style="font-family:var(--display);font-size:2.2rem;letter-spacing:.04em">Daily farms &amp; quests</h2>
+    <p style="color:#5c6473;margin-top:.35rem;max-width:36rem">Check in, scout teams, preview outfits, and quiz under the clock. Points sync to this device’s fan board.</p>
+  </div>
+  <div class="pz-grid cols-3" id="pzQuests"></div>
+
+  <div class="section-head" style="margin:2.5rem 0 1rem" id="board">
+    <h2 style="font-family:var(--display);font-size:2.2rem;letter-spacing:.04em">Fan leaderboard</h2>
+    <p style="color:#5c6473;margin-top:.35rem">Farm XP to move up. Your rank updates live after each quest.</p>
+  </div>
+  <div class="lb-list" id="pzBoard"></div>
+
+  <div class="section-head" style="margin:2.5rem 0 1rem">
+    <h2 style="font-family:var(--display);font-size:2.2rem;letter-spacing:.04em">More ways to play</h2>
+  </div>
+  <div class="pz-grid">
+    <article class="pz-card">
+      <div class="tag">LockerVision</div>
+      <h3>Game outfits</h3>
+      <p>Home &amp; away kit reveals for every Founding Four tip — jerseys, marks, drop folders.</p>
+      <div class="actions"><a class="pz-btn" href="lockervision.html">Open LockerVision</a></div>
+    </article>
+    <article class="pz-card">
+      <div class="tag">Standings</div>
+      <h3>Division board</h3>
+      <p>NHL-style GP / PTS / DIFF table for the Underdog Division.</p>
+      <div class="actions"><a class="pz-btn ghost" href="standings.html">View standings</a></div>
+    </article>
+    <article class="pz-card">
+      <div class="tag">Fantasy</div>
+      <h3>Fan Zone giveaway</h3>
+      <p>Classic fantasy picks and founding prizes still live in Fan Zone.</p>
+      <div class="actions"><a class="pz-btn ghost" href="fantasy.html">Fantasy &amp; prizes</a></div>
+    </article>
+    <article class="pz-card">
+      <div class="tag">Drops</div>
+      <h3>Quiz &amp; quest assets</h3>
+      <p>Drop question banks, badges, and overlay art into <code>assets/vault/games/</code>.</p>
+      <div class="actions"><a class="pz-btn ghost" href="assets/vault/games/">Open vault</a></div>
+    </article>
+  </div>
+</div>
+
+<div class="pz-modal" id="pzModal" hidden>
+  <div class="pz-modal-card" role="dialog" aria-modal="true" aria-labelledby="pzModalTitle">
+    <div class="tag" style="font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#8a93a3">Timed</div>
+    <h3 id="pzModalTitle">Quiz</h3>
+    <div class="pz-timer" id="pzTimer">1:00</div>
+    <div class="pz-q" id="pzQuestion"></div>
+    <div class="pz-opts" id="pzOpts"></div>
+    <div class="pz-modal-foot" id="pzModalFoot"></div>
+  </div>
+</div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/play-zone.js?v=1"></script>
+<script>
+  document.getElementById("heroQuiz")?.addEventListener("click", () => window.PGBPlay?.openQuiz(false));
+</script>
+</body>
+</html>

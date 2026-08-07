@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Standings — PuckGold Player &amp; Team Rankings</title>
+<meta name="description" content="PuckGold standings — player points with Lock / Open / Drop zones, plus team season rankings.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=19">
+<link rel="stylesheet" href="assets/css/play-zone.css?v=3">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=3">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .zone-bar{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1rem}
+  .zone-bar button{
+    border-radius:999px;padding:.5rem .9rem;font-size:.68rem;font-weight:800;letter-spacing:.1em;
+    text-transform:uppercase;border:1px solid rgba(18,24,38,.1);background:#fff;color:#5c6473;cursor:pointer;
+  }
+  .zone-bar button.is-active{color:#fff;border-color:transparent}
+  .zone-bar button[data-zone="lock"].is-active{background:#065f46}
+  .zone-bar button[data-zone="open"].is-active{background:#a16207}
+  .zone-bar button[data-zone="drop"].is-active{background:#7a1524}
+  .zone-bar button[data-zone="all"].is-active{background:#0b1220}
+  .zone-label{
+    font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    padding:.65rem .9rem;margin:1rem 0 .35rem;border-radius:8px;color:#fff;
+  }
+  .zone-label.lock{background:#065f46}
+  .zone-label.open{background:#a16207}
+  .zone-label.drop{background:#7a1524}
+  .zone-label p{font-weight:600;letter-spacing:0;text-transform:none;font-size:.8rem;opacity:.9;margin-top:.2rem}
+  .podium{display:grid;gap:.75rem;grid-template-columns:1fr;margin-bottom:1.25rem}
+  @media(min-width:800px){.podium{grid-template-columns:repeat(3,1fr)}}
+  .pod{
+    background:#fff;border:1px solid rgba(18,24,38,.08);border-radius:12px;padding:1.1rem;text-align:center;
+  }
+  .pod .place{font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#8a93a3}
+  .pod .name{font-family:var(--display);font-size:1.6rem;letter-spacing:.04em;margin:.35rem 0}
+  .pod .pts{font-size:1.1rem;font-weight:800;color:#163a74}
+  .pod .sub{font-size:.78rem;color:#5c6473}
+</style>
+</head>
+<body class="pz-light nhl-light">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+
+<section class="nhl-hero">
+  <span class="kicker">2026 Season</span>
+  <h1>STANDINGS</h1>
+  <p>Follow every rise, every fall, and every fight for position — player points and team rankings. Modeled on <a href="https://www.livgolf.com/standings/2026/players" style="color:#f0d78c">LIV player</a> &amp; <a href="https://www.livgolf.com/standings/2026/teams" style="color:#f0d78c">team standings</a>.</p>
+</section>
+<nav class="nhl-sub" aria-label="League">
+  <a href="scores.html">Scores</a>
+  <a href="schedule.html">Schedule</a>
+  <a href="standings.html" class="is-active">Standings</a>
+  <a href="stats.html">Stats</a>
+  <a href="format.html">How scoring works</a>
+  <a href="about.html">About</a>
+</nav>
+
+<div class="pz-wrap pz-wrap-wide">
+  <div class="pz-tabs" id="modeTabs" style="margin-bottom:1rem">
+    <button type="button" class="is-active" data-mode="players">Players</button>
+    <button type="button" data-mode="teams">Teams</button>
+    <button type="button" data-mode="division">Division table</button>
+  </div>
+
+  <div id="viewPlayers">
+    <p style="font-size:.88rem;color:#5c6473;margin-bottom:.85rem">
+      Individual points from Season One skaters. <a href="format.html" style="color:#163a74;font-weight:800">How does scoring work?</a>
+    </p>
+    <div class="zone-bar" id="zoneBar">
+      <button type="button" class="is-active" data-zone="all">All</button>
+      <button type="button" data-zone="lock">Lock Zone</button>
+      <button type="button" data-zone="open">Open Zone</button>
+      <button type="button" data-zone="drop">Drop Zone</button>
+    </div>
+    <div class="podium" id="podium"></div>
+    <div class="st-card">
+      <div class="st-scroll">
+        <div id="playerBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="viewTeams" hidden>
+    <div class="podium" id="teamPodium"></div>
+    <div class="st-card">
+      <div class="st-scroll">
+        <table class="st-table">
+          <thead>
+            <tr>
+              <th>POS</th>
+              <th>Team</th>
+              <th class="num">PTS</th>
+              <th class="num">GP</th>
+              <th class="num">W</th>
+              <th class="num">L</th>
+              <th class="num">OT</th>
+              <th class="num">GF</th>
+              <th class="num">GA</th>
+              <th class="num">DIFF</th>
+            </tr>
+          </thead>
+          <tbody id="teamBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div id="viewDivision" hidden>
+    <div class="st-card">
+      <div class="st-head">
+        <div>
+          <h2>Underdog Division</h2>
+          <p>NHL-style board · Season One</p>
+        </div>
+      </div>
+      <div class="st-scroll">
+        <table class="st-table">
+          <thead>
+            <tr>
+              <th>#</th><th>Team</th><th class="num">GP</th><th class="num">W</th><th class="num">L</th><th class="num">OT</th>
+              <th class="num">PTS</th><th class="num">P%</th><th class="num">DIFF</th><th class="num">STRK</th>
+            </tr>
+          </thead>
+          <tbody id="divBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/teams-data.js?v=2"></script>
+<script src="assets/js/standings-data.js?v=2"></script>
+<script>
+(function () {
+  const bySlug = Object.fromEntries(window.PGBTeams.all().map((t) => [t.slug, t]));
+  const skaters = [];
+  window.PGBTeams.all().forEach((t) => {
+    t.players.forEach((p) => skaters.push({ ...p, team: t, points: p.pts }));
+  });
+  skaters.sort((a, b) => b.points - a.points || a.name.localeCompare(b.name));
+  skaters.forEach((p, i) => {
+    p.posN = i + 1;
+    p.zone = i < 18 ? "lock" : i < 27 ? "open" : "drop";
+  });
+
+  const teams = window.PGB_STANDINGS.teams
+    .slice()
+    .sort((a, b) => b.pts - a.pts || b.gf - b.ga - (a.gf - a.ga));
+
+  function podiumPlayers() {
+    document.getElementById("podium").innerHTML = skaters
+      .slice(0, 3)
+      .map(
+        (p, i) => `
+      <div class="pod">
+        <div class="place">${i === 0 ? "1ST" : i === 1 ? "2ND" : "3RD"}</div>
+        <div class="name"><a href="player.html?id=${p.id}" style="color:inherit">${p.name.split(" ").map((n,i,a)=>i===0?n[0]+".":n).join(" ")}</a></div>
+        <div class="sub">${p.team.short}</div>
+        <div class="pts">${p.points.toFixed(0)} PTS</div>
+      </div>`
+      )
+      .join("");
+  }
+
+  function renderPlayers(zone) {
+    const list = zone === "all" ? skaters : skaters.filter((p) => p.zone === zone);
+    const groups =
+      zone === "all"
+        ? [
+            { key: "lock", title: "Lock Zone", blurb: "Players 1–18. Secured aura / next-season priority." },
+            { key: "open", title: "Open Zone", blurb: "Players 19–27. Battle to climb — avoid the Drop." },
+            { key: "drop", title: "Drop Zone", blurb: "Players 28+. At risk of roster pressure / Expansion call-ups." },
+          ]
+        : [
+            {
+              key: zone,
+              title: zone === "lock" ? "Lock Zone" : zone === "open" ? "Open Zone" : "Drop Zone",
+              blurb:
+                zone === "lock"
+                  ? "Players 1–18. Secured for next season priority."
+                  : zone === "open"
+                  ? "Players 19–27. Battle to avoid Drop Zone."
+                  : "Players 28+. At risk of leaving the active vault.",
+            },
+          ];
+
+    document.getElementById("playerBody").innerHTML = groups
+      .map((g) => {
+        const rows = list
+          .filter((p) => p.zone === g.key)
+          .map(
+            (p) => `
+          <tr>
+            <td class="num">${p.posN}</td>
+            <td>
+              <div class="st-team">
+                <span class="st-mono" style="background:${p.team.colorDeep}">${p.team.mono}</span>
+                <div>
+                  <a href="player.html?id=${p.id}">${p.name}</a>
+                  <span class="sub">${p.team.name} · ${p.pos}</span>
+                </div>
+              </div>
+            </td>
+            <td class="num"><b>${p.points}</b></td>
+          </tr>`
+          )
+          .join("");
+        if (!rows) return "";
+        return `
+          <div class="zone-label ${g.key}">${g.title}<p>${g.blurb}</p></div>
+          <table class="st-table">
+            <thead><tr><th>POS</th><th>Player</th><th class="num">POINTS</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>`;
+      })
+      .join("");
+  }
+
+  function renderTeams() {
+    document.getElementById("teamPodium").innerHTML = teams
+      .slice(0, 3)
+      .map((r, i) => {
+        const t = bySlug[r.slug];
+        return `<div class="pod">
+          <div class="place">${i === 0 ? "1ST" : i === 1 ? "2ND" : "3RD"}</div>
+          <div class="name">${t.short}</div>
+          <div class="sub">${t.name}</div>
+          <div class="pts">${r.pts}.00 PTS</div>
+        </div>`;
+      })
+      .join("");
+
+    document.getElementById("teamBody").innerHTML = teams
+      .map((r, i) => {
+        const t = bySlug[r.slug];
+        const diff = r.gf - r.ga;
+        return `<tr>
+          <td class="num">${i + 1}</td>
+          <td>
+            <div class="st-team">
+              <span class="st-mono" style="background:${t.colorDeep}">${t.mono}</span>
+              <div><a href="team.html?team=${r.slug}">${t.name}</a><span class="sub">${r.note || ""}</span></div>
+            </div>
+          </td>
+          <td class="num"><b>${r.pts}</b></td>
+          <td class="num">${r.gp}</td>
+          <td class="num">${r.w}</td>
+          <td class="num">${r.l}</td>
+          <td class="num">${r.ot}</td>
+          <td class="num">${r.gf}</td>
+          <td class="num">${r.ga}</td>
+          <td class="num">${diff > 0 ? "+" : ""}${diff}</td>
+        </tr>`;
+      })
+      .join("");
+  }
+
+  function renderDivision() {
+    document.getElementById("divBody").innerHTML = teams
+      .map((r, i) => {
+        const t = bySlug[r.slug];
+        const pct = r.gp ? (r.pts / (r.gp * 2)).toFixed(3).replace(/^0/, "") : ".000";
+        const diff = r.gf - r.ga;
+        return `<tr>
+          <td class="num">${i + 1}</td>
+          <td><div class="st-team"><span class="st-mono" style="background:${t.colorDeep}">${t.mono}</span>
+            <div><a href="team.html?team=${r.slug}">${t.name}</a></div></div></td>
+          <td class="num">${r.gp}</td><td class="num">${r.w}</td><td class="num">${r.l}</td><td class="num">${r.ot}</td>
+          <td class="num"><b>${r.pts}</b></td><td class="num">${pct}</td>
+          <td class="num">${diff > 0 ? "+" : ""}${diff}</td><td class="num">${r.strk}</td>
+        </tr>`;
+      })
+      .join("");
+  }
+
+  const params = new URLSearchParams(location.search);
+  let mode = params.get("view") || "players";
+  let zone = "all";
+
+  function showMode(m) {
+    mode = m;
+    document.getElementById("viewPlayers").hidden = m !== "players";
+    document.getElementById("viewTeams").hidden = m !== "teams";
+    document.getElementById("viewDivision").hidden = m !== "division";
+    document.querySelectorAll("#modeTabs button").forEach((b) => b.classList.toggle("is-active", b.dataset.mode === m));
+    history.replaceState(null, "", m === "players" ? "standings.html" : `standings.html?view=${m}`);
+  }
+
+  document.getElementById("modeTabs").addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-mode]");
+    if (btn) showMode(btn.dataset.mode);
+  });
+  document.getElementById("zoneBar").addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-zone]");
+    if (!btn) return;
+    zone = btn.dataset.zone;
+    document.querySelectorAll("#zoneBar button").forEach((b) => b.classList.toggle("is-active", b === btn));
+    renderPlayers(zone);
+  });
+
+  podiumPlayers();
+  renderPlayers("all");
+  renderTeams();
+  renderDivision();
+  showMode(mode === "teams" || mode === "division" ? mode : "players");
+})();
+</script>
+</body>
+</html>

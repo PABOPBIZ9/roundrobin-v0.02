@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stats — PuckGold Player &amp; Team Performance</title>
+<meta name="description" content="PuckGold statistics — player insights and team performance across Season One. All Events · All Stats.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=20">
+<link rel="stylesheet" href="assets/css/play-zone.css?v=3">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=3">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .stat-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1.25rem}
+  .stat-chips a,.stat-chips button{
+    border-radius:999px;padding:.45rem .85rem;font-size:.65rem;font-weight:800;letter-spacing:.1em;
+    text-transform:uppercase;border:1px solid rgba(18,24,38,.1);background:#fff;color:#5c6473;
+    text-decoration:none;cursor:pointer;
+  }
+  .stat-chips a.is-active,.stat-chips button.is-active{background:#0b1220;color:#fff;border-color:#0b1220}
+  .stat-sec{margin:0 0 2rem}
+  .stat-sec h3{font-family:var(--display);font-size:1.55rem;letter-spacing:.04em;margin:0 0 .35rem}
+  .stat-sec .blurb{font-size:.88rem;color:#5c6473;margin:0 0 .75rem;max-width:36rem;line-height:1.45}
+  .stat-sec .full{display:inline-block;margin-top:.55rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#163a74}
+  .stat-meta{display:flex;flex-wrap:wrap;gap:.5rem .85rem;align-items:center;margin-bottom:1rem;font-size:.78rem;color:#5c6473}
+  .stat-meta strong{color:#0b1220}
+</style>
+</head>
+<body class="pz-light nhl-light">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+
+<section class="nhl-hero">
+  <span class="kicker">Statistics</span>
+  <h1>STATS</h1>
+  <p>Performance data, player insights and team stats from across the season — modeled on <a href="https://www.livgolf.com/stats/2026/players/all-events/all-stats" style="color:#f0d78c">LIV player</a> &amp; <a href="https://www.livgolf.com/stats/2026/teams/all-events/all-stats" style="color:#f0d78c">team stats</a>.</p>
+</section>
+<nav class="nhl-sub" aria-label="League">
+  <a href="scores.html">Scores</a>
+  <a href="schedule.html">Schedule</a>
+  <a href="standings.html">Standings</a>
+  <a href="stats.html" class="is-active">Stats</a>
+  <a href="awards.html">Awards</a>
+  <a href="experience.html">Event Experience</a>
+</nav>
+
+<div class="pz-wrap pz-wrap-wide">
+  <div class="stat-meta">
+    <strong>2026 Season</strong>
+    <span>·</span>
+    <span>All Events</span>
+    <span>·</span>
+    <span>All Stats</span>
+  </div>
+
+  <div class="pz-tabs" id="modeTabs" style="margin-bottom:1rem">
+    <button type="button" class="is-active" data-mode="players">Players</button>
+    <button type="button" data-mode="teams">Teams</button>
+  </div>
+
+  <div class="stat-chips" id="catChips" aria-label="Stat categories"></div>
+  <div id="statsRoot"></div>
+</div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/teams-data.js?v=2"></script>
+<script src="assets/js/standings-data.js?v=2"></script>
+<script>
+(function () {
+  function hash(s) {
+    let h = 0;
+    for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
+    return Math.abs(h);
+  }
+  function rnd(seed, min, max) {
+    return min + (seed % (max - min + 1));
+  }
+
+  const bySlug = Object.fromEntries(window.PGBTeams.all().map((t) => [t.slug, t]));
+  const standBySlug = Object.fromEntries(window.PGB_STANDINGS.teams.map((t) => [t.slug, t]));
+
+  const players = [];
+  window.PGBTeams.all().forEach((t) => {
+    const st = standBySlug[t.slug] || { gp: 4, gf: 10, ga: 10 };
+    t.players.forEach((p) => {
+      const seed = hash(p.id);
+      const gp = st.gp;
+      const g = p.pos === "G" ? 0 : Math.max(0, Math.round(p.pts * 0.42 + rnd(seed, 0, 2) - 1));
+      const a = p.pos === "G" ? Math.max(0, Math.round(p.pts * 0.15)) : Math.max(0, p.pts - g);
+      const pts = p.pos === "G" ? a : g + a;
+      const sog = p.pos === "G" ? 0 : Math.max(g + 2, Math.round(p.pts * 2.1 + rnd(seed >> 3, 4, 18)));
+      const shotPct = sog ? ((g / sog) * 100).toFixed(1) : "—";
+      const plusMinus = p.pos === "G" ? "—" : (rnd(seed >> 2, -4, 8) > 0 ? "+" : "") + rnd(seed >> 2, -4, 8);
+      const hits = p.pos === "G" ? 0 : rnd(seed >> 4, 2, 22);
+      const blocks = p.pos === "G" ? 0 : rnd(seed >> 5, 1, 16);
+      const foPct = p.pos === "C" ? (48 + (seed % 12) + (seed % 10) / 10).toFixed(1) : null;
+      const svPct = p.pos === "G" ? (0.9 + (seed % 40) / 1000).toFixed(3) : null;
+      const gaa = p.pos === "G" ? (2.1 + (seed % 90) / 100).toFixed(2) : null;
+      const so = p.pos === "G" ? rnd(seed >> 6, 0, 2) : 0;
+      players.push({
+        ...p, team: t, gp, g, a, pts: p.pos === "G" ? p.pts : pts,
+        sog, shotPct, plusMinus, hits, blocks, foPct, svPct, gaa, so,
+      });
+    });
+  });
+
+  const teams = window.PGB_STANDINGS.teams.map((r) => {
+    const t = bySlug[r.slug];
+    const seed = hash(r.slug);
+    const ppPct = (16 + (seed % 12) + (seed % 10) / 10).toFixed(1);
+    const pkPct = (72 + (seed % 14) + (seed % 10) / 10).toFixed(1);
+    const sogPg = (28 + (seed % 10) + (seed % 10) / 10).toFixed(1);
+    const sv = (0.895 + (seed % 35) / 1000).toFixed(3);
+    const fo = (48 + (seed % 8) + (seed % 10) / 10).toFixed(1);
+    return { ...r, team: t, ppPct, pkPct, sogPg, sv, fo, diff: r.gf - r.ga };
+  });
+
+  const playerCats = [
+    { id: "all", label: "All Stats" },
+    { id: "points", label: "Points", blurb: "Total points (goals + assists) across all events.", cols: ["GP", "G", "A", "PTS"], sort: (a, b) => b.pts - a.pts, cell: (p) => `<td class="num">${p.gp}</td><td class="num">${p.g}</td><td class="num">${p.a}</td><td class="num"><b>${p.pts}</b></td>`, filter: (p) => p.pos !== "G" },
+    { id: "goals", label: "Goals", blurb: "Total goals scored across Season One.", cols: ["GP", "G", "SOG"], sort: (a, b) => b.g - a.g || b.pts - a.pts, cell: (p) => `<td class="num">${p.gp}</td><td class="num"><b>${p.g}</b></td><td class="num">${p.sog}</td>`, filter: (p) => p.pos !== "G" },
+    { id: "assists", label: "Assists", blurb: "Primary and secondary helpers.", cols: ["GP", "A", "PTS"], sort: (a, b) => b.a - a.a || b.pts - a.pts, cell: (p) => `<td class="num">${p.gp}</td><td class="num"><b>${p.a}</b></td><td class="num">${p.pts}</td>`, filter: (p) => true },
+    { id: "plusminus", label: "Plus / Minus", blurb: "On-ice goal differential while skater is on the ice.", cols: ["GP", "+/−", "PTS"], sort: (a, b) => parseInt(b.plusMinus, 10) - parseInt(a.plusMinus, 10), cell: (p) => `<td class="num">${p.gp}</td><td class="num"><b>${p.plusMinus}</b></td><td class="num">${p.pts}</td>`, filter: (p) => p.pos !== "G" },
+    { id: "shotpct", label: "Shot %", blurb: "Goals divided by shots on goal.", cols: ["G", "SOG", "SHOT %"], sort: (a, b) => parseFloat(b.shotPct) - parseFloat(a.shotPct), cell: (p) => `<td class="num">${p.g}</td><td class="num">${p.sog}</td><td class="num"><b>${p.shotPct}%</b></td>`, filter: (p) => p.pos !== "G" && p.sog >= 8 },
+    { id: "hits", label: "Hits", blurb: "Body checks recorded by official scorer.", cols: ["GP", "HITS", "BLK"], sort: (a, b) => b.hits - a.hits, cell: (p) => `<td class="num">${p.gp}</td><td class="num"><b>${p.hits}</b></td><td class="num">${p.blocks}</td>`, filter: (p) => p.pos !== "G" },
+    { id: "faceoff", label: "Faceoff %", blurb: "Faceoffs won percentage for centers.", cols: ["GP", "FO %"], sort: (a, b) => parseFloat(b.foPct) - parseFloat(a.foPct), cell: (p) => `<td class="num">${p.gp}</td><td class="num"><b>${p.foPct}%</b></td>`, filter: (p) => p.foPct != null },
+    { id: "svpct", label: "Save %", blurb: "Saves divided by shots against for goaltenders.", cols: ["GP", "SV %", "GAA", "SO"], sort: (a, b) => parseFloat(b.svPct) - parseFloat(a.svPct), cell: (p) => `<td class="num">${p.gp}</td><td class="num"><b>${p.svPct}</b></td><td class="num">${p.gaa}</td><td class="num">${p.so}</td>`, filter: (p) => p.pos === "G" },
+    { id: "gaa", label: "GAA", blurb: "Goals against average per 60 minutes.", cols: ["GP", "GAA", "SV %"], sort: (a, b) => parseFloat(a.gaa) - parseFloat(b.gaa), cell: (p) => `<td class="num">${p.gp}</td><td class="num"><b>${p.gaa}</b></td><td class="num">${p.svPct}</td>`, filter: (p) => p.pos === "G" },
+  ];
+
+  const teamCats = [
+    { id: "all", label: "All Stats" },
+    { id: "points", label: "Points", blurb: "Team standings points across all events.", cols: ["GP", "W", "L", "OT", "PTS"], sort: (a, b) => b.pts - a.pts, cell: (r) => `<td class="num">${r.gp}</td><td class="num">${r.w}</td><td class="num">${r.l}</td><td class="num">${r.ot}</td><td class="num"><b>${r.pts}</b></td>` },
+    { id: "gf", label: "Goals For", blurb: "Total goals scored by the team.", cols: ["GP", "GF", "DIFF"], sort: (a, b) => b.gf - a.gf, cell: (r) => `<td class="num">${r.gp}</td><td class="num"><b>${r.gf}</b></td><td class="num">${r.diff > 0 ? "+" : ""}${r.diff}</td>` },
+    { id: "ga", label: "Goals Against", blurb: "Total goals allowed — lower is better.", cols: ["GP", "GA", "SV %"], sort: (a, b) => a.ga - b.ga, cell: (r) => `<td class="num">${r.gp}</td><td class="num"><b>${r.ga}</b></td><td class="num">${r.sv}</td>` },
+    { id: "pp", label: "Power Play %", blurb: "Power-play conversion percentage.", cols: ["PP %", "GF"], sort: (a, b) => parseFloat(b.ppPct) - parseFloat(a.ppPct), cell: (r) => `<td class="num"><b>${r.ppPct}%</b></td><td class="num">${r.gf}</td>` },
+    { id: "pk", label: "Penalty Kill %", blurb: "Penalty-kill success rate.", cols: ["PK %", "GA"], sort: (a, b) => parseFloat(b.pkPct) - parseFloat(a.pkPct), cell: (r) => `<td class="num"><b>${r.pkPct}%</b></td><td class="num">${r.ga}</td>` },
+    { id: "sog", label: "Shots / Game", blurb: "Average shots on goal per game.", cols: ["SOG/GP", "GF"], sort: (a, b) => parseFloat(b.sogPg) - parseFloat(a.sogPg), cell: (r) => `<td class="num"><b>${r.sogPg}</b></td><td class="num">${r.gf}</td>` },
+    { id: "sv", label: "Team Save %", blurb: "Combined goaltending save percentage.", cols: ["SV %", "GA"], sort: (a, b) => parseFloat(b.sv) - parseFloat(a.sv), cell: (r) => `<td class="num"><b>${r.sv}</b></td><td class="num">${r.ga}</td>` },
+    { id: "fo", label: "Faceoff %", blurb: "Team faceoffs won percentage.", cols: ["FO %", "PTS"], sort: (a, b) => parseFloat(b.fo) - parseFloat(a.fo), cell: (r) => `<td class="num"><b>${r.fo}%</b></td><td class="num">${r.pts}</td>` },
+  ];
+
+  const params = new URLSearchParams(location.search);
+  let mode = params.get("view") === "teams" ? "teams" : "players";
+  let cat = params.get("cat") || "all";
+
+  function playerRow(p, i, cellHtml) {
+    return `<tr>
+      <td class="num">${String(i + 1).padStart(2, "0")}</td>
+      <td>
+        <div class="st-team">
+          <span class="st-mono" style="background:${p.team.colorDeep}">${p.team.mono}</span>
+          <div>
+            <a href="player.html?id=${p.id}">${p.name}</a>
+            <span class="sub">${p.team.short} · ${p.pos}</span>
+          </div>
+        </div>
+      </td>
+      ${cellHtml}
+    </tr>`;
+  }
+
+  function teamRow(r, i, cellHtml) {
+    return `<tr>
+      <td class="num">${String(i + 1).padStart(2, "0")}</td>
+      <td>
+        <div class="st-team">
+          <span class="st-mono" style="background:${r.team.colorDeep}">${r.team.mono}</span>
+          <div>
+            <a href="team.html?team=${r.slug}">${r.team.name}</a>
+            <span class="sub">${r.note || r.team.short}</span>
+          </div>
+        </div>
+      </td>
+      ${cellHtml}
+    </tr>`;
+  }
+
+  function section(title, blurb, cols, rowsHtml, anchor) {
+    return `<section class="stat-sec" id="${anchor}">
+      <h3>${title}</h3>
+      <p class="blurb">${blurb}</p>
+      <div class="st-card"><div class="st-scroll">
+        <table class="st-table">
+          <thead><tr><th>POS</th><th>${mode === "players" ? "Player" : "Team"}</th>${cols.map((c) => `<th class="num">${c}</th>`).join("")}</tr></thead>
+          <tbody>${rowsHtml}</tbody>
+        </table>
+      </div></div>
+      <a class="full" href="?view=${mode}&cat=${anchor}">Full stats →</a>
+    </section>`;
+  }
+
+  function renderChips() {
+    const cats = mode === "players" ? playerCats : teamCats;
+    document.getElementById("catChips").innerHTML = cats
+      .map((c) => `<button type="button" data-cat="${c.id}" class="${c.id === cat ? "is-active" : ""}">${c.label}</button>`)
+      .join("");
+  }
+
+  function render() {
+    const cats = mode === "players" ? playerCats : teamCats;
+    if (!cats.some((c) => c.id === cat)) cat = "all";
+    renderChips();
+    document.querySelectorAll("#modeTabs button").forEach((b) => b.classList.toggle("is-active", b.dataset.mode === mode));
+
+    const root = document.getElementById("statsRoot");
+    if (cat === "all") {
+      const list = cats.filter((c) => c.id !== "all");
+      root.innerHTML = list
+        .map((c) => {
+          if (mode === "players") {
+            const rows = players.filter(c.filter).sort(c.sort).slice(0, 5).map((p, i) => playerRow(p, i, c.cell(p))).join("");
+            return section(c.label, c.blurb, c.cols, rows, c.id);
+          }
+          const rows = [...teams].sort(c.sort).slice(0, 5).map((r, i) => teamRow(r, i, c.cell(r))).join("");
+          return section(c.label, c.blurb, c.cols, rows, c.id);
+        })
+        .join("");
+    } else {
+      const c = cats.find((x) => x.id === cat);
+      if (mode === "players") {
+        const list = players.filter(c.filter).sort(c.sort);
+        root.innerHTML = section(c.label, c.blurb, c.cols, list.map((p, i) => playerRow(p, i, c.cell(p))).join(""), c.id);
+      } else {
+        const list = [...teams].sort(c.sort);
+        root.innerHTML = section(c.label, c.blurb, c.cols, list.map((r, i) => teamRow(r, i, c.cell(r))).join(""), c.id);
+      }
+    }
+
+    const q = new URLSearchParams();
+    if (mode === "teams") q.set("view", "teams");
+    if (cat !== "all") q.set("cat", cat);
+    const qs = q.toString();
+    history.replaceState(null, "", qs ? `stats.html?${qs}` : "stats.html");
+  }
+
+  document.getElementById("modeTabs").addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-mode]");
+    if (!btn) return;
+    mode = btn.dataset.mode;
+    cat = "all";
+    render();
+  });
+  document.getElementById("catChips").addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-cat]");
+    if (!btn) return;
+    cat = btn.dataset.cat;
+    render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

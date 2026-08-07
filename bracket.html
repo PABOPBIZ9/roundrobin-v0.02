@@ -3,56 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bracket — PuckGold</title>
+<title>Playoff Bracket — PuckGold</title>
+<meta name="description" content="PuckGold Season One playoff bracket — semifinals into the Golden Final aggregate.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=4">
+<link rel="stylesheet" href="assets/css/site.css?v=15">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=1">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
-<link rel="icon" href="assets/brand/favicon/favicon-32.png?v=3" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="assets/brand/app/apple-touch-icon.png?v=3">
 </head>
-<body>
+<body class="nhl-light">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
-<div class="page-hero">
-  <span class="kicker">The Road to Gold</span>
-  <h1>BRACKET</h1>
-  <p>Round robin into knockout — capped by a best-of-two aggregate Golden Final.</p>
-</div>
-<section class="section">
-  <div class="bracket">
-    <div style="display:grid;gap:1rem">
-      <div class="matchup">
-        <div>#1 McLean Cardinals</div>
-        <div class="vs">vs</div>
-        <div>#4 Chattanooga Choo Choo</div>
-        <div class="vs win">McLean advances, 6–2</div>
-      </div>
-      <div class="matchup">
-        <div>#2 Washington Whoomp!</div>
-        <div class="vs">vs</div>
-        <div>#3 Miami Mighty Geckz</div>
-        <div class="vs win">Miami advances, 3–2 (OT)</div>
-      </div>
-    </div>
-    <div class="final-card">
-      <span class="tag">The Golden Final</span>
-      <div style="margin-top:.5rem">McLean Cardinals</div>
-      <div class="vs">vs</div>
-      <div>Miami Mighty Geckz</div>
-      <div class="display" style="font-size:1.8rem;color:var(--gold-bright);margin-top:.7rem">MIAMI WINS<br>6–5 AGGREGATE</div>
-    </div>
-    <div style="display:grid;gap:1rem">
-      <div class="matchup"><b>Game 1 —</b> McLean 3, Miami 1</div>
-      <div class="matchup"><b>Game 2 —</b> Miami 5, McLean 4 (OT)<br><span class="vs win">Down 3–1, Miami storms back</span></div>
-    </div>
-  </div>
-  <div class="cta-row" style="margin-top:1.5rem">
-    <a href="fantasy.html" class="btn btn-sapphire">Predict next season</a>
-    <a href="awards.html" class="btn btn-champagne">See awards</a>
-  </div>
+
+<section class="nhl-hero">
+  <span class="kicker">Season One · Playoffs</span>
+  <h1>GOLDEN BRACKET</h1>
+  <p>Round-robin seeds into knockout — capped by a best-of-two aggregate Golden Final. Board energy from NHL playoff brackets.</p>
 </section>
+<nav class="nhl-sub" aria-label="League">
+  <a href="scores.html">Scores</a>
+  <a href="schedule.html">Schedule</a>
+  <a href="standings.html">Standings</a>
+  <a href="bracket.html" class="is-active">Playoffs</a>
+  <a href="awards.html">Trophies</a>
+  <a href="video-recaps.html">Recaps</a>
+</nav>
+
+<div class="nhl-wrap nhl-wrap-wide">
+  <div class="bk-board">
+    <div class="bk-col">
+      <h3>Semifinals</h3>
+      <div class="bk-slot win">
+        <div class="seed">#1 vs #4</div>
+        <div class="team">McLean Cardinals</div>
+        <div class="team" style="color:#8a93a3;font-weight:650">Chattanooga Choo Choo</div>
+        <div class="res">McLean advances 6–2</div>
+      </div>
+      <div class="bk-slot win">
+        <div class="seed">#2 vs #3</div>
+        <div class="team">Miami Mighty Geckz</div>
+        <div class="team" style="color:#8a93a3;font-weight:650">Washington Whoomp!</div>
+        <div class="res">Miami advances 3–2 (OT)</div>
+      </div>
+    </div>
+
+    <div class="bk-final">
+      <div class="tag">The Golden Final · Best of two aggregate</div>
+      <h2>MIAMI MIGHTY GECKZ</h2>
+      <p style="color:rgba(255,255,255,.7);margin:.2rem 0">vs McLean Cardinals</p>
+      <div class="agg">6–5 AGGREGATE</div>
+      <p style="margin-top:.85rem;font-size:.85rem;color:rgba(255,255,255,.7)">
+        G1 · McLean 3–1<br>
+        G2 · Miami 5–4 (OT) — down 3–1, storm back
+      </p>
+      <div class="cta-row" style="margin-top:1.1rem;justify-content:center">
+        <a href="awards.html#puckgold-cup" class="btn btn-platinum btn-sm">PuckGold Cup</a>
+        <a href="video-recaps.html#0022500005" class="btn btn-ghost btn-sm">G2 Recap</a>
+      </div>
+    </div>
+
+    <div class="bk-col">
+      <h3>Path notes</h3>
+      <div class="bk-slot">
+        <div class="seed">Round robin</div>
+        <div class="team">Seeds 1–4 locked</div>
+        <div class="res">McLean #1 · Whoomp #2 · Miami #3 · Choo #4</div>
+      </div>
+      <div class="bk-slot">
+        <div class="seed">Format</div>
+        <div class="team">Single-elim semis</div>
+        <div class="res">Golden Final = two-game aggregate</div>
+      </div>
+      <div class="bk-slot">
+        <div class="seed">Watch</div>
+        <div class="team"><a href="video-condensed.html" style="color:#163a74">Condensed games</a></div>
+        <div class="res"><a href="scores.html" style="color:#163a74">All scores →</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <footer class="site-footer" id="site-footer"></footer>
-<script src="assets/js/site.js?v=4"></script>
-<script src="assets/js/cart.js?v=4"></script>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
 </body>
 </html>

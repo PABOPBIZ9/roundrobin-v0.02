@@ -55,7 +55,7 @@
         <div class="cart-body" id="cartBody"></div>
         <div class="cart-foot">
           <div class="cart-total"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
-          <a class="btn btn-signin btn-block" href="signin.html">Checkout · Sign In</a>
+          <a class="btn btn-signin btn-block" href="checkout.html">Checkout</a>
           <a class="btn btn-ghost btn-block" href="shop.html" style="margin-top:.5rem;border-color:rgba(18,24,38,.15);color:#121826">Continue shopping</a>
         </div>
       </aside>
@@ -158,8 +158,9 @@
     ensureDrawer();
     render();
     bindAddButtons();
-    document.getElementById("navBagBtn")?.addEventListener("click", open);
-    document.querySelectorAll("[data-open-cart]").forEach((el) => {
+    document.querySelectorAll("[data-open-cart], #navBagBtn").forEach((el) => {
+      if (el.dataset.cartOpenBound) return;
+      el.dataset.cartOpenBound = "1";
       el.addEventListener("click", (e) => {
         e.preventDefault();
         open();

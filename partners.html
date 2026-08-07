@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Partners — Premium Partnerships | PuckGold</title>
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=13">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<link rel="icon" href="assets/brand/favicon/favicon-32.png?v=3" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/brand/app/apple-touch-icon.png?v=3">
+<style>
+  .partners-page{background:#eef1f6;color:#121826}
+  .partners-page .ice-lines{opacity:.03}
+
+  .partners-hero{
+    position:relative;min-height:min(42vh,380px);min-height:min(42svh,380px);
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    overflow:hidden;color:#fff;
+  }
+  .partners-hero-bg{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(180deg, rgba(5,9,16,.55) 0%, rgba(11,18,32,.72) 45%, rgba(5,9,16,.88) 100%),
+      radial-gradient(circle at 70% 40%, rgba(212,175,55,.35), transparent 45%),
+      radial-gradient(circle at 20% 70%, rgba(61,111,191,.4), transparent 40%),
+      linear-gradient(135deg, #0a1a33 0%, #1a1408 48%, #0b1220 100%);
+  }
+  .partners-hero-bg::after{
+    content:"";position:absolute;inset:0;
+    background-image:url("assets/brand/lockup/primary-master.png?v=3");
+    background-repeat:no-repeat;background-position:92% 60%;background-size:min(34vw,240px);
+    opacity:.18;filter:drop-shadow(0 20px 40px rgba(0,0,0,.4));
+  }
+  .partners-hero-inner{position:relative;z-index:1;padding:3.2rem 4vw}
+  .partners-hero h1{
+    font-family:var(--display);font-size:clamp(3.2rem,12vw,6rem);
+    letter-spacing:.04em;line-height:.9;
+  }
+  .partners-hero p{
+    margin:.85rem auto 0;max-width:34rem;color:rgba(255,255,255,.86);font-size:1.05rem;
+  }
+
+  .tier-nav{
+    position:sticky;top:64px;z-index:40;
+    background:rgba(238,241,246,.94);backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(18,24,38,.08);
+  }
+  .tier-nav-inner{
+    max-width:1100px;margin:0 auto;padding:.75rem 4vw;
+    display:flex;flex-wrap:wrap;gap:.35rem .9rem;justify-content:center;
+  }
+  .tier-nav a{
+    font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+    color:#5c6473;padding:.4rem .2rem;border-bottom:2px solid transparent;
+  }
+  .tier-nav a:hover{color:#163a74;border-color:#163a74}
+
+  .partners-body{max-width:1100px;margin:0 auto;padding:2.5rem 4vw 1rem}
+  .tier-block{margin-bottom:2.75rem}
+  .tier-head{margin-bottom:1.4rem;max-width:36rem}
+  .tier-head .kicker{color:#163a74}
+  .tier-head h2{
+    font-family:var(--display);font-size:clamp(2rem,5vw,2.8rem);
+    letter-spacing:.04em;color:#0b1220;margin-top:.2rem;
+  }
+  .tier-head p{margin-top:.45rem;color:#5c6473;font-size:.95rem}
+
+  .partner-row{
+    display:grid;gap:1.25rem;align-items:center;
+    margin-bottom:1.5rem;padding-bottom:1.5rem;
+    border-bottom:1px solid rgba(18,24,38,.08);
+  }
+  @media(min-width:800px){
+    .partner-row{grid-template-columns:1fr 1.15fr;gap:2rem}
+    .partner-row.reverse .partner-logo{order:2}
+    .partner-row.reverse .partner-copy{order:1}
+  }
+
+  .partner-logo{
+    background:#fff;border:1px solid rgba(18,24,38,.08);
+    border-radius:4px;min-height:200px;
+    display:flex;align-items:center;justify-content:center;padding:2rem;
+    box-shadow:0 10px 28px rgba(15,23,42,.06);
+  }
+  .partner-logo .mark{
+    font-family:var(--display);font-size:clamp(2.2rem,5vw,3.2rem);
+    letter-spacing:.06em;color:#0b1220;text-align:center;line-height:1;
+  }
+  .partner-logo .mark small{
+    display:block;font-family:var(--font);font-size:.62rem;letter-spacing:.18em;
+    text-transform:uppercase;color:#8a93a3;margin-top:.45rem;font-weight:800;
+  }
+  .partner-logo img{max-width:70%;max-height:110px;object-fit:contain}
+
+  .partner-copy .tag{
+    font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+    color:#163a74;margin-bottom:.4rem;
+  }
+  .partner-copy .tag.gold{color:#8a6a1e}
+  .partner-copy .tag.ruby{color:#7a1524}
+  .partner-copy .tag.champagne{color:#9a6a3a}
+  .partner-copy h3{
+    font-family:var(--display);font-size:clamp(1.8rem,4vw,2.4rem);
+    letter-spacing:.04em;color:#0b1220;line-height:1;margin-bottom:.75rem;
+  }
+  .partner-copy p{color:#5c6473;font-size:.95rem;line-height:1.55;margin:.85rem 0 0;max-width:34rem}
+  .btn-partner{
+    display:inline-flex;align-items:center;gap:.35rem;
+    border-radius:999px;padding:.7em 1.25em;
+    background:linear-gradient(180deg,#3d6fbf,#163a74);color:#eef4ff;
+    font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+    border:1px solid rgba(255,255,255,.2);
+    box-shadow:0 8px 18px rgba(22,58,116,.25);
+  }
+  .btn-partner:hover{filter:brightness(1.08);transform:translateY(-1px)}
+  .btn-partner.gold{
+    background:linear-gradient(180deg,#f0d78c,#d4af37 55%,#8a6a1e);color:#1a1400;
+  }
+
+  .apply-band{
+    margin:1rem 4vw 3.5rem;max-width:1100px;margin-left:auto;margin-right:auto;
+    border-radius:18px;overflow:hidden;color:#fff;
+    background:
+      radial-gradient(500px 200px at 20% 30%, rgba(240,215,140,.28), transparent 55%),
+      radial-gradient(420px 180px at 90% 70%, rgba(91,159,255,.28), transparent 50%),
+      linear-gradient(135deg,#0b1220,#163a74 55%,#1a1408);
+    border:1px solid rgba(240,215,140,.28);
+    padding:2.2rem 1.6rem;
+  }
+  @media(min-width:800px){.apply-band{padding:2.6rem 2.4rem;display:grid;grid-template-columns:1.2fr .8fr;gap:2rem;align-items:center}}
+  .apply-band h2{font-family:var(--display);font-size:clamp(2.2rem,6vw,3.2rem);letter-spacing:.04em}
+  .apply-band p{margin:.7rem 0 1.2rem;color:rgba(255,255,255,.82);max-width:34rem}
+  .apply-form{display:grid;gap:.65rem}
+  .apply-form input,.apply-form select,.apply-form textarea{
+    width:100%;padding:.85rem 1rem;border-radius:10px;border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.08);color:#fff;font:inherit;
+  }
+  .apply-form input::placeholder,.apply-form textarea::placeholder{color:rgba(255,255,255,.45)}
+  .apply-form select option{color:#121826}
+  .apply-note{font-size:.78rem;color:rgba(255,255,255,.65);margin-top:.35rem}
+  .apply-done{display:none;color:#f0d78c;font-weight:800;margin-top:.6rem}
+  .apply-band.is-sent .apply-form{display:none}
+  .apply-band.is-sent .apply-done{display:block}
+
+  .slot-grid{
+    display:grid;gap:.85rem;
+    grid-template-columns:1fr;
+    margin-top:1rem;
+  }
+  @media(min-width:700px){.slot-grid{grid-template-columns:repeat(3,1fr)}}
+  .slot-card{
+    background:#fff;border:1px dashed rgba(22,58,116,.28);border-radius:10px;
+    min-height:140px;padding:1.1rem;display:flex;flex-direction:column;justify-content:center;
+    text-align:center;color:#5c6473;
+  }
+  .slot-card strong{display:block;color:#0b1220;font-size:.95rem;margin-bottom:.25rem}
+  .slot-card span{font-size:.8rem}
+</style>
+</head>
+<body class="partners-page">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+
+<section class="partners-hero">
+  <div class="partners-hero-bg" aria-hidden="true"></div>
+  <div class="partners-hero-inner">
+    <span class="kicker" style="color:#f0d78c">Premium partnerships</span>
+    <h1>OUR PARTNERS</h1>
+    <p>From local small businesses and startups to global brands — PuckGold offers premium partnership packages built for real growth on ice.</p>
+  </div>
+</section>
+
+<nav class="tier-nav" aria-label="Partner tiers">
+  <div class="tier-nav-inner">
+    <a href="#platinum">Platinum</a>
+    <a href="#sapphire">Sapphire</a>
+    <a href="#startup">Startups</a>
+    <a href="#local">Small Business</a>
+    <a href="#apply">Become a partner</a>
+  </div>
+</nav>
+
+<div class="partners-body">
+
+  <section class="tier-block" id="platinum">
+    <div class="tier-head">
+      <span class="kicker">Top tier</span>
+      <h2>PLATINUM PARTNERS</h2>
+      <p>Category exclusivity, arena-level visibility, and Founding Four co-branded moments. Built for brands ready to own the ice.</p>
+    </div>
+
+    <article class="partner-row">
+      <div class="partner-logo">
+        <div class="mark">PGB<span style="color:#d4af37">×</span>GOLD<small>Your logo here</small></div>
+      </div>
+      <div class="partner-copy">
+        <div class="tag gold">Platinum Partner</div>
+        <h3>TITLE / PRESENTING</h3>
+        <a class="btn-partner gold" href="#apply">Partner with us ›</a>
+        <p>Lead presenting rights across Season One broadcasts, Fan Zone giveaways, and the $36 OG Gold Puck founding campaign. Ideal for national brands and major sponsors.</p>
+      </div>
+    </article>
+
+    <article class="partner-row reverse">
+      <div class="partner-logo">
+        <div class="mark" style="color:#163a74">ARENA<small>Suite &amp; rink boards</small></div>
+      </div>
+      <div class="partner-copy">
+        <div class="tag gold">Platinum Partner</div>
+        <h3>ARENA EXPERIENCE</h3>
+        <a class="btn-partner gold" href="#apply">Find out more ›</a>
+        <p>Virtual suite branding, live event activations, and champagne hospitality for partners who want Big Tymers energy — not a tiny logo in the footer.</p>
+      </div>
+    </article>
+  </section>
+
+  <section class="tier-block" id="sapphire">
+    <div class="tier-head">
+      <span class="kicker">Growth tier</span>
+      <h2>SAPPHIRE PARTNERS</h2>
+      <p>High-visibility digital + retail packages for mid-market brands scaling with the league.</p>
+    </div>
+
+    <article class="partner-row">
+      <div class="partner-logo">
+        <div class="mark" style="color:#3d6fbf">SHOP<small>Official shop collab</small></div>
+      </div>
+      <div class="partner-copy">
+        <div class="tag">Sapphire Partner</div>
+        <h3>OFFICIAL SHOP</h3>
+        <a class="btn-partner" href="#apply">Find out more ›</a>
+        <p>Product placement in the Official Shop, gift card co-branding, and featured drops tied to team collections — Geckz, Cardinals, Whoomp!, Choo Choo.</p>
+      </div>
+    </article>
+
+    <article class="partner-row reverse">
+      <div class="partner-logo">
+        <div class="mark" style="color:#163a74">FAN<small>Fan Zone + Fantasy</small></div>
+      </div>
+      <div class="partner-copy">
+        <div class="tag">Sapphire Partner</div>
+        <h3>FAN ZONE</h3>
+        <a class="btn-partner" href="#apply">Find out more ›</a>
+        <p>Sponsor Fantasy prizes, weekly challenges, and digital gift drops. Your brand shows up where fans compete — not where they scroll past.</p>
+      </div>
+    </article>
+  </section>
+
+  <section class="tier-block" id="startup">
+    <div class="tier-head">
+      <span class="kicker">Built for builders</span>
+      <h2>STARTUP PARTNERS</h2>
+      <p>Flexible packages for early-stage companies that need premium sports association without Fortune-500 budgets.</p>
+    </div>
+
+    <article class="partner-row">
+      <div class="partner-logo">
+        <div class="mark" style="color:#c07a3e">LAUNCH<small>Startup program</small></div>
+      </div>
+      <div class="partner-copy">
+        <div class="tag champagne">Startup Partner</div>
+        <h3>LAUNCH PAD</h3>
+        <a class="btn-partner" href="#apply">Apply as a startup ›</a>
+        <p>Logo on partners page, social shoutouts, one Fan Zone quest sponsorship, and founder intros across the PuckGoldBiz network. Perfect for apps, DTC, fintech, and creator tools.</p>
+      </div>
+    </article>
+
+    <article class="partner-row reverse">
+      <div class="partner-logo">
+        <div class="mark" style="color:#7a1524">TECH<small>Product integrations</small></div>
+      </div>
+      <div class="partner-copy">
+        <div class="tag ruby">Startup Partner</div>
+        <h3>TECH &amp; PRODUCT</h3>
+        <a class="btn-partner" href="#apply">Find out more ›</a>
+        <p>Integrate into media, AV, shop checkout, or gift cards. We want partners who ship — not slide decks that collect dust.</p>
+      </div>
+    </article>
+  </section>
+
+  <section class="tier-block" id="local">
+    <div class="tier-head">
+      <span class="kicker">Community first</span>
+      <h2>SMALL BUSINESS PARTNERS</h2>
+      <p>Local restaurants, gyms, shops, and service brands in Miami, McLean, D.C., Chattanooga — and wherever the Founding Four travel next.</p>
+    </div>
+
+    <article class="partner-row">
+      <div class="partner-logo">
+        <div class="mark">LOCAL<small>Neighborhood partners</small></div>
+      </div>
+      <div class="partner-copy">
+        <div class="tag">Small Business</div>
+        <h3>NEIGHBORHOOD ICE</h3>
+        <a class="btn-partner" href="#apply">Partner locally ›</a>
+        <p>Affordable team-city packages: in-store signage templates, social features, Fan Zone discount codes, and night-of-game shoutouts. Premium look. Small-business price.</p>
+      </div>
+    </article>
+
+    <div class="slot-grid" aria-label="Open partner slots">
+      <div class="slot-card"><strong>Miami · Neon Reef</strong><span>Open slot — restaurants, lifestyle, nightlife</span></div>
+      <div class="slot-card"><strong>McLean · Cardinal Perch</strong><span>Open slot — fitness, professional services</span></div>
+      <div class="slot-card"><strong>Wash. · District Dome</strong><span>Open slot — media, tech, hospitality</span></div>
+      <div class="slot-card"><strong>Chatt. · Terminal Arena</strong><span>Open slot — makers, food, travel</span></div>
+      <div class="slot-card"><strong>National DTC</strong><span>Open slot — ecom brands &amp; creators</span></div>
+      <div class="slot-card"><strong>Your brand</strong><span>Drop logo in brand kit · Partner logos folder</span></div>
+    </div>
+  </section>
+</div>
+
+<section class="apply-band" id="apply">
+  <div>
+    <span class="kicker" style="color:#f0d78c">Become a partner</span>
+    <h2>PREMIUM PARTNERSHIPS FROM DAY ONE</h2>
+    <p>Whether you’re a two-person startup or a global brand — tell us who you are. We’ll match you to Platinum, Sapphire, Startup, or Small Business packaging.</p>
+    <div class="cta-row">
+      <a href="mailto:partners@puckgold.com" class="btn btn-founding">Email partners@puckgold.com</a>
+      <a href="talent.html" class="btn btn-sapphire btn-sm">Talent / creators / affiliates</a>
+      <a href="brand.html" class="btn btn-ghost btn-sm">Brand kit</a>
+    </div>
+  </div>
+  <form class="apply-form" id="partnerForm">
+    <input type="text" name="company" required placeholder="Company name">
+    <input type="email" name="email" required placeholder="Work email">
+    <select name="tier" required>
+      <option value="">Partnership interest…</option>
+      <option>Platinum Partner</option>
+      <option>Sapphire Partner</option>
+      <option>Startup Partner</option>
+      <option>Small Business / Local</option>
+      <option>Not sure — recommend a package</option>
+    </select>
+    <textarea name="note" rows="3" placeholder="What do you want to sponsor or activate?"></textarea>
+    <button type="submit" class="btn btn-founding btn-block">Submit partnership interest</button>
+    <p class="apply-note">Demo form — saves locally and opens your mail client. No spam.</p>
+    <p class="apply-done">Got it — founding partnership interest locked. We’ll be in touch.</p>
+  </form>
+</section>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script>
+(function () {
+  const form = document.getElementById("partnerForm");
+  const band = document.getElementById("apply");
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form).entries());
+    try {
+      localStorage.setItem("pgb-partner-lead", JSON.stringify({ ...data, at: Date.now() }));
+    } catch (_) {}
+    const subject = encodeURIComponent("PuckGold partnership — " + (data.company || "New lead"));
+    const body = encodeURIComponent(
+      `Company: ${data.company}\nEmail: ${data.email}\nTier: ${data.tier}\n\n${data.note || ""}`
+    );
+    band?.classList.add("is-sent");
+    window.location.href = `mailto:partners@puckgold.com?subject=${subject}&body=${body}`;
+  });
+})();
+</script>
+</body>
+</html>

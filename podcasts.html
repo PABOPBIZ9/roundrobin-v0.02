@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Podcasts — PuckGold</title>
+<meta name="description" content="PuckGold podcasts — booth talk, fantasy ice, draft class, and Founding Four backstories.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=15">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=2">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .pod-grid{display:grid;gap:1rem;grid-template-columns:1fr}
+  @media(min-width:800px){.pod-grid{grid-template-columns:1fr 1fr}}
+  .pod-card{
+    background:#fff;border:1px solid rgba(18,24,38,.08);border-radius:14px;padding:1.25rem;
+    display:grid;gap:1rem;
+  }
+  @media(min-width:600px){.pod-card{grid-template-columns:120px 1fr}}
+  .pod-art{
+    width:120px;height:120px;border-radius:12px;
+    display:grid;place-items:center;font-family:var(--display);font-size:2rem;color:#fff;
+    box-shadow:0 10px 24px rgba(18,24,38,.12);
+  }
+  .pod-card h3{font-size:1.15rem;margin-bottom:.35rem}
+  .pod-card p{font-size:.88rem;color:#5c6473;line-height:1.5}
+  .pod-links{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.75rem}
+  .pod-links a{
+    font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    padding:.4rem .65rem;border-radius:999px;background:#eef4ff;color:#163a74;
+  }
+  .pod-drop{font-size:.72rem;color:#8a93a3;margin-top:.55rem}
+  .pod-drop code{color:#163a74;font-size:.68rem}
+</style>
+</head>
+<body class="nhl-light">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+
+<section class="nhl-hero">
+  <span class="kicker">Multimedia</span>
+  <h1>PODCASTS</h1>
+  <p>Booth talk, fantasy ice, draft class, and Founding Four backstories. Hub modeled on <a href="https://www.nhl.com/multimedia/podcasts/" style="color:#f0d78c">NHL Podcasts</a>.</p>
+</section>
+<nav class="nhl-sub" aria-label="Video">
+  <a href="video-condensed.html">Condensed Games</a>
+  <a href="video-recaps.html">Game Recaps</a>
+  <a href="puck-personality.html">Puck Personality</a>
+  <a href="podcasts.html" class="is-active">Podcasts</a>
+  <a href="media.html">Media Hub</a>
+</nav>
+
+<div class="nhl-wrap">
+  <p style="font-size:.86rem;color:#5c6473;margin-bottom:1.25rem">
+    Drop show art + RSS/audio into <code style="color:#163a74">assets/vault/content/podcasts/{slug}/</code>
+    (<code>cover.png</code>, <code>feed.xml</code>, optional <code>trailer.mp3</code>).
+  </p>
+  <div class="pod-grid" id="podRoot"></div>
+</div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script>
+(function () {
+  const shows = [
+    {
+      slug: "unscripted-gold",
+      name: "Unscripted Gold",
+      mono: "UG",
+      color: "linear-gradient(145deg,#163a74,#0b1220)",
+      blurb:
+        "League desk + former ice — weekly Founding Four news that drifts into food, movies, and neon conspiracy theories. Guests drop in every week.",
+    },
+    {
+      slug: "never-offside",
+      name: "Never Offside",
+      mono: "NO",
+      color: "linear-gradient(145deg,#7a1524,#0b1220)",
+      blurb:
+        "Behind the curtain of Founding Four life — travel, family, suite snacks, and the real GMs off ice. Candid, funny, unanswered questions welcome.",
+    },
+    {
+      slug: "fantasy-on-ice",
+      name: "Fantasy On Ice",
+      mono: "FZ",
+      color: "linear-gradient(145deg,#8a6a1e,#0b1220)",
+      blurb:
+        "24/7 pulse of Fan Zone & Game Zone — quizzes, XP farms, EDGE-style tips, and who to start before Opening Faceoff.",
+    },
+    {
+      slug: "at-the-rink",
+      name: "PGB @ The Rink",
+      mono: "RK",
+      color: "linear-gradient(145deg,#0f766e,#0b1220)",
+      blurb:
+        "In-depth analysis with scribes, booth voices, captains, and front office — informative, fun, uniquely PuckGold.",
+    },
+    {
+      slug: "draft-class",
+      name: "Founding Draft Class",
+      mono: "DC",
+      color: "linear-gradient(145deg,#1e3a8a,#7a1524)",
+      blurb:
+        "Prospect rankings, mock boards, and scout chats for the next Underdog Division wave.",
+    },
+    {
+      slug: "100-hockey",
+      name: "100% Hockey",
+      mono: "100",
+      color: "linear-gradient(145deg,#78350f,#0b1220)",
+      blurb:
+        "Mon/Wed/Fri hits — sharp opinions, rink connections, and the stories that don’t make the condensed cut.",
+    },
+    {
+      slug: "backstory",
+      name: "PuckGold Backstory",
+      mono: "BS",
+      color: "linear-gradient(145deg,#163a74,#8a6a1e)",
+      blurb:
+        "Moments that reshaped the Founding Four — the OT that built a league, the booth that went viral, the puck that started it.",
+    },
+    {
+      slug: "great-one-on-one",
+      name: "Gold on 1",
+      mono: "G1",
+      color: "linear-gradient(145deg,#d4af37,#8a6a1e)",
+      blurb:
+        "Champions look back at Golden Final runs — unique stories from the players who lifted the Cup.",
+    },
+  ];
+
+  document.getElementById("podRoot").innerHTML = shows
+    .map(
+      (s) => `
+    <article class="pod-card" id="${s.slug}">
+      <div class="pod-art" style="background:${s.color}">${s.mono}</div>
+      <div>
+        <h3>${s.name}</h3>
+        <p>${s.blurb}</p>
+        <div class="pod-links">
+          <a href="#">Apple Podcasts</a>
+          <a href="#">Spotify</a>
+          <a href="#">iHeart</a>
+          <a href="#">Amazon</a>
+        </div>
+        <div class="pod-drop">Drop → <code>assets/vault/content/podcasts/${s.slug}/cover.png</code></div>
+      </div>
+    </article>`
+    )
+    .join("");
+})();
+</script>
+</body>
+</html>

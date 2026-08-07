@@ -3,76 +3,169 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Join — $36 OG Gold Puck | PuckGold</title>
+<title>Premium League Pass — Live PuckGold Anytime | PuckGold</title>
+<meta name="description" content="Experience live PuckGold anytime — Premium League Pass plans, founding puck deal, and Fan Zone perks. Inspired by NBA League Pass purchase.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=4">
+<link rel="stylesheet" href="assets/css/site.css?v=21">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
-<link rel="icon" href="assets/brand/favicon/favicon-32.png?v=3" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="assets/brand/app/apple-touch-icon.png?v=3">
+<style>
+  .lp-hero{
+    position:relative;color:#fff;overflow:hidden;
+    padding:3.2rem 4vw 2.5rem;
+    background:
+      radial-gradient(circle at 78% 18%, rgba(240,215,140,.35), transparent 38%),
+      radial-gradient(circle at 15% 85%, rgba(61,111,191,.4), transparent 42%),
+      linear-gradient(145deg,#050910 0%,#0b1220 40%,#163a74 100%);
+  }
+  .lp-hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+  .lp-hero h1{font-family:var(--display);font-size:clamp(2.6rem,8vw,4.4rem);letter-spacing:.03em;line-height:.95;max-width:14ch;margin:.4rem 0}
+  .lp-hero p{color:rgba(255,255,255,.82);max-width:34rem;font-size:1.08rem;line-height:1.5;margin:.75rem 0 1.25rem}
+  .lp-wrap{max-width:1100px;margin:0 auto;padding:2.5rem 4vw 4rem}
+  .lp-toggle{
+    display:inline-flex;border-radius:999px;padding:.25rem;background:#eef1f6;margin-bottom:1.25rem;gap:.15rem;
+  }
+  .lp-toggle button{
+    border:0;border-radius:999px;padding:.55rem 1rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;
+    text-transform:uppercase;background:transparent;color:#5c6473;cursor:pointer;
+  }
+  .lp-toggle button.is-active{background:#0b1220;color:#fff}
+  .lp-plans{display:grid;gap:1rem}
+  @media(min-width:860px){.lp-plans{grid-template-columns:1.05fr 1fr}}
+  .lp-plan{
+    border-radius:16px;padding:1.5rem 1.35rem;border:1px solid rgba(18,24,38,.08);background:#fff;
+  }
+  .lp-plan.founding{
+    color:#fff;border:0;
+    background:
+      radial-gradient(circle at 90% 10%, rgba(240,215,140,.35), transparent 40%),
+      linear-gradient(155deg,#0b1220,#163a74 55%,#7a1524);
+  }
+  .lp-plan .tag{font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+  .lp-plan .price{font-family:var(--display);font-size:clamp(2.4rem,6vw,3.2rem);letter-spacing:.03em;margin:.4rem 0 .15rem;line-height:1}
+  .lp-plan .price small{display:block;font-family:var(--sans,system-ui);font-size:.72rem;font-weight:700;letter-spacing:.1em;margin-top:.35rem;opacity:.7}
+  .lp-plan ul{margin:1rem 0 1.25rem;padding:0;list-style:none}
+  .lp-plan li{
+    position:relative;padding:.4rem 0 .4rem 1.35rem;font-size:.92rem;line-height:1.4;
+    border-bottom:1px solid rgba(18,24,38,.06);
+  }
+  .lp-plan.founding li{border-bottom-color:rgba(255,255,255,.1);color:rgba(255,255,255,.88)}
+  .lp-plan li::before{content:"✓";position:absolute;left:0;font-weight:800;color:#163a74}
+  .lp-plan.founding li::before{color:#f0d78c}
+  .lp-benefits{display:grid;gap:.75rem;margin-top:2.5rem}
+  @media(min-width:700px){.lp-benefits{grid-template-columns:repeat(3,1fr)}}
+  .lp-ben{
+    background:#f4f6fa;border-radius:12px;padding:1.15rem;
+  }
+  .lp-ben h3{font-size:1rem;margin:0 0 .35rem}
+  .lp-ben p{font-size:.86rem;color:#5c6473;margin:0;line-height:1.45}
+  .lp-faq{margin-top:2.5rem}
+  .lp-faq h2{font-family:var(--display);font-size:1.8rem;letter-spacing:.04em;margin-bottom:1rem}
+  .lp-faq details{
+    border-bottom:1px solid rgba(18,24,38,.08);padding:.85rem 0;
+  }
+  .lp-faq summary{font-weight:800;cursor:pointer}
+  .lp-faq p{margin:.5rem 0 0;color:#5c6473;font-size:.9rem;line-height:1.5}
+</style>
 </head>
-<body>
+<body class="nhl-light">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
 
-<div class="page-hero">
-  <span class="kicker">Founding membership</span>
-  <h1>OG GOLD PUCK</h1>
-  <p>Launch special: a real gold puck shipped to your door plus one year of premium access — the move that gets PuckGold off the ground.</p>
+<section class="lp-hero">
+  <div class="lp-hero-inner">
+    <span class="kicker" style="color:#f0d78c">Premium League Pass</span>
+    <h1>EXPERIENCE LIVE PUCKGOLD ANYTIME, ANYWHERE</h1>
+    <p>Streams, condensed games, Fan Zone boosts, and founding perks — pick a plan and get on the ice. Modeled on <a href="https://www.nba.com/league-pass-purchase" style="color:#f0d78c">NBA League Pass purchase</a>.</p>
+    <div class="cta-row">
+      <a href="#plans" class="btn btn-founding btn-sm">See plans</a>
+      <a href="promos.html" class="btn btn-ghost btn-sm">All promotions</a>
+      <a href="experience.html" class="btn btn-ghost btn-sm">Event Experience</a>
+    </div>
+  </div>
+</section>
+
+<div class="lp-wrap" id="plans">
+  <div class="lp-toggle" role="group" aria-label="Billing">
+    <button type="button" class="is-active" data-bill="founding">Founding deal</button>
+    <button type="button" data-bill="monthly">Monthly</button>
+  </div>
+
+  <div class="lp-plans">
+    <div class="lp-plan founding" id="annual">
+      <div class="tag">Best value · Limited</div>
+      <div class="price">$36<small>FOUNDING · PUCK + 1-YR PASS</small></div>
+      <ul>
+        <li>Free limited-edition gold puck shipped to you</li>
+        <li>1-year Premium League Pass</li>
+        <li>Live games + condensed + recaps</li>
+        <li>Fan Zone +20% XP boost</li>
+        <li>Early shop drops &amp; Party Zone priority</li>
+        <li>Founding member badge — forever</li>
+      </ul>
+      <a href="signin.html" class="btn btn-founding btn-block">Become a founding member</a>
+    </div>
+    <div class="lp-plan" id="monthly">
+      <div class="tag">Flexible</div>
+      <div class="price" style="color:#0b1220">$12.99<small>PER MONTH · LEAGUE PASS</small></div>
+      <ul>
+        <li>Premium League Pass (digital)</li>
+        <li>Live streams &amp; condensed games</li>
+        <li>Fan Zone access &amp; weekly challenges</li>
+        <li>Member pricing in the shop</li>
+        <li>Upgrade anytime for the free shipped gold puck</li>
+        <li>Cancel monthly — keep your XP</li>
+      </ul>
+      <a href="signin.html" class="btn btn-platinum btn-block">Start Premium League Pass</a>
+      <p style="margin-top:.85rem;font-size:.82rem;color:#5c6473">Want the free shipped puck? <a href="#annual" style="color:#163a74;font-weight:800">Founding deal · $36</a>.</p>
+    </div>
+  </div>
+
+  <div class="lp-benefits">
+    <div class="lp-ben">
+      <h3>Watch everywhere</h3>
+      <p>Phone, tablet, TV — streams and condensed games the night of.</p>
+    </div>
+    <div class="lp-ben">
+      <h3>Fan Zone included</h3>
+      <p>Fantasy, Game Zone XP, LockerVision early access, and promo board.</p>
+    </div>
+    <div class="lp-ben">
+      <h3>Event priority</h3>
+      <p>Party Zone wristbands and Expansion Weekend FOMO when we go live.</p>
+    </div>
+  </div>
+
+  <div class="lp-faq">
+    <h2>Questions</h2>
+    <details>
+      <summary>What’s included in Premium League Pass?</summary>
+      <p>Live event streams where available, condensed games, recaps, Media Hub member drops, Fan Zone access, and member shop pricing.</p>
+    </details>
+    <details>
+      <summary>What’s different about the founding deal?</summary>
+      <p>One payment of $36 gets you a year of Premium League Pass plus a limited-edition gold puck shipped to your door and a forever founding badge.</p>
+    </details>
+    <details>
+      <summary>Can I gift a Pass?</summary>
+      <p>Yes — see <a href="gifts.html">Gift Cards</a> or grab a promo on the <a href="promos.html">promotions board</a>.</p>
+    </details>
+  </div>
 </div>
 
-<section class="section">
-  <div class="grid-2">
-    <div class="og-panel" id="annual">
-      <div>
-        <span class="kicker">Best value · Limited</span>
-        <div class="price">$36<small>PER YEAR · OG SPECIAL DEAL</small></div>
-        <ul class="perk-list">
-          <li>Limited-edition physical OG Gold Puck (shipped)</li>
-          <li>Signed / team / intern / dev variants — TBD drops</li>
-          <li>12 months premium membership</li>
-          <li>Fan Zone +20% points boost</li>
-          <li>Early access to shop drops & giveaways</li>
-          <li>Founding Four badge on your profile</li>
-        </ul>
-        <a href="signin.html" class="btn btn-og btn-block">Join with $36 OG Gold Puck</a>
-      </div>
-    </div>
-    <div class="og-panel" id="monthly" style="background:linear-gradient(160deg,#101a2e,#0b1220)">
-      <div>
-        <span class="kicker">Flexible</span>
-        <div class="price">$12.99<small>PER MONTH · PREMIUM</small></div>
-        <ul class="perk-list">
-          <li>Full premium digital membership</li>
-          <li>Fan Zone access & weekly challenges</li>
-          <li>Member pricing in the shop</li>
-          <li>Upgrade anytime to OG Gold Puck kit</li>
-          <li>Cancel monthly — keep your points</li>
-        </ul>
-        <a href="signin.html" class="btn btn-platinum btn-block">Start $12.99 / month</a>
-        <p class="plan-alt" style="margin-top:1rem">Want the physical puck? <a href="#annual">Take the $36 annual OG deal</a>.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <span class="kicker">Tiers</span>
-    <h2>Champagne to sapphire.</h2>
-  </div>
-  <div class="cta-row">
-    <span class="btn btn-og">OG Gold</span>
-    <span class="btn btn-champagne">Champagne</span>
-    <span class="btn btn-platinum">Platinum</span>
-    <span class="btn btn-ruby">Ruby</span>
-    <span class="btn btn-sapphire">Sapphire</span>
-    <span class="btn btn-rose">Rose Gold</span>
-  </div>
-  <p style="color:var(--muted);margin-top:1rem;max-width:40rem">Button system for memberships, VIP suites, and loyalty tracks — more tier benefits landing soon.</p>
-</section>
-
 <footer class="site-footer" id="site-footer"></footer>
-<script src="assets/js/site.js?v=4"></script>
-<script src="assets/js/cart.js?v=4"></script>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script>
+(function () {
+  document.querySelector(".lp-toggle")?.addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-bill]");
+    if (!btn) return;
+    document.querySelectorAll(".lp-toggle button").forEach((b) => b.classList.toggle("is-active", b === btn));
+    document.getElementById(btn.dataset.bill === "monthly" ? "monthly" : "annual")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Article — PuckGold</title>
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=16">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=2">
+<link rel="stylesheet" href="assets/css/media-guide.css?v=1">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .art{max-width:720px;margin:0 auto;padding:2rem 4vw 3.5rem}
+  .art .cat{font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#8a93a3}
+  .art h1{font-family:var(--display);font-size:clamp(2.2rem,6vw,3.4rem);letter-spacing:.03em;margin:.4rem 0 .7rem;line-height:.95}
+  .art .dek{font-size:1.1rem;color:#5c6473;margin-bottom:1.5rem}
+  .art .body p{margin:0 0 1rem;line-height:1.65;color:#121826}
+  .art .body a{color:#163a74;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+  .art-cta{margin-top:2rem;padding:1.2rem;border-radius:14px;background:#0b1220;color:#fff}
+</style>
+</head>
+<body class="nhl-light">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+<nav class="nhl-sub"><a href="news.html" class="is-active">← Newsroom</a><a href="expansion.html">Expansion</a><a href="media-guide.html">Media Guide</a></nav>
+<article class="art" id="artRoot"></article>
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/tournament-data.js?v=1"></script>
+<script>
+(function () {
+  const id = new URLSearchParams(location.search).get("id") || "expansion-24h";
+  const meta = window.PGBNews.byId(id) || window.PGBNews.all()[0];
+  document.title = meta.title + " — PuckGold";
+
+  const bodies = {
+    "expansion-24h": `
+      <p>The Founding Four just made history. Now the ice opens wider.</p>
+      <p><strong>Founding Expansion Weekend</strong> brings twelve invite markets alongside Miami, McLean, Washington, and Chattanooga — sixteen teams, four pools, Sunday knockout, Sudden Death Strobe OT.</p>
+      <p>Faceoff is on a <a href="expansion.html">24-hour countdown</a>. That clock also drives the founding sales window: free limited gold puck + Premium League Pass, weekend jersey energy, and gift cards for the group chat.</p>
+      <p>Press: grab the <a href="media-guide.html">2026 Media Guide</a>. Fans: <a href="join.html">lock the founding offer</a> before the horn.</p>`,
+    "golden-final-recap": `
+      <p>McLean took Game 1, 3–1. Neon Reef answered.</p>
+      <p>Game 2 went to overtime — Miami 5–4 — and the aggregate flipped to <strong>6–5 Geckz</strong>. Kai Sandoval’s night becomes Firehorse lore; the Clip Crown race writes itself.</p>
+      <p>Watch the <a href="video-watch.html?type=recap&gameid=0022500005">G2 recap</a> and <a href="video-watch.html?type=condensed&gameid=0022500005">condensed cut</a>. Full scores on <a href="scores.html">scores.html</a>. Hardware on <a href="awards.html">awards.html</a>.</p>`,
+    "media-guide-drop": `
+      <p>Our Season One booklet is live — LIV Media Guide DNA, Founding Four soul.</p>
+      <p>Section 1 League · Section 2 Teams · Section 3 Results · Section 4 Records. Contacts, broadcast notes, and vault paths for partners.</p>
+      <p>Open the <a href="media-guide.html">Media Guide</a>. Drop print PDFs into <code>assets/vault/content/media-guide/</code>. Apply for weekend coverage via <a href="media-accreditation.html">accreditation</a>.</p>`,
+    "booth-bomb-audio": `
+      <p>Miami’s booth went late-night radio — latin-jazz cadence, Spanish on the breakaways — and the win outro hit like a reef siren.</p>
+      <p>Drop <code>main.mp3</code> into <code>assets/teams/miami-mighty-geckz/09-Audio/</code> (goal-horn, walkout-intro, goal-call, win-outro). Blast the horn from the <a href="team.html?team=miami-mighty-geckz#audio">team vault page</a>. More shows on <a href="podcasts.html">podcasts</a>.</p>`,
+    "hardware-stack": `
+      <p>The trophy case is no longer a draft doodle.</p>
+      <p>Underdog Division Crown, The Puck Gold One, Firehorse MVP, Player of the Tournament, Golden Puck Scorer, Iron &amp; Glass Goalie, Clip Crown, Aura Vote Champion — plus spirit awards.</p>
+      <p>Hi-res landing zones: <code>assets/hardware/trophies/{id}/</code>. Browse <a href="awards.html">The Hardware</a>.</p>`,
+    "how-to-watch-weekend": `
+      <p>Pools A–D tip under the countdown. Format stays Banana Hockey: 3×3:33, pulled goalies, aura votes, 9-man strobe OT.</p>
+      <p>Watch path: <a href="scores.html">Scores</a> → <a href="video-recaps.html">Recaps</a> → <a href="video-condensed.html">Condensed</a>. Earn XP in <a href="play.html">Game Zone</a> while you wait.</p>
+      <p>Buy path: <a href="join.html">Founding Pass</a> · <a href="shop.html">Shop</a> · <a href="gifts.html">Gift cards</a>. Full slate on <a href="expansion.html">expansion.html</a>.</p>`,
+  };
+
+  document.getElementById("artRoot").innerHTML = `
+    <div class="cat">${meta.cat} · ${meta.date}</div>
+    <h1>${meta.title}</h1>
+    <p class="dek">${meta.dek}</p>
+    <div class="body">${bodies[meta.id] || bodies["expansion-24h"]}</div>
+    <div class="art-cta">
+      <strong style="color:#f0d78c">Expansion Weekend</strong>
+      <p style="margin:.4rem 0 0.8rem;color:rgba(255,255,255,.8)">Faceoff in ~24 hours. Lock the founding offer while the clock runs.</p>
+      <a href="expansion.html" class="btn btn-founding btn-sm">Open countdown</a>
+      <a href="join.html" class="btn btn-platinum btn-sm">Buy Pass · $36</a>
+    </div>
+  `;
+})();
+</script>
+</body>
+</html>

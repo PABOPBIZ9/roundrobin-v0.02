@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transcript — PuckGold</title>
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=17">
+<link rel="stylesheet" href="assets/css/media-hub.css?v=3">
+<link rel="stylesheet" href="assets/css/transcripts.css?v=1">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+</head>
+<body class="mh-page tr-light" data-mh="transcripts">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+<div class="mh-subnav" id="mhSubnav"></div>
+<article class="tr-article" id="trArt"></article>
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/media-hub.js?v=3"></script>
+<script src="assets/js/transcripts-data.js?v=1"></script>
+<script>
+(function () {
+  const id = new URLSearchParams(location.search).get("id") || "gf-g2-geckz-pc";
+  const t = window.PGBTranscripts.byId(id);
+  const ev = t ? window.PGBTranscripts.event(t.event) : null;
+  if (!t) {
+    document.getElementById("trArt").innerHTML = "<p>Transcript not found.</p>";
+    return;
+  }
+  document.title = t.headline + " — PuckGold";
+  const when = new Date(t.date + "T12:00:00").toLocaleDateString(undefined, {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
+  document.getElementById("trArt").innerHTML = `
+    <div class="type">${t.type}</div>
+    <h1>${t.headline}</h1>
+    <div class="meta">
+      <strong>${ev?.name || ""}</strong><br>
+      ${when}<br>
+      ${ev?.city || ""} · ${ev?.venue || ""}<br>
+      ${t.team}<br>
+      ${t.speakers.join("<br>")}
+      ${t.gameid ? `<br><a href="video-watch.html?type=recap&gameid=${t.gameid}" style="color:#163a74">Game recap →</a> · <a href="scores.html" style="color:#163a74">Scores</a>` : ""}
+    </div>
+    ${t.body
+      .map(
+        (b) => `
+      <div class="tr-block">
+        <div class="spk">${b.speaker}${b.speaker === "Q" ? "." : ":"}</div>
+        <p>${b.text}</p>
+      </div>`
+      )
+      .join("")}
+    <div class="tr-foot">
+      FastScripts Transcript by PuckGold Media Desk<br>
+      ${t.id} · ${t.date} ${t.time} GMT<br>
+      <a href="transcripts-event.html?event=${t.event}" style="color:#163a74">← ${ev?.name} transcripts</a>
+      · Drop PDF: <code>assets/vault/content/transcripts/${t.event}/${t.id}.pdf</code>
+    </div>
+  `;
+})();
+</script>
+</body>
+</html>

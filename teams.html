@@ -3,64 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teams — PuckGold Founding Four</title>
+<title>PuckGold Teams — Founding Four Rosters &amp; Players</title>
+<meta name="description" content="Meet the Founding Four — Mighty Geckz, Cardinals, Whoomp!, and Choo Choo. Teams, players, standings, and team sites.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=4">
+<link rel="stylesheet" href="assets/css/site.css?v=13">
+<link rel="stylesheet" href="assets/css/teams.css?v=2">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
-<link rel="icon" href="assets/brand/favicon/favicon-32.png?v=3" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="assets/brand/app/apple-touch-icon.png?v=3">
 </head>
-<body>
+<body class="tp-page">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
-<div class="page-hero">
-  <span class="kicker">The Franchises</span>
-  <h1>TEAMS</h1>
-  <p>Four identities. Four crowds. One ice. Tap a franchise to explore its arena and roster.</p>
-</div>
-<section class="section section-wide">
-  <div class="grid-2">
-    <a class="tile t-miami" href="rosters.html">
-      <span class="seed">#3 Seed · Champions</span>
-      <div class="mono">M</div>
-      <h3>Miami Mighty Geckz</h3>
-      <div class="arena">Neon Reef Stadium — Miami</div>
-      <div class="motto">"Small creature. Massive heart."</div>
-      <div class="record">1-1-1 · 4 PTS · Won Golden Final 6–5 agg.</div>
-    </a>
-    <a class="tile t-mclean" href="rosters.html">
-      <span class="seed">#1 Seed · Finalist</span>
-      <div class="mono">C</div>
-      <h3>McLean Cardinals</h3>
-      <div class="arena">Cardinal Perch Gardens — McLean</div>
-      <div class="motto">"Precision creates champions."</div>
-      <div class="record">3-0-0 · 9 PTS · Round-robin kings</div>
-    </a>
-    <a class="tile t-wash" href="rosters.html">
-      <span class="seed">#2 Seed</span>
-      <div class="mono">W</div>
-      <h3>Washington Whoomp!</h3>
-      <div class="arena">The District Dome — Washington</div>
-      <div class="motto">"Make history."</div>
-      <div class="record">2-1-0 · 6 PTS · Semifinalists</div>
-    </a>
-    <a class="tile t-chatt" href="rosters.html">
-      <span class="seed">#4 Seed</span>
-      <div class="mono">T</div>
-      <h3>Chattanooga Choo Choo</h3>
-      <div class="arena">Terminal Arena — Chattanooga</div>
-      <div class="motto">"Every journey starts here."</div>
-      <div class="record">0-3-0 · Conductor's Crest winners</div>
-    </a>
-  </div>
-  <div class="cta-row" style="margin-top:1.5rem">
-    <a href="stadiums.html" class="btn btn-sapphire">Tour stadiums</a>
-    <a href="rosters.html" class="btn btn-platinum">View rosters</a>
-    <a href="shop.html" class="btn btn-champagne">Shop team gear</a>
-  </div>
+
+<section class="tp-hero">
+  <span class="kicker" style="color:#f0d78c">Season One</span>
+  <h1>4 TEAMS. ONE PUCKGOLD.</h1>
+  <p>Meet the franchises and players competing in the Founding Four era — standings, mottos, and full team sites.</p>
 </section>
+
+<div class="tp-wrap">
+  <nav class="tp-rail" aria-label="Jump to team" id="tpRail"></nav>
+  <div class="tp-grid" id="tpGrid"></div>
+</div>
+
 <footer class="site-footer" id="site-footer"></footer>
-<script src="assets/js/site.js?v=4"></script>
-<script src="assets/js/cart.js?v=4"></script>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/teams-data.js?v=2"></script>
+<script>
+(function () {
+  const teams = window.PGBTeams.all();
+  document.getElementById("tpRail").innerHTML = teams
+    .map((t) => `<a href="team.html?team=${t.slug}">${t.short}</a>`)
+    .join("");
+  document.getElementById("tpGrid").innerHTML = teams
+    .map((t) => {
+      const caps = t.players.filter((p) => p.role === "Captain")[0];
+      const chips = t.players
+        .slice(0, 4)
+        .map((p) => `<span class="tp-chip">${p.name.split(" ").pop()}</span>`)
+        .join("");
+      return `
+      <article class="tp-card" id="${t.slug}">
+        <div class="tp-card-top" style="background:linear-gradient(145deg,${t.color},${t.colorDeep})">
+          <span class="mono">${t.mono}</span>
+          <div class="seed">#${t.seed} Seed · ${t.record}</div>
+          <h2>${t.name}</h2>
+        </div>
+        <div class="tp-card-body">
+          <div class="motto">“${t.motto}”</div>
+          <p class="blurb">${t.blurb}</p>
+          <div class="tp-stats">
+            <div><span>Season position</span><strong>${t.position}</strong></div>
+            <div><span>Points</span><strong>${t.points}</strong></div>
+          </div>
+          <div class="tp-players">${chips}${caps ? `<span class="tp-chip">C · ${caps.name}</span>` : ""}</div>
+          <div class="tp-actions">
+            <a class="tp-btn" href="team.html?team=${t.slug}">Team site</a>
+            <a class="tp-btn ghost" href="team.html?team=${t.slug}#roster">Roster</a>
+            <a class="tp-btn ghost" href="shop.html#best">Shop</a>
+          </div>
+        </div>
+      </article>`;
+    })
+    .join("");
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team — PuckGold</title>
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=13">
+<link rel="stylesheet" href="assets/css/teams.css?v=2">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .vault-grid{display:grid;gap:.75rem;grid-template-columns:1fr}
+  @media(min-width:700px){.vault-grid{grid-template-columns:1fr 1fr}}
+  @media(min-width:1000px){.vault-grid.cols-3{grid-template-columns:repeat(3,1fr)}}
+  .vault-card{
+    background:#fff;border:1px solid rgba(18,24,38,.08);border-radius:14px;padding:1.15rem;
+    min-height:120px;display:flex;flex-direction:column;gap:.45rem;
+  }
+  .vault-card .tag{font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#8a93a3}
+  .vault-card h3{font-size:1.05rem}
+  .vault-card p{font-size:.86rem;color:#5c6473;line-height:1.45;flex:1}
+  .vault-card a{font-size:.78rem;font-weight:800;color:#163a74;text-decoration:underline;text-underline-offset:3px}
+  .vault-card.drop{
+    border-style:dashed;border-color:rgba(22,58,116,.28);background:#f8fafc;color:#5c6473;
+    align-items:center;justify-content:center;text-align:center;
+  }
+  .vault-card.drop strong{display:block;color:#0b1220;margin-bottom:.25rem}
+  .audio-box{
+    background:#0b1220;color:#fff;border-radius:14px;padding:1.3rem;display:grid;gap:.85rem;
+  }
+  @media(min-width:800px){.audio-box{grid-template-columns:1.1fr 1fr}}
+  .horn-btn{
+    border-radius:999px;padding:1em 1.4em;border:none;cursor:pointer;
+    background:linear-gradient(180deg,#f0d78c,#d4af37 55%,#8a6a1e);color:#1a1400;
+    font-weight:900;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;
+  }
+  .booth-list{display:grid;gap:.55rem}
+  .booth-item{
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+    border-radius:10px;padding:.75rem .85rem;
+  }
+  .booth-item b{display:block;font-size:.9rem;margin-bottom:.2rem}
+  .booth-item span{font-size:.78rem;color:rgba(255,255,255,.65)}
+  .map-note{
+    margin:0 4vw 2.5rem;max-width:1200px;margin-left:auto;margin-right:auto;
+    background:#fff;border:1px solid rgba(18,24,38,.08);border-radius:14px;padding:1.2rem 1.3rem;
+    font-size:.9rem;color:#5c6473;
+  }
+  .map-note code{color:#163a74;font-size:.82rem}
+</style>
+</head>
+<body class="tp-page">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+<div id="teamRoot"></div>
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/teams-data.js?v=2"></script>
+<script>
+(function () {
+  const params = new URLSearchParams(location.search);
+  const slug = params.get("team") || "miami-mighty-geckz";
+  const team = window.PGBTeams.bySlug(slug) || window.PGBTeams.all()[0];
+  document.title = team.name + " — Team Vault | PuckGold";
+
+  const vault = [
+    { title: "Logos & marks", path: "01-Logos-Marks", desc: "Primary, secondary, mono, app icons." },
+    { title: "Brand kit", path: "02-Brand-Kit", desc: "Guidelines, colorways, co-marketing." },
+    { title: "3 stadiums", path: "03-Stadiums", desc: "stadium-01 · stadium-02 · stadium-03 + lore.md" },
+    { title: "9 players", path: "04-Players", desc: "player-01…09 with bio.md, headshots/, clips/" },
+    { title: "Jerseys & uniforms", path: "05-Jerseys-Uniforms", desc: "Home / away / alternate flats." },
+    { title: "Posters", path: "06-Posters", desc: "Promo posters and arena art." },
+    { title: "Swag kits", path: "07-Swag-Kits", desc: "Streetwear, hats, pins, retail kits." },
+    { title: "Pucks & collectibles", path: "08-Pucks-Collectibles", desc: "Founders puck, badges, limited drops." },
+  ];
+
+  const root = document.getElementById("teamRoot");
+  root.innerHTML = `
+    <section class="team-hero">
+      <div class="team-hero-bg" style="background:linear-gradient(120deg,${team.colorDeep} 0%, ${team.color} 45%, #0b1220 100%)"></div>
+      <div class="team-hero-inner">
+        <span class="kicker">Underdog Division · Founding Four · ${team.code}</span>
+        <h1>${team.name.toUpperCase()}</h1>
+        <p class="motto">${team.tagline}</p>
+        <div class="meta">
+          <span>${team.arena}</span>
+          <span>Season ${team.position} · ${team.points} PTS</span>
+          <span>${team.record}</span>
+        </div>
+        <div class="cta-row" style="margin-top:1.2rem">
+          <a href="shop.html#best" class="btn btn-og btn-sm">Shop ${team.code}</a>
+          <a href="${team.folder}02-Brand-Kit/" class="btn btn-platinum btn-sm">Brand kit</a>
+          <a href="#vault" class="btn btn-ghost btn-sm">Download assets →</a>
+        </div>
+      </div>
+    </section>
+
+    <nav class="team-tabs" aria-label="Team sections">
+      <div class="team-tabs-inner">
+        <a href="#vault" class="active">Vault</a>
+        <a href="#stadiums">3 Stadiums</a>
+        <a href="#roster">9 Players</a>
+        <a href="#audio">Stadium sound</a>
+        <a href="#shop">Merch + vibes</a>
+      </div>
+    </nav>
+
+    <section class="team-section" id="vault">
+      <h2>Logos, stadiums, roster art, jerseys, and swag — synced from the team vault.</h2>
+      <p style="color:#5c6473;margin:-.4rem 0 1.1rem;max-width:40rem">Drop updated assets into the folders below. The site reads from <code>${team.folder}</code>.</p>
+      <div class="vault-grid">
+        ${vault
+          .map(
+            (v) => `
+          <div class="vault-card">
+            <div class="tag">Vault</div>
+            <h3>${v.title}</h3>
+            <p>${v.desc}</p>
+            <a href="${team.folder}${v.path}/">Open folder →</a>
+          </div>`
+          )
+          .join("")}
+      </div>
+      <div class="vault-grid cols-3" style="margin-top:.75rem">
+        <div class="vault-card drop"><strong>Vault · Swag</strong><span>Drop coming soon</span></div>
+        <div class="vault-card drop"><strong>Vault · Puck</strong><span>Drop coming soon</span></div>
+        <div class="vault-card drop"><strong>Vault · Poster</strong><span>Drop coming soon</span></div>
+      </div>
+    </section>
+
+    <section class="team-section" id="audio">
+      <h2>Stadium sound</h2>
+      <div class="audio-box">
+        <div>
+          <div class="tag" style="color:#f0d78c">Goal horn</div>
+          <h3 style="font-family:var(--display);font-size:1.8rem;letter-spacing:.04em;margin:.35rem 0 .6rem">${team.name} goal horn</h3>
+          <p style="color:rgba(255,255,255,.75);margin-bottom:1rem">Tap to blast the arena horn — live on mobile and desktop when <code>09-Audio/goal-horn/main.mp3</code> is dropped.</p>
+          <button type="button" class="horn-btn" id="hornBtn">Play goal horn</button>
+          <p id="hornNote" style="margin-top:.7rem;font-size:.78rem;color:rgba(255,255,255,.55)">Looking for ${team.folder}09-Audio/goal-horn/main.mp3</p>
+        </div>
+        <div>
+          <div class="tag" style="color:#f0d78c">From the booth</div>
+          <h3 style="margin:.35rem 0 .55rem">${team.name} · Booth</h3>
+          <p style="color:rgba(255,255,255,.75);font-size:.9rem;margin-bottom:.8rem">${team.booth}</p>
+          <div class="booth-list">
+            <div class="booth-item"><b>Walkout intro</b><span>Audio drops soon — Voicebox / Chatterbox</span></div>
+            <div class="booth-item"><b>Goal call</b><span>Audio drops soon — Voicebox / Chatterbox</span></div>
+            <div class="booth-item"><b>Win outro</b><span>Audio drops soon — Voicebox / Chatterbox</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="team-section" id="stadiums">
+      <h2>3 Stadiums</h2>
+      <p style="color:#5c6473;margin:-.3rem 0 1rem">Drop stadium renders, hero shots, and arena lore into <code>${team.folder}03-Stadiums</code>.</p>
+      <div class="vault-grid cols-3">
+        ${team.stadiums
+          .map(
+            (s) => `
+          <div class="vault-card">
+            <div class="tag">${s.id}</div>
+            <h3>${s.name}</h3>
+            <p>${s.lore}</p>
+            <a href="${team.folder}03-Stadiums/${s.id}/">Open stadium folder →</a>
+          </div>`
+          )
+          .join("")}
+      </div>
+    </section>
+
+    <section class="team-section" id="roster">
+      <h2>9 Players</h2>
+      <p style="color:#5c6473;margin:-.3rem 0 1rem">Drop portraits, stats, clips, and socials into <code>${team.folder}04-Players</code>.</p>
+      <div class="roster-grid">
+        ${team.players
+          .map(
+            (p) => `
+          <article class="roster-card">
+            <div class="roster-viz" style="background:linear-gradient(160deg,${team.color},${team.colorDeep})">
+              <span class="num">#${p.num}</span>
+              <div class="avatar">${p.name.split(" ").map((n) => n[0]).join("")}</div>
+            </div>
+            <div class="roster-body">
+              <div class="pos">${p.slot} · ${p.pos} · ${p.role}</div>
+              <h3>${p.name}</h3>
+              <div class="roster-meta">
+                <div><span>Rank</span><strong>${p.rank}</strong></div>
+                <div><span>Pts</span><strong>${p.pts}</strong></div>
+              </div>
+              <a class="link" href="player.html?id=${p.id}">Player profile ›</a>
+            </div>
+          </article>`
+          )
+          .join("")}
+      </div>
+    </section>
+
+    <section class="shop-strip" id="shop">
+      <div>
+        <h3>MERCH + VIBES</h3>
+        <p style="color:#5c6473;margin-top:.25rem">Jerseys, streetwear, swag kits, playlists. Folders: <code>07-Swag-Kits</code>, <code>10-Vibe-Playlists</code>, league <code>assets/vault/shopping</code>.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:.45rem">
+        <a class="tp-btn" href="shop.html#best">Team store</a>
+        <a class="tp-btn ghost" href="${team.folder}02-Brand-Kit/">Team brand kit</a>
+        <a class="tp-btn ghost" href="${team.folder}08-Pucks-Collectibles/">Founders puck</a>
+      </div>
+    </section>
+
+    <div class="map-note">
+      <strong style="color:#0b1220">Vault mapping</strong> —
+      Source vault: <code>${team.folder}</code> (drag/drop friendly).
+      League shopping/swag/games/content: <code>assets/vault/</code>.
+      Legacy alias folders (<code>mighty-geckz</code>, etc.) still exist — migrate into these numbered folders.
+    </div>
+  `;
+
+  const hornBtn = document.getElementById("hornBtn");
+  const hornNote = document.getElementById("hornNote");
+  const hornSrc = team.folder + "09-Audio/goal-horn/main.mp3";
+  let audio;
+  hornBtn?.addEventListener("click", async () => {
+    try {
+      if (!audio) audio = new Audio(hornSrc);
+      audio.currentTime = 0;
+      await audio.play();
+      if (hornNote) hornNote.textContent = "Horn blasting 🏒";
+    } catch (_) {
+      if (hornNote) hornNote.textContent = "Drop main.mp3 into 09-Audio/goal-horn/ then tap again.";
+    }
+  });
+})();
+</script>
+</body>
+</html>

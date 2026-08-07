@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open your PuckGold Gift Pack</title>
+<meta name="description" content="Rip your PuckGold virtual gift pack — countdown, surprise bonus, OG drops.">
+<meta property="og:title" content="I got a PuckGold gift pack rip">
+<meta property="og:description" content="Countdown. Surprise bonus. Limited OG drops. Open yours.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=25">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  body{background:#050910;color:#fff}
+  .go{min-height:100vh;display:flex;flex-direction:column}
+  .go-stage{
+    flex:1;display:flex;align-items:center;justify-content:center;padding:2rem 4vw 3rem;
+    position:relative;overflow:hidden;
+  }
+  .go-card{
+    width:min(420px,100%);border-radius:20px;padding:1.75rem 1.4rem;text-align:center;
+    box-shadow:0 24px 60px rgba(0,0,0,.45);position:relative;z-index:1;
+    transition:transform .4s ease;
+  }
+  .go-card.shake{animation:shake .5s ease}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px) rotate(-1deg)}75%{transform:translateX(6px) rotate(1deg)}}
+  .go-from{font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+  .go-note{margin:.75rem 0 1.25rem;font-size:1.05rem;line-height:1.45;opacity:.92}
+  .go-count{
+    font-family:var(--display);font-size:clamp(4rem,18vw,7rem);letter-spacing:.04em;line-height:1;
+    color:#f0d78c;text-shadow:0 0 40px rgba(240,215,140,.35);
+  }
+  .go-label{font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;margin-top:.5rem;opacity:.65}
+  .go-result{display:none}
+  .go-result.is-on{display:block}
+  .go-mult{
+    font-family:var(--display);font-size:clamp(2.8rem,12vw,4.5rem);color:#f0d78c;letter-spacing:.03em;margin:.5rem 0;
+  }
+  .go-tier{display:inline-block;padding:.35rem .7rem;border-radius:999px;background:rgba(255,255,255,.12);font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+  .go-stats{margin:1rem 0;font-size:.92rem;line-height:1.55;opacity:.9}
+  .go-og{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin:1rem 0}
+  .go-og span{font-size:.68rem;font-weight:800;padding:.4rem .65rem;border-radius:8px;background:rgba(240,215,140,.15);color:#f0d78c}
+  #recCanvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;pointer-events:none}
+  .go-bar{padding:1rem 4vw;display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;background:rgba(0,0,0,.35)}
+  .pulse-ring{
+    position:absolute;inset:20%;border-radius:50%;border:2px solid rgba(240,215,140,.25);
+    animation:pulse 1.2s ease-out infinite;pointer-events:none;
+  }
+  @keyframes pulse{from{transform:scale(.85);opacity:.8}to{transform:scale(1.25);opacity:0}}
+</style>
+</head>
+<body>
+<div class="go">
+  <header class="site-header" id="site-header"></header>
+  <div class="go-stage" id="stage">
+    <canvas id="recCanvas" width="720" height="1280"></canvas>
+    <div class="pulse-ring" id="rings" hidden></div>
+    <div class="go-card" id="packCard">
+      <div class="go-from" id="fromLine">Gift pack</div>
+      <p class="go-note" id="noteLine">Loading your pack…</p>
+      <div id="countPhase">
+        <div class="go-count" id="countNum">9</div>
+        <div class="go-label">Pack rip countdown</div>
+        <button type="button" class="btn btn-founding btn-sm" style="margin-top:1.25rem" id="startBtn">Tap to rip</button>
+        <p style="font-size:.72rem;opacity:.55;margin-top:.75rem">We’ll try to record the countdown for viral sharing</p>
+      </div>
+      <div class="go-result" id="resultPhase">
+        <div class="go-tier" id="tierBadge">Common</div>
+        <div class="go-mult" id="multLine">+35%</div>
+        <div class="go-stats" id="statsLine"></div>
+        <div class="go-og" id="ogLine"></div>
+        <div class="cta-row" style="justify-content:center;margin-top:1rem">
+          <button type="button" class="btn btn-founding btn-sm" id="shareBtn">Share rip</button>
+          <a class="btn btn-ghost btn-sm" href="gifts.html">Send one back</a>
+          <a class="btn btn-ghost btn-sm" href="play.html#board">Leaderboard</a>
+        </div>
+        <video id="recPreview" controls playsinline style="display:none;width:100%;margin-top:1rem;border-radius:12px;background:#000"></video>
+        <a id="recDownload" class="btn btn-platinum btn-sm" style="display:none;margin-top:.65rem" download="puckgold-pack-rip.webm">Download recording</a>
+      </div>
+    </div>
+  </div>
+  <div class="go-bar">
+    <a href="gifts.html" class="btn btn-ghost btn-sm">Gift cards</a>
+    <a href="join.html" class="btn btn-ghost btn-sm">League Pass</a>
+    <a href="support.html?support=chat" class="btn btn-ghost btn-sm">Help</a>
+  </div>
+</div>
+
+<footer class="site-footer" id="site-footer" style="display:none"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/gift-pack.js?v=1"></script>
+<script>
+(function () {
+  const GP = window.PGBGiftPack;
+  const id = new URLSearchParams(location.search).get("g");
+  let gift = id ? GP.getGift(id) : null;
+
+  // Demo gift if missing (so links / marketing previews still work)
+  if (!gift) {
+    gift = GP.createGift({
+      amount: 50,
+      toName: "Friend",
+      fromName: "PuckGold",
+      note: "Demo pack — create a real one from Gift Cards.",
+      vibe: "champagne",
+      music: "pulse",
+      countdownSec: 8.5,
+    });
+    history.replaceState(null, "", `gift-open.html?g=${gift.id}`);
+  }
+
+  const vibe = GP.VIBES.find((v) => v.id === gift.vibe) || GP.VIBES[0];
+  const card = document.getElementById("packCard");
+  card.style.background = vibe.gradient;
+  document.getElementById("fromLine").textContent = `${gift.fromName} → ${gift.toName}`;
+  document.getElementById("noteLine").textContent = gift.note || "You got a PuckGold pack rip. Tap to open.";
+
+  const canvas = document.getElementById("recCanvas");
+  const ctx = canvas.getContext("2d");
+  let mediaRecorder = null;
+  let chunks = [];
+  let recording = false;
+
+  function drawFrame(secLeft, phase) {
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.fillStyle = "#050910";
+    ctx.fillRect(0, 0, w, h);
+    // vibe panel
+    const grd = ctx.createLinearGradient(0, 0, w, h);
+    if (gift.vibe === "ruby") {
+      grd.addColorStop(0, "#1a0c10");
+      grd.addColorStop(1, "#7a1524");
+    } else if (gift.vibe === "champagne") {
+      grd.addColorStop(0, "#1a1408");
+      grd.addColorStop(1, "#d4af37");
+    } else {
+      grd.addColorStop(0, "#0b1220");
+      grd.addColorStop(1, "#163a74");
+    }
+    ctx.fillStyle = grd;
+    roundRect(80, 220, w - 160, h - 480, 32);
+    ctx.fill();
+    ctx.fillStyle = "rgba(255,255,255,.7)";
+    ctx.font = "600 28px system-ui";
+    ctx.textAlign = "center";
+    ctx.fillText(`${gift.fromName} → ${gift.toName}`, w / 2, 300);
+    ctx.fillStyle = "#fff";
+    ctx.font = "500 36px system-ui";
+    wrapText(gift.note || "PuckGold pack rip", w / 2, 360, w - 220, 40);
+    if (phase === "count") {
+      ctx.fillStyle = "#f0d78c";
+      ctx.font = "800 220px Impact, system-ui";
+      ctx.fillText(String(Math.ceil(secLeft)), w / 2, 720);
+      ctx.fillStyle = "rgba(255,255,255,.55)";
+      ctx.font = "700 28px system-ui";
+      ctx.fillText("PACK RIP", w / 2, 780);
+    } else if (phase === "result" && gift.reveal) {
+      ctx.fillStyle = "#f0d78c";
+      ctx.font = "800 120px Impact, system-ui";
+      ctx.fillText(gift.reveal.roll.display, w / 2, 680);
+      ctx.fillStyle = "#fff";
+      ctx.font = "700 32px system-ui";
+      ctx.fillText(`${gift.reveal.roll.tier} · $${gift.reveal.finalCredit} credit`, w / 2, 760);
+      ctx.font = "600 26px system-ui";
+      ctx.fillText(`+${gift.reveal.farmPts} Fan Zone XP`, w / 2, 810);
+    }
+    ctx.fillStyle = "rgba(255,255,255,.35)";
+    ctx.font = "600 22px system-ui";
+    ctx.fillText("PUCKGOLD · GIFT PACK", w / 2, h - 80);
+  }
+
+  function roundRect(x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function wrapText(text, x, y, maxWidth, lineHeight) {
+    const words = String(text).split(" ");
+    let line = "";
+    let yy = y;
+    for (let n = 0; n < words.length; n++) {
+      const test = line + words[n] + " ";
+      if (ctx.measureText(test).width > maxWidth && n > 0) {
+        ctx.fillText(line, x, yy);
+        line = words[n] + " ";
+        yy += lineHeight;
+      } else line = test;
+    }
+    ctx.fillText(line, x, yy);
+  }
+
+  function startRecording() {
+    chunks = [];
+    try {
+      const stream = canvas.captureStream(30);
+      // optional beep via oscillator mixed — skip for compatibility
+      const mime = MediaRecorder.isTypeSupported("video/webm;codecs=vp9")
+        ? "video/webm;codecs=vp9"
+        : "video/webm";
+      mediaRecorder = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 2500000 });
+      mediaRecorder.ondataavailable = (e) => {
+        if (e.data.size) chunks.push(e.data);
+      };
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(chunks, { type: "video/webm" });
+        const url = URL.createObjectURL(blob);
+        const vid = document.getElementById("recPreview");
+        const dl = document.getElementById("recDownload");
+        vid.src = url;
+        vid.style.display = "block";
+        dl.href = url;
+        dl.style.display = "inline-flex";
+        gift._recUrl = url;
+      };
+      mediaRecorder.start(200);
+      recording = true;
+    } catch (err) {
+      recording = false;
+      console.warn("Recording unavailable", err);
+    }
+  }
+
+  function stopRecording() {
+    if (mediaRecorder && recording) {
+      try {
+        mediaRecorder.stop();
+      } catch (_) {}
+      recording = false;
+    }
+  }
+
+  function showResult() {
+    gift = GP.openGift(gift.id) || gift;
+    document.getElementById("countPhase").style.display = "none";
+    document.getElementById("rings").hidden = true;
+    const r = gift.reveal;
+    document.getElementById("resultPhase").classList.add("is-on");
+    document.getElementById("tierBadge").textContent = r.roll.tier;
+    document.getElementById("multLine").textContent = r.roll.display;
+    document.getElementById("statsLine").innerHTML = `
+      Base $${r.base} → <b>$${r.withCardBonus}</b> with +35% card bonus<br>
+      Pack rip ${r.roll.display} → <b>$${r.finalCredit}</b> total credit<br>
+      +${r.farmPts} Fan Zone farm XP
+    `;
+    document.getElementById("ogLine").innerHTML = r.og
+      .map((o) => `<span>${o.rarity} · ${o.name}</span>`)
+      .join("");
+    drawFrame(0, "result");
+    setTimeout(stopRecording, 1200);
+  }
+
+  async function runCountdown() {
+    const total = Number(gift.countdownSec) || 8.5;
+    document.getElementById("startBtn").hidden = true;
+    document.getElementById("rings").hidden = false;
+    card.classList.add("shake");
+    startRecording();
+    const t0 = performance.now();
+    const num = document.getElementById("countNum");
+
+    function tick(now) {
+      const elapsed = (now - t0) / 1000;
+      const left = Math.max(0, total - elapsed);
+      num.textContent = left > 0 ? String(Math.ceil(left)) : "0";
+      drawFrame(left, "count");
+      if (left > 0) requestAnimationFrame(tick);
+      else {
+        card.classList.remove("shake");
+        showResult();
+      }
+    }
+    requestAnimationFrame(tick);
+
+    // WebAudio tick (no file required)
+    try {
+      const ac = new (window.AudioContext || window.webkitAudioContext)();
+      let i = 0;
+      const beats = Math.ceil(total);
+      const iv = setInterval(() => {
+        i++;
+        const o = ac.createOscillator();
+        const g = ac.createGain();
+        o.type = "sine";
+        o.frequency.value = i >= beats ? 880 : 220 + i * 40;
+        g.gain.value = 0.05;
+        o.connect(g);
+        g.connect(ac.destination);
+        o.start();
+        o.stop(ac.currentTime + 0.08);
+        if (i >= beats) clearInterval(iv);
+      }, (total / beats) * 1000);
+    } catch (_) {}
+  }
+
+  document.getElementById("startBtn")?.addEventListener("click", runCountdown);
+
+  // Already opened?
+  if (gift.reveal) {
+    document.getElementById("startBtn").hidden = true;
+    showResult();
+  } else {
+    drawFrame(Number(gift.countdownSec) || 8.5, "count");
+  }
+
+  document.getElementById("shareBtn")?.addEventListener("click", async () => {
+    const r = gift.reveal;
+    const text = `I ripped a PuckGold gift pack → ${r.roll.display} (${r.roll.tier}) · $${r.finalCredit} credit + OG drops. #PuckGold`;
+    const shareUrl = location.href;
+    try {
+      if (navigator.share) {
+        const data = { title: "PuckGold Pack Rip", text, url: shareUrl };
+        if (gift._recUrl && navigator.canShare) {
+          try {
+            const blob = await fetch(gift._recUrl).then((x) => x.blob());
+            const file = new File([blob], "puckgold-pack-rip.webm", { type: "video/webm" });
+            if (navigator.canShare({ files: [file] })) {
+              await navigator.share({ ...data, files: [file] });
+              return;
+            }
+          } catch (_) {}
+        }
+        await navigator.share(data);
+        return;
+      }
+    } catch (_) {}
+    try {
+      await navigator.clipboard.writeText(`${text}\n${shareUrl}`);
+      document.getElementById("shareBtn").textContent = "Copied caption";
+      setTimeout(() => (document.getElementById("shareBtn").textContent = "Share rip"), 1400);
+    } catch (_) {
+      alert(text + "\n" + shareUrl);
+    }
+  });
+})();
+</script>
+</body>
+</html>

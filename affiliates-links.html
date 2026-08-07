@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generate Links — PuckGold Affiliates</title>
+<meta name="description" content="Generate PuckGold affiliate links to League Pass, shop, Expansion, teams, and more.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=23">
+<link rel="stylesheet" href="assets/css/affiliates.css?v=1">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+</head>
+<body class="nhl-light">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+<section class="aff-hero">
+  <div class="aff-hero-inner">
+    <span class="kicker" style="color:#f0d78c">Generate Links</span>
+    <h1>CREATE LINKS TO ANYTHING ON PUCKGOLD</h1>
+    <p>
+      League Pass, shop, Expansion, team pages, advertise — share in posts, stories, bios, or newsletters.
+      Patterned on <a href="https://www.whatnotaffiliates.com/generate-links" style="color:#f0d78c">Whatnot Generate Links</a>.
+    </p>
+  </div>
+</section>
+<nav class="aff-sub" id="aff-subnav" aria-label="Affiliates"></nav>
+
+<div class="aff-wrap">
+  <h2>Link builder <span style="font-size:1rem;color:#8a93a3;font-family:var(--sans,system-ui)">(demo)</span></h2>
+  <p class="lead">Pick a destination and your affiliate code. When Impact/partner tracking is live, these map 1:1 to tracked URLs.</p>
+
+  <div class="aff-tool">
+    <div>
+      <label for="affCode">Your affiliate code</label>
+      <input id="affCode" placeholder="e.g. yourhandle" autocomplete="username">
+    </div>
+    <div>
+      <label for="affDest">Destination</label>
+      <select id="affDest">
+        <option value="join.html">Premium League Pass</option>
+        <option value="join.html#annual">Founding puck + Pass ($36)</option>
+        <option value="shop.html">Shop</option>
+        <option value="gifts.html">Gift cards</option>
+        <option value="expansion.html">Expansion Weekend</option>
+        <option value="experience.html">Event Experience</option>
+        <option value="promos.html">Promotions</option>
+        <option value="apply.html">Franchise / owner apply</option>
+        <option value="advertise.html">Advertise / Launch</option>
+        <option value="fantasy.html">Fantasy</option>
+        <option value="teams.html">Teams</option>
+        <option value="index.html">Homepage</option>
+      </select>
+    </div>
+    <div>
+      <label for="affSub">Sub ID <span style="font-weight:600;letter-spacing:0;text-transform:none;opacity:.6">(optional)</span></label>
+      <input id="affSub" placeholder="campaign, video id, etc.">
+    </div>
+    <button type="button" class="btn btn-founding btn-sm" id="affBuild">Create link</button>
+    <div class="aff-out" id="affOut">Your tracked link will appear here.</div>
+    <button type="button" class="btn btn-ghost btn-sm" id="affCopy" hidden>Copy link</button>
+  </div>
+
+  <h2 style="margin-top:2.5rem">How to</h2>
+  <div class="aff-grid two">
+    <div class="aff-card">
+      <h3>Create affiliate links</h3>
+      <ol>
+        <li>Sign up via Talent Community · Affiliate track</li>
+        <li>Enter your affiliate code above</li>
+        <li>Select any PuckGold URL destination</li>
+        <li>Optionally add a Sub ID for video / post tracking</li>
+        <li>Create → copy → paste into bio, description, or Discord</li>
+      </ol>
+    </div>
+    <div class="aff-card">
+      <h3>Tips</h3>
+      <ul>
+        <li>Link evergreen pages (Pass, shop, Expansion) over expired event URLs</li>
+        <li>Owner-operator leads: use <strong>Franchise / owner apply</strong></li>
+        <li>Brand campaigns: use <strong>Advertise / Launch</strong> or email advertise@puckgold.com</li>
+        <li>Always use your tracked link — bare URLs won’t attribute</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/affiliates-nav.js?v=1"></script>
+<script>
+(function () {
+  const codeEl = document.getElementById("affCode");
+  const destEl = document.getElementById("affDest");
+  const subEl = document.getElementById("affSub");
+  const out = document.getElementById("affOut");
+  const copy = document.getElementById("affCopy");
+  try {
+    const saved = localStorage.getItem("pgb-aff-code");
+    if (saved) codeEl.value = saved;
+  } catch (_) {}
+
+  function build() {
+    const code = (codeEl.value || "yourcode").trim().replace(/\s+/g, "").toLowerCase() || "yourcode";
+    try { localStorage.setItem("pgb-aff-code", code); } catch (_) {}
+    const dest = destEl.value;
+    const sub = (subEl.value || "").trim();
+    const base = new URL(dest, location.href);
+    base.searchParams.set("ref", code);
+    base.searchParams.set("utm_source", "affiliate");
+    base.searchParams.set("utm_medium", "creator");
+    base.searchParams.set("utm_campaign", "pgb-affiliates");
+    if (sub) base.searchParams.set("subid", sub);
+    out.textContent = base.href;
+    copy.hidden = false;
+  }
+
+  document.getElementById("affBuild")?.addEventListener("click", build);
+  copy?.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(out.textContent);
+      copy.textContent = "Copied";
+      setTimeout(() => (copy.textContent = "Copy link"), 1200);
+    } catch (_) {
+      copy.textContent = "Select & copy manually";
+    }
+  });
+})();
+</script>
+</body>
+</html>

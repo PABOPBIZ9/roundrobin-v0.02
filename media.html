@@ -3,47 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Media — PuckGold</title>
+<title>PuckGold Media Hub — Press, Events & Video</title>
+<meta name="description" content="Global media destination for PuckGoldBiz tournaments, event info, video, guidelines, and accreditation.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=4">
+<link rel="stylesheet" href="assets/css/site.css?v=13">
+<link rel="stylesheet" href="assets/css/media-hub.css?v=3">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
-<link rel="icon" href="assets/brand/favicon/favicon-32.png?v=3" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="assets/brand/app/apple-touch-icon.png?v=3">
 </head>
-<body>
+<body class="mh-page" data-mh="home">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
-<div class="page-hero">
-  <span class="kicker">Media Center</span>
-  <h1>MEDIA</h1>
-  <p>Watch, read, relive it — trailers, comics, and highlight energy.</p>
-</div>
-<section class="section">
-  <div class="grid-2">
-    <div class="media-card">
-      <div class="media-visual mv-trailer"><div class="play-btn"></div></div>
-      <div class="media-body">
-        <h3>"The Golden Age Begins"</h3>
-        <p>90-second hype trailer — four stadiums, four words, one championship goal.</p>
-        <a href="hype.html" class="btn btn-champagne btn-sm">Open hype page</a>
-      </div>
-    </div>
-    <div class="media-card">
-      <div class="media-visual mv-comic"><div class="play-btn"></div></div>
-      <div class="media-body">
-        <h3>PuckGold Kidz: "The Golden Puck"</h3>
-        <p>All-ages comic with Gecko Gus, Cardy, Dome-ster, and Chuggy.</p>
-        <a href="PuckGold_Kids_Comic_Script.md" class="btn btn-platinum btn-sm">Read script</a>
-      </div>
-    </div>
-  </div>
-  <div class="cta-row" style="margin-top:1.4rem">
-    <a href="fantasy.html" class="btn btn-sapphire">Earn points watching</a>
-    <a href="join.html" class="btn btn-og">Unlock premium media</a>
+<div class="mh-subnav" id="mhSubnav"></div>
+
+<section class="mh-hero">
+  <div class="mh-hero-bg" aria-hidden="true"></div>
+  <div class="mh-hero-inner">
+    <span class="kicker" style="color:#f0d78c">Season One · Founding Four</span>
+    <h1>THE COLDEST GAME ON EARTH.</h1>
+    <p>Growing hockey culture for a new era of players and fans — platinum, sapphire, ruby energy.</p>
   </div>
 </section>
+
+<div class="mh-strip">
+  <strong>PuckGold Media Hub</strong> — global media’s destination for the latest tournament content, event info, prizes, and assets.
+</div>
+
+<div class="mh-wrap">
+  <div class="mh-section-head">
+    <h2>Upcoming Events</h2>
+    <a class="mh-viewall" href="media-schedule.html">View All ›</a>
+  </div>
+  <div class="mh-events" id="mhUpcoming"></div>
+
+  <div class="mh-promo">
+    <div class="mh-subscribe">
+      <h3>SUBSCRIBE FOR<br>MEDIA ALERTS</h3>
+      <p>Tournament updates, schedules, prize drops, and player news — straight to your inbox.</p>
+      <form id="mhSubscribe">
+        <input type="email" name="email" required placeholder="Work email">
+        <button type="submit">Subscribe</button>
+      </form>
+      <p id="mhSubNote" hidden style="margin-top:.7rem;color:#f0d78c;font-weight:700"></p>
+    </div>
+    <div class="mh-alert-card">
+      <div class="tag">This weekend · 24h countdown</div>
+      <h3>Founding Expansion Weekend — 16 teams + sales clock</h3>
+      <p>Media Guide booklet is live. Cover the First 16 pools, push founding Pass + gold puck, and grab accreditation before faceoff.</p>
+      <div class="prize">Featured push: Free limited gold puck + Premium League Pass · jersey flash · gift cards</div>
+      <div class="cta-row" style="margin-top:.4rem">
+        <a href="expansion.html" class="mh-viewall">Countdown &amp; pools</a>
+        <a href="media-guide.html" class="mh-acred" style="display:inline-flex">Media Guide</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="mh-section-head">
+    <h2>Featured Videos</h2>
+    <a class="mh-viewall" href="media-videos.html">View All ›</a>
+  </div>
+  <p class="mh-legal">For editorial and social use only. Commercial use prohibited unless licensed. Non-rights holders may use an aggregate of up to two (2) minutes of footage per day. Credit: PuckGoldBiz / PGB League.</p>
+  <div class="mh-videos">
+    <a class="mh-video" href="hype.html">
+      <div class="mh-thumb" style="background:linear-gradient(145deg,#1a1408,#163a74)"><div class="play"></div></div>
+      <div class="cap"><div class="eyebrow">Trailer</div><h3>The Golden Age Begins — Season One hype</h3></div>
+    </a>
+    <a class="mh-video" href="media-videos.html">
+      <div class="mh-thumb b-miami"><div class="play"></div></div>
+      <div class="cap"><div class="eyebrow">Miami 2026</div><h3>Opening Faceoff preview · Neon Reef</h3></div>
+    </a>
+    <a class="mh-video" href="media-videos.html">
+      <div class="mh-thumb b-finals"><div class="play"></div></div>
+      <div class="cap"><div class="eyebrow">Founding</div><h3>OG Gold Puck + Premium League Pass spot</h3></div>
+    </a>
+  </div>
+
+  <div class="mh-section-head" style="margin-top:2.5rem">
+    <h2>Quick Links</h2>
+  </div>
+  <div class="mh-res-grid">
+    <div class="mh-res"><div class="ico">R</div><div><h3>Media Resources</h3><a href="media-resources.html">View</a><p>Guides, rosters, logos, photo drops</p></div></div>
+    <div class="mh-res"><div class="ico">G</div><div><h3>Media Guidelines</h3><a href="media-guidelines.html">View</a><p>Credentials, access, content rules</p></div></div>
+    <div class="mh-res"><div class="ico">S</div><div><h3>Full Schedule</h3><a href="media-schedule.html">View</a><p>Season One events + prizes</p></div></div>
+    <div class="mh-res"><div class="ico">A</div><div><h3>Accreditation</h3><a href="media-accreditation.html">Apply</a><p>Get on-site access to cover PGB</p></div></div>
+  </div>
+</div>
+
 <footer class="site-footer" id="site-footer"></footer>
-<script src="assets/js/site.js?v=4"></script>
-<script src="assets/js/cart.js?v=4"></script>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/media-hub.js?v=4"></script>
 </body>
 </html>

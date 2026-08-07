@@ -1,0 +1,63 @@
+/* ASAP Sports–style transcripts + event roundels */
+
+.tr-light{background:#f4f6fa;color:#121826}
+.tr-events{
+  display:grid;gap:1rem;grid-template-columns:repeat(2,1fr);
+  max-width:900px;margin:0 auto;padding:1.5rem 4vw 3rem;
+}
+@media(min-width:700px){.tr-events{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1000px){.tr-events{grid-template-columns:repeat(4,1fr)}}
+.tr-event{
+  text-align:center;color:inherit;text-decoration:none;
+  display:flex;flex-direction:column;align-items:center;gap:.55rem;
+}
+.tr-event:hover .tr-roundel{transform:scale(1.04);box-shadow:0 12px 28px rgba(18,24,38,.18)}
+.tr-roundel{
+  width:min(100%,160px);aspect-ratio:1;border-radius:50%;
+  border:2px solid rgba(255,255,255,.35);overflow:hidden;
+  background:#0b1220;transition:transform .15s ease, box-shadow .15s ease;
+  display:grid;place-items:center;position:relative;
+}
+.tr-roundel img,.tr-roundel object{width:100%;height:100%;object-fit:cover}
+.tr-roundel .fallback{
+  width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:#fff;padding:.75rem;text-align:center;
+  background:radial-gradient(circle at 50% 30%, rgba(240,215,140,.25), transparent 55%),#0b1220;
+}
+.tr-roundel .fallback .pgb{font-family:var(--display);font-size:1.1rem;letter-spacing:.12em;color:#f0d78c}
+.tr-roundel .fallback .city{font-family:var(--display);font-size:1.6rem;letter-spacing:.04em;line-height:1;margin:.35rem 0}
+.tr-roundel .fallback .date{font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.65)}
+.tr-roundel .fallback .leaf{
+  width:70%;height:28%;border-radius:0 0 999px 999px;margin-top:.35rem;
+  display:grid;place-items:center;font-size:.7rem;
+}
+.tr-event span{font-size:.85rem;font-weight:700}
+
+.tr-wrap{max-width:900px;margin:0 auto;padding:1.25rem 4vw 3.5rem}
+.tr-head{margin-bottom:1.25rem}
+.tr-head h1{font-family:var(--display);font-size:clamp(2rem,5vw,3rem);letter-spacing:.04em}
+.tr-head p{color:#5c6473;margin-top:.35rem}
+.tr-day{margin:1.5rem 0 .5rem;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#8a93a3}
+.tr-row{
+  display:grid;grid-template-columns:72px 1fr auto;gap:.75rem;align-items:start;
+  padding:.85rem 0;border-bottom:1px solid rgba(18,24,38,.08);
+}
+.tr-row .time{font-size:.78rem;font-weight:800;color:#8a93a3}
+.tr-row h3{font-size:1rem;margin:0 0 .2rem}
+.tr-row h3 a{color:#0b1220;font-weight:800}
+.tr-row h3 a:hover{color:#163a74;text-decoration:underline;text-underline-offset:3px}
+.tr-row .who{font-size:.82rem;color:#5c6473}
+.tr-links{display:flex;gap:.45rem}
+.tr-links a{
+  font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  padding:.35rem .55rem;border-radius:6px;background:#eef4ff;color:#163a74;
+}
+
+.tr-article{max-width:720px;margin:0 auto;padding:1.5rem 4vw 3.5rem;background:#fff}
+.tr-article .meta{font-size:.78rem;color:#5c6473;margin-bottom:1rem;line-height:1.5}
+.tr-article h1{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:.03em;margin-bottom:.5rem}
+.tr-article .type{font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#163a74}
+.tr-block{margin:1.1rem 0}
+.tr-block .spk{font-weight:900;font-size:.9rem;margin-bottom:.25rem;color:#0b1220}
+.tr-block p{font-size:.95rem;line-height:1.6;color:#121826}
+.tr-foot{margin-top:2rem;padding-top:1rem;border-top:1px solid rgba(18,24,38,.08);font-size:.75rem;color:#8a93a3}

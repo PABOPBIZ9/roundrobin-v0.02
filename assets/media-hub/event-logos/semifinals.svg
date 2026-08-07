@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <circle cx="100" cy="100" r="98" fill="#0b1220" stroke="#e8edf5" stroke-width="2"/>
+  <text x="100" y="28" text-anchor="middle" fill="#f0d78c" font-family="Arial,sans-serif" font-size="8" font-weight="700" letter-spacing="2">PUCK GOLD</text>
+  <text x="100" y="78" text-anchor="middle" fill="#fff" font-family="Impact,Arial Black,sans-serif" font-size="16" letter-spacing="1"><tspan x="100" dy="0">SEMI</tspan><tspan x="100" dy="18">FINALS</tspan></text>
+  <text x="100" y="118" text-anchor="middle" fill="#fff" font-family="Impact,Arial Black,sans-serif" font-size="22" letter-spacing="2">DISTRICT</text>
+  <path d="M20 128 A80 80 0 0 0 180 128 L180 180 A80 80 0 0 1 20 180 Z" fill="#1e3a8a"/>
+  <text x="100" y="158" text-anchor="middle" fill="#fff" font-size="20">⚡</text>
+  <text x="100" y="188" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="7" letter-spacing="1.5">18-19 JAN 2026</text>
+</svg>

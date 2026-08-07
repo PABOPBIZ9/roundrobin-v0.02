@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Promotions — Fan Zone Offers | PuckGold</title>
+<meta name="description" content="PuckGold Fan Zone promotions — League Pass deals, fantasy prizes, XP boosts, and Expansion offers. Promo hub inspired by sportsbook offer boards.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=21">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .pr-page{background:#070b12;color:#fff;min-height:100vh}
+  .pr-page .ice-lines{opacity:.06}
+  .pr-hero{
+    padding:2.5rem 4vw 1.5rem;max-width:1200px;margin:0 auto;
+  }
+  .pr-hero h1{font-family:var(--display);font-size:clamp(2.4rem,7vw,3.8rem);letter-spacing:.04em;line-height:.95;margin:.35rem 0}
+  .pr-hero p{color:rgba(255,255,255,.7);max-width:36rem;line-height:1.5;margin:.6rem 0 0}
+  .pr-note{
+    margin-top:1rem;font-size:.72rem;color:rgba(255,255,255,.45);max-width:40rem;line-height:1.4;
+  }
+  .pr-filters{
+    display:flex;gap:.4rem;overflow-x:auto;padding:.5rem 4vw 1.25rem;max-width:1200px;margin:0 auto;
+    scrollbar-width:none;
+  }
+  .pr-filters::-webkit-scrollbar{display:none}
+  .pr-filters button{
+    flex:0 0 auto;border-radius:999px;padding:.55rem .95rem;font-size:.68rem;font-weight:800;
+    letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(255,255,255,.14);
+    background:transparent;color:rgba(255,255,255,.65);cursor:pointer;
+  }
+  .pr-filters button.is-active{
+    background:linear-gradient(180deg,#f0d78c,#d4af37);color:#0b1220;border-color:transparent;
+  }
+  .pr-wrap{max-width:1200px;margin:0 auto;padding:0 4vw 4rem}
+  .pr-feature{
+    display:grid;gap:1rem;margin-bottom:1.5rem;
+  }
+  @media(min-width:900px){.pr-feature{grid-template-columns:1.4fr 1fr}}
+  .pr-card{
+    position:relative;border-radius:16px;overflow:hidden;padding:1.35rem 1.25rem 1.2rem;
+    background:#121a28;border:1px solid rgba(255,255,255,.08);
+    display:flex;flex-direction:column;min-height:200px;
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .pr-card:hover{transform:translateY(-2px);border-color:rgba(240,215,140,.35)}
+  .pr-card.featured{
+    min-height:280px;
+    background:
+      radial-gradient(circle at 85% 15%, rgba(240,215,140,.28), transparent 40%),
+      radial-gradient(circle at 10% 90%, rgba(61,111,191,.35), transparent 45%),
+      linear-gradient(145deg,#0b1220,#163a74 55%,#7a1524);
+  }
+  .pr-card.pass{
+    background:
+      radial-gradient(circle at 80% 20%, rgba(61,111,191,.4), transparent 42%),
+      linear-gradient(160deg,#0b1220,#101a2e);
+  }
+  .pr-card.xp{
+    background:
+      radial-gradient(circle at 75% 25%, rgba(15,118,110,.45), transparent 42%),
+      linear-gradient(160deg,#0b1220,#0a1f1c);
+  }
+  .pr-card.shop{
+    background:
+      radial-gradient(circle at 80% 20%, rgba(122,21,36,.45), transparent 42%),
+      linear-gradient(160deg,#0b1220,#1a0c10);
+  }
+  .pr-badge{
+    display:inline-block;align-self:flex-start;font-size:.58rem;font-weight:800;letter-spacing:.14em;
+    text-transform:uppercase;padding:.35rem .55rem;border-radius:6px;margin-bottom:.75rem;
+    background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);
+  }
+  .pr-badge.hot{background:#d4af37;color:#0b1220}
+  .pr-badge.new{background:#3d6fbf;color:#fff}
+  .pr-card h2,.pr-card h3{
+    font-family:var(--display);letter-spacing:.03em;line-height:1.05;margin:0 0 .5rem;
+  }
+  .pr-card h2{font-size:clamp(1.8rem,4vw,2.4rem)}
+  .pr-card h3{font-size:1.35rem}
+  .pr-card p{color:rgba(255,255,255,.72);font-size:.9rem;line-height:1.45;margin:0 0 1rem;flex:1}
+  .pr-meta{font-size:.68rem;color:rgba(255,255,255,.4);margin-bottom:.85rem;letter-spacing:.04em}
+  .pr-actions{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:auto}
+  .pr-grid{
+    display:grid;gap:.85rem;grid-template-columns:1fr;
+  }
+  @media(min-width:700px){.pr-grid{grid-template-columns:1fr 1fr}}
+  @media(min-width:1000px){.pr-grid{grid-template-columns:1fr 1fr 1fr}}
+  .pr-empty{padding:2rem;text-align:center;color:rgba(255,255,255,.5)}
+</style>
+</head>
+<body class="pr-page">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+
+<div class="pr-hero">
+  <span class="kicker" style="color:#f0d78c">Fan Zone</span>
+  <h1>PROMOTIONS</h1>
+  <p>Opt into League Pass deals, fantasy prizes, XP boosts, and Expansion drops — all in one board. Layout inspired by the <a href="https://sportsbook.draftkings.com/promos" style="color:#f0d78c">DraftKings promos hub</a>, built for fans (not a sportsbook).</p>
+  <p class="pr-note">PuckGold promotions are for membership, Fan Zone XP, fantasy contests, and shop rewards. No real-money wagering.</p>
+</div>
+
+<div class="pr-filters" id="prFilters" role="tablist" aria-label="Promo filters">
+  <button type="button" class="is-active" data-filter="all">All</button>
+  <button type="button" data-filter="pass">League Pass</button>
+  <button type="button" data-filter="fantasy">Fantasy</button>
+  <button type="button" data-filter="xp">XP &amp; Rewards</button>
+  <button type="button" data-filter="shop">Shop</button>
+  <button type="button" data-filter="new">New fans</button>
+</div>
+
+<div class="pr-wrap">
+  <div class="pr-feature" id="prFeature"></div>
+  <div class="pr-grid" id="prGrid"></div>
+  <p class="pr-empty" id="prEmpty" hidden>No promos in this filter right now — check All.</p>
+</div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script>
+(function () {
+  const promos = [
+    {
+      id: "founding",
+      cat: ["pass", "new", "shop"],
+      featured: true,
+      tone: "featured",
+      badge: "Best value",
+      badgeClass: "hot",
+      title: "Free gold puck + 1-year Premium League Pass",
+      body: "$36 founding deal. Limited-edition puck shipped to your door, Premium League Pass for a year, and forever founding status.",
+      meta: "Ends when stock clears · Founding Four era",
+      cta: "Become a founding member",
+      href: "join.html#annual",
+      cta2: "Compare plans",
+      href2: "join.html",
+    },
+    {
+      id: "monthly",
+      cat: ["pass"],
+      featured: true,
+      tone: "pass",
+      badge: "Flexible",
+      title: "Premium League Pass — $12.99/mo",
+      body: "Live streams, condensed games, Fan Zone access, and member shop pricing. Cancel monthly — keep your XP.",
+      meta: "Anytime · Upgrade for free shipped puck",
+      cta: "Start League Pass",
+      href: "join.html#monthly",
+    },
+    {
+      id: "fantasy-week",
+      cat: ["fantasy", "new"],
+      tone: "",
+      badge: "This week",
+      badgeClass: "new",
+      title: "Free fantasy entry · Prize vault open",
+      body: "Lock a Founding Four lineup. Top board wins shop credit, aura badges, and Expansion Weekend early access.",
+      meta: "Resets every Monday 12:00 ET",
+      cta: "Enter fantasy",
+      href: "fantasy.html",
+    },
+    {
+      id: "double-xp",
+      cat: ["xp", "new"],
+      tone: "xp",
+      badge: "XP boost",
+      title: "Double XP weekend",
+      body: "Game Zone quizzes, quests, and aura votes earn 2× Fan Zone XP through Expansion Weekend.",
+      meta: "Auto-applied when Expansion countdown is live",
+      cta: "Open Game Zone",
+      href: "play.html",
+      cta2: "Expansion",
+      href2: "expansion.html",
+    },
+    {
+      id: "refer",
+      cat: ["xp", "shop"],
+      tone: "",
+      badge: "Refer",
+      title: "Refer a friend — both get $10 shop credit",
+      body: "Share your founding code. When they grab League Pass or a shop drop, you both unlock credit.",
+      meta: "Credit stacks with member pricing",
+      cta: "Get referral code",
+      href: "signin.html",
+    },
+    {
+      id: "party",
+      cat: ["pass", "fantasy"],
+      tone: "shop",
+      badge: "Event",
+      title: "Party Zone ticket boost",
+      body: "League Pass holders get priority Party Zone wristbands when we bring the noise next event.",
+      meta: "See Event Experience for the vibe",
+      cta: "Event Experience",
+      href: "experience.html",
+      cta2: "Tickets",
+      href2: "join.html",
+    },
+    {
+      id: "locker",
+      cat: ["shop", "xp"],
+      tone: "",
+      badge: "Drop",
+      title: "LockerVision outfit early access",
+      body: "Members preview next drip 24 hours before public. Pair with Fan Village fits on game day.",
+      meta: "Drops Friday 10:00 AM ET",
+      cta: "LockerVision",
+      href: "lockervision.html",
+      cta2: "Shop",
+      href2: "shop.html",
+    },
+    {
+      id: "gift",
+      cat: ["shop", "pass"],
+      tone: "",
+      badge: "Gift",
+      title: "Gift a League Pass",
+      body: "Send Premium Pass or shop credit. Perfect for Expansion Weekend FOMO.",
+      meta: "Digital delivery · Instant",
+      cta: "Gift cards",
+      href: "gifts.html",
+    },
+    {
+      id: "media",
+      cat: ["pass"],
+      tone: "pass",
+      badge: "Pass perk",
+      title: "Condensed games + recaps unlocked",
+      body: "Premium League Pass includes condensed games, full recaps, and Media Hub drops the night of.",
+      meta: "Included with Pass",
+      cta: "Watch",
+      href: "video-condensed.html",
+      cta2: "Get Pass",
+      href2: "join.html",
+    },
+  ];
+
+  let filter = "all";
+
+  function cardHtml(p, big) {
+    return `<article class="pr-card ${p.tone || ""}" data-cats="${p.cat.join(" ")}">
+      <span class="pr-badge ${p.badgeClass || ""}">${p.badge}</span>
+      ${big ? `<h2>${p.title}</h2>` : `<h3>${p.title}</h3>`}
+      <p>${p.body}</p>
+      <div class="pr-meta">${p.meta}</div>
+      <div class="pr-actions">
+        <a href="${p.href}" class="btn ${big ? "btn-founding" : "btn-platinum"} btn-sm">${p.cta}</a>
+        ${p.href2 ? `<a href="${p.href2}" class="btn btn-ghost btn-sm">${p.cta2}</a>` : ""}
+      </div>
+    </article>`;
+  }
+
+  function render() {
+    const list = filter === "all" ? promos : promos.filter((p) => p.cat.includes(filter));
+    const featured = list.filter((p) => p.featured).slice(0, 2);
+    const rest = list.filter((p) => !featured.includes(p));
+
+    document.getElementById("prFeature").innerHTML = featured.map((p) => cardHtml(p, true)).join("");
+    document.getElementById("prGrid").innerHTML = rest.map((p) => cardHtml(p, false)).join("");
+    document.getElementById("prEmpty").hidden = list.length > 0;
+    document.querySelectorAll("#prFilters button").forEach((b) => b.classList.toggle("is-active", b.dataset.filter === filter));
+  }
+
+  document.getElementById("prFilters").addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-filter]");
+    if (!btn) return;
+    filter = btn.dataset.filter;
+    render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

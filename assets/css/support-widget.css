@@ -1,0 +1,85 @@
+/* Cartier / Uber-style floating support + AI chat */
+.pgb-support-fab{
+  position:fixed;right:1rem;bottom:1rem;z-index:90;
+  width:56px;height:56px;border-radius:999px;border:0;cursor:pointer;
+  background:linear-gradient(180deg,#f0d78c,#d4af37);color:#0b1220;
+  box-shadow:0 12px 32px rgba(5,9,16,.35);
+  font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.1rem;
+}
+.pgb-support-fab svg{width:22px;height:22px;fill:currentColor}
+.pgb-support-panel{
+  position:fixed;right:1rem;bottom:5.2rem;z-index:91;width:min(360px,calc(100vw - 1.5rem));
+  background:#fff;color:#121826;border-radius:16px;box-shadow:0 20px 50px rgba(5,9,16,.35);
+  border:1px solid rgba(18,24,38,.08);overflow:hidden;display:none;flex-direction:column;max-height:min(70vh,560px);
+}
+.pgb-support-panel.is-open{display:flex}
+.pgb-support-head{
+  padding:.9rem 1rem;background:#0b1220;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+}
+.pgb-support-head strong{font-size:.95rem}
+.pgb-support-head button{
+  border:0;background:transparent;color:rgba(255,255,255,.7);font-size:1.2rem;cursor:pointer;line-height:1;
+}
+.pgb-support-disc{font-size:.68rem;color:#8a93a3;padding:.65rem 1rem 0;line-height:1.35}
+.pgb-support-menu{padding:.65rem .75rem .85rem;display:grid;gap:.4rem;overflow:auto}
+.pgb-support-menu button,.pgb-support-menu a{
+  display:flex;align-items:center;gap:.65rem;width:100%;text-align:left;
+  border:1px solid rgba(18,24,38,.08);background:#f4f6fa;border-radius:999px;
+  padding:.7rem .95rem;font-size:.86rem;font-weight:700;color:#121826;cursor:pointer;text-decoration:none;
+}
+.pgb-support-menu button:hover,.pgb-support-menu a:hover{background:#e8edf5}
+.pgb-support-menu .ico{
+  width:28px;height:28px;border-radius:999px;background:#fff;display:grid;place-items:center;flex-shrink:0;
+  font-size:.9rem;
+}
+.pgb-support-foot{padding:0 1rem .85rem;font-size:.72rem}
+.pgb-support-foot a{color:#163a74;font-weight:700}
+
+.pgb-chat{display:none;flex-direction:column;flex:1;min-height:0}
+.pgb-chat.is-on{display:flex}
+.pgb-chat-msgs{flex:1;overflow:auto;padding:.85rem;display:flex;flex-direction:column;gap:.55rem;background:#f8fafc}
+.pgb-bubble{
+  max-width:88%;padding:.65rem .8rem;border-radius:14px;font-size:.86rem;line-height:1.4;
+}
+.pgb-bubble.bot{background:#fff;border:1px solid rgba(18,24,38,.08);align-self:flex-start}
+.pgb-bubble.user{background:#163a74;color:#fff;align-self:flex-end}
+.pgb-chat-form{display:flex;gap:.4rem;padding:.65rem;border-top:1px solid rgba(18,24,38,.08);background:#fff}
+.pgb-chat-form input{
+  flex:1;border:1px solid rgba(18,24,38,.12);border-radius:999px;padding:.65rem .85rem;font:inherit;
+}
+.pgb-chat-form button{
+  border:0;border-radius:999px;padding:.65rem 1rem;background:#0b1220;color:#fff;font-weight:800;cursor:pointer;font-size:.75rem;
+}
+.pgb-chat-back{
+  border:0;background:transparent;color:#163a74;font-weight:800;font-size:.72rem;padding:.5rem .85rem 0;cursor:pointer;text-align:left;
+}
+
+.pgb-lang-bar{
+  background:#0b1220;color:#fff;padding:.65rem 4vw;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.75rem;
+}
+.pgb-lang-bar .pgb-lang-btn{
+  border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;border-radius:999px;
+  padding:.45rem .85rem;font-size:.72rem;font-weight:800;letter-spacing:.06em;cursor:pointer;
+}
+.pgb-lang-bar .pgb-lang-btn:hover{border-color:#f0d78c;color:#f0d78c}
+.pgb-lang-pop{
+  position:fixed;inset:0;z-index:100;background:rgba(5,9,16,.55);display:none;align-items:flex-end;justify-content:center;
+}
+.pgb-lang-pop.is-open{display:flex}
+.pgb-lang-sheet{
+  background:#fff;color:#121826;width:min(520px,100%);max-height:70vh;border-radius:16px 16px 0 0;
+  padding:1rem 1rem 1.5rem;overflow:auto;
+}
+.pgb-lang-sheet h3{margin:0 0 .75rem;font-size:1rem}
+.pgb-lang-sheet button{
+  display:block;width:100%;text-align:left;border:0;background:transparent;padding:.7rem .5rem;
+  border-bottom:1px solid rgba(18,24,38,.06);font-size:.92rem;cursor:pointer;font-weight:600;
+}
+.pgb-lang-sheet button.is-on{color:#163a74;font-weight:800}
+.pgb-lang-sheet .close{float:right;border:0;background:#f4f6fa;border-radius:999px;width:32px;height:32px;cursor:pointer}
+
+html[dir="rtl"] .pgb-support-fab{right:auto;left:1rem}
+html[dir="rtl"] .pgb-support-panel{right:auto;left:1rem}
+html[dir="rtl"] .pgb-bubble.user{align-self:flex-start}
+html[dir="rtl"] .pgb-bubble.bot{align-self:flex-end}

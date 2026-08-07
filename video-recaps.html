@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Recaps — PuckGold</title>
+<meta name="description" content="PuckGold game recaps — five-minute Founding Four highlight packages.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=15">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=2">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+</head>
+<body class="nhl-light">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+
+<section class="nhl-hero">
+  <span class="kicker">Video</span>
+  <h1>GAME RECAPS</h1>
+  <p>Five-minute packages with three stars and the horn. Modeled on <a href="https://www.nhl.com/video/topic/game-recaps/" style="color:#f0d78c">NHL Game Recaps</a>.</p>
+</section>
+<nav class="nhl-sub" aria-label="Video">
+  <a href="video-condensed.html">Condensed Games</a>
+  <a href="video-recaps.html" class="is-active">Game Recaps</a>
+  <a href="puck-personality.html">Puck Personality</a>
+  <a href="podcasts.html">Podcasts</a>
+  <a href="media-videos.html">All video</a>
+</nav>
+
+<div class="nhl-wrap nhl-wrap-wide">
+  <p style="font-size:.86rem;color:#5c6473;margin-bottom:1.1rem">
+    Drop per game: <code style="color:#163a74">assets/vault/content/recaps/{gameid}/thumb.jpg</code> + <code style="color:#163a74">film.mp4</code>
+  </p>
+  <div class="vid-grid" id="vidRoot"></div>
+</div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/teams-data.js?v=2"></script>
+<script src="assets/js/standings-data.js?v=2"></script>
+<script>
+(function () {
+  const bySlug = Object.fromEntries(window.PGBTeams.all().map((t) => [t.slug, t]));
+  const finals = window.PGB_GAMES.filter((g) => g.status === "final").sort((a, b) => (a.date < b.date ? 1 : -1));
+  document.getElementById("vidRoot").innerHTML = finals
+    .map((g) => {
+      const home = bySlug[g.home];
+      const away = bySlug[g.away];
+      const base = `assets/vault/content/recaps/${g.id}`;
+      const stars = (g.threeStars || []).join(" · ") || "Three stars TBD";
+      return `
+      <a class="vid-card" id="${g.id}" href="video-watch.html?type=recap&gameid=${g.id}" style="text-decoration:none;color:inherit">
+        <div class="vid-thumb" style="background:linear-gradient(145deg,${home.colorDeep},${away.colorDeep})">
+          <img src="${base}/thumb.jpg" alt="" hidden data-thumb style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+          <div class="play-btn" aria-hidden="true"></div>
+          <span class="dur">~5:00</span>
+        </div>
+        <div class="vid-cap">
+          <div class="eyebrow">${g.date} · Recap</div>
+          <h3>${away.short} at ${home.short} | Recap</h3>
+          <p>${g.score}<br>${stars}</p>
+          <div class="vid-drop">Watch → drop <code>${base}/film.mp4</code></div>
+        </div>
+      </a>`;
+    })
+    .join("");
+  document.querySelectorAll("[data-thumb]").forEach((img) => {
+    const t = new Image();
+    t.onload = () => {
+      img.hidden = false;
+      img.src = img.getAttribute("src");
+    };
+    t.src = img.getAttribute("src");
+  });
+})();
+</script>
+</body>
+</html>

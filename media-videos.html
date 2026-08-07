@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Videos | PuckGold Media Hub</title>
+<meta name="description" content="Access PuckGold photos, videos and transcripts for editorial use across media channels.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=17">
+<link rel="stylesheet" href="assets/css/media-hub.css?v=3">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .mv-filters{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1.25rem}
+  .mv-filters button{
+    border-radius:999px;padding:.5rem .9rem;font-size:.68rem;font-weight:800;
+    letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(18,24,38,.12);
+    background:#fff;color:#5c6473;cursor:pointer;
+  }
+  .mv-filters button.is-active{background:#0b1220;color:#fff;border-color:#0b1220}
+  .mv-section{margin:2rem 0 1rem}
+  .mv-section h2{font-family:var(--display);font-size:1.8rem;letter-spacing:.04em;color:#0b1220}
+  .mh-video .dur{
+    position:absolute;right:.55rem;bottom:.55rem;background:rgba(0,0,0,.75);color:#fff;
+    font-size:.65rem;font-weight:800;padding:.2rem .4rem;border-radius:4px;
+  }
+  .mh-thumb{position:relative}
+</style>
+</head>
+<body class="mh-page" data-mh="videos">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+<div class="mh-subnav" id="mhSubnav"></div>
+
+<section class="mh-page-hero">
+  <h1>VIDEO CONTENT</h1>
+</section>
+
+<div class="mh-wrap">
+  <p class="mh-legal">
+    For editorial and social use only. Commercial use prohibited. Non-rights holders may use an aggregate of up to two (2) minutes of footage per day.
+    Credit: <strong>PuckGoldBiz / PGB League</strong>. Broadcaster partners — see <a href="partners.html" style="color:#163a74;text-decoration:underline">Partners</a>.
+    Patterned on the <a href="https://livgolfmedia.com/videos" style="color:#163a74;text-decoration:underline">LIV Golf Media Hub Videos</a> desk.
+    Drop masters in <code>assets/media-hub/DROP-VIDEO-HERE/</code> and per-game <code>assets/vault/content/{condensed,recaps}/</code>.
+  </p>
+
+  <div class="mv-filters" id="mvFilters" role="tablist">
+    <button type="button" class="is-active" data-filter="all">All</button>
+    <button type="button" data-filter="highlights">Highlights</button>
+    <button type="button" data-filter="condensed">Condensed Games</button>
+    <button type="button" data-filter="recaps">Game Recaps</button>
+    <button type="button" data-filter="personality">Puck Personality</button>
+    <button type="button" data-filter="official">Official / Hype</button>
+  </div>
+
+  <div class="mh-videos" id="mvGrid"></div>
+
+  <div class="mh-section-head" style="margin-top:2.5rem">
+    <h2>Also for media</h2>
+  </div>
+  <div class="mh-videos" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+    <a class="mh-video" href="transcripts.html">
+      <div class="mh-thumb" style="background:linear-gradient(145deg,#0b1220,#163a74)"><div class="play"></div></div>
+      <div class="cap"><div class="eyebrow">Transcripts</div><h3>Press conferences &amp; quick quotes</h3></div>
+    </a>
+    <a class="mh-video" href="media-guide.html">
+      <div class="mh-thumb" style="background:linear-gradient(145deg,#1a1408,#8a6a1e)"><div class="play"></div></div>
+      <div class="cap"><div class="eyebrow">Guide</div><h3>2026 Media Guide booklet</h3></div>
+    </a>
+    <a class="mh-video" href="media-resources.html">
+      <div class="mh-thumb" style="background:linear-gradient(145deg,#0b1220,#7a1524)"><div class="play"></div></div>
+      <div class="cap"><div class="eyebrow">Assets</div><h3>Photos, logos, brand kits</h3></div>
+    </a>
+  </div>
+</div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/media-hub.js?v=4"></script>
+<script src="assets/js/standings-data.js?v=2"></script>
+<script>
+(function () {
+  const finals = (window.PGB_GAMES || []).filter((g) => g.status === "final");
+  const videos = [
+    { filter: "official", eyebrow: "Official", title: "The Golden Age Begins — hype trailer", href: "hype.html", bg: "linear-gradient(145deg,#1a1408,#163a74)", dur: "2:00" },
+    { filter: "official", eyebrow: "Membership", title: "Free gold puck + Premium League Pass", href: "join.html", bg: "linear-gradient(145deg,#0b1220,#8a6a1e)", dur: "0:45" },
+    { filter: "official", eyebrow: "Expansion", title: "Founding Expansion Weekend — 24h tip", href: "expansion.html", bg: "linear-gradient(145deg,#7a1524,#0b1220)", dur: "1:00" },
+    { filter: "highlights", eyebrow: "Highlights", title: "Golden Final G2 — OT storm-back", href: "video-watch.html?type=recap&gameid=0022500005", bg: "linear-gradient(145deg,#0f766e,#163a74)", dur: "1:30" },
+    { filter: "highlights", eyebrow: "Highlights", title: "Clip Crown nominees — Season One", href: "awards.html#clip-crown", bg: "linear-gradient(145deg,#831843,#0b1220)", dur: "3:00" },
+    { filter: "personality", eyebrow: "Puck Personality", title: "Favorite / Least Favorite Workout", href: "puck-personality.html#favorite-workout", bg: "linear-gradient(145deg,#0b1220,#163a74)", dur: "1:41" },
+    { filter: "personality", eyebrow: "Puck Personality", title: "Goalies Pick Best Playoff Save", href: "puck-personality.html#best-playoff-save", bg: "linear-gradient(145deg,#163a74,#7a1524)", dur: "5:03" },
+    ...finals.map((g) => ({
+      filter: "condensed",
+      eyebrow: "Condensed · " + g.date,
+      title: g.label + " | Condensed Game",
+      href: "video-watch.html?type=condensed&gameid=" + g.id,
+      bg: "linear-gradient(145deg,#0b1220,#163a74)",
+      dur: "~10:00",
+    })),
+    ...finals.map((g) => ({
+      filter: "recaps",
+      eyebrow: "Recap · " + g.date,
+      title: g.label + " | Recap",
+      href: "video-watch.html?type=recap&gameid=" + g.id,
+      bg: "linear-gradient(145deg,#1a1408,#0f766e)",
+      dur: "~5:00",
+    })),
+  ];
+
+  const grid = document.getElementById("mvGrid");
+  let filter = "all";
+
+  function render() {
+    const list = filter === "all" ? videos : videos.filter((v) => v.filter === filter);
+    grid.innerHTML = list
+      .map(
+        (v) => `
+      <a class="mh-video" href="${v.href}" data-filter="${v.filter}">
+        <div class="mh-thumb" style="background:${v.bg}">
+          <div class="play"></div>
+          <span class="dur">${v.dur}</span>
+        </div>
+        <div class="cap">
+          <div class="eyebrow">${v.eyebrow}</div>
+          <h3>${v.title}</h3>
+        </div>
+      </a>`
+      )
+      .join("");
+  }
+
+  document.getElementById("mvFilters").addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-filter]");
+    if (!btn) return;
+    filter = btn.dataset.filter;
+    document.querySelectorAll("#mvFilters button").forEach((b) => b.classList.toggle("is-active", b === btn));
+    render();
+  });
+  render();
+})();
+</script>
+</body>
+</html>

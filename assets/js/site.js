@@ -21,21 +21,62 @@
   const path = (location.pathname.split("/").pop() || "index.html").toLowerCase();
   const active = path === "" ? "index.html" : path;
 
-  const links = [
-    { href: "teams.html", label: "Teams" },
-    { href: "rosters.html", label: "Rosters" },
+  // LIV-clean IA — Bracket / Leaderboard appears once only
+  const teamsLinks = [
+    { href: "teams.html", label: "All Teams" },
+    { href: "team.html?team=miami-mighty-geckz", label: "Mighty Geckz" },
+    { href: "team.html?team=mclean-cardinals", label: "Cardinals" },
+    { href: "team.html?team=washington-whoomp", label: "Whoomp!" },
+    { href: "team.html?team=chattanooga-choo-choo", label: "Choo Choo" },
+    { href: "rosters.html", label: "Full Rosters" },
     { href: "stadiums.html", label: "Stadiums" },
-    { href: "bracket.html", label: "Bracket" },
-    { href: "brand.html", label: "Brand kit" },
-    { href: "media.html", label: "Media" },
-    { href: "awards.html", label: "Awards" },
   ];
 
-  const actionLinks = [
-    { href: "fantasy.html", label: "Fan Zone", cls: "nav-chip" },
-    { href: "shop.html", label: "Shop", cls: "nav-chip" },
-    { href: "media.html", label: "Watch", cls: "nav-chip" },
-    { href: "bracket.html", label: "Live Bracket", cls: "nav-chip" },
+  const newsLinks = [
+    { href: "news.html", label: "Newsroom" },
+    { href: "media-guide.html", label: "2026 Media Guide" },
+    { href: "fact-sheet.html", label: "League Fact Sheet" },
+    { href: "media-rosters.html", label: "2026 Rosters (Press)" },
+    { href: "media-guidelines.html", label: "Media Guidelines" },
+    { href: "transcripts.html", label: "Transcripts" },
+    { href: "expansion.html", label: "Expansion Weekend" },
+    { href: "media.html", label: "Media Hub" },
+    { href: "media-videos.html", label: "Media Videos" },
+    { href: "video-condensed.html", label: "Condensed Games" },
+    { href: "video-recaps.html", label: "Game Recaps" },
+    { href: "puck-personality.html", label: "Puck Personality" },
+    { href: "podcasts.html", label: "Podcasts" },
+    { href: "media-videos.html", label: "All Video" },
+    { href: "hype.html", label: "Hype Trailer" },
+  ];
+
+  const formatLinks = [
+    { href: "about.html", label: "About PuckGold" },
+    { href: "format.html", label: "How PuckGold works" },
+    { href: "standings.html", label: "Player standings" },
+    { href: "standings.html?view=teams", label: "Team standings" },
+    { href: "bracket.html", label: "Playoff bracket" },
+    { href: "awards.html", label: "The Hardware · Trophies" },
+    { href: "apply.html", label: "Franchise / Owner apply" },
+    { href: "advertise.html", label: "Advertise / Launch" },
+    { href: "ads-affiliate.html", label: "Advertise Affiliate" },
+    { href: "affiliates.html", label: "Consumer Affiliates" },
+    { href: "talent.html", label: "Talent Community" },
+    { href: "partners.html", label: "Partners" },
+    { href: "brand.html", label: "Brand Kit" },
+  ];
+
+  const fanLinks = [
+    { href: "promos.html", label: "Promotions" },
+    { href: "experience.html", label: "Event Experience" },
+    { href: "play.html", label: "Game Zone · Play" },
+    { href: "play.html#board", label: "Fan leaderboard" },
+    { href: "lockervision.html", label: "LockerVision outfits" },
+    { href: "fantasy.html", label: "Fantasy & Giveaway" },
+    { href: "fantasy.html#prizes", label: "Prizes" },
+    { href: "gifts.html", label: "Gift Cards · 35% bonus" },
+    { href: "gifts.html#send", label: "Send a gift pack" },
+    { href: "join.html", label: "League Pass · Plans" },
   ];
 
   const socials = [
@@ -62,12 +103,9 @@
     { name: "Medium", href: "https://medium.com/@puckgoldbiz", path: "M2 5.5c0-.4.2-.6.5-.7l3.4-1.6c.2-.1.4 0 .4.2v11.7c0 .2-.1.3-.3.4l-3.3 1.6c-.4.2-.7 0-.7-.4V5.5zm5.2-.2l3.7 6.1v.1l3.7-6.1V16h-1.7V8.5L10.8 14h-.7L7.9 8.5V16H6.2V5.3h1zM18.4 5l1.4-.7c.3-.1.5 0 .5.3v10.8c0 .5-.3 1-.8 1.2l-1.6.7V5z" },
   ];
 
-  function navHtml(isActive) {
-    return links
-      .map(
-        (l) =>
-          `<a href="${l.href}" class="${isActive(l.href) ? "active" : ""}">${l.label}</a>`
-      )
+  function ddLinks(items, isActive) {
+    return items
+      .map((l) => `<a href="${l.href}" class="${isActive(l.href.split("#")[0]) ? "active" : ""}">${l.label}</a>`)
       .join("");
   }
 
@@ -77,9 +115,50 @@
     if (!header) return;
 
     const isActive = (href) => active === href.toLowerCase();
+    const teamsActive =
+      isActive("teams.html") ||
+      isActive("rosters.html") ||
+      isActive("stadiums.html") ||
+      isActive("team.html") ||
+      isActive("player.html");
+    const newsActive =
+      newsLinks.some((l) => isActive(l.href)) ||
+      active.startsWith("media-") ||
+      active.startsWith("video-") ||
+      active.startsWith("news") ||
+      isActive("puck-personality.html") ||
+      isActive("podcasts.html") ||
+      isActive("expansion.html") ||
+      isActive("media-guide.html") ||
+      active.startsWith("transcript");
+    const formatActive =
+      (formatLinks.some((l) => isActive(l.href.split("#")[0])) &&
+        !isActive("standings.html") &&
+        !isActive("stats.html")) ||
+      isActive("about.html") ||
+      isActive("format.html") ||
+      isActive("bracket.html") ||
+      isActive("awards.html") ||
+      isActive("apply.html") ||
+      isActive("talent.html") ||
+      isActive("advertise.html") ||
+      isActive("ads-affiliate.html") ||
+      active.startsWith("affiliates");
+    const fanActive =
+      isActive("fantasy.html") ||
+      isActive("gifts.html") ||
+      isActive("play.html") ||
+      isActive("lockervision.html") ||
+      isActive("experience.html") ||
+      isActive("promos.html") ||
+      isActive("join.html");
+    const scoresActive = isActive("scores.html");
+    const scheduleActive = isActive("schedule.html");
+    const standingsActive = isActive("standings.html");
+    const statsActive = isActive("stats.html");
 
     header.innerHTML = `
-      <div class="nav-wrap">
+      <div class="nav-wrap nav-liv">
         <a class="logo-link" href="index.html" aria-label="PuckGold home">
           <img class="logo-mark" src="assets/brand/lockup/primary-master.png?v=3" alt="PGB" width="42" height="70" style="width:42px;height:auto;object-fit:contain">
           <div>
@@ -87,52 +166,100 @@
             <span class="logo-sub">PGB LEAGUE</span>
           </div>
         </a>
-        <nav class="nav-links" aria-label="Primary">${navHtml(isActive)}</nav>
-        <div class="nav-actions">
-          <div class="nav-chips hide-sm">
-            ${actionLinks
-              .map((a) => `<a href="${a.href}" class="${a.cls}${isActive(a.href) ? " active" : ""}">${a.label}</a>`)
-              .join("")}
+        <nav class="nav-links" aria-label="Primary">
+          <a href="scores.html" class="${scoresActive ? "active" : ""}">Scores</a>
+          <a href="schedule.html" class="${scheduleActive ? "active" : ""}">Schedule</a>
+          <a href="stats.html" class="${statsActive ? "active" : ""}">Stats</a>
+          <a href="standings.html" class="${standingsActive ? "active" : ""}">Standings</a>
+          <div class="nav-dd" data-dd>
+            <button type="button" class="${teamsActive ? "active" : ""}" aria-expanded="false" aria-haspopup="true">Teams &amp; Players <span class="chev">▾</span></button>
+            <div class="nav-dd-menu">${ddLinks(teamsLinks, isActive)}</div>
           </div>
+          <div class="nav-dd" data-dd>
+            <button type="button" class="${newsActive ? "active" : ""}" aria-expanded="false" aria-haspopup="true">News &amp; Video <span class="chev">▾</span></button>
+            <div class="nav-dd-menu">${ddLinks(newsLinks, isActive)}</div>
+          </div>
+          <div class="nav-dd" data-dd>
+            <button type="button" class="${formatActive ? "active" : ""}" aria-expanded="false" aria-haspopup="true">PGB Format <span class="chev">▾</span></button>
+            <div class="nav-dd-menu">${ddLinks(formatLinks, isActive)}</div>
+          </div>
+          <div class="nav-dd" data-dd>
+            <button type="button" class="${fanActive ? "active" : ""}" aria-expanded="false" aria-haspopup="true">Fan Zone <span class="chev">▾</span></button>
+            <div class="nav-dd-menu">${ddLinks(fanLinks, isActive)}</div>
+          </div>
+        </nav>
+        <div class="nav-actions">
+          <a href="expansion.html" class="nav-count-chip" title="Expansion Weekend countdown">
+            <span class="nav-count-label">Expand</span>
+            <span class="nav-count-time" id="navEventCountdown">--:--:--:--</span>
+          </a>
+          <a href="join.html" class="nav-pill nav-pill-tickets">Tickets</a>
+          <a href="shop.html" class="nav-pill nav-pill-shop">Shop</a>
+          <button type="button" class="nav-bag" id="navBagBtn" data-open-cart aria-label="Open bag">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 016 0"/></svg>
+            <span class="bag-count" id="navBagCount" data-count="0"></span>
+          </button>
+          <a href="signin.html" class="nav-pill nav-pill-signin">Sign In</a>
           <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch to light mode" title="Light mode">
             <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 0110.5 3 7 7 0 1019 16.5c.7-.6 1.4-1.3 2-2z"/></svg>
             <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
           </button>
-          <button type="button" class="nav-bag" id="navBagBtn" aria-label="Open bag">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 016 0"/></svg>
-            <span class="bag-count" id="navBagCount" data-count="0"></span>
-          </button>
-          <a href="signin.html" class="btn btn-signin btn-sm">Sign In</a>
-          <a href="join.html" class="btn btn-og btn-sm hide-sm">$36 OG</a>
           <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileDrawer" aria-label="Open menu">
             <span></span><span></span><span></span>
           </button>
         </div>
       </div>
       <div class="mobile-drawer" id="mobileDrawer">
-        ${navHtml(isActive)}
-        <a href="fantasy.html" class="${isActive("fantasy.html") ? "active" : ""}">Fan Zone</a>
-        <a href="shop.html" class="${isActive("shop.html") ? "active" : ""}">Shop</a>
-        <a href="media.html" class="${isActive("media.html") ? "active" : ""}">Watch</a>
-        <a href="bracket.html" class="${isActive("bracket.html") ? "active" : ""}">Live Bracket</a>
+        <a href="scores.html" class="${scoresActive ? "active" : ""}">Scores</a>
+        <a href="schedule.html" class="${scheduleActive ? "active" : ""}">Schedule</a>
+        <a href="stats.html" class="${statsActive ? "active" : ""}">Stats</a>
+        <a href="standings.html" class="${standingsActive ? "active" : ""}">Standings</a>
+        <a href="play.html">Game Zone</a>
+        <div class="drawer-group">Teams &amp; Players</div>
+        <a href="teams.html">Teams</a>
+        <a href="rosters.html">Rosters</a>
+        <a href="stadiums.html">Stadiums</a>
+        <a href="lockervision.html">LockerVision</a>
+        <a href="awards.html">Trophies &amp; Awards</a>
+        <div class="drawer-group">News &amp; Video</div>
+        <a href="expansion.html">Expansion Weekend · 24h</a>
+        <a href="news.html">Newsroom</a>
+        <a href="media-guide.html">2026 Media Guide</a>
+        <a href="media.html">Media Hub</a>
+        <a href="video-condensed.html">Condensed Games</a>
+        <a href="video-recaps.html">Game Recaps</a>
+        <a href="puck-personality.html">Puck Personality</a>
+        <a href="podcasts.html">Podcasts</a>
+        <a href="media-videos.html">All Videos</a>
+        <div class="drawer-group">Fan Zone</div>
+        <a href="promos.html">Promotions</a>
+        <a href="join.html">League Pass · Plans</a>
+        <a href="experience.html">Event Experience</a>
+        <a href="play.html">Game Zone · Play</a>
+        <a href="play.html#board">Fan leaderboard</a>
+        <a href="fantasy.html">Fantasy &amp; Giveaway</a>
+        <a href="gifts.html">Gift Cards</a>
+        <div class="drawer-group">More</div>
+        <a href="about.html">About PuckGold</a>
+        <a href="format.html">League Format</a>
+        <a href="standings.html">Player Standings</a>
+        <a href="standings.html?view=teams">Team Standings</a>
+        <a href="apply.html">Franchise / Owner apply</a>
+        <a href="advertise.html">Advertise / Launch</a>
+        <a href="ads-affiliate.html">Advertise Affiliate</a>
+        <a href="affiliates.html">Consumer Affiliates</a>
+        <a href="talent.html">Talent Community</a>
+        <a href="support.html">Help Center</a>
+        <a href="contact.html">Contact</a>
+        <a href="partners.html">Partners</a>
+        <a href="brand.html">Brand Kit</a>
         <div class="drawer-ctas">
-          <a href="signin.html" class="btn btn-signin btn-block">Sign In / Log In</a>
-          <a href="join.html" class="btn btn-og btn-block">Join — $36 OG Gold Puck</a>
+          <a href="join.html" class="btn btn-founding btn-block">Tickets · Become a founding member</a>
+          <a href="shop.html" class="btn btn-sapphire btn-block">Shop</a>
+          <a href="signin.html" class="btn btn-signin btn-block">Sign In</a>
         </div>
       </div>
     `;
-
-    const style = document.createElement("style");
-    style.textContent = `
-      @media (max-width:1100px){.hide-sm{display:none!important}}
-      .nav-chips{display:flex;align-items:center;gap:.35rem;margin-right:.15rem}
-      .nav-chip{
-        font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-        color:var(--muted);padding:.45rem .65rem;border-radius:999px;border:1px solid transparent;
-      }
-      .nav-chip:hover,.nav-chip.active{color:var(--gold-bright);border-color:rgba(212,175,55,.35);background:rgba(212,175,55,.08)}
-    `;
-    document.head.appendChild(style);
 
     const btn = document.getElementById("menuBtn");
     const drawer = document.getElementById("mobileDrawer");
@@ -141,11 +268,35 @@
       btn.setAttribute("aria-expanded", open ? "true" : "false");
     });
 
+    // Dropdowns — click toggle + desktop hover
+    document.querySelectorAll("[data-dd]").forEach((dd) => {
+      const b = dd.querySelector("button");
+      b?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const willOpen = !dd.classList.contains("open");
+        document.querySelectorAll(".nav-dd.open").forEach((d) => {
+          d.classList.remove("open");
+          d.querySelector("button")?.setAttribute("aria-expanded", "false");
+        });
+        dd.classList.toggle("open", willOpen);
+        b.setAttribute("aria-expanded", willOpen ? "true" : "false");
+      });
+      dd.querySelector(".nav-dd-menu")?.addEventListener("click", (e) => e.stopPropagation());
+    });
+    document.addEventListener("click", () => {
+      document.querySelectorAll(".nav-dd.open").forEach((d) => {
+        d.classList.remove("open");
+        d.querySelector("button")?.setAttribute("aria-expanded", "false");
+      });
+    });
+
     applyTheme(getTheme());
     document.getElementById("themeToggle")?.addEventListener("click", () => {
       const next = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
       applyTheme(next);
     });
+
+    initFomoClocks();
 
     if (footer) {
       const socialHtml = socials
@@ -167,50 +318,134 @@
               </a>
               <p>PuckGoldBiz (PGB) — the Founding Four era. Premium membership, Fan Zone rewards, and the coldest game on earth.</p>
               <div class="cta-row" style="margin-top:1rem">
-                <a href="join.html" class="btn btn-og btn-sm">$36 OG Gold Puck</a>
+                <a href="join.html" class="btn btn-founding btn-sm">Become a founding member</a>
                 <a href="fantasy.html" class="btn btn-sapphire btn-sm">Fan Zone</a>
               </div>
             </div>
             <div class="footer-col">
               <h4>League</h4>
+              <a href="schedule.html">Schedule</a>
+              <a href="scores.html">Scores</a>
+              <a href="stats.html">Stats</a>
+              <a href="bracket.html">Leaderboard</a>
               <a href="teams.html">Teams</a>
               <a href="rosters.html">Rosters</a>
               <a href="stadiums.html">Stadiums</a>
-              <a href="bracket.html">Live Bracket</a>
-              <a href="awards.html">Awards</a>
-              <a href="standings.html" onclick="location.href='bracket.html';return false;">Standings</a>
             </div>
             <div class="footer-col">
               <h4>Fans</h4>
-              <a href="fantasy.html">Fan Zone / Fantasy</a>
+              <a href="promos.html">Promotions</a>
+              <a href="experience.html">Event Experience</a>
+              <a href="fantasy.html">Fan Zone</a>
               <a href="shop.html">Shop</a>
-              <a href="media.html">Watch</a>
-              <a href="join.html">Membership</a>
-              <a href="signin.html">Sign In</a>
-              <a href="brand.html">Brand Kit</a>
+              <a href="gifts.html">Gift Cards · 35% bonus</a>
+              <a href="gifts.html#send">Send a gift pack</a>
+              <a href="join.html">League Pass / Tickets</a>
+              <a href="awards.html">Awards</a>
+              <a href="stats.html">Player Stats</a>
+              <a href="stats.html?view=teams">Team Stats</a>
             </div>
             <div class="footer-col">
               <h4>Company</h4>
-              <a href="https://puckgold.com" target="_blank" rel="noopener">PuckGold.com</a>
-              <a href="https://x.com/puckgoldbiz" target="_blank" rel="noopener">Newsroom / X</a>
-              <a href="media.html">Media Center</a>
-              <a href="mailto:hello@puckgold.com">Contact</a>
-              <a href="signin.html">Support</a>
+              <a href="about.html">About PuckGold</a>
+              <a href="apply.html">Franchise / Owner apply</a>
+              <a href="advertise.html">Advertise / Launch</a>
+              <a href="talent.html">Talent Community</a>
+              <a href="partners.html">Partners</a>
+              <a href="brand.html">Brand Kit</a>
+              <a href="media.html">Media Hub</a>
+              <a href="format.html">League Format</a>
+            </div>
+            <div class="footer-col">
+              <h4 data-i18n="footer.support">Support</h4>
+              <a href="support.html" data-i18n="footer.help">Help Center</a>
+              <a href="contact.html" data-i18n="footer.contact">Contact Us</a>
+              <a href="affiliates-faqs.html" data-i18n="footer.faq">FAQs</a>
+              <a href="support.html?support=chat" data-i18n="support.chat">Chat with us</a>
+              <a href="#" data-i18n="footer.accessibility">Accessibility</a>
+              <h4 style="margin-top:1rem" data-i18n="footer.refer">Refer</h4>
+              <a href="ads-affiliate.html" data-i18n="footer.adsAff">Advertise Affiliate</a>
+              <a href="affiliates.html" data-i18n="footer.consAff">Consumer Affiliates</a>
             </div>
           </div>
           <div class="social-grid" aria-label="Social media">${socialHtml}</div>
           <div class="footer-bottom">
             <div class="foot-note">© 2026 PuckGoldBiz (PGB). All rights reserved.</div>
             <div class="footer-legal">
-              <a href="#">Privacy</a>
-              <a href="#">Terms</a>
+              <a href="#" data-i18n="footer.privacy">Privacy</a>
+              <a href="#" data-i18n="footer.terms">Terms</a>
               <a href="#">Cookies</a>
-              <a href="#">Accessibility</a>
+              <a href="#" data-i18n="footer.accessibility">Accessibility</a>
+              <a href="support.html" data-i18n="footer.help">Help Center</a>
             </div>
           </div>
         </div>
       `;
     }
+  }
+
+  function parts(ms) {
+    const diff = Math.max(0, ms);
+    return {
+      d: Math.floor(diff / 86400000),
+      h: Math.floor((diff % 86400000) / 3600000),
+      m: Math.floor((diff % 3600000) / 60000),
+      s: Math.floor((diff % 60000) / 1000),
+    };
+  }
+
+  function clockHtml(ms) {
+    const { d, h, m, s } = parts(ms);
+    return `
+      <div><strong>${d}</strong><span>Days</span></div>
+      <div><strong>${String(h).padStart(2, "0")}</strong><span>Hrs</span></div>
+      <div><strong>${String(m).padStart(2, "0")}</strong><span>Min</span></div>
+      <div><strong>${String(s).padStart(2, "0")}</strong><span>Sec</span></div>
+    `;
+  }
+
+  function livClock(ms) {
+    const { d, h, m, s } = parts(ms);
+    const p = (n) => String(n).padStart(2, "0");
+    return `${p(d)} : ${p(h)} : ${p(m)} : ${p(s)}`;
+  }
+
+  /** Nav + hero countdowns — Expansion Weekend (~24h from first visit) */
+  function initFomoClocks() {
+    const expKey = "pgb-expansion-start";
+    let EVENT_END = localStorage.getItem(expKey);
+    if (!EVENT_END) {
+      EVENT_END = String(Date.now() + 24 * 60 * 60 * 1000);
+      localStorage.setItem(expKey, EVENT_END);
+    }
+    EVENT_END = Number(EVENT_END);
+
+    const ogKey = "pgb-og-deal-end";
+    let ogEnd = localStorage.getItem(ogKey);
+    if (!ogEnd) {
+      ogEnd = String(Date.now() + 14 * 24 * 60 * 60 * 1000);
+      localStorage.setItem(ogKey, ogEnd);
+    }
+    ogEnd = Number(ogEnd);
+
+    const navEl = document.getElementById("navEventCountdown");
+    const navLabel = document.querySelector(".nav-count-label");
+    const heroEl = document.getElementById("heroCountdown");
+    const heroBoxes = document.getElementById("heroCountdownBoxes");
+    const ogEl = document.getElementById("ogCountdown");
+    const eventEl = document.getElementById("eventCountdown");
+    if (navLabel) navLabel.textContent = "Expand";
+
+    const tick = () => {
+      const left = EVENT_END - Date.now();
+      if (navEl) navEl.textContent = left <= 0 ? "LIVE" : livClock(left);
+      if (heroEl) heroEl.textContent = left <= 0 ? "LIVE" : livClock(left);
+      if (heroBoxes) heroBoxes.innerHTML = clockHtml(left);
+      if (eventEl) eventEl.innerHTML = clockHtml(left);
+      if (ogEl) ogEl.innerHTML = clockHtml(ogEnd - Date.now());
+    };
+    tick();
+    setInterval(tick, 1000);
   }
 
   // Fantasy countdown (7 days from first visit, stored)
@@ -225,17 +460,7 @@
     }
     end = Number(end);
     const tick = () => {
-      const diff = Math.max(0, end - Date.now());
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor((diff % 86400000) / 3600000);
-      const m = Math.floor((diff % 3600000) / 60000);
-      const s = Math.floor((diff % 60000) / 1000);
-      root.innerHTML = `
-        <div><strong>${d}</strong><span>Days</span></div>
-        <div><strong>${String(h).padStart(2, "0")}</strong><span>Hrs</span></div>
-        <div><strong>${String(m).padStart(2, "0")}</strong><span>Min</span></div>
-        <div><strong>${String(s).padStart(2, "0")}</strong><span>Sec</span></div>
-      `;
+      root.innerHTML = clockHtml(end - Date.now());
     };
     tick();
     setInterval(tick, 1000);
@@ -281,10 +506,13 @@
     btn.type = "button";
     btn.className = "av-toggle";
     btn.id = "avToggle";
+    // VeeFriends-style bold pill — sapphire, text on/off, no EQ bars
     btn.innerHTML = `
-      <span class="av-bars" aria-hidden="true">
-        <span></span><span></span><span></span><span></span>
-      </span>
+      <svg class="av-ico" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 9v6h4l5 4V5L7 9H3z"/>
+        <path class="av-waves" d="M16 8a4 4 0 010 8M18.5 5.5a7 7 0 010 13"/>
+      </svg>
+      <span class="av-label">Sound On</span>
     `;
     const heroSlot = document.getElementById("heroAvSlot");
     if (heroSlot) {
@@ -295,6 +523,7 @@
 
     const stages = document.querySelectorAll("[data-av-stage]");
     const scenes = Array.from(document.querySelectorAll(".hero-scene"));
+    const label = btn.querySelector(".av-label");
 
     let sceneTimer = null;
     let sceneIndex = 0;
@@ -302,7 +531,8 @@
     function setUi() {
       btn.setAttribute("aria-pressed", enabled ? "true" : "false");
       btn.setAttribute("aria-label", enabled ? "Mute soundtrack" : "Play soundtrack");
-      btn.title = enabled ? "Mute" : "Play";
+      btn.title = enabled ? "Sound On — tap to mute" : "Sound Off — tap to play";
+      if (label) label.textContent = enabled ? "Sound On" : "Sound Off";
       stages.forEach((el) => {
         el.classList.toggle("is-av-on", enabled);
         el.classList.toggle("is-av-off", !enabled);
@@ -388,10 +618,39 @@
     apply();
   }
 
+  function ensureStack() {
+    const base = document.querySelector('script[src*="site.js"]');
+    const root = (base && base.getAttribute("src").includes("/"))
+      ? base.getAttribute("src").replace(/assets\/js\/site\.js.*/, "")
+      : "";
+    function inject(src, attr) {
+      if (document.querySelector(`script[${attr}]`)) return;
+      const s = document.createElement("script");
+      s.src = root + src;
+      s.setAttribute(attr, "1");
+      document.body.appendChild(s);
+    }
+    if (!window.PGB_I18N) inject("assets/js/i18n.js?v=1", "data-pgb-i18n");
+    inject("assets/js/support-widget.js?v=1", "data-pgb-support");
+    const applyI18n = () => window.PGB_I18N?.apply(document);
+    if (window.PGB_I18N) applyI18n();
+    else {
+      let n = 0;
+      const t = setInterval(() => {
+        n++;
+        if (window.PGB_I18N) {
+          clearInterval(t);
+          applyI18n();
+        } else if (n > 40) clearInterval(t);
+      }, 50);
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     mount();
     initCountdown();
     initAVExperience();
+    ensureStack();
   });
 })();
 

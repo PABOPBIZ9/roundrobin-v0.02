@@ -3,33 +3,149 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Awards — PuckGold</title>
+<title>The Hardware — Trophies | PuckGold</title>
+<meta name="description" content="Founding Four round-robin awards — Underdog Division Crown, Firehorse MVP, Player of the Tournament, and the full hardware stack.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=4">
+<link rel="stylesheet" href="assets/css/site.css?v=15">
+<link rel="stylesheet" href="assets/css/play-zone.css?v=3">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
-<link rel="icon" href="assets/brand/favicon/favicon-32.png?v=3" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="assets/brand/app/apple-touch-icon.png?v=3">
 </head>
-<body>
+<body class="pz-light">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
-<div class="page-hero">
-  <span class="kicker">Trophy Case</span>
-  <h1>AWARDS</h1>
-  <p>Season One hardware from the Founding Four Championship.</p>
-</div>
-<section class="section">
-  <div class="grid-3">
-    <div class="award-card"><h4>The PuckGold Cup</h4><p>Championship trophy — gold puck on crystal ice, four crests on the rim.</p><div class="winner">Miami Mighty Geckz</div></div>
-    <div class="award-card"><h4>The Golden Gecko Award</h4><p>Tournament MVP — OT winner and historic comeback engine.</p><div class="winner">Miami forward</div></div>
-    <div class="award-card"><h4>The Wall Trophy</h4><p>Best goaltender — fewest goals allowed in the round robin.</p><div class="winner">McLean Cardinals</div></div>
-    <div class="award-card"><h4>The Conductor's Crest</h4><p>Sportsmanship — hard-nosed, clean play all tournament.</p><div class="winner">Chattanooga Choo Choo</div></div>
-    <div class="award-card"><h4>The Clutch Award</h4><p>Most important moment of the tournament.</p><div class="winner">Miami OT winner, Game 2</div></div>
-    <div class="award-card"><h4>The Golden Stick</h4><p>Tournament scoring leader across all games.</p><div class="winner">Assign with your roster</div></div>
+
+<section class="pz-hero">
+  <span class="kicker">Season One · Underdog Division</span>
+  <h1>THE HARDWARE</h1>
+  <p>Founding Four round-robin awards — division crown, MVP, Player of the Tournament, and every clip-ready trophy built for broadcast overlays and merch drops. Official hi-res assets dropping soon.</p>
+  <div class="cta-row">
+    <a href="#playing-for" class="btn btn-platinum btn-sm">Playing for</a>
+    <a href="format.html" class="btn btn-sapphire btn-sm">League format</a>
+    <a href="teams.html" class="btn btn-ghost btn-sm">Team vaults</a>
   </div>
 </section>
+
+<div class="pz-wrap pz-wrap-wide" id="awRoot"></div>
+
 <footer class="site-footer" id="site-footer"></footer>
-<script src="assets/js/site.js?v=4"></script>
-<script src="assets/js/cart.js?v=4"></script>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/teams-data.js?v=2"></script>
+<script src="assets/js/awards-data.js?v=2"></script>
+<script>
+(function () {
+  const A = window.PGB_AWARDS;
+  const root = document.getElementById("awRoot");
+  const cup = A.trophies.find((t) => t.id === "puck-gold-one") || A.trophies.find((t) => t.featured);
+  const mvp = A.trophies.find((t) => t.id === "firehorse-mvp");
+  const crown = A.trophies.find((t) => t.id === "underdog-division-crown");
+
+  function imgOrPh(id, label) {
+    const src = `assets/vault/trophies/${id}/trophy.png`;
+    const alt = `assets/hardware/trophies/${id}/trophy.png`;
+    return `<img src="${src}" alt="${label}" hidden data-trophy="${id}" data-alt="${alt}"><div class="ph" data-ph="${id}">PG</div>`;
+  }
+
+  function card(t) {
+    const link = t.winnerSlug
+      ? `<a href="team.html?team=${t.winnerSlug}">${t.winner}</a>`
+      : `<b style="font-weight:800;color:#0b1220">${t.winner}</b>`;
+    return `
+      <article class="aw-card" id="${t.id}">
+        <div class="aw-viz">${imgOrPh(t.id, t.name)}</div>
+        <div class="aw-body">
+          <div class="tag">${t.tag || t.short}</div>
+          <h3>${t.name}</h3>
+          <p>${t.desc}${t.look ? `<br><em style="color:#8a93a3">${t.look}</em>` : ""}</p>
+          ${t.prompt ? `<details style="font-size:.75rem;color:#5c6473;margin-top:.25rem"><summary style="cursor:pointer;font-weight:800;color:#163a74">Render prompt</summary><p style="margin-top:.4rem;line-height:1.45">${t.prompt}</p></details>` : ""}
+          <div class="aw-winner">
+            <b>Season One</b>
+            ${link}
+            <span> · ${t.detail || t.short}</span>
+            <div class="aw-fold">Drop → <code>assets/hardware/trophies/${t.id}/</code> or <code>assets/vault/trophies/${t.id}/trophy.png</code></div>
+          </div>
+        </div>
+      </article>`;
+  }
+
+  root.innerHTML = `
+    <div style="background:#fff;border:1px solid rgba(18,24,38,.08);border-radius:14px;padding:1.25rem 1.35rem;margin-bottom:1.5rem">
+      <div class="tag" style="font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#8a93a3">${A.season}</div>
+      <h2 style="font-family:var(--display);font-size:2rem;letter-spacing:.04em;margin:.25rem 0">Founding Four Round Robin</h2>
+      <p style="color:#5c6473;font-size:.92rem">${A.format}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.85rem">
+        ${(A.teams || []).map((n) => `<span style="font-size:.72rem;font-weight:800;padding:.35rem .65rem;border-radius:999px;background:#eef4ff;color:#163a74">${n}</span>`).join("")}
+      </div>
+    </div>
+
+    <div class="aw-featured">
+      <div class="aw-featured-main">
+        <div class="viz">${imgOrPh(cup.id, cup.name)}</div>
+        <div>
+          <div class="tag" style="color:#f0d78c;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase">${cup.tag}</div>
+          <h2>${cup.name}</h2>
+          <p>${cup.desc}<br><span style="color:rgba(255,255,255,.55)">${cup.look || ""}</span></p>
+          <p style="margin-top:.7rem"><strong style="color:#f0d78c">${cup.winner}</strong><br><span style="color:rgba(255,255,255,.65)">${cup.detail}</span></p>
+          <div class="cta-row" style="margin-top:1rem">
+            <a href="format.html" class="btn btn-platinum btn-sm">How they play</a>
+            <a href="bracket.html" class="btn btn-ghost btn-sm">Bracket</a>
+          </div>
+        </div>
+      </div>
+      <div class="aw-side-stack">
+        <div class="aw-mini"><div class="dot">DIV</div><div><h4>${crown.name}</h4><span>${crown.look}</span></div></div>
+        <div class="aw-mini"><div class="dot">MVP</div><div><h4>${mvp.name}</h4><span>${mvp.winner}</span></div></div>
+        <div class="aw-mini"><div class="dot">DROP</div><div><h4>Hi-res incoming</h4><span><code style="color:#163a74">assets/hardware/trophies/</code></span></div></div>
+        <p style="font-size:.8rem;color:#5c6473">Draft stack synced from <a href="https://puckgold.com/trophies" style="color:#163a74;text-decoration:underline">puckgold.com/trophies</a>.</p>
+      </div>
+    </div>
+
+    <div class="pz-tabs" id="awTabs" style="margin-bottom:1.5rem">
+      ${A.categories.map((c, i) => `<a href="#${c.id}" class="${i === 0 ? "is-active" : ""}">${c.label}</a>`).join("")}
+    </div>
+
+    ${A.categories
+      .map((c) => {
+        const list = A.trophies.filter((t) => t.category === c.id);
+        if (!list.length) return "";
+        return `
+        <section class="aw-cat" id="${c.id}">
+          <h2>${c.label}</h2>
+          <p>${c.blurb}</p>
+          <div class="aw-grid" style="margin-top:1rem">${list.map(card).join("")}</div>
+        </section>`;
+      })
+      .join("")}
+
+    <p class="st-legend" style="margin-top:2rem">
+      <b>Vault</b> — drop finals into <code>assets/hardware/trophies/{id}/trophy.png</code>
+      (alias: <code>assets/vault/trophies/{id}/</code>). Include <code>lore.md</code> + render prompt notes anytime.
+    </p>
+  `;
+
+  root.querySelectorAll("img[data-trophy]").forEach((img) => {
+    const ph = root.querySelector(`[data-ph="${img.dataset.trophy}"]`);
+    const trySrc = (src, next) => {
+      const test = new Image();
+      test.onload = () => {
+        img.src = src;
+        img.hidden = false;
+        if (ph) ph.hidden = true;
+      };
+      test.onerror = () => next && next();
+      test.src = src;
+    };
+    trySrc(img.getAttribute("src"), () => trySrc(img.dataset.alt));
+  });
+
+  document.getElementById("awTabs")?.addEventListener("click", (e) => {
+    const a = e.target.closest("a");
+    if (!a) return;
+    document.querySelectorAll("#awTabs a").forEach((x) => x.classList.toggle("is-active", x === a));
+  });
+})();
+</script>
 </body>
 </html>

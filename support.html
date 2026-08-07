@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Help Center — PuckGold Support</title>
+<meta name="description" content="PuckGold Help Center — League Pass, orders, franchise, affiliates, Advertise. Global languages + AI support chat.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=24">
+<link rel="stylesheet" href="assets/css/support-widget.css?v=1">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .hp-hero{
+    background:#f4f6fa;padding:2.8rem 4vw 2rem;text-align:center;
+  }
+  .hp-hero h1{font-family:var(--display);font-size:clamp(2.4rem,7vw,3.6rem);letter-spacing:.04em;margin:.35rem 0}
+  .hp-hero p{color:#5c6473;max-width:36rem;margin:.5rem auto 1.25rem;line-height:1.5}
+  .hp-search{
+    max-width:520px;margin:0 auto;display:flex;gap:.4rem;
+  }
+  .hp-search input{
+    flex:1;padding:.85rem 1rem;border-radius:999px;border:1px solid rgba(18,24,38,.12);
+    font:inherit;background:#fff;
+  }
+  .hp-wrap{max-width:1100px;margin:0 auto;padding:2rem 4vw 4rem}
+  .hp-grid{display:grid;gap:.85rem}
+  @media(min-width:800px){.hp-grid{grid-template-columns:repeat(3,1fr)}}
+  .hp-card{
+    background:#fff;border:1px solid rgba(18,24,38,.08);border-radius:14px;padding:1.25rem;
+  }
+  .hp-card h3{font-size:1.05rem;margin:0 0 .4rem}
+  .hp-card p{font-size:.88rem;color:#5c6473;line-height:1.45;margin:0 0 .75rem}
+  .hp-card a{font-size:.78rem;font-weight:800;color:#163a74;text-decoration:none}
+  .hp-card a:hover{text-decoration:underline}
+  .hp-langs{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:1.5rem;justify-content:center}
+  .hp-langs button{
+    border:1px solid rgba(18,24,38,.1);background:#fff;border-radius:999px;padding:.4rem .7rem;
+    font-size:.68rem;font-weight:700;cursor:pointer;
+  }
+</style>
+</head>
+<body class="nhl-light">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+
+<section class="hp-hero">
+  <span class="kicker" data-i18n="footer.help">Help Center</span>
+  <h1 data-i18n="support.title">Help Center</h1>
+  <p data-i18n="support.subtitle">How can we help?</p>
+  <form class="hp-search" id="hpSearch" action="support.html" method="get">
+    <input type="search" name="q" data-i18n-placeholder="support.search" placeholder="Search help articles…" aria-label="Search">
+    <button type="submit" class="btn btn-platinum btn-sm" data-i18n="support.send">Send</button>
+  </form>
+  <div class="cta-row" style="justify-content:center;margin-top:1rem">
+    <a href="?support=chat" class="btn btn-founding btn-sm" data-i18n="support.chat">Chat with us</a>
+    <a href="contact.html" class="btn btn-ghost btn-sm" data-i18n="footer.contact">Contact Us</a>
+  </div>
+</section>
+
+<div class="hp-wrap">
+  <div class="hp-grid">
+    <div class="hp-card">
+      <h3>League Pass &amp; membership</h3>
+      <p>Plans, founding puck deal, billing, cancel anytime.</p>
+      <a href="join.html">League Pass →</a>
+    </div>
+    <div class="hp-card">
+      <h3>Orders &amp; shop</h3>
+      <p>Merch, gifts, shipping questions.</p>
+      <a href="shop.html">Shop →</a> · <a href="gifts.html">Gifts →</a>
+    </div>
+    <div class="hp-card">
+      <h3>Franchise / owner-operators</h3>
+      <p>Own and operate a team — First 32 &amp; waitlist.</p>
+      <a href="apply.html">Apply →</a>
+    </div>
+    <div class="hp-card">
+      <h3>Consumer Affiliates</h3>
+      <p>Create content, generate links, earn cash.</p>
+      <a href="affiliates.html">Affiliates →</a> · <a href="affiliates-faqs.html">FAQs →</a>
+    </div>
+    <div class="hp-card">
+      <h3>Advertise Affiliate</h3>
+      <p>Earn up to 30% on referred ad spend.</p>
+      <a href="ads-affiliate.html">Ads Affiliate →</a> · <a href="advertise.html">Launch →</a>
+    </div>
+    <div class="hp-card">
+      <h3>Talent Community</h3>
+      <p>Creators, streamers, clippers, mods, casino/gaming.</p>
+      <a href="talent.html">Sign up →</a>
+    </div>
+    <div class="hp-card">
+      <h3>Events &amp; Fan Village</h3>
+      <p>Party Zone, soundtrack, venues.</p>
+      <a href="experience.html">Experience →</a> · <a href="schedule.html">Schedule →</a>
+    </div>
+    <div class="hp-card">
+      <h3>Media &amp; press</h3>
+      <p>Guidelines, accreditation, Media Hub.</p>
+      <a href="media.html">Media Hub →</a>
+    </div>
+    <div class="hp-card">
+      <h3>AI support</h3>
+      <p>Uber-style helper — chat anytime from the floating button.</p>
+      <a href="?support=chat">Open AI chat →</a>
+    </div>
+  </div>
+
+  <p style="text-align:center;margin-top:2rem;color:#5c6473;font-size:.9rem" data-i18n="lang.label">Language / Region</p>
+  <div class="hp-langs" id="hpLangs"></div>
+  <p style="text-align:center;margin-top:1rem;font-size:.8rem;color:#8a93a3">
+    Inspired by <a href="https://support.draftkings.com/dk?lang=en-us" style="color:#163a74">DraftKings Support</a>,
+    TikTok for Business localization, and Cartier-style support menus.
+  </p>
+</div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script>
+(function () {
+  const box = document.getElementById("hpLangs");
+  if (box && window.PGB_I18N) {
+    const cur = window.PGB_I18N.getLang();
+    box.innerHTML = window.PGB_I18N.languages
+      .map((l) => `<button type="button" data-lang="${l.code}" style="${l.code===cur?"border-color:#163a74;color:#163a74":""}">${l.short}</button>`)
+      .join("");
+    box.addEventListener("click", (e) => {
+      const b = e.target.closest("button[data-lang]");
+      if (!b) return;
+      window.PGB_I18N.setLang(b.dataset.lang);
+      location.reload();
+    });
+  }
+  const q = new URLSearchParams(location.search).get("q");
+  if (q) {
+    document.querySelector('.hp-search input[name="q"]').value = q;
+  }
+  window.PGB_I18N?.apply(document);
+})();
+</script>
+</body>
+</html>

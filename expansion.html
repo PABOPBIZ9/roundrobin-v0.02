@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Founding Expansion Weekend — 24h Countdown | PuckGold</title>
+<meta name="description" content="Founding 16 tip off this weekend — 24-hour countdown. Premium League Pass, gold puck, and founding merch on sale.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=16">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=2">
+<link rel="stylesheet" href="assets/css/media-guide.css?v=1">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+</head>
+<body class="nhl-light mg-light">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+
+<section class="nhl-hero">
+  <span class="kicker">This weekend · Founding 4 → First 16</span>
+  <h1>EXPANSION WEEKEND</h1>
+  <p id="exBlurb">Sixteen teams. Banana Hockey. Clip Crown energy. Faceoff locks in ~24 hours — founding merch and Premium Pass on a sales clock.</p>
+  <div class="ex-hero-count">
+    <div>
+      <div style="font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#f0d78c">Faceoff in</div>
+      <div class="ex-clock" id="exCountdown">00 : 00 : 00 : 00</div>
+      <div style="font-size:.85rem;color:rgba(255,255,255,.65);margin-top:.35rem" id="exWhen">—</div>
+    </div>
+  </div>
+  <div class="cta-row" style="margin-top:1.25rem;display:flex;flex-wrap:wrap;gap:.5rem">
+    <a href="join.html" class="btn btn-founding">Lock founding offer · $36</a>
+    <a href="shop.html#best" class="btn btn-platinum btn-sm">Shop weekend kits</a>
+    <a href="gifts.html" class="btn btn-ghost btn-sm">Gift cards</a>
+    <a href="play.html" class="btn btn-ghost btn-sm">Farm Fan XP</a>
+  </div>
+</section>
+
+<nav class="nhl-sub">
+  <a href="expansion.html" class="is-active">Weekend</a>
+  <a href="#pools">Pools</a>
+  <a href="#sked">Schedule</a>
+  <a href="media-guide.html">Media Guide</a>
+  <a href="news.html">Recaps</a>
+  <a href="apply.html">Join First 32</a>
+</nav>
+
+<div class="nhl-wrap nhl-wrap-wide">
+  <div class="ex-sale">
+    <div>
+      <h2>SALES WINDOW · LIVE</h2>
+      <p>Free limited-edition gold puck shipped + 1-year Premium League Pass. Weekend jersey flash on the shop. Gift cards for the group chat.</p>
+      <p style="margin-top:.5rem;font-size:.85rem;color:#f0d78c" id="exSaleNote">Countdown synced sitewide (nav chip + homepage).</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:.45rem;min-width:200px">
+      <a href="join.html" class="btn btn-founding">Become a founding member</a>
+      <a href="shop.html" class="btn btn-platinum btn-sm">Shop now</a>
+      <a href="tickets" class="btn btn-ghost btn-sm" onclick="location.href='join.html';return false">Virtual tickets / Pass</a>
+    </div>
+  </div>
+
+  <h2 style="font-family:var(--display);font-size:2rem;letter-spacing:.04em;margin:1.5rem 0 .75rem" id="pools">Four pools · 16 teams</h2>
+  <div class="ex-pools" id="exPools"></div>
+
+  <h2 style="font-family:var(--display);font-size:2rem;letter-spacing:.04em;margin:2rem 0 .75rem" id="sked">Weekend schedule</h2>
+  <div class="fm-grid" id="exSked" style="display:grid;gap:.75rem;grid-template-columns:1fr">
+  </div>
+
+  <div style="margin:2rem 0;display:grid;gap:.75rem;grid-template-columns:1fr" class="hl-grid">
+    <a class="news-card" href="video-condensed.html"><div class="cat">Video</div><h3>Condensed games &amp; replays</h3><p>Drop Expansion cuts into the vault as games finish.</p></a>
+    <a class="news-card" href="video-recaps.html"><div class="cat">Recaps</div><h3>5-minute packages</h3><p>Three stars + horn — ready for social.</p></a>
+    <a class="news-card" href="podcasts.html"><div class="cat">Audio</div><h3>Podcasts &amp; booth</h3><p>Fantasy On Ice preview + team horns.</p></a>
+    <a class="news-card" href="media-guide.html"><div class="cat">Press</div><h3>Media Guide booklet</h3><p>Season One bible for partners covering the weekend.</p></a>
+  </div>
+</div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/tournament-data.js?v=1"></script>
+<script>
+(function () {
+  const E = window.PGB_EXPANSION;
+  document.getElementById("exBlurb").textContent = E.blurb;
+  document.getElementById("exWhen").textContent = "Faceoff " + E.startLabel + " · wraps " + E.endLabel + " · " + E.venue;
+
+  const pools = ["A", "B", "C", "D"];
+  document.getElementById("exPools").innerHTML = pools
+    .map((p) => {
+      const teams = E.teams.filter((t) => t.pool === p);
+      return `<div class="ex-pool"><h3>Pool ${p}</h3>${teams
+        .map(
+          (t) =>
+            `<div class="ex-team"><span class="ex-dot" style="background:${t.color}"></span>${t.name}${
+              t.founding ? '<span class="ex-founding">Founding</span>' : ""
+            }</div>`
+        )
+        .join("")}</div>`;
+    })
+    .join("");
+
+  document.getElementById("exSked").innerHTML = E.schedule
+    .map(
+      (d) => `
+    <div class="ex-pool">
+      <h3>${d.day}</h3>
+      <ul style="padding-left:1.1rem;color:#5c6473;font-size:.9rem;line-height:1.55">
+        ${d.items.map((i) => `<li>${i}</li>`).join("")}
+      </ul>
+    </div>`
+    )
+    .join("");
+  document.getElementById("exSked").style.gridTemplateColumns = "repeat(auto-fit,minmax(220px,1fr))";
+
+  const el = document.getElementById("exCountdown");
+  const tick = () => {
+    const left = Math.max(0, E.startMs - Date.now());
+    const d = Math.floor(left / 86400000);
+    const h = Math.floor((left % 86400000) / 3600000);
+    const m = Math.floor((left % 3600000) / 60000);
+    const s = Math.floor((left % 60000) / 1000);
+    const p = (n) => String(n).padStart(2, "0");
+    el.textContent = `${p(d)} : ${p(h)} : ${p(m)} : ${p(s)}`;
+    if (left <= 0) el.textContent = "LIVE";
+  };
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
+<style>
+@media(min-width:800px){.hl-grid{grid-template-columns:1fr 1fr !important}}
+</style>
+</body>
+</html>

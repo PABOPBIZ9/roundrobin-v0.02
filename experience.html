@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Experience — PuckGold Fan Village, Music &amp; Party Zones</title>
+<meta name="description" content="The PuckGold Experience — Fan Village, curated playlists, Party Zones, and festival energy around Banana Hockey.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=20">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=3">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .ex-hero{
+    position:relative;min-height:min(72vh,580px);display:flex;align-items:flex-end;color:#fff;overflow:hidden;
+  }
+  .ex-hero-bg{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(180deg, rgba(5,9,16,.2) 0%, rgba(5,9,16,.5) 40%, rgba(5,9,16,.95) 100%),
+      radial-gradient(circle at 70% 25%, rgba(240,215,140,.4), transparent 40%),
+      radial-gradient(circle at 20% 80%, rgba(61,111,191,.45), transparent 45%),
+      linear-gradient(120deg,#0a1628 0%,#0f766e 45%,#7a1524 100%);
+    animation:exShift 18s ease-in-out infinite alternate;
+  }
+  @keyframes exShift{
+    from{filter:saturate(1) hue-rotate(0deg)}
+    to{filter:saturate(1.15) hue-rotate(8deg)}
+  }
+  .ex-hero-inner{position:relative;z-index:1;padding:3rem 4vw 2.8rem;max-width:1100px;width:100%;margin:0 auto}
+  .ex-hero h1{font-family:var(--display);font-size:clamp(2.6rem,9vw,4.8rem);letter-spacing:.03em;line-height:.92;max-width:16ch}
+  .ex-hero p{margin-top:1rem;max-width:36rem;font-size:1.08rem;color:rgba(255,255,255,.88);line-height:1.55}
+  .ex-wrap{max-width:1100px;margin:0 auto;padding:3rem 4vw 4.5rem}
+  .ex-wrap h2{font-family:var(--display);font-size:clamp(1.9rem,4.5vw,2.8rem);letter-spacing:.04em;margin:0 0 .6rem}
+  .ex-wrap .lead{color:#5c6473;max-width:40rem;line-height:1.6;font-size:1.05rem;margin:0 0 1.5rem}
+  .ex-quote{
+    border-left:3px solid #d4af37;padding:.2rem 0 .2rem 1.1rem;margin:2rem 0;
+    font-size:1.15rem;line-height:1.45;color:#0b1220;max-width:38rem;
+  }
+  .ex-quote cite{display:block;margin-top:.55rem;font-size:.78rem;font-style:normal;letter-spacing:.08em;text-transform:uppercase;color:#8a93a3}
+  .ex-sec{margin:3.2rem 0}
+  .ex-grid{display:grid;gap:1rem}
+  @media(min-width:800px){.ex-grid.two{grid-template-columns:1.1fr .9fr}}
+  .ex-panel{
+    border-radius:16px;padding:1.5rem 1.35rem;color:#fff;
+    background:linear-gradient(145deg,#0b1220,#163a74 70%);
+  }
+  .ex-panel.alt{background:linear-gradient(145deg,#0f766e,#0b1220)}
+  .ex-panel.hot{background:linear-gradient(145deg,#7a1524,#0b1220)}
+  .ex-panel h3{font-family:var(--display);font-size:1.7rem;letter-spacing:.04em;margin:0 0 .5rem}
+  .ex-panel p{color:rgba(255,255,255,.78);line-height:1.55;margin:0 0 1rem}
+  .ex-gallery{
+    display:grid;gap:.55rem;grid-template-columns:1fr 1fr;
+  }
+  @media(min-width:700px){.ex-gallery{grid-template-columns:repeat(4,1fr)}}
+  .ex-tile{
+    aspect-ratio:1;border-radius:12px;display:flex;align-items:flex-end;padding:.85rem;
+    font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#fff;
+    background-size:cover;background-position:center;
+    transition:transform .35s ease, filter .35s ease;
+  }
+  .ex-tile:hover{transform:scale(1.02);filter:brightness(1.08)}
+  .ex-tile:nth-child(1){background:linear-gradient(160deg,rgba(5,9,16,.35),rgba(5,9,16,.75)),linear-gradient(135deg,#0f766e,#163a74)}
+  .ex-tile:nth-child(2){background:linear-gradient(160deg,rgba(5,9,16,.35),rgba(5,9,16,.75)),linear-gradient(135deg,#7a1524,#0b1220)}
+  .ex-tile:nth-child(3){background:linear-gradient(160deg,rgba(5,9,16,.35),rgba(5,9,16,.75)),linear-gradient(135deg,#d4af37,#0b1220)}
+  .ex-tile:nth-child(4){background:linear-gradient(160deg,rgba(5,9,16,.35),rgba(5,9,16,.75)),linear-gradient(135deg,#1e3a8a,#0f766e)}
+  .ex-tile:nth-child(5){background:linear-gradient(160deg,rgba(5,9,16,.35),rgba(5,9,16,.75)),linear-gradient(135deg,#78350f,#7a1524)}
+  .ex-tile:nth-child(6){background:linear-gradient(160deg,rgba(5,9,16,.35),rgba(5,9,16,.75)),linear-gradient(135deg,#0b1220,#3d6fbf)}
+  .ex-tile:nth-child(7){background:linear-gradient(160deg,rgba(5,9,16,.35),rgba(5,9,16,.75)),linear-gradient(135deg,#065f46,#d4af37)}
+  .ex-tile:nth-child(8){background:linear-gradient(160deg,rgba(5,9,16,.35),rgba(5,9,16,.75)),linear-gradient(135deg,#163a74,#7a1524)}
+  .ex-pulse{animation:exPulse 3.2s ease-in-out infinite}
+  @keyframes exPulse{0%,100%{opacity:.85}50%{opacity:1}}
+</style>
+</head>
+<body class="nhl-light">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+
+<section class="ex-hero">
+  <div class="ex-hero-bg" aria-hidden="true"></div>
+  <div class="ex-hero-inner">
+    <span class="kicker" style="color:#f0d78c">The PuckGold Experience</span>
+    <h1>THIS IS WHAT THE FUTURE LOOKS LIKE</h1>
+    <p>World-class drama on the ice. World-famous DJs on the decks. Local cuisine, Fan Village energy — you’re not just a spectator, you’re part of the game.</p>
+  </div>
+</section>
+
+<div class="ex-wrap">
+  <p class="lead">
+    Each PuckGold event is a cocktail of sport, music and culture — made for the world’s most electric cities.
+    If you’ve not seen us live yet, here’s what to expect. Inspired by the
+    <a href="https://www.livgolf.com/event-experience" style="color:#163a74;text-decoration:underline">LIV Golf Experience</a>.
+  </p>
+
+  <blockquote class="ex-quote">
+    “The hockey is who we are, but it’s really about the festival around the ice that makes us different.”
+    <cite>PuckGold · Event Experience</cite>
+  </blockquote>
+
+  <section class="ex-sec">
+    <h2>The beating heart of the rink</h2>
+    <p class="lead">The Fan Village is the festival within the festival — meet, eat, try next-gen sims or giant board games, and grab game-day treats from the trucks.</p>
+    <div class="ex-grid two">
+      <div class="ex-panel">
+        <h3>Fan Village</h3>
+        <p>Whichever team you’ve come to cheer — Geckz, Cardinals, Whoomp!, or Choo Choo — this is where you come together and celebrate the new, global game of hockey.</p>
+        <div class="cta-row">
+          <a href="play.html" class="btn btn-platinum btn-sm">Game Zone</a>
+          <a href="fantasy.html" class="btn btn-ghost btn-sm">Fantasy</a>
+        </div>
+      </div>
+      <div class="ex-panel alt">
+        <h3>Aura windows</h3>
+        <p>Live fan votes swing the vibe mid-game. Horn drops, LockerVision fits, and clip-ready moments — all wired into Banana Hockey pace.</p>
+        <div class="cta-row">
+          <a href="format.html" class="btn btn-platinum btn-sm">How it works</a>
+          <a href="lockervision.html" class="btn btn-ghost btn-sm">LockerVision</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ex-sec">
+    <h2>The perfect soundtrack</h2>
+    <p class="lead">
+      Everything’s better with tunes in the background. We curate playlists for every PuckGold event — spinning tracks that reflect the city we’re in and the vibe of the coldest game on earth.
+      When the final horn sounds for the day, things go up a notch.
+    </p>
+    <div class="ex-panel hot">
+      <h3>After-ice stage</h3>
+      <p>Artists you’d normally pay fortunes for — free with the day’s tickets. Want a flavor of that PuckGold sound? Wrap your ears around our curated drops and podcasts.</p>
+      <div class="cta-row">
+        <a href="podcasts.html" class="btn btn-platinum btn-sm">Podcasts</a>
+        <a href="hype.html" class="btn btn-ghost btn-sm">Hype trailer</a>
+        <a href="media-videos.html" class="btn btn-ghost btn-sm">Videos</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="ex-sec">
+    <h2>The place to (really) bring the noise</h2>
+    <p class="lead">
+      We had our first great Party Zone moment when the building shook on a Sudden Death Strobe goal.
+      Since then it’s popped up from Miami to McLean to the Capital — raising the decibel level every weekend.
+    </p>
+    <div class="ex-panel ex-pulse">
+      <h3>Party Zone</h3>
+      <p>Will we have a Party Zone next time we play with you? If we do, we’ll shout about it. Until then — here’s a sneak peek of what you can expect.</p>
+      <div class="cta-row">
+        <a href="join.html" class="btn btn-platinum btn-sm">Tickets · Membership</a>
+        <a href="expansion.html" class="btn btn-ghost btn-sm">Expansion Weekend</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="ex-sec">
+    <h2>Gallery</h2>
+    <p class="lead">Atmosphere stills — drop real event photography into the media vault and we’ll wire them here.</p>
+    <div class="ex-gallery" aria-label="Experience gallery">
+      <div class="ex-tile">Fan Village</div>
+      <div class="ex-tile">DJ Deck</div>
+      <div class="ex-tile">Party Zone</div>
+      <div class="ex-tile">Horn Drop</div>
+      <div class="ex-tile">Food Trucks</div>
+      <div class="ex-tile">Strobe OT</div>
+      <div class="ex-tile">Team Walk</div>
+      <div class="ex-tile">Night Ice</div>
+    </div>
+    <p style="margin-top:1rem;font-size:.8rem;color:#8a93a3">
+      Photo drop: <code style="color:#163a74">assets/media-hub/DROP-PHOTOS-HERE/</code>
+    </p>
+  </section>
+</div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=25"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
+</body>
+</html>
