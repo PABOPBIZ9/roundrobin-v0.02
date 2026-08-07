@@ -304,14 +304,14 @@ html[data-theme="light"] .btn-ghost{background:rgba(22,58,116,.04)}
 /* ---------- hero ---------- */
 .hero{
   position:relative;z-index:1;
-  min-height:min(52vh, 420px);
-  min-height:min(52svh, 420px);
+  min-height:min(58vh, 520px);
+  min-height:min(58svh, 520px);
   display:flex;align-items:flex-end;
   padding:0;
   overflow:hidden;
 }
 @media (min-width:900px){
-  .hero{min-height:min(48vh, 480px);min-height:min(48svh, 480px)}
+  .hero{min-height:min(62vh, 640px);min-height:min(62svh, 640px)}
 }
 .hero-bg{
   position:absolute;inset:0;
@@ -376,11 +376,11 @@ html[data-theme="light"] .btn-ghost{background:rgba(22,58,116,.04)}
 /* Sound toggle — VeeFriends pattern: pulse rings when OFF, dancing EQ when ON */
 .hero-av-slot{
   position:absolute;z-index:6;
-  right:26px;bottom:27px;
+  right:22px;bottom:22px;
   pointer-events:none;
 }
 @media (min-width:701px){
-  .hero-av-slot{right:34px;bottom:36px}
+  .hero-av-slot{right:34px;bottom:34px}
 }
 .hero-av-slot .av-toggle{pointer-events:auto}
 .av-toggle{
@@ -598,8 +598,14 @@ html[dir="rtl"] body > .av-toggle{
 .pdp-body p{color:rgba(238,243,250,.75);font-size:.95rem;margin-bottom:1rem}
 .hero-inner{
   position:relative;z-index:2;width:100%;max-width:1400px;margin:0 auto;
-  padding:2.2rem 4vw 2rem;
+  /* Leave room for VeeFriends sound control in the bottom-right corner */
+  padding:2.2rem max(4vw, 1rem) 2.4rem;
+  padding-right:max(5.5rem, 18vw);
 }
+@media (min-width:701px){
+  .hero-inner{padding-right:max(6.5rem, 12vw);padding-bottom:2.8rem}
+}
+.hero-inner .cta-row{max-width:min(100%, 22rem)}
 .live-pill{
   display:inline-flex;align-items:center;gap:.55rem;
   font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
