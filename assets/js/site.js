@@ -579,18 +579,18 @@
     }
     ogEnd = Number(ogEnd);
 
-    const navEl = null;
-    const navLabel = null;
     const heroEl = document.getElementById("heroCountdown");
     const heroBoxes = document.getElementById("heroCountdownBoxes");
     const ogEl = document.getElementById("ogCountdown");
     const eventEl = document.getElementById("eventCountdown");
+    const exEl = document.getElementById("exCountdown");
 
     const tick = () => {
       const left = EVENT_END - Date.now();
       if (heroEl) heroEl.textContent = left <= 0 ? "LIVE" : livClock(left);
       if (heroBoxes) heroBoxes.innerHTML = clockHtml(left);
       if (eventEl) eventEl.innerHTML = clockHtml(left);
+      if (exEl) exEl.textContent = left <= 0 ? "LIVE" : livClock(left);
       if (ogEl) ogEl.innerHTML = clockHtml(ogEnd - Date.now());
     };
     tick();

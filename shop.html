@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shop — Official PuckGold Merch</title>
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=37">
+<link rel="stylesheet" href="assets/css/site.css?v=38">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <link rel="icon" href="assets/brand/favicon/favicon-32.png?v=3" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/app/apple-touch-icon.png?v=3">
@@ -19,6 +19,7 @@
     background:rgba(245,246,248,.94);backdrop-filter:blur(12px);
     border-bottom:1px solid rgba(18,24,38,.08);
   }
+  @media (min-width:640px){.shop-catnav{top:68px}}
   .shop-catnav-inner{
     max-width:1400px;margin:0 auto;padding:.7rem 4vw;
     display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;align-items:center;justify-content:space-between;
@@ -47,9 +48,9 @@
   .shop-hero-bg{
     position:absolute;inset:0;
     background:
-      linear-gradient(180deg, rgba(5,9,16,.35) 0%, rgba(5,9,16,.55) 45%, rgba(5,9,16,.78) 100%),
+      linear-gradient(180deg, rgba(10,22,44,.35) 0%, rgba(10,22,44,.55) 45%, rgba(10,22,44,.82) 100%),
       radial-gradient(circle at 70% 40%, rgba(212,175,55,.28), transparent 45%),
-      linear-gradient(135deg, #0a1a33 0%, #1a1408 48%, #0b1220 100%);
+      linear-gradient(135deg, #0a162c 0%, #163a74 48%, #10203a 100%);
   }
   .shop-hero-bg::after{
     content:"";position:absolute;inset:0;
@@ -246,10 +247,11 @@
   <div class="shop-hero-inner">
     <img class="mark" src="assets/brand/lockup/primary-master.png?v=3" alt="">
     <h1>FOUNDING FOUR</h1>
-    <p>The wait is over. Gear up for Season One — jerseys, hats, and the limited OG Gold Puck.</p>
+    <p>Jerseys, hats, and the limited $36 OG Offer — gold puck shipped + 1-year Premium League Pass.</p>
     <div class="cta-row">
-      <a class="btn btn-pill" href="#best">Shop Best Sellers</a>
+      <a class="btn btn-founding" href="checkout.html?offer=og" data-claim-og>Become a founding member · $36</a>
     </div>
+    <p style="margin-top:.85rem"><a href="#best" style="color:rgba(240,215,140,.95);font-size:.8rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase">Shop Best Sellers →</a></p>
   </div>
 </section>
 
@@ -282,17 +284,16 @@
   </div>
   <div class="product-rail grid-static" id="productRail">
     <article class="shop-product" data-team="league" data-tab="featured">
-      <div class="viz">
-        <span class="shop-badge badge-best">Best Seller</span>
+      <div class="viz" style="background:linear-gradient(160deg,#10203a,#163a74)">
+        <span class="shop-badge badge-best">$36 OG</span>
         <img src="assets/brand/lockup/primary-master.png?v=3" alt="">
       </div>
       <div>
-        <h3>OG Gold Puck Membership Kit</h3>
-        <div class="maker">PuckGold · Limited</div>
+        <h3>$36 OG Offer — Gold Puck + 1-Yr Pass</h3>
+        <div class="maker">PuckGoldBiz · Founding</div>
         <div class="price">$36.00</div>
-        <div class="colors">1 kit</div>
-        <a class="choose" href="join.html">Get the deal</a>
-        <a class="choose" href="#" data-add-cart data-id="og-gold-puck-membership-kit" data-name="OG Gold Puck Membership Kit" data-maker="PuckGold · Limited" data-price="36.00" data-img="assets/brand/lockup/primary-master.png?v=3">Add to bag</a>
+        <div class="colors">Puck shipped · Pass digital</div>
+        <a class="choose" href="checkout.html?offer=og" data-claim-og>Claim offer</a>
       </div>
     </article>
     <article class="shop-product" data-team="geckz" data-tab="featured geckz">
@@ -472,7 +473,7 @@
     <div class="kicker" style="color:#f0d78c">Limited</div>
     <h3>OG GOLD PUCK</h3>
     <p>Physical puck + one year premium membership. Founding Four forever status.</p>
-    <a class="btn btn-og btn-sm" href="join.html" style="align-self:flex-start">Claim for $36</a>
+    <a class="btn btn-og btn-sm" href="checkout.html?offer=og" data-claim-og style="align-self:flex-start">Claim for $36</a>
   </div>
   <div class="collab-card">
     <div class="kicker" style="color:#163a74">Accessories</div>
@@ -484,9 +485,9 @@
 
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=37"></script>
+<script src="assets/js/site.js?v=38"></script>
 <script src="assets/js/support-widget.js?v=5"></script>
-<script src="assets/js/cart.js?v=7"></script>
+<script src="assets/js/cart.js?v=8"></script>
 <script>
 (function () {
   const tabs = document.querySelectorAll(".shop-tabs button");
@@ -532,6 +533,14 @@
   });
 
   applyTab("featured");
+
+  document.querySelectorAll("[data-claim-og]").forEach((a) => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.PGBCart?.addOgOffer({ open: false });
+      location.href = "checkout.html?offer=og";
+    });
+  });
 })();
 </script>
 </body>

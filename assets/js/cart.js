@@ -193,6 +193,17 @@
         addOgOffer({ open: false });
       }
     } catch (_) {}
+
+    // Any [data-claim-og] → bag + checkout (works outside header too)
+    document.querySelectorAll("[data-claim-og]").forEach((a) => {
+      if (a.dataset.claimBound) return;
+      a.dataset.claimBound = "1";
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        addOgOffer({ open: false });
+        location.href = "checkout.html?offer=og";
+      });
+    });
   });
 
   window.PGBCart = { addItem, addOgOffer, open, close, read, render, OG_OFFER };

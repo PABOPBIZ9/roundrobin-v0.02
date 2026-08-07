@@ -6,7 +6,7 @@
 <title>Founding Expansion Weekend — 24h Countdown | PuckGold</title>
 <meta name="description" content="Founding 16 tip off this weekend — 24-hour countdown. Premium League Pass, gold puck, and founding merch on sale.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=37">
+<link rel="stylesheet" href="assets/css/site.css?v=38">
 <link rel="stylesheet" href="assets/css/nhl-league.css?v=2">
 <link rel="stylesheet" href="assets/css/media-guide.css?v=1">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
@@ -18,7 +18,7 @@
 <section class="nhl-hero">
   <span class="kicker">This weekend · Founding 4 → First 16</span>
   <h1>EXPANSION WEEKEND</h1>
-  <p id="exBlurb">Sixteen teams. Banana Hockey. Clip Crown energy. Faceoff locks in ~24 hours — founding merch and Premium Pass on a sales clock.</p>
+  <p id="exBlurb">Sixteen teams. Banana Hockey. Clip Crown energy. Faceoff locks in ~24 hours — claim the $36 OG Offer before the horn.</p>
   <div class="ex-hero-count">
     <div>
       <div style="font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#f0d78c">Faceoff in</div>
@@ -26,12 +26,10 @@
       <div style="font-size:.85rem;color:rgba(255,255,255,.65);margin-top:.35rem" id="exWhen">—</div>
     </div>
   </div>
-  <div class="cta-row" style="margin-top:1.25rem;display:flex;flex-wrap:wrap;gap:.5rem">
-    <a href="join.html" class="btn btn-founding">Lock founding offer · $36</a>
-    <a href="shop.html#best" class="btn btn-platinum btn-sm">Shop weekend kits</a>
-    <a href="gifts.html" class="btn btn-ghost btn-sm">Gift cards</a>
-    <a href="play.html" class="btn btn-ghost btn-sm">Farm Fan XP</a>
+  <div class="cta-row" style="margin-top:1.25rem">
+    <a href="checkout.html?offer=og" class="btn btn-founding" data-claim-og>Become a founding member · $36</a>
   </div>
+  <p style="margin-top:.75rem"><a href="shop.html#best" style="color:rgba(240,215,140,.9);font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase">Shop weekend kits →</a></p>
 </section>
 
 <nav class="nhl-sub">
@@ -48,12 +46,11 @@
     <div>
       <h2>SALES WINDOW · LIVE</h2>
       <p>Free limited-edition gold puck shipped + 1-year Premium League Pass. Weekend jersey flash on the shop. Gift cards for the group chat.</p>
-      <p style="margin-top:.5rem;font-size:.85rem;color:#f0d78c" id="exSaleNote">Countdown synced sitewide (nav chip + homepage).</p>
+      <p style="margin-top:.5rem;font-size:.85rem;color:#f0d78c" id="exSaleNote">Faceoff clock synced sitewide · $36 OG Offer still open.</p>
     </div>
     <div style="display:flex;flex-direction:column;gap:.45rem;min-width:200px">
-      <a href="join.html" class="btn btn-founding">Become a founding member</a>
+      <a href="checkout.html?offer=og" class="btn btn-founding" data-claim-og>Become a founding member · $36</a>
       <a href="shop.html" class="btn btn-platinum btn-sm">Shop now</a>
-      <a href="join.html" class="btn btn-ghost btn-sm">$36 OG Pass</a>
     </div>
   </div>
 
@@ -74,9 +71,9 @@
 
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=37"></script>
+<script src="assets/js/site.js?v=38"></script>
 <script src="assets/js/support-widget.js?v=5"></script>
-<script src="assets/js/cart.js?v=7"></script>
+<script src="assets/js/cart.js?v=8"></script>
 <script src="assets/js/tournament-data.js?v=1"></script>
 <script>
 (function () {
@@ -112,19 +109,13 @@
     .join("");
   document.getElementById("exSked").style.gridTemplateColumns = "repeat(auto-fit,minmax(220px,1fr))";
 
-  const el = document.getElementById("exCountdown");
-  const tick = () => {
-    const left = Math.max(0, E.startMs - Date.now());
-    const d = Math.floor(left / 86400000);
-    const h = Math.floor((left % 86400000) / 3600000);
-    const m = Math.floor((left % 3600000) / 60000);
-    const s = Math.floor((left % 60000) / 1000);
-    const p = (n) => String(n).padStart(2, "0");
-    el.textContent = `${p(d)} : ${p(h)} : ${p(m)} : ${p(s)}`;
-    if (left <= 0) el.textContent = "LIVE";
-  };
-  tick();
-  setInterval(tick, 1000);
+  document.querySelectorAll("[data-claim-og]").forEach((a) => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.PGBCart?.addOgOffer({ open: false });
+      location.href = "checkout.html?offer=og";
+    });
+  });
 })();
 </script>
 <style>
