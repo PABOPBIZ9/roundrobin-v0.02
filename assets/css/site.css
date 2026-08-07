@@ -113,7 +113,7 @@ html:not([data-theme="light"]) .site-header{
 
 .nav-links{display:none}
 .nav-actions{
-  display:flex;align-items:center;gap:.5rem;flex-shrink:0;margin-left:auto;
+  display:flex;align-items:center;gap:.55rem;flex-shrink:0;margin-left:auto;
 }
 .nav-count-chip,
 .nav-pill-shop,
