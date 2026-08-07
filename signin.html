@@ -4,17 +4,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Sign In — PuckGold</title>
+<meta name="description" content="Sign in to PuckGoldBiz — Fan Zone, shop, and your $36 OG Offer perks.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=36">
+<link rel="stylesheet" href="assets/css/site.css?v=37">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <style>
-  .auth-page{max-width:420px;margin:0 auto;padding:1.25rem 4vw 2.5rem}
+  .auth-page{max-width:440px;margin:0 auto;padding:1.25rem 4vw 2.75rem}
   .auth-page .kicker{display:block;margin-bottom:.25rem}
   .auth-page h1{font-family:var(--display);font-size:clamp(2.2rem,8vw,3.2rem);letter-spacing:.04em;margin:0 0 .35rem;line-height:1}
   .auth-page .lead{color:var(--muted);font-size:.9rem;margin:0 0 1rem;line-height:1.45}
-  .auth-page .signin-box{margin:0;padding:1.15rem}
-  .auth-page .cta-row{display:grid;gap:.45rem;margin-top:.85rem}
-  .auth-page .plan-alt{margin-top:.85rem;text-align:center;font-size:.85rem}
+  .auth-page .signin-box{
+    margin:0;padding:1.2rem 1.15rem;
+    background:var(--panel);border:1px solid var(--line-soft);border-radius:16px;
+  }
+  .auth-page .cta-row{display:grid;gap:.45rem;margin-top:.9rem}
+  .auth-page .plan-alt{margin-top:.85rem;text-align:center;font-size:.85rem;color:var(--muted)}
+  .auth-og{
+    margin:0 0 1rem;padding:1rem 1.05rem;border-radius:14px;
+    background:
+      radial-gradient(circle at 90% 0%, rgba(240,215,140,.28), transparent 50%),
+      linear-gradient(145deg,#10203a,#163a74);
+    color:#fff;border:1px solid rgba(240,215,140,.28);
+  }
+  .auth-og .tag{font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#f0d78c}
+  .auth-og strong{display:block;font-family:var(--display);font-size:1.55rem;letter-spacing:.04em;margin:.25rem 0 .35rem}
+  .auth-og p{margin:0 0 .75rem;font-size:.86rem;line-height:1.4;color:rgba(238,243,250,.8)}
+  .field{margin-bottom:.75rem}
+  .field label{display:block;font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem}
+  .field input{
+    width:100%;padding:.75rem .85rem;border-radius:10px;border:1px solid var(--line-soft);
+    background:var(--bg-2);color:var(--text);font:inherit;
+  }
 </style>
 </head>
 <body>
@@ -23,7 +43,15 @@
 <main class="auth-page">
   <span class="kicker">Members</span>
   <h1>SIGN IN</h1>
-  <p class="lead">Access Fan Zone, shop checkout, and your OG Gold Puck perks.</p>
+  <p class="lead">Access Fan Zone, checkout, and your founding member perks.</p>
+
+  <div class="auth-og" id="ogCard">
+    <div class="tag">$36 OG Offer</div>
+    <strong>Gold puck + 1-year Pass</strong>
+    <p>New here? Claim founding status first — free limited puck shipped + Premium League Pass.</p>
+    <a href="checkout.html?offer=og" class="btn btn-founding btn-sm btn-block" data-claim-og>Become a founding member · $36</a>
+  </div>
+
   <div class="signin-box">
     <form id="signinForm">
       <div class="field">
@@ -36,9 +64,8 @@
       </div>
       <button class="btn btn-signin btn-block" type="submit">Sign in</button>
     </form>
-    <p class="plan-alt">New here? <a href="join.html">Join with the $36 OG Gold Puck</a></p>
+    <p class="plan-alt">No account yet? <a href="join.html">See plans</a> or claim the offer above.</p>
     <div class="cta-row">
-      <a href="join.html" class="btn btn-champagne btn-sm btn-block">Create account</a>
       <a href="fantasy.html" class="btn btn-sapphire btn-sm btn-block">Browse Fan Zone</a>
       <button type="button" class="btn btn-ghost btn-sm btn-block" id="askPucky">Ask Pucky about sign-in</button>
     </div>
@@ -46,17 +73,21 @@
 </main>
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=36"></script>
+<script src="assets/js/site.js?v=37"></script>
 <script src="assets/js/support-widget.js?v=5"></script>
-<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/cart.js?v=7"></script>
 <script>
+document.querySelectorAll("[data-claim-og]").forEach((a) => {
+  a.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.PGBCart?.addOgOffer({ open: false });
+    location.href = "checkout.html?offer=og";
+  });
+});
 document.getElementById("signinForm")?.addEventListener("submit", (e) => {
   e.preventDefault();
-  if (window.Pucky) {
-    window.Pucky.ask("I want to sign in to my account");
-  } else {
-    alert("Auth wiring next — Dynamic + Whop. Pucky can help meanwhile.");
-  }
+  if (window.Pucky) window.Pucky.ask("I want to sign in to my account");
+  else alert("Auth wiring next — Dynamic + Whop. Claim the $36 OG Offer meanwhile.");
 });
 document.getElementById("askPucky")?.addEventListener("click", () => {
   window.Pucky?.ask("help me sign in");

@@ -230,60 +230,42 @@
         </div>
       </div>
       <div class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-ctas" style="margin:0 0 1rem">
+          <a href="checkout.html?offer=og" class="btn btn-founding btn-block" data-claim-og>Become a founding member · $36</a>
+        </div>
         <a href="scores.html" class="${scoresActive ? "active" : ""}">Scores</a>
         <a href="schedule.html" class="${scheduleActive ? "active" : ""}">Schedule</a>
-        <a href="stats.html" class="${statsActive ? "active" : ""}">Stats</a>
         <a href="standings.html" class="${standingsActive ? "active" : ""}">Standings</a>
-        <a href="play.html">Game Zone</a>
-        <div class="drawer-group">Teams &amp; Players</div>
+        <a href="stats.html" class="${statsActive ? "active" : ""}">Stats</a>
+        <div class="drawer-group">League</div>
         <a href="teams.html">Teams</a>
         <a href="rosters.html">Rosters</a>
         <a href="stadiums.html">Stadiums</a>
         <a href="lockervision.html">LockerVision</a>
-        <a href="lv-schedule.html">LV · Outfit schedule</a>
-        <a href="awards.html">Trophies &amp; Awards</a>
-        <div class="drawer-group">News &amp; Video</div>
-        <a href="expansion.html">Expansion Weekend · 24h</a>
-        <a href="news.html">Newsroom</a>
-        <a href="media-guide.html">2026 Media Guide</a>
-        <a href="media.html">Media Hub</a>
+        <a href="awards.html">Awards</a>
+        <a href="expansion.html">Expansion Weekend</a>
+        <div class="drawer-group">Fans</div>
+        <a href="play.html">Game Zone</a>
+        <a href="fantasy.html">Fan Zone</a>
+        <a href="shop.html">Shop</a>
+        <a href="gifts.html">Gift Cards</a>
+        <a href="gems.html">Gems &amp; Coins</a>
+        <a href="profile.html">My profile</a>
+        <a href="join.html">$36 OG Offer</a>
+        <a href="retro.html">Retro · '94</a>
+        <div class="drawer-group">Watch</div>
+        <a href="news.html">News</a>
         <a href="video-condensed.html">Condensed Games</a>
         <a href="video-recaps.html">Game Recaps</a>
-        <a href="puck-personality.html">Puck Personality</a>
-        <a href="podcasts.html">Podcasts</a>
-        <a href="media-videos.html">All Videos</a>
-        <div class="drawer-group">Fan Zone</div>
-        <a href="promos.html">Promotions</a>
-        <a href="join.html">$36 OG Pass · Plans</a>
-        <a href="experience.html">Event Experience</a>
-        <a href="play.html">Game Zone · Play</a>
-        <a href="play.html#board">Fan leaderboard</a>
-        <a href="lockervision.html">LockerVision</a>
-        <a href="lv-schedule.html">LV · Outfit schedule</a>
-        <a href="retro.html">Retro League · '94</a>
-        <a href="fantasy.html">Fantasy &amp; Giveaway</a>
-        <a href="gems.html">Sapphires · Rubies · Coins</a>
-        <a href="gems.html?tab=gifts">Digital gifts</a>
-        <a href="gifts.html">Gift Cards · Live FOMO</a>
-        <a href="profile.html">My profile · share link</a>
+        <a href="media.html">Media Hub</a>
         <div class="drawer-group">More</div>
-        <a href="about.html">About PuckGold</a>
-        <a href="format.html">League Format</a>
-        <a href="standings.html">Player Standings</a>
-        <a href="standings.html?view=teams">Team Standings</a>
-        <a href="apply.html">Franchise / Owner apply</a>
-        <a href="advertise.html">Advertise / Launch</a>
-        <a href="ads-affiliate.html">Advertise Affiliate</a>
-        <a href="affiliates.html">Consumer Affiliates</a>
-        <a href="talent.html">Talent Community</a>
-        <a href="developers.html">Developer Hub</a>
+        <a href="about.html">About</a>
+        <a href="apply.html">Franchise apply</a>
         <a href="support.html">Help Center</a>
         <a href="contact.html">Contact</a>
-        <a href="partners.html">Partners</a>
+        <a href="affiliates.html">Affiliates</a>
         <a href="brand.html">Brand Kit</a>
-        <a href="retro.html">Retro League · '94</a>
         <div class="drawer-ctas">
-          <a href="join.html" class="btn btn-founding btn-block">$36 OG Offer · Gold Puck + Pass</a>
           <a href="shop.html" class="btn btn-sapphire btn-block">Shop</a>
           <a href="signin.html" class="btn btn-signin btn-block">Sign In</a>
           <button class="theme-toggle theme-toggle-drawer" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch to light mode" title="Light mode">
@@ -305,6 +287,18 @@
     btn?.addEventListener("click", (e) => {
       e.stopPropagation();
       setDrawerOpen(!drawer?.classList.contains("open"));
+    });
+    // Founding offer deep-link from drawer / any [data-claim-og]
+    header.querySelectorAll("[data-claim-og]").forEach((a) => {
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (window.PGBCart?.addOgOffer) {
+          window.PGBCart.addOgOffer({ open: false });
+          location.href = "checkout.html?offer=og";
+        } else {
+          location.href = "checkout.html?offer=og";
+        }
+      });
     });
     // Keep wheel/trackpad scroll inside the drawer (don't fight the page)
     drawer?.addEventListener(

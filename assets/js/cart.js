@@ -1,5 +1,13 @@
 (function () {
   const KEY = "pgb-cart-v1";
+  const OG_OFFER = {
+    id: "og-gold-puck-pass",
+    name: "$36 OG Offer — Gold Puck + 1-Yr Pass",
+    maker: "PuckGoldBiz · Founding",
+    price: 36,
+    qty: 1,
+    img: "assets/brand/lockup/primary-master.png?v=3",
+  };
 
   function read() {
     try {
@@ -23,13 +31,19 @@
     return `$${Number(n).toFixed(2)}`;
   }
 
-  function addItem(item) {
+  function addItem(item, opts) {
     const items = read();
     const found = items.find((i) => i.id === item.id);
     if (found) found.qty += item.qty || 1;
     else items.push({ ...item, qty: item.qty || 1 });
     write(items);
-    open();
+    if (!opts || opts.open !== false) open();
+  }
+
+  /** Claim the founding $36 OG Offer (idempotent qty bump) */
+  function addOgOffer(opts) {
+    addItem({ ...OG_OFFER }, opts);
+    return OG_OFFER;
   }
 
   function setQty(id, qty) {
@@ -171,5 +185,15 @@
     obs.observe(document.body, { childList: true, subtree: true });
   });
 
-  window.PGBCart = { addItem, open, close, read, render };
+  // Deep-link: checkout.html?offer=og | any page ?claim=og
+  document.addEventListener("DOMContentLoaded", () => {
+    try {
+      const q = new URLSearchParams(location.search);
+      if (q.get("offer") === "og" || q.get("claim") === "og") {
+        addOgOffer({ open: false });
+      }
+    } catch (_) {}
+  });
+
+  window.PGBCart = { addItem, addOgOffer, open, close, read, render, OG_OFFER };
 })();

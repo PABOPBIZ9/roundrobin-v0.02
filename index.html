@@ -6,7 +6,7 @@
 <title>PuckGold — Official Site | Teams, Scores, Shop & Fan Zone</title>
 <meta name="description" content="PuckGoldBiz (PGB) Hockey League — Founding Four championship. Join with the $36 OG Gold Puck membership.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=36">
+<link rel="stylesheet" href="assets/css/site.css?v=37">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <link rel="icon" href="assets/brand/favicon/favicon-32.png?v=3" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/app/apple-touch-icon.png?v=3">
@@ -80,7 +80,7 @@
     </div>
     <p class="hero-lead">Founding 4 → First 16 this weekend. Lock free limited gold puck + 1-year Premium League Pass before the horn.</p>
     <div class="cta-row">
-      <a href="join.html" class="btn btn-founding btn-lg">Become a founding member · $36</a>
+      <a href="checkout.html?offer=og" class="btn btn-founding btn-lg" data-claim-og>Become a founding member · $36</a>
     </div>
   </div>
   <div class="hero-av-slot" id="heroAvSlot" aria-hidden="false"></div>
@@ -93,7 +93,7 @@
       <strong>Founding offer ends with the faceoff clock</strong>
       <p>Free limited-edition gold puck shipped + 1-year <em>Premium League Pass</em> — ride Expansion Weekend.</p>
     </div>
-    <a href="join.html" class="btn btn-founding">Lock offer before tip</a>
+    <a href="checkout.html?offer=og" class="btn btn-founding" data-claim-og>Lock offer before tip</a>
   </div>
 </div>
 
@@ -149,7 +149,7 @@
         <li>Founding member status forever</li>
       </ul>
       <div class="cta-row">
-        <a href="join.html" class="btn btn-founding">Become a founding member · $36</a>
+        <a href="checkout.html?offer=og" class="btn btn-founding" data-claim-og>Become a founding member · $36</a>
         <a href="join.html#monthly" class="btn btn-ghost">Or $12.99 / month</a>
       </div>
     </div>
@@ -204,8 +204,17 @@
 
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=36"></script>
+<script src="assets/js/site.js?v=37"></script>
 <script src="assets/js/support-widget.js?v=5"></script>
-<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/cart.js?v=7"></script>
+<script>
+document.querySelectorAll("[data-claim-og]").forEach((a)=>{
+  a.addEventListener("click",(e)=>{
+    e.preventDefault();
+    window.PGBCart?.addOgOffer({open:false});
+    location.href="checkout.html?offer=og";
+  });
+});
+</script>
 </body>
 </html>
