@@ -143,13 +143,21 @@
   }
 
   function addPoints(n, questId) {
+    const base = Math.max(0, Math.floor(Number(n) || 0));
+    const mult = window.PGBAuth?.multiplier?.() || 1;
+    const awarded = base * mult;
     const s = ensure();
-    s.points += n;
-    s.xp = (s.xp || 0) + n;
+    s.points += awarded;
+    s.xp = (s.xp || 0) + awarded;
+    s.lastEarn = { base, awarded, mult, questId: questId || null, at: Date.now() };
     if (questId) {
-      s.done[questId] = { at: Date.now(), day: todayKey(), pts: n };
+      s.done[questId] = { at: Date.now(), day: todayKey(), pts: awarded, base, mult };
     }
+    if (window.PGBAuth?.session?.()?.displayName) s.name = window.PGBAuth.session().displayName;
     save(s);
+    window.dispatchEvent(
+      new CustomEvent("pgb-play-update", { detail: { awarded, base, mult, questId } })
+    );
     return s;
   }
 
@@ -169,6 +177,17 @@
   }
 
   function fanBoard() {
+    if (window.PGBProfile?.leaderboardSlice) {
+      return window.PGBProfile.leaderboardSlice().map((r) => ({
+        name: r.name,
+        pts: r.pts,
+        you: !!r.you,
+        rank: r.rank,
+        premium: !!r.premium,
+        handle: r.handle,
+        avatar: r.avatar,
+      }));
+    }
     const s = ensure();
     const bots = [
       { name: "NeonFarmr", pts: 820 },
@@ -214,17 +233,20 @@
     function finish(timeout) {
       clearInterval(quizTimer);
       const bonus = score === bank.length ? 50 : 0;
-      const earned = score * (hard ? 30 : 20) + bonus;
-      const s = addPoints(earned, questId);
+      const base = score * (hard ? 30 : 20) + bonus;
+      const s = addPoints(base, questId);
+      const awarded = s.lastEarn?.awarded ?? base;
+      const mult = s.lastEarn?.mult ?? 1;
       s.quizzes = (s.quizzes || 0) + 1;
       if (score >= 3) s.streak = (s.streak || 0) + 1;
       else s.streak = 0;
       save(s);
+      const multTag = mult > 1 ? ` (${base}×${mult} OG)` : "";
       qEl.textContent = timeout
-        ? `Time's up — ${score}/${bank.length}. +${earned} XP`
-        : `Done — ${score}/${bank.length}. +${earned} XP${bonus ? " (perfect bonus)" : ""}`;
+        ? `Time's up — ${score}/${bank.length}. +${awarded} XP${multTag}`
+        : `Done — ${score}/${bank.length}. +${awarded} XP${multTag}${bonus ? " · perfect" : ""}`;
       optsEl.innerHTML = "";
-      foot.innerHTML = `<span>+${earned} XP · Total ${s.points}</span><button type="button" class="pz-btn gold" id="pzClose">Claim</button>`;
+      foot.innerHTML = `<span>+${awarded} XP · Total ${s.points}</span><button type="button" class="pz-btn gold" id="pzClose">Claim</button>`;
       bindClose();
       window.dispatchEvent(new CustomEvent("pgb-play-update"));
     }
@@ -299,9 +321,10 @@
     const s = ensure();
 
     if (stats) {
+      const mult = window.PGBAuth?.multiplier?.() || 1;
       stats.innerHTML = `
         <div class="pz-stat"><span>Your XP</span><strong>${s.points}</strong></div>
-        <div class="pz-stat"><span>Quizzes cleared</span><strong>${s.quizzes || 0}</strong></div>
+        <div class="pz-stat"><span>Multiplier</span><strong>${mult}×</strong></div>
         <div class="pz-stat"><span>Win streak</span><strong>${s.streak || 0}</strong></div>
         <div class="pz-stat"><span>Board rank</span><strong>#${fanBoard().find((r) => r.you)?.rank || "—"}</strong></div>
       `;

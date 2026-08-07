@@ -141,12 +141,24 @@
   }
 
   function addXp(pts, reason) {
+    if (window.PGBAuth?.awardPoints) {
+      const r = window.PGBAuth.awardPoints(pts, reason || "gems");
+      try {
+        const prev = JSON.parse(localStorage.getItem(PLAY_KEY) || "{}");
+        prev.gemFarm = (prev.gemFarm || 0) + (r.awarded || 0);
+        prev.lastGem = { pts: r.awarded, base: r.base, mult: r.mult, reason, at: new Date().toISOString() };
+        localStorage.setItem(PLAY_KEY, JSON.stringify(prev));
+      } catch (_) {}
+      return r;
+    }
     try {
       const prev = JSON.parse(localStorage.getItem(PLAY_KEY) || "{}");
+      prev.points = (prev.points || 0) + pts;
       prev.xp = (prev.xp || 0) + pts;
       prev.gemFarm = (prev.gemFarm || 0) + pts;
       prev.lastGem = { pts, reason, at: new Date().toISOString() };
       localStorage.setItem(PLAY_KEY, JSON.stringify(prev));
+      window.dispatchEvent(new CustomEvent("pgb-play-update"));
     } catch (_) {}
   }
 

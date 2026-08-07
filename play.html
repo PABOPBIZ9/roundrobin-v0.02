@@ -6,8 +6,8 @@
 <title>Game Zone — Play · Farm · Climb | PuckGold</title>
 <meta name="description" content="PuckGold Game Zone — timed quizzes, learning quests, and daily farming to climb the fan leaderboard.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=38">
-<link rel="stylesheet" href="assets/css/play-zone.css?v=1">
+<link rel="stylesheet" href="assets/css/site.css?v=39">
+<link rel="stylesheet" href="assets/css/play-zone.css?v=2">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 </head>
 <body class="pz-light">
@@ -17,11 +17,11 @@
 <section class="pz-hero">
   <span class="kicker">Play doesn’t stop at the horn</span>
   <h1>GAME ZONE</h1>
-  <p>Learn the league. Crush timed quizzes. Clear farming quests. Stack XP and climb the fan leaderboard — pure PuckGoldBiz energy.</p>
+  <p>Learn the league. Crush timed quizzes. Clear farming quests. Stack XP — OG Pass members earn <strong>5×</strong> on every claim.</p>
   <div class="cta-row">
     <button type="button" class="btn btn-founding btn-sm" id="heroQuiz">Play timed quiz</button>
     <a href="#board" class="btn btn-platinum btn-sm">Fan leaderboard</a>
-    <a href="retro.html" class="btn btn-ghost btn-sm">Retro League · '94</a>
+    <a href="signin.html?next=play.html" class="btn btn-ghost btn-sm">Create profile</a>
   </div>
   <a href="retro.html" class="pz-retro-mark" style="display:inline-flex;align-items:center;gap:.75rem;margin-top:1.25rem;text-decoration:none;color:inherit">
     <img src="assets/brand/retro/pgb-league-shimmer-still.png" alt="" width="56" height="56" style="image-rendering:pixelated;border-radius:6px;border:2px solid #d4af37;background:#000">
@@ -88,10 +88,12 @@
 
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=38"></script>
+<script src="assets/js/site.js?v=39"></script>
 <script src="assets/js/support-widget.js?v=5"></script>
 <script src="assets/js/cart.js?v=8"></script>
-<script src="assets/js/play-zone.js?v=1"></script>
+<script src="assets/js/auth.js?v=1"></script>
+<script src="assets/js/fan-profile.js?v=2"></script>
+<script src="assets/js/play-zone.js?v=2"></script>
 <script>
   document.getElementById("heroQuiz")?.addEventListener("click", () => window.PGBPlay?.openQuiz(false));
 </script>

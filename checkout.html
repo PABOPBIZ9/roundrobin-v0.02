@@ -6,7 +6,7 @@
 <title>Checkout — PuckGold</title>
 <meta name="description" content="Secure PuckGold checkout — claim the $36 OG Offer or finish your bag.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=38">
+<link rel="stylesheet" href="assets/css/site.css?v=39">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <style>
   .check-wrap{max-width:960px;margin:0 auto;padding:2rem 4vw 4rem}
@@ -70,9 +70,10 @@
 
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=38"></script>
+<script src="assets/js/site.js?v=39"></script>
 <script src="assets/js/support-widget.js?v=5"></script>
 <script src="assets/js/cart.js?v=8"></script>
+<script src="assets/js/auth.js?v=1"></script>
 <script>
 (function () {
   function money(n) { return "$" + Number(n).toFixed(2); }
@@ -137,10 +138,37 @@
   });
   document.getElementById("checkForm")?.addEventListener("submit", (e) => {
     e.preventDefault();
+    const items = window.PGBCart?.read?.() || [];
+    const hadOg = items.some((i) => i.id === "og-gold-puck-pass");
     localStorage.setItem("pgb-cart-v1", "[]");
     window.PGBCart?.render();
     render();
-    document.getElementById("checkDone").hidden = false;
+    // Demo checkout: grant OG Pass entitlement for 5× points (real payments later)
+    if (hadOg && window.PGBAuth?.grantMembership) {
+      window.PGBAuth.grantMembership("og", "demo-checkout");
+      window.PGBAuth.awardPoints?.(25, "og-pass-activate");
+    } else if (hadOg) {
+      try {
+        localStorage.setItem(
+          "pgb-membership",
+          JSON.stringify({
+            tier: "og",
+            source: "demo-checkout",
+            at: new Date().toISOString(),
+            expiresAt: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+          })
+        );
+      } catch (_) {}
+    }
+    const done = document.getElementById("checkDone");
+    if (done) {
+      done.hidden = false;
+      if (hadOg) {
+        done.innerHTML =
+          `<strong>You're OG.</strong> 5× points unlocked on likes, votes, comments &amp; quests. ` +
+          `<a href="profile.html">Open profile</a> · <a href="fantasy.html#board">Leaderboard</a>`;
+      }
+    }
   });
   document.addEventListener("DOMContentLoaded", () => setTimeout(render, 0));
   window.addEventListener("pgb-cart", render);

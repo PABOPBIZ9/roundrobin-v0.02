@@ -1,12 +1,16 @@
 /**
- * Fan social profiles — shareable URLs, Linktree verifies, tips, comments, subs.
- * Demo storage in localStorage (cloud later).
+ * Fan social profiles — Snapchat/TikTok style share, Reddit votes, likes, comments.
+ * Points flow through PGBAuth.awardPoints (5× for OG Pass+).
  */
 (function () {
-  const PROFILE_KEY = "pgb-fan-profile"; // your profile
-  const PROFILES_KEY = "pgb-profiles"; // map of public profiles
+  const PROFILE_KEY = "pgb-fan-profile";
+  const PROFILES_KEY = "pgb-profiles";
   const COMMENTS_KEY = "pgb-profile-comments";
   const UPS_KEY = "pgb-profile-ups";
+  const DOWNS_KEY = "pgb-profile-downs";
+  const LIKES_KEY = "pgb-profile-likes";
+  const FEED_KEY = "pgb-feed";
+  const FEED_LIKES_KEY = "pgb-feed-likes";
   const SUBS_KEY = "pgb-subs";
   const PLAY_KEY = "pgb-play";
 
@@ -22,6 +26,19 @@
     { id: "discord", label: "Discord", pts: 25 },
   ];
 
+  const POINT_TABLE = {
+    comment: 8,
+    upvote: 3,
+    downvote: 1,
+    like: 2,
+    unlike: 0,
+    subscribe: 20,
+    "claim-handle": 25,
+    "feed-post": 12,
+    "feed-like": 2,
+    tip: 5,
+  };
+
   function slugify(s) {
     return String(s || "")
       .toLowerCase()
@@ -29,8 +46,8 @@
       .slice(0, 24);
   }
 
-  function uid() {
-    return "c_" + Math.random().toString(36).slice(2, 10);
+  function uid(prefix) {
+    return (prefix || "c_") + Math.random().toString(36).slice(2, 10);
   }
 
   function readJSON(key, fallback) {
@@ -46,19 +63,18 @@
   }
 
   function addXp(pts, reason) {
-    try {
-      const prev = readJSON(PLAY_KEY, {});
-      const n = Number(pts) || 0;
-      prev.points = (prev.points || 0) + n;
-      prev.xp = (prev.xp || 0) + n;
-      prev.socialFarm = (prev.socialFarm || 0) + n;
-      prev.lastSocial = { pts: n, reason, at: new Date().toISOString() };
-      writeJSON(PLAY_KEY, prev);
-      window.dispatchEvent(new CustomEvent("pgb-play-update"));
-    } catch (_) {}
-    if (window.PGBGiftPack?.addFarmPoints && reason?.startsWith("gift")) {
-      /* already handled */
+    if (window.PGBAuth?.awardPoints) {
+      return window.PGBAuth.awardPoints(pts, reason);
     }
+    const n = Number(pts) || 0;
+    const prev = readJSON(PLAY_KEY, {});
+    prev.points = (prev.points || 0) + n;
+    prev.xp = (prev.xp || 0) + n;
+    prev.socialFarm = (prev.socialFarm || 0) + n;
+    prev.lastSocial = { pts: n, reason, at: new Date().toISOString() };
+    writeJSON(PLAY_KEY, prev);
+    window.dispatchEvent(new CustomEvent("pgb-play-update"));
+    return { awarded: n, base: n, mult: 1, reason };
   }
 
   function defaultProfile() {
@@ -67,6 +83,10 @@
       displayName: "PuckGold Fan",
       bio: "Farming gifts · climbing the board · Founding Four energy.",
       avatar: "🏒",
+      signId: "",
+      signLabel: "",
+      signEmoji: "",
+      likes: 0,
       links: [],
       createdAt: new Date().toISOString(),
       tipsReceived: 0,
@@ -104,6 +124,10 @@
       displayName: p.displayName,
       bio: p.bio,
       avatar: p.avatar,
+      signId: p.signId || "",
+      signLabel: p.signLabel || "",
+      signEmoji: p.signEmoji || "",
+      likes: p.likes || 0,
       links: p.links || [],
       tipsReceived: p.tipsReceived || 0,
       subscribers: p.subscribers || 0,
@@ -133,7 +157,7 @@
       h = (base + i).slice(0, 24);
     }
     p = saveMyProfile({ handle: h });
-    addXp(25, "claim-handle");
+    addXp(POINT_TABLE["claim-handle"], "claim-handle");
     return p;
   }
 
@@ -151,7 +175,6 @@
     return url.href;
   }
 
-  /* —— Linktree-style verify —— */
   function setLink(platform, url) {
     const p = myProfile();
     const links = (p.links || []).filter((l) => l.platform !== platform);
@@ -174,13 +197,13 @@
     const already = (p.links || []).find((l) => l.platform === platform && l.verified);
     saveMyProfile({ links });
     if (!already && meta) {
-      addXp(meta.pts, "social-verify-" + platform);
-      return { ok: true, pts: meta.pts };
+      const r = addXp(meta.pts, "social-verify-" + platform);
+      return { ok: true, pts: r.awarded, base: meta.pts, mult: r.mult };
     }
-    return { ok: true, pts: 0 };
+    return { ok: true, pts: 0, base: 0, mult: 1 };
   }
 
-  /* —— Comments / upvotes / tip / subscribe —— */
+  /* —— Comments / Reddit votes / TikTok like —— */
   function comments(handle) {
     const all = readJSON(COMMENTS_KEY, {});
     return all[slugify(handle)] || [];
@@ -190,35 +213,173 @@
     const h = slugify(handle);
     const all = readJSON(COMMENTS_KEY, {});
     const list = all[h] || [];
+    const mine = myProfile();
     const c = {
-      id: uid(),
-      from: fromName || myProfile().displayName || "Fan",
-      fromHandle: myProfile().handle || "",
+      id: uid("c_"),
+      from: fromName || mine.displayName || "Fan",
+      fromHandle: mine.handle || "",
+      fromAvatar: mine.avatar || "🏒",
       text: String(text || "").slice(0, 280),
       at: new Date().toISOString(),
       ups: 0,
+      downs: 0,
+      likes: 0,
     };
     list.unshift(c);
     all[h] = list.slice(0, 80);
     writeJSON(COMMENTS_KEY, all);
-    addXp(8, "comment");
-    return c;
+    const r = addXp(POINT_TABLE.comment, "comment");
+    return { comment: c, points: r };
+  }
+
+  function voteState(commentId) {
+    const ups = readJSON(UPS_KEY, {});
+    const downs = readJSON(DOWNS_KEY, {});
+    if (ups[commentId]) return "up";
+    if (downs[commentId]) return "down";
+    return null;
   }
 
   function upvote(commentId, handle) {
     const ups = readJSON(UPS_KEY, {});
-    if (ups[commentId]) return false;
-    ups[commentId] = true;
-    writeJSON(UPS_KEY, ups);
+    const downs = readJSON(DOWNS_KEY, {});
+    if (ups[commentId]) return { ok: false, already: true };
     const h = slugify(handle);
     const all = readJSON(COMMENTS_KEY, {});
     const list = all[h] || [];
     const c = list.find((x) => x.id === commentId);
-    if (c) c.ups = (c.ups || 0) + 1;
+    if (!c) return { ok: false };
+
+    if (downs[commentId]) {
+      delete downs[commentId];
+      c.downs = Math.max(0, (c.downs || 0) - 1);
+      writeJSON(DOWNS_KEY, downs);
+    }
+    ups[commentId] = true;
+    writeJSON(UPS_KEY, ups);
+    c.ups = (c.ups || 0) + 1;
     all[h] = list;
     writeJSON(COMMENTS_KEY, all);
-    addXp(3, "upvote");
-    return true;
+    const r = addXp(POINT_TABLE.upvote, "upvote");
+    return { ok: true, points: r };
+  }
+
+  function downvote(commentId, handle) {
+    const ups = readJSON(UPS_KEY, {});
+    const downs = readJSON(DOWNS_KEY, {});
+    if (downs[commentId]) return { ok: false, already: true };
+    const h = slugify(handle);
+    const all = readJSON(COMMENTS_KEY, {});
+    const list = all[h] || [];
+    const c = list.find((x) => x.id === commentId);
+    if (!c) return { ok: false };
+
+    if (ups[commentId]) {
+      delete ups[commentId];
+      c.ups = Math.max(0, (c.ups || 0) - 1);
+      writeJSON(UPS_KEY, ups);
+    }
+    downs[commentId] = true;
+    writeJSON(DOWNS_KEY, downs);
+    c.downs = (c.downs || 0) + 1;
+    all[h] = list;
+    writeJSON(COMMENTS_KEY, all);
+    const r = addXp(POINT_TABLE.downvote, "downvote");
+    return { ok: true, points: r };
+  }
+
+  function likeComment(commentId, handle) {
+    const likes = readJSON(LIKES_KEY, {});
+    const key = commentId;
+    const h = slugify(handle);
+    const all = readJSON(COMMENTS_KEY, {});
+    const list = all[h] || [];
+    const c = list.find((x) => x.id === commentId);
+    if (!c) return { ok: false };
+
+    if (likes[key]) {
+      delete likes[key];
+      c.likes = Math.max(0, (c.likes || 0) - 1);
+      writeJSON(LIKES_KEY, likes);
+      all[h] = list;
+      writeJSON(COMMENTS_KEY, all);
+      return { ok: true, liked: false, points: { awarded: 0 } };
+    }
+    likes[key] = true;
+    writeJSON(LIKES_KEY, likes);
+    c.likes = (c.likes || 0) + 1;
+    all[h] = list;
+    writeJSON(COMMENTS_KEY, all);
+    const r = addXp(POINT_TABLE.like, "like");
+    return { ok: true, liked: true, points: r };
+  }
+
+  function isLiked(commentId) {
+    return !!readJSON(LIKES_KEY, {})[commentId];
+  }
+
+  /* —— TikTok-style micro feed on profile —— */
+  function feed(handle) {
+    const all = readJSON(FEED_KEY, {});
+    return all[slugify(handle)] || [];
+  }
+
+  function addFeedPost(text) {
+    const mine = ensureHandle();
+    const h = mine.handle;
+    if (!h) return { ok: false };
+    const all = readJSON(FEED_KEY, {});
+    const list = all[h] || [];
+    const post = {
+      id: uid("p_"),
+      text: String(text || "").slice(0, 220),
+      at: new Date().toISOString(),
+      likes: 0,
+      avatar: mine.avatar,
+      name: mine.displayName,
+    };
+    list.unshift(post);
+    all[h] = list.slice(0, 40);
+    writeJSON(FEED_KEY, all);
+    const r = addXp(POINT_TABLE["feed-post"], "feed-post");
+    return { ok: true, post, points: r };
+  }
+
+  function likeFeed(postId, handle) {
+    const likes = readJSON(FEED_LIKES_KEY, {});
+    const key = postId;
+    const h = slugify(handle);
+    const all = readJSON(FEED_KEY, {});
+    const list = all[h] || [];
+    const p = list.find((x) => x.id === postId);
+    if (!p) return { ok: false };
+    if (likes[key]) {
+      delete likes[key];
+      p.likes = Math.max(0, (p.likes || 0) - 1);
+      writeJSON(FEED_LIKES_KEY, likes);
+      all[h] = list;
+      writeJSON(FEED_KEY, all);
+      return { ok: true, liked: false };
+    }
+    likes[key] = true;
+    writeJSON(FEED_LIKES_KEY, likes);
+    p.likes = (p.likes || 0) + 1;
+    all[h] = list;
+    writeJSON(FEED_KEY, all);
+    // bump profile likes counter for TikTok vibe
+    const map = allProfiles();
+    if (map[h]) {
+      map[h].likes = (map[h].likes || 0) + 1;
+      writeJSON(PROFILES_KEY, map);
+    }
+    const mine = myProfile();
+    if (mine.handle === h) saveMyProfile({ likes: (mine.likes || 0) + 1 });
+    const r = addXp(POINT_TABLE["feed-like"], "feed-like");
+    return { ok: true, liked: true, points: r };
+  }
+
+  function isFeedLiked(postId) {
+    return !!readJSON(FEED_LIKES_KEY, {})[postId];
   }
 
   function subscribe(handle) {
@@ -237,8 +398,8 @@
     if (mine.handle === h) {
       saveMyProfile({ subscribers: (mine.subscribers || 0) + 1 });
     }
-    addXp(20, "subscribe");
-    return { ok: true };
+    const r = addXp(POINT_TABLE.subscribe, "subscribe");
+    return { ok: true, points: r };
   }
 
   function isSubscribed(handle) {
@@ -248,9 +409,15 @@
   function tip(handle, coins) {
     const h = slugify(handle);
     const n = Math.max(1, Math.floor(Number(coins) || 0));
+    let pts = null;
     if (window.PGBGems?.tipCoins) {
       const r = window.PGBGems.tipCoins(n);
       if (r === false || r?.ok === false) return { ok: false, reason: "coins" };
+      // gems tipCoins already farms XP (with multiplier)
+      pts = { awarded: 0, note: "via-gems" };
+    } else {
+      const base = Math.max(POINT_TABLE.tip, Math.floor(n / 10));
+      pts = addXp(base, "tip");
     }
     const map = allProfiles();
     if (map[h]) {
@@ -259,43 +426,93 @@
     }
     const mine = myProfile();
     if (mine.handle === h) saveMyProfile({ tipsReceived: (mine.tipsReceived || 0) + n });
-    addXp(Math.max(5, Math.floor(n / 10)), "tip");
-    return { ok: true, coins: n };
+    return { ok: true, coins: n, points: pts };
+  }
+
+  function seedDemoFans() {
+    const map = allProfiles();
+    if (Object.keys(map).length >= 4) return;
+    const demos = [
+      { handle: "neonfarmr", displayName: "NeonFarmr", avatar: "🔥", signEmoji: "♌", signLabel: "Leo", bio: "5× grinding · gift whale.", likes: 420, subscribers: 88, tipsReceived: 1200 },
+      { handle: "perchpulse", displayName: "PerchPulse", avatar: "🐧", signEmoji: "♒", signLabel: "Aquarius", bio: "Clip Crown clips all day.", likes: 310, subscribers: 54, tipsReceived: 800 },
+      { handle: "goldrushgus", displayName: "GoldRushGus", avatar: "👑", signEmoji: "♈", signLabel: "Aries", bio: "OG Pass · board chaser.", likes: 990, subscribers: 210, tipsReceived: 4000 },
+      { handle: "clipqueen", displayName: "ClipQueen", avatar: "💅", signEmoji: "♏", signLabel: "Scorpio", bio: "TikTok energy on ice.", likes: 640, subscribers: 140, tipsReceived: 2100 },
+    ];
+    demos.forEach((d) => {
+      if (!map[d.handle]) {
+        map[d.handle] = { ...d, links: [], upvotes: 12, updatedAt: new Date().toISOString() };
+      }
+    });
+    writeJSON(PROFILES_KEY, map);
+
+    // seed a couple feed posts / comments for goldrushgus so browsing feels alive
+    const feedAll = readJSON(FEED_KEY, {});
+    if (!feedAll.goldrushgus) {
+      feedAll.goldrushgus = [
+        { id: "p_seed1", text: "Just locked the $36 OG — 5× points go brrr 🏒💎", at: new Date(Date.now() - 3600000).toISOString(), likes: 48, avatar: "👑", name: "GoldRushGus" },
+        { id: "p_seed2", text: "Who else farming the Expansion giveaway??", at: new Date(Date.now() - 7200000).toISOString(), likes: 31, avatar: "👑", name: "GoldRushGus" },
+      ];
+      writeJSON(FEED_KEY, feedAll);
+    }
   }
 
   function leaderboardSlice() {
+    seedDemoFans();
     const play = readJSON(PLAY_KEY, {});
     const pts = play.points || play.xp || 0;
     const mine = myProfile();
-    const bots = [
-      { handle: "neonfarmr", name: "NeonFarmr", pts: 820 },
-      { handle: "perchpulse", name: "PerchPulse", pts: 640 },
-      { handle: "domedash", name: "DomeDash", pts: 510 },
-      { handle: "whalegift", name: "WhaleGift", pts: 440 },
-      { handle: "terminalxp", name: "TerminalXP", pts: 390 },
-    ];
+    const map = allProfiles();
+    const bots = Object.values(map)
+      .filter((p) => p.handle && p.handle !== mine.handle)
+      .map((p) => ({
+        handle: p.handle,
+        name: p.displayName,
+        avatar: p.avatar || "🏒",
+        pts: Math.max(120, (p.likes || 0) * 8 + (p.subscribers || 0) * 15 + (p.tipsReceived || 0) / 5),
+        premium: false,
+      }));
+    // fixed high scores so farming feels competitive
+    const floors = {
+      neonfarmr: 820,
+      perchpulse: 640,
+      goldrushgus: 12480,
+      clipqueen: 2100,
+    };
+    bots.forEach((b) => {
+      if (floors[b.handle]) b.pts = Math.max(b.pts, floors[b.handle]);
+    });
     const you = {
       handle: mine.handle || "you",
       name: (mine.displayName || "You") + " (you)",
+      avatar: mine.avatar || "🏒",
       pts,
       you: true,
+      premium: !!(window.PGBAuth?.isPremium?.()),
     };
     return [...bots, you].sort((a, b) => b.pts - a.pts).map((r, i) => ({ ...r, rank: i + 1 }));
   }
 
-  function unlockTier(pts) {
+  function unlockTiers(pts) {
     const p = pts != null ? pts : readJSON(PLAY_KEY, {}).points || 0;
+    const premium = !!(window.PGBAuth?.isPremium?.());
     return [
       { id: "chat", label: "Profile comments", need: 0, unlocked: true },
       { id: "tip", label: "Tip with Coins", need: 50, unlocked: p >= 50 },
-      { id: "frame", label: "Gold profile frame", need: 200, unlocked: p >= 200 },
+      { id: "frame", label: "Gold profile frame", need: 200, unlocked: p >= 200 || premium },
       { id: "whale", label: "Whale gift presets", need: 400, unlocked: p >= 400 },
       { id: "live", label: "Live tip alerts (demo)", need: 800, unlocked: p >= 800 },
+      { id: "og", label: "5× OG Pass multiplier", need: 0, unlocked: premium },
     ];
   }
 
+  // seed once on load
+  try {
+    seedDemoFans();
+  } catch (_) {}
+
   window.PGBProfile = {
     PLATFORMS,
+    POINT_TABLE,
     myProfile,
     saveMyProfile,
     ensureHandle,
@@ -307,6 +524,14 @@
     comments,
     addComment,
     upvote,
+    downvote,
+    voteState,
+    likeComment,
+    isLiked,
+    feed,
+    addFeedPost,
+    likeFeed,
+    isFeedLiked,
     subscribe,
     isSubscribed,
     tip,
@@ -314,5 +539,6 @@
     unlockTiers,
     addXp,
     slugify,
+    seedDemoFans,
   };
 })();

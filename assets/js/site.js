@@ -125,6 +125,47 @@
       .join("");
   }
 
+  function readAuthChip() {
+    try {
+      const s = JSON.parse(localStorage.getItem("pgb-auth") || "null");
+      if (!s || !s.email) return null;
+      const p = JSON.parse(localStorage.getItem("pgb-fan-profile") || "{}");
+      const m = JSON.parse(localStorage.getItem("pgb-membership") || "null");
+      const premium = m && m.tier && m.tier !== "free";
+      return {
+        avatar: p.avatar || s.avatar || "🏒",
+        handle: p.handle || s.handle || "fan",
+        premium,
+        onboarded: !!s.onboarded,
+      };
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function navAuthHtml() {
+    const chip = readAuthChip();
+    if (!chip) return `<a href="signin.html" class="nav-pill nav-pill-signin">Sign In</a>`;
+    if (!chip.onboarded) {
+      return `<a href="signin.html" class="nav-pill nav-pill-signin">Finish setup</a>`;
+    }
+    return `<a href="profile.html" class="nav-me" title="@${chip.handle}">
+      <span class="nav-me-av">${chip.avatar}</span>
+      <span class="nav-me-handle">@${chip.handle}</span>
+      ${chip.premium ? `<span class="nav-me-badge">5×</span>` : ""}
+    </a>`;
+  }
+
+  function navAuthDrawerHtml() {
+    const chip = readAuthChip();
+    if (!chip) return `<a href="signin.html" class="btn btn-signin btn-block">Sign In · create profile</a>`;
+    if (!chip.onboarded) {
+      return `<a href="signin.html" class="btn btn-signin btn-block">Finish profile setup</a>`;
+    }
+    return `<a href="profile.html" class="btn btn-sapphire btn-block">${chip.avatar} @${chip.handle}${chip.premium ? " · 5×" : ""}</a>
+      <a href="fantasy.html#board" class="btn btn-ghost btn-block">Farm &amp; leaderboard</a>`;
+  }
+
   function mount() {
     const header = document.getElementById("site-header");
     const footer = document.getElementById("site-footer");
@@ -167,6 +208,7 @@
       isActive("gems.html") ||
       isActive("gift-open.html") ||
       isActive("profile.html") ||
+      isActive("signin.html") ||
       isActive("play.html") ||
       isActive("lockervision.html") ||
       isActive("lv-game.html") ||
@@ -223,7 +265,7 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 016 0"/></svg>
             <span class="bag-count" id="navBagCount" data-count="0"></span>
           </button>
-          <a href="signin.html" class="nav-pill nav-pill-signin">Sign In</a>
+          ${navAuthHtml()}
           <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileDrawer" aria-label="Open menu">
             <span></span><span></span><span></span>
           </button>
@@ -267,7 +309,7 @@
         <a href="brand.html">Brand Kit</a>
         <div class="drawer-ctas">
           <a href="shop.html" class="btn btn-sapphire btn-block">Shop</a>
-          <a href="signin.html" class="btn btn-signin btn-block">Sign In</a>
+          ${navAuthDrawerHtml()}
           <button class="theme-toggle theme-toggle-drawer" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch to light mode" title="Light mode">
             <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 0110.5 3 7 7 0 1019 16.5c.7-.6 1.4-1.3 2-2z"/></svg>
             <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
