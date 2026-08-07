@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sapphires, Rubies &amp; Coins — Digital Gifts | PuckGold</title>
+<meta name="description" content="Buy Sapphires, Rubies, and Coins. Send TikTok/Twitch-style digital gifts. Unlock digital goods for live sports, streaming, and Fan Zone.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=25">
+<link rel="stylesheet" href="assets/css/play-zone.css?v=3">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .gm-hero{
+    color:#fff;padding:2.8rem 4vw 2rem;position:relative;overflow:hidden;
+    background:
+      radial-gradient(circle at 85% 20%, rgba(91,159,255,.45), transparent 40%),
+      radial-gradient(circle at 15% 80%, rgba(194,59,74,.35), transparent 42%),
+      radial-gradient(circle at 50% 50%, rgba(240,215,140,.2), transparent 50%),
+      linear-gradient(145deg,#050910,#0b1220 45%,#163a74);
+  }
+  .gm-hero-inner{max-width:1100px;margin:0 auto}
+  .gm-hero h1{font-family:var(--display);font-size:clamp(2.5rem,8vw,4.2rem);letter-spacing:.03em;line-height:.94;margin:.3rem 0;max-width:16ch}
+  .gm-hero p{color:rgba(255,255,255,.82);max-width:40rem;line-height:1.55;margin:.7rem 0 1.1rem}
+  .wallet{
+    display:flex;flex-wrap:wrap;gap:.55rem;margin:1rem 0 0;
+  }
+  .wallet div{
+    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:12px;
+    padding:.7rem 1rem;min-width:110px;
+  }
+  .wallet strong{display:block;font-family:var(--display);font-size:1.6rem;letter-spacing:.04em}
+  .wallet span{font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.65}
+  .wallet .s strong{color:#7eb6ff}
+  .wallet .r strong{color:#ff7a8a}
+  .wallet .c strong{color:#f0d78c}
+  .gm-wrap{max-width:1100px;margin:0 auto;padding:1.5rem 4vw 4rem}
+  .gm-wrap h2{font-family:var(--display);font-size:clamp(1.6rem,4vw,2.2rem);letter-spacing:.04em;margin:0 0 .4rem}
+  .gm-wrap .lead{color:#5c6473;margin:0 0 1.1rem;max-width:40rem;line-height:1.5}
+  .packs{display:grid;gap:.75rem;grid-template-columns:1fr 1fr}
+  @media(min-width:800px){.packs{grid-template-columns:repeat(3,1fr)}}
+  .pack{
+    background:#fff;border:1px solid rgba(18,24,38,.08);border-radius:14px;padding:1.15rem;position:relative;
+  }
+  .pack.hot{border-color:rgba(212,175,55,.55);box-shadow:0 0 0 1px rgba(212,175,55,.2)}
+  .pack .tag{font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#8a93a3}
+  .pack .saph{font-family:var(--display);font-size:2rem;color:#163a74;letter-spacing:.04em;margin:.25rem 0}
+  .pack .usd{font-size:1.05rem;font-weight:800}
+  .pack .bonus{font-size:.78rem;color:#065f46;font-weight:700;min-height:1.2em;margin:.35rem 0 .75rem}
+  .gifts{display:grid;gap:.65rem;grid-template-columns:repeat(2,1fr)}
+  @media(min-width:700px){.gifts{grid-template-columns:repeat(3,1fr)}}
+  @media(min-width:1000px){.gifts{grid-template-columns:repeat(4,1fr)}}
+  .gift{
+    background:#0b1220;color:#fff;border-radius:14px;padding:1rem;text-align:center;border:1px solid rgba(255,255,255,.08);
+    display:flex;flex-direction:column;gap:.35rem;min-height:180px;
+  }
+  .gift .emoji{font-size:2.2rem;line-height:1}
+  .gift h3{font-size:.95rem;margin:0}
+  .gift .tier{font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#f0d78c}
+  .gift .price{font-size:.78rem;color:rgba(255,255,255,.7);flex:1}
+  .goods{display:grid;gap:.75rem}
+  @media(min-width:800px){.goods{grid-template-columns:1fr 1fr}}
+  .good{
+    background:#fff;border:1px solid rgba(18,24,38,.08);border-radius:12px;padding:1.1rem;
+    display:flex;justify-content:space-between;gap:1rem;align-items:center;
+  }
+  .good h3{margin:0 0 .25rem;font-size:1rem}
+  .good p{margin:0;font-size:.82rem;color:#5c6473}
+  .toast{
+    position:fixed;bottom:5.5rem;left:50%;transform:translateX(-50%);z-index:95;
+    background:#0b1220;color:#f0d78c;padding:.7rem 1.1rem;border-radius:999px;font-size:.8rem;font-weight:800;
+    display:none;box-shadow:0 12px 30px rgba(0,0,0,.35);
+  }
+  .toast.is-on{display:block}
+  .send-box{
+    background:#fff;border:1px solid rgba(18,24,38,.08);border-radius:14px;padding:1.2rem;display:grid;gap:.65rem;margin-top:1rem;
+  }
+  .send-box label{font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#5c6473}
+  .send-box input,.send-box select,.send-box textarea{
+    width:100%;padding:.7rem .8rem;border-radius:10px;border:1px solid rgba(18,24,38,.12);font:inherit;background:#f8fafc;
+  }
+</style>
+</head>
+<body class="pz-light">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+
+<section class="gm-hero">
+  <div class="gm-hero-inner">
+    <span class="kicker" style="color:#f0d78c">Gems · Coins · Digital gifts</span>
+    <h1>BUY SAPPHIRES. SEND THE FLEX.</h1>
+    <p>
+      TikTok coins meets Robux meets Twitch Bits — on the coldest live sports + social + shopping platform.
+      Load <strong style="color:#7eb6ff">Sapphires</strong>, earn bonus <strong style="color:#ff7a8a">Rubies</strong> &amp; <strong style="color:#f0d78c">Coins</strong>,
+      then drop digital gifts in streams, Fan Zone, and live shopping.
+    </p>
+    <div class="wallet" id="walletBar">
+      <div class="s"><strong id="wS">0</strong><span>Sapphires</span></div>
+      <div class="r"><strong id="wR">0</strong><span>Rubies</span></div>
+      <div class="c"><strong id="wC">0</strong><span>Coins</span></div>
+    </div>
+    <div class="cta-row" style="margin-top:1.1rem">
+      <a href="#buy" class="btn btn-founding btn-sm">Buy packs</a>
+      <a href="#gifts" class="btn btn-ghost btn-sm">Digital gifts</a>
+      <a href="#goods" class="btn btn-ghost btn-sm">Digital goods</a>
+      <a href="gifts.html" class="btn btn-ghost btn-sm">Gift cards · 35%</a>
+    </div>
+  </div>
+</section>
+
+<div class="gm-wrap">
+  <div class="pz-tabs" id="tabs" style="margin-bottom:1.25rem">
+    <button type="button" class="is-active" data-tab="buy">Buy</button>
+    <button type="button" data-tab="gifts">Gifts</button>
+    <button type="button" data-tab="goods">Goods</button>
+    <button type="button" data-tab="activity">Activity</button>
+  </div>
+
+  <section id="panel-buy">
+    <h2 id="buy">Sapphire packs</h2>
+    <p class="lead">Demo checkout — packs credit your local wallet instantly. Stripe wires next. Bigger packs = more Rubies &amp; Coins (Douyin/TikTok energy).</p>
+    <div class="packs" id="packGrid"></div>
+  </section>
+
+  <section id="panel-gifts" hidden>
+    <h2 id="gifts">Digital gifts</h2>
+    <p class="lead">Send on live streams, Party Zone, Discord/Club vibes, or tip a creator — Twitch/TikTok gift board style.</p>
+    <div class="gifts" id="giftGrid"></div>
+    <form class="send-box" id="sendGiftForm">
+      <div>
+        <label for="giftPick">Gift</label>
+        <select id="giftPick" required></select>
+      </div>
+      <div>
+        <label for="giftTo">To (creator / friend / handle)</label>
+        <input id="giftTo" placeholder="@streamer or Friend" required>
+      </div>
+      <div>
+        <label for="giftNote">Note</label>
+        <input id="giftNote" placeholder="Let’s go Geckz">
+      </div>
+      <button type="submit" class="btn btn-sapphire btn-block">Send digital gift</button>
+    </form>
+    <form class="send-box" id="tipForm">
+      <div>
+        <label for="tipAmt">Tip with Coins (chat micro-tips)</label>
+        <input id="tipAmt" type="number" min="1" value="50" required>
+      </div>
+      <div>
+        <label for="tipTo">To</label>
+        <input id="tipTo" placeholder="@creator" required>
+      </div>
+      <button type="submit" class="btn btn-og btn-block">Send coin tip</button>
+    </form>
+  </section>
+
+  <section id="panel-goods" hidden>
+    <h2 id="goods">Digital goods</h2>
+    <p class="lead">Ownable unlocks — badges, emotes, stream overlays, LockerVision skins. Live shopping + gaming inventory.</p>
+    <div class="goods" id="goodGrid"></div>
+    <h2 style="margin-top:2rem">Your inventory</h2>
+    <div id="invList" class="lead">Empty — buy a digital good.</div>
+  </section>
+
+  <section id="panel-activity" hidden>
+    <h2>Recent gifts sent</h2>
+    <div id="sentList" class="lead">No gifts sent yet.</div>
+  </section>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=26"></script>
+<script src="assets/js/support-widget.js?v=1"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/gems-economy.js?v=1"></script>
+<script>
+(function () {
+  const G = window.PGBGems;
+
+  function toast(msg) {
+    const el = document.getElementById("toast");
+    el.textContent = msg;
+    el.classList.add("is-on");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => el.classList.remove("is-on"), 2200);
+  }
+
+  function paintWallet() {
+    const w = G.readWallet();
+    document.getElementById("wS").textContent = w.sapphires.toLocaleString();
+    document.getElementById("wR").textContent = w.rubies.toLocaleString();
+    document.getElementById("wC").textContent = w.coins.toLocaleString();
+  }
+
+  function priceLabel(s, r) {
+    const parts = [];
+    if (s) parts.push(`${s.toLocaleString()} 💎`);
+    if (r) parts.push(`${r} ❤️`);
+    return parts.join(" · ") || "Free";
+  }
+
+  document.getElementById("packGrid").innerHTML = G.PACKS.map(
+    (p) => `
+    <article class="pack ${p.hot ? "hot" : ""}">
+      <div class="tag">${p.tag}</div>
+      <div class="saph">${p.sapphires.toLocaleString()} 💎</div>
+      <div class="usd">$${p.usd.toFixed(2)}</div>
+      <div class="bonus">${p.bonus || "&nbsp;"}</div>
+      <button type="button" class="btn btn-sapphire btn-sm btn-block" data-buy="${p.id}">Get Sapphires</button>
+    </article>`
+  ).join("");
+
+  document.getElementById("giftGrid").innerHTML = G.GIFTS.map(
+    (g) => `
+    <article class="gift">
+      <div class="emoji">${g.emoji}</div>
+      <div class="tier">${g.tier}</div>
+      <h3>${g.name}</h3>
+      <div class="price">${priceLabel(g.priceS, g.priceR)}<br><span style="opacity:.7">${g.vibe}</span></div>
+      <button type="button" class="btn btn-ghost btn-sm" data-pick-gift="${g.id}">Select</button>
+    </article>`
+  ).join("");
+
+  document.getElementById("giftPick").innerHTML = G.GIFTS.map(
+    (g) => `<option value="${g.id}">${g.emoji} ${g.name} — ${priceLabel(g.priceS, g.priceR)}</option>`
+  ).join("");
+
+  document.getElementById("goodGrid").innerHTML = G.GOODS.map(
+    (g) => `
+    <article class="good">
+      <div>
+        <div class="tag" style="font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#8a93a3">${g.type}</div>
+        <h3>${g.name}</h3>
+        <p>${g.desc} · ${priceLabel(g.priceS, g.priceR)}</p>
+      </div>
+      <button type="button" class="btn btn-platinum btn-sm" data-buy-good="${g.id}">Unlock</button>
+    </article>`
+  ).join("");
+
+  function paintInv() {
+    const inv = G.readInv();
+    document.getElementById("invList").innerHTML = inv.length
+      ? `<ul style="margin:0;padding-left:1.1rem;color:#5c6473">${inv
+          .map((i) => `<li><b>${i.name}</b> · ${i.type || i.kind} · ${new Date(i.at).toLocaleString()}</li>`)
+          .join("")}</ul>`
+      : "Empty — buy a digital good.";
+  }
+
+  function paintSent() {
+    const sent = G.sentHistory();
+    document.getElementById("sentList").innerHTML = sent.length
+      ? `<ul style="margin:0;padding-left:1.1rem;color:#5c6473">${sent
+          .map(
+            (s) =>
+              `<li>${s.gift.emoji} <b>${s.gift.name}</b> → ${s.toName}${s.note ? ` “${s.note}”` : ""} · ${new Date(s.at).toLocaleString()}</li>`
+          )
+          .join("")}</ul>`
+      : "No gifts sent yet.";
+  }
+
+  document.getElementById("packGrid").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-buy]");
+    if (!btn) return;
+    const res = G.buyPack(btn.dataset.buy);
+    if (res.ok) {
+      paintWallet();
+      toast(`+${res.pack.sapphires} Sapphires loaded`);
+    }
+  });
+
+  document.getElementById("giftGrid").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-pick-gift]");
+    if (!btn) return;
+    document.getElementById("giftPick").value = btn.dataset.pickGift;
+    document.getElementById("sendGiftForm").scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+
+  document.getElementById("sendGiftForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const res = G.sendGift(
+      document.getElementById("giftPick").value,
+      document.getElementById("giftTo").value,
+      document.getElementById("giftNote").value
+    );
+    if (!res.ok) return toast(res.error);
+    paintWallet();
+    paintSent();
+    toast(`Sent ${res.sent.gift.emoji} ${res.sent.gift.name} → ${res.sent.toName}`);
+    e.target.reset();
+  });
+
+  document.getElementById("tipForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const res = G.tipCoins(document.getElementById("tipAmt").value, document.getElementById("tipTo").value);
+    if (!res.ok) return toast(res.error);
+    paintWallet();
+    toast(`Tipped ${document.getElementById("tipAmt").value} Coins → ${res.toName}`);
+  });
+
+  document.getElementById("goodGrid").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-buy-good]");
+    if (!btn) return;
+    const res = G.buyGood(btn.dataset.buyGood);
+    if (!res.ok) return toast(res.error);
+    paintWallet();
+    paintInv();
+    toast(`Unlocked ${res.item.name}`);
+  });
+
+  document.getElementById("tabs").addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-tab]");
+    if (!btn) return;
+    const tab = btn.dataset.tab;
+    document.querySelectorAll("#tabs button").forEach((b) => b.classList.toggle("is-active", b === btn));
+    ["buy", "gifts", "goods", "activity"].forEach((t) => {
+      document.getElementById("panel-" + t).hidden = t !== tab;
+    });
+  });
+
+  window.addEventListener("pgb:wallet", paintWallet);
+  paintWallet();
+  paintInv();
+  paintSent();
+
+  const q = new URLSearchParams(location.search).get("tab");
+  if (q) document.querySelector(`#tabs button[data-tab="${q}"]`)?.click();
+})();
+</script>
+</body>
+</html>

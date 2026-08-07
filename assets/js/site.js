@@ -74,6 +74,8 @@
     { href: "lockervision.html", label: "LockerVision outfits" },
     { href: "fantasy.html", label: "Fantasy & Giveaway" },
     { href: "fantasy.html#prizes", label: "Prizes" },
+    { href: "gems.html", label: "Sapphires · Rubies · Coins" },
+    { href: "gems.html?tab=gifts", label: "Digital gifts" },
     { href: "gifts.html", label: "Gift Cards · 35% bonus" },
     { href: "gifts.html#send", label: "Send a gift pack" },
     { href: "join.html", label: "League Pass · Plans" },
@@ -147,6 +149,8 @@
     const fanActive =
       isActive("fantasy.html") ||
       isActive("gifts.html") ||
+      isActive("gems.html") ||
+      isActive("gift-open.html") ||
       isActive("play.html") ||
       isActive("lockervision.html") ||
       isActive("experience.html") ||
@@ -238,6 +242,8 @@
         <a href="play.html">Game Zone · Play</a>
         <a href="play.html#board">Fan leaderboard</a>
         <a href="fantasy.html">Fantasy &amp; Giveaway</a>
+        <a href="gems.html">Sapphires · Rubies · Coins</a>
+        <a href="gems.html?tab=gifts">Digital gifts</a>
         <a href="gifts.html">Gift Cards</a>
         <div class="drawer-group">More</div>
         <a href="about.html">About PuckGold</a>
@@ -338,6 +344,8 @@
               <a href="experience.html">Event Experience</a>
               <a href="fantasy.html">Fan Zone</a>
               <a href="shop.html">Shop</a>
+              <a href="gems.html">Sapphires · Rubies · Coins</a>
+              <a href="gems.html?tab=gifts">Digital gifts</a>
               <a href="gifts.html">Gift Cards · 35% bonus</a>
               <a href="gifts.html#send">Send a gift pack</a>
               <a href="join.html">League Pass / Tickets</a>
