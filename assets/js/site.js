@@ -65,6 +65,7 @@
     { href: "developers.html", label: "Developer Hub" },
     { href: "partners.html", label: "Partners" },
     { href: "brand.html", label: "Brand Kit" },
+    { href: "retro.html", label: "Retro League · '94" },
   ];
 
   const fanLinks = [
@@ -72,7 +73,9 @@
     { href: "experience.html", label: "Event Experience" },
     { href: "play.html", label: "Game Zone · Play" },
     { href: "play.html#board", label: "Fan leaderboard" },
-    { href: "lockervision.html", label: "LockerVision outfits" },
+    { href: "retro.html", label: "Retro League · '94" },
+    { href: "lockervision.html", label: "LockerVision" },
+    { href: "lv-schedule.html", label: "LV · Outfit schedule" },
     { href: "fantasy.html", label: "Fantasy & Giveaway" },
     { href: "fantasy.html#prizes", label: "Prizes" },
     { href: "gems.html", label: "Sapphires · Rubies · Coins" },
@@ -155,6 +158,12 @@
       isActive("gift-open.html") ||
       isActive("play.html") ||
       isActive("lockervision.html") ||
+      isActive("lv-game.html") ||
+      isActive("lv-team.html") ||
+      isActive("lv-outfit.html") ||
+      isActive("lv-edition.html") ||
+      isActive("lv-schedule.html") ||
+      isActive("lv-about.html") ||
       isActive("experience.html") ||
       isActive("promos.html") ||
       isActive("join.html");
@@ -226,6 +235,7 @@
         <a href="rosters.html">Rosters</a>
         <a href="stadiums.html">Stadiums</a>
         <a href="lockervision.html">LockerVision</a>
+        <a href="lv-schedule.html">LV · Outfit schedule</a>
         <a href="awards.html">Trophies &amp; Awards</a>
         <div class="drawer-group">News &amp; Video</div>
         <a href="expansion.html">Expansion Weekend · 24h</a>
@@ -243,6 +253,9 @@
         <a href="experience.html">Event Experience</a>
         <a href="play.html">Game Zone · Play</a>
         <a href="play.html#board">Fan leaderboard</a>
+        <a href="lockervision.html">LockerVision</a>
+        <a href="lv-schedule.html">LV · Outfit schedule</a>
+        <a href="retro.html">Retro League · '94</a>
         <a href="fantasy.html">Fantasy &amp; Giveaway</a>
         <a href="gems.html">Sapphires · Rubies · Coins</a>
         <a href="gems.html?tab=gifts">Digital gifts</a>
@@ -262,6 +275,7 @@
         <a href="contact.html">Contact</a>
         <a href="partners.html">Partners</a>
         <a href="brand.html">Brand Kit</a>
+        <a href="retro.html">Retro League · '94</a>
         <div class="drawer-ctas">
           <a href="join.html" class="btn btn-founding btn-block">Tickets · Become a founding member</a>
           <a href="shop.html" class="btn btn-sapphire btn-block">Shop</a>
@@ -346,6 +360,8 @@
               <a href="promos.html">Promotions</a>
               <a href="experience.html">Event Experience</a>
               <a href="fantasy.html">Fan Zone</a>
+              <a href="lockervision.html">LockerVision</a>
+              <a href="lv-schedule.html">LV · Outfit schedule</a>
               <a href="shop.html">Shop</a>
               <a href="gems.html">Sapphires · Rubies · Coins</a>
               <a href="gems.html?tab=gifts">Digital gifts</a>
@@ -365,6 +381,7 @@
               <a href="developers.html">Developer Hub</a>
               <a href="partners.html">Partners</a>
               <a href="brand.html">Brand Kit</a>
+              <a href="retro.html">Retro League · '94</a>
               <a href="media.html">Media Hub</a>
               <a href="format.html">League Format</a>
             </div>

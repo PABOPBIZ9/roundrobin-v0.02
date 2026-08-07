@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Editions — LockerVision | PuckGold</title>
+<meta name="description" content="All PuckGold uniforms by edition — Home Ice, Road White, Alternate Night, Classic Throwback, Goalie Pad Sets.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=28">
+<link rel="stylesheet" href="assets/css/lockervision.css?v=2">
+<meta name="theme-color" content="#0a0c10">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+</head>
+<body class="lv-body">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+<div id="lvSubnav"></div>
+<div id="lvTeamBar"></div>
+
+<section class="lv-hero" style="padding-bottom:1rem">
+  <div class="kicker">All PuckGold uniforms by edition</div>
+  <h1 id="lvTitle">HOME ICE</h1>
+  <p id="lvBlurb"></p>
+</section>
+
+<div class="lv-wrap lv-wrap-wide">
+  <div class="lv-ed-tabs" id="lvTabs"></div>
+  <div class="lv-kit-grid" id="lvGrid"></div>
+</div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=28"></script>
+<script src="assets/js/support-widget.js?v=2"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/teams-data.js?v=2"></script>
+<script src="assets/js/standings-data.js?v=2"></script>
+<script src="assets/js/lockervision-data.js?v=2"></script>
+<script src="assets/js/lockervision.js?v=2"></script>
+<script>
+(function () {
+  const UI = window.PGBLVUI;
+  const LV = window.PGBLockerVision;
+  let edition = new URLSearchParams(location.search).get("edition") || "home";
+  if (!LV.editions.some((e) => e.id === edition)) edition = "home";
+
+  document.getElementById("lvSubnav").innerHTML = UI.subnav("editions");
+  document.getElementById("lvTeamBar").innerHTML = UI.teamFilterBar(null);
+
+  function render() {
+    const ed = LV.editions.find((e) => e.id === edition);
+    document.getElementById("lvTitle").textContent = (ed?.name || edition).toUpperCase();
+    document.getElementById("lvBlurb").textContent = ed?.blurb || "";
+    document.title = `${ed?.name || edition} — LockerVision | PuckGold`;
+    document.getElementById("lvTabs").innerHTML = LV.editions
+      .map(
+        (e) =>
+          `<a href="lv-edition.html?edition=${e.id}" class="${e.id === edition ? "is-active" : ""}">${e.name}</a>`
+      )
+      .join("");
+    document.getElementById("lvGrid").innerHTML = window.PGBTeams.all()
+      .map((t) => UI.kitCardHTML(t, edition))
+      .join("");
+    UI.hydrateKitCards();
+  }
+  render();
+})();
+</script>
+</body>
+</html>

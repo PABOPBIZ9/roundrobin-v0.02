@@ -2,132 +2,125 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LockerVision — Game Outfits | PuckGold</title>
-<meta name="description" content="PuckGold LockerVision — home and away game outfits for every Founding Four matchup.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>LockerVision — Every Locker, Every Player, Every Game | PuckGold</title>
+<meta name="description" content="PuckGold LockerVision — hockey game outfits, jerseys, pads, helmets, and ice rink stages for every Founding Four matchup.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=13">
-<link rel="stylesheet" href="assets/css/play-zone.css?v=1">
+<link rel="stylesheet" href="assets/css/site.css?v=28">
+<link rel="stylesheet" href="assets/css/lockervision.css?v=2">
+<meta name="theme-color" content="#0a0c10">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 </head>
-<body class="pz-light">
+<body class="lv-body">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
+<div id="lvSubnav"></div>
+<div id="lvTeamBar"></div>
 
-<section class="pz-hero">
-  <span class="kicker">LockerVision</span>
-  <h1>GAME OUTFITS</h1>
-  <p>Pick a game. See what each side is rolling — home ice vs road kit. Drop finals into the team jersey vaults; the stage updates when files land.</p>
-  <div class="cta-row">
-    <a href="play.html" class="btn btn-sapphire btn-sm">Earn XP in Game Zone</a>
-    <a href="shop.html#best" class="btn btn-platinum btn-sm">Shop jerseys</a>
+<section class="lv-hero">
+  <div class="kicker">PuckGold LockerVision</div>
+  <h1>EVERY LOCKER.<br>EVERY PLAYER.<br>EVERY GAME.</h1>
+  <p>Jerseys, pads, helmets, and ice — see what each Founding Four side rolls on tip night. Inspired by <a href="https://lockervision.nba.com/" style="color:#f0d78c">NBA LockerVision</a>, built for hockey.</p>
+  <div class="cta-row" style="justify-content:center">
+    <a href="lv-schedule.html" class="btn btn-founding btn-sm">Outfit schedule</a>
+    <a href="lv-edition.html?edition=home" class="btn btn-platinum btn-sm">Browse editions</a>
+    <a href="lv-about.html" class="btn btn-ghost btn-sm">About</a>
   </div>
 </section>
 
-<div class="pz-wrap pz-wrap-wide">
-  <div class="lv-layout">
-    <aside class="lv-side">
-      <h3>Select game</h3>
-      <div id="lvGames"></div>
-    </aside>
+<div class="lv-wrap lv-wrap-wide">
+  <div class="lv-section-head">
     <div>
-      <div class="lv-stage" id="lvStage"></div>
-      <p style="margin-top:1rem;font-size:.86rem;color:#5c6473">
-        Drop kit art: <code>assets/teams/{slug}/05-Jerseys-Uniforms/</code> as
-        <code>home.png</code> / <code>away.png</code> (or per-game
-        <code>assets/vault/games/outfits/{gameid}/home.png</code>).
-        Pattern inspired by <a href="https://lockervision.nba.com/game-outfit/oklahoma-city-thunder?gameid=0022500001" style="color:#163a74;text-decoration:underline">NBA LockerVision</a>.
-      </p>
+      <h2>Editions</h2>
+      <p>Home Ice · Road White · Alternate Night · Classic Throwback · Goalie Pad Sets</p>
     </div>
+    <a href="lv-edition.html?edition=home">View all editions →</a>
+  </div>
+  <div class="lv-ed-tabs" id="lvEdTabs"></div>
+  <div class="lv-kit-grid" id="lvEditionPreview"></div>
+
+  <div class="lv-section-head">
+    <div>
+      <h2>Teams</h2>
+      <p>Open a locker room — full kit catalog + player strip.</p>
+    </div>
+  </div>
+  <div class="lv-kit-grid" id="lvTeams" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))"></div>
+
+  <div class="lv-section-head">
+    <div>
+      <h2>Upcoming &amp; recent outfits</h2>
+      <p>Tap a matchup for jersey + pads + rink stage.</p>
+    </div>
+    <a href="lv-schedule.html">Full schedule →</a>
+  </div>
+  <div class="lv-game-grid" id="lvGames"></div>
+
+  <div class="lv-drop-note">
+    Drop kit art into <code>assets/teams/{slug}/05-Jerseys-Uniforms/{home|away|alternate|classic|goalie}/</code>
+    as <code>hero.png</code>, <code>jersey.png</code>, <code>pads.png</code>, <code>helmet.png</code>, etc.
+    Per-game overrides: <code>assets/vault/games/outfits/{gameid}/home.png</code>.
+    Rink maps: <code>assets/vault/rinks/{slug}.png</code>.
   </div>
 </div>
 
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=27"></script>
+<script src="assets/js/site.js?v=28"></script>
 <script src="assets/js/support-widget.js?v=2"></script>
 <script src="assets/js/cart.js?v=6"></script>
 <script src="assets/js/teams-data.js?v=2"></script>
 <script src="assets/js/standings-data.js?v=2"></script>
+<script src="assets/js/lockervision-data.js?v=2"></script>
+<script src="assets/js/lockervision.js?v=2"></script>
 <script>
 (function () {
-  const games = window.PGB_GAMES || [];
-  const bySlug = Object.fromEntries(window.PGBTeams.all().map((t) => [t.slug, t]));
+  const UI = window.PGBLVUI;
+  const LV = window.PGBLockerVision;
   const params = new URLSearchParams(location.search);
-  let activeId = params.get("gameid") || games[0]?.id;
-
-  const list = document.getElementById("lvGames");
-  const stage = document.getElementById("lvStage");
-
-  function jerseyBlock(team, outfitName, side, gameId) {
-    if (!team) return "";
-    const vaultImg = `assets/teams/${team.slug}/05-Jerseys-Uniforms/${side}.png`;
-    const gameImg = `assets/vault/games/outfits/${gameId}/${side}.png`;
-    return `
-      <div class="lv-jersey">
-        <div class="label">${side === "home" ? "Home" : "Away"}</div>
-        <div class="mark" style="background:linear-gradient(160deg,${team.color},${team.colorDeep})" id="mark-${side}">${team.mono}</div>
-        <img src="${gameImg}" alt="" hidden data-fallback="${vaultImg}" data-side="${side}">
-        <h4>${team.name}</h4>
-        <div>${outfitName}</div>
-        <div class="lv-drop">Try <code>${gameImg}</code></div>
-      </div>`;
+  // Legacy deep link: lockervision.html?gameid= → game outfit page
+  if (params.get("gameid")) {
+    location.replace("lv-game.html?gameid=" + encodeURIComponent(params.get("gameid")));
+    return;
   }
 
-  function render() {
-    const g = games.find((x) => x.id === activeId) || games[0];
-    if (!g) return;
-    const home = bySlug[g.home];
-    const away = bySlug[g.away];
+  document.getElementById("lvSubnav").innerHTML = UI.subnav("home");
+  document.getElementById("lvTeamBar").innerHTML = UI.teamFilterBar(null);
 
-    list.innerHTML = games
-      .map(
-        (x) => `
-      <button type="button" class="lv-game ${x.id === g.id ? "is-active" : ""}" data-id="${x.id}">
-        <b>${x.label}</b>
-        <span>${x.date} · ${x.status} · ${x.score}</span>
-      </button>`
-      )
+  const edTabs = document.getElementById("lvEdTabs");
+  let activeEd = "home";
+  function renderEditions() {
+    edTabs.innerHTML = LV.editions
+      .map((e) => `<a href="lv-edition.html?edition=${e.id}" class="${e.id === activeEd ? "is-active" : ""}">${e.name}</a>`)
       .join("");
-
-    stage.innerHTML = `
-      <div class="lv-meta" style="grid-column:1/-1">
-        <div>
-          <div class="lv-chip">${g.id}</div>
-          <div class="lv-chip">${g.status}</div>
-          <div class="lv-chip">${g.score}</div>
-        </div>
-        <a class="pz-btn" href="play.html" style="text-decoration:none">+35 XP scout quest</a>
-      </div>
-      ${jerseyBlock(home, g.outfitHome, "home", g.id)}
-      ${jerseyBlock(away, g.outfitAway, "away", g.id)}
-    `;
-
-    stage.querySelectorAll("img[data-fallback]").forEach((img) => {
-      const mark = document.getElementById("mark-" + img.dataset.side);
-      const tryLoad = (src, next) => {
-        const test = new Image();
-        test.onload = () => {
-          img.src = src;
-          img.hidden = false;
-          if (mark) mark.hidden = true;
-        };
-        test.onerror = () => next && next();
-        test.src = src;
-      };
-      tryLoad(img.getAttribute("src"), () => tryLoad(img.dataset.fallback));
-    });
-
-    list.querySelectorAll(".lv-game").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        activeId = btn.dataset.id;
-        history.replaceState(null, "", `?gameid=${activeId}`);
-        render();
-      });
-    });
+    const teams = window.PGBTeams.all();
+    document.getElementById("lvEditionPreview").innerHTML = teams
+      .map((t) => UI.kitCardHTML(t, activeEd))
+      .join("");
+    UI.hydrateKitCards();
   }
+  renderEditions();
 
-  render();
+  document.getElementById("lvTeams").innerHTML = window.PGBTeams.all()
+    .map((t) => {
+      const kit = LV.kitFor(t.slug, "home");
+      return `
+        <a class="lv-kit-card" href="lv-team.html?team=${encodeURIComponent(t.slug)}" style="--team:${t.color}">
+          <span class="lv-kit-badge" style="background:${t.colorDeep}">${t.code}</span>
+          <div class="lv-kit-stage">
+            <div class="lv-kit-ice"></div>
+            <div class="lv-kit-fallback">${UI.kitSilhouette(t, kit)}</div>
+          </div>
+          <div class="lv-kit-meta">
+            <strong>${t.name}</strong>
+            <span>${t.city} · Open locker</span>
+          </div>
+        </a>`;
+    })
+    .join("");
+
+  const games = [...(window.PGB_GAMES || [])].slice().reverse().slice(0, 8);
+  document.getElementById("lvGames").innerHTML = games.map((g) => UI.gameCardHTML(g)).join("");
 })();
 </script>
 </body>

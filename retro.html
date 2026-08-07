@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PGB Retro League — NHL '94 Throwback | PuckGold</title>
+<meta name="description" content="PGB Retro League — 16-bit championship marks, shimmer logo, and throwback vibes inspired by 1994 hockey video games.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=27">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+  .rt-page{background:#050810;color:#eef3fa;min-height:100vh}
+  .rt-page .ice-lines{opacity:.08}
+  .crt{
+    position:relative;isolation:isolate;
+  }
+  .crt::after{
+    content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
+    background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.12) 2px,rgba(0,0,0,.12) 4px);
+    opacity:.45;border-radius:inherit;
+  }
+  .rt-hero{
+    padding:2.5rem 4vw 2rem;text-align:center;max-width:900px;margin:0 auto;
+  }
+  .rt-hero .pixel{
+    font-family:"Press Start 2P",monospace;font-size:clamp(.55rem,2vw,.72rem);
+    letter-spacing:.08em;color:#f0d78c;margin-bottom:1rem;
+  }
+  .rt-hero h1{
+    font-family:"Press Start 2P",monospace;font-size:clamp(.85rem,3.5vw,1.35rem);
+    line-height:1.45;color:#fff;text-shadow:3px 3px 0 #7a1524,6px 6px 0 #0b1220;
+    margin:0 0 1rem;
+  }
+  .rt-hero p{color:rgba(255,255,255,.7);max-width:36rem;margin:0 auto 1.25rem;line-height:1.55}
+  .rt-video-wrap{
+    max-width:520px;margin:0 auto 1.5rem;border-radius:12px;overflow:hidden;
+    border:4px solid #d4af37;box-shadow:0 0 0 4px #163a74,0 20px 50px rgba(0,0,0,.5);
+    background:#000;
+  }
+  .rt-video-wrap video{display:block;width:100%;height:auto;aspect-ratio:1}
+  .rt-wrap{max-width:1100px;margin:0 auto;padding:1rem 4vw 4rem}
+  .rt-wrap h2{
+    font-family:"Press Start 2P",monospace;font-size:clamp(.7rem,2vw,.9rem);
+    color:#f0d78c;margin:2rem 0 1rem;line-height:1.5;
+  }
+  .rt-grid{display:grid;gap:1rem}
+  @media(min-width:800px){.rt-grid{grid-template-columns:1fr 1fr}}
+  @media(min-width:1100px){.rt-grid.three{grid-template-columns:1fr 1fr 1fr}}
+  .rt-card{
+    background:#0a1020;border:3px solid #3d6fbf;border-radius:8px;padding:.85rem;
+    box-shadow:inset 0 0 0 2px #0b1220,4px 4px 0 #7a1524;
+  }
+  .rt-card img{width:100%;height:auto;display:block;image-rendering:pixelated;background:#000;border-radius:4px}
+  .rt-card figcaption{
+    font-family:"Press Start 2P",monospace;font-size:.5rem;color:rgba(255,255,255,.75);
+    margin-top:.75rem;line-height:1.6;
+  }
+  .rt-bar{
+    display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-top:1rem;
+  }
+  .rt-bar a,.rt-bar .btn{
+    font-family:"Press Start 2P",monospace !important;font-size:.55rem !important;
+    letter-spacing:.04em;border-radius:4px !important;
+  }
+  .rt-marquee{
+    overflow:hidden;background:#7a1524;color:#f0d78c;padding:.55rem 0;
+    font-family:"Press Start 2P",monospace;font-size:.5rem;border-top:3px solid #d4af37;border-bottom:3px solid #d4af37;
+  }
+  .rt-marquee div{display:inline-block;white-space:nowrap;padding-left:100%;animation:scroll 22s linear infinite}
+  @keyframes scroll{to{transform:translateX(-100%)}}
+  @media(max-width:640px){
+    .rt-hero{padding:1.5rem 4vw 1.25rem}
+    .rt-hero h1{font-size:clamp(.7rem,5.5vw,1rem)}
+    .rt-bar a,.rt-bar .btn{width:100%;justify-content:center}
+    .rt-wrap{padding:0.75rem 4vw 3.5rem}
+    .rt-card{padding:.65rem}
+  }
+</style>
+</head>
+<body class="rt-page">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+
+<div class="rt-marquee" aria-hidden="true">
+  <div>PGB RETRO LEAGUE · PRESS START · FOUNDING FOUR · CHAMPIONSHIP MODE · INSERT COIN · SAPPHIRES READY ·&nbsp;</div>
+</div>
+
+<section class="rt-hero">
+  <div class="pixel">SELECT MODE · 1994 THROWBACK</div>
+  <h1>PGB<br>RETRO LEAGUE</h1>
+  <p>16-bit championship energy — shimmer logo motion + crest marks for Game Zone, gems, loading screens, and throwback nights.</p>
+  <div class="rt-video-wrap crt">
+    <video
+      src="assets/brand/retro/pgb-logo-shimmer.mp4"
+      poster="assets/brand/retro/pgb-league-shimmer-still.png"
+      autoplay muted loop playsinline
+      aria-label="PGB PuckGold logo shimmer animation"></video>
+  </div>
+  <div class="rt-bar">
+    <a href="play.html" class="btn btn-founding btn-sm">Game Zone</a>
+    <a href="gems.html" class="btn btn-sapphire btn-sm">Sapphires</a>
+    <a href="brand.html#retro" class="btn btn-ghost btn-sm">Brand kit</a>
+    <a href="awards.html" class="btn btn-ghost btn-sm">Hardware</a>
+  </div>
+</section>
+
+<div class="rt-wrap">
+  <h2>CREST SELECT</h2>
+  <div class="rt-grid three">
+    <figure class="rt-card crt">
+      <img src="assets/brand/retro/pgb-league-shimmer-still.png" alt="PGB League retro crest with gears and stars" width="512" height="512">
+      <figcaption>PGB LEAGUE<br>Shimmer crest</figcaption>
+    </figure>
+    <figure class="rt-card crt">
+      <img src="assets/brand/retro/pgb-championship-league.png" alt="PGB Championship League crest with trophies" width="512" height="512">
+      <figcaption>CHAMPIONSHIP<br>LEAGUE</figcaption>
+    </figure>
+    <figure class="rt-card crt">
+      <img src="assets/brand/retro/pgb-retro-league.png" alt="PGB Retro League shield logo" width="512" height="512">
+      <figcaption>RETRO LEAGUE<br>Shield mark</figcaption>
+    </figure>
+  </div>
+
+  <h2>USE ON</h2>
+  <div class="rt-bar" style="justify-content:flex-start;margin-bottom:2rem">
+    <a href="play.html" class="btn btn-platinum btn-sm">Game Zone boot</a>
+    <a href="gems.html" class="btn btn-ghost btn-sm">Gems packs</a>
+    <a href="gifts.html" class="btn btn-ghost btn-sm">Gift cards</a>
+    <a href="bracket.html" class="btn btn-ghost btn-sm">Playoffs</a>
+    <a href="developers.html" class="btn btn-ghost btn-sm">Dev Hub items</a>
+  </div>
+  <p style="font-size:.85rem;color:rgba(255,255,255,.5);max-width:36rem;line-height:1.5">
+    Files live in <code style="color:#f0d78c">assets/brand/retro/</code> and vault mirror
+    <code style="color:#f0d78c">assets/vault/logos/retro/</code>. Drop more '94-style team marks there anytime.
+  </p>
+</div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=28"></script>
+<script src="assets/js/support-widget.js?v=2"></script>
+<script src="assets/js/cart.js?v=6"></script>
+</body>
+</html>

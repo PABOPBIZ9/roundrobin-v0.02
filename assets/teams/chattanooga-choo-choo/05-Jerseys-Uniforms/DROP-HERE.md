@@ -1,1 +1,3 @@
-Drop files for **05-Jerseys-Uniforms** in this folder.
+# Jerseys — chattanooga-choo-choo
+Folders: home away alternate classic goalie
+Legacy flats: home.png away.png

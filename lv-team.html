@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Team Locker — LockerVision | PuckGold</title>
+<meta name="description" content="Team locker room — home, away, alternate, classic, and goalie pad sets for PuckGold Founding Four.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=28">
+<link rel="stylesheet" href="assets/css/lockervision.css?v=2">
+<meta name="theme-color" content="#0a0c10">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+</head>
+<body class="lv-body">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+<div id="lvSubnav"></div>
+<div id="lvTeamBar"></div>
+<div class="lv-wrap lv-wrap-wide" id="lvRoot"></div>
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=28"></script>
+<script src="assets/js/support-widget.js?v=2"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/teams-data.js?v=2"></script>
+<script src="assets/js/standings-data.js?v=2"></script>
+<script src="assets/js/lockervision-data.js?v=2"></script>
+<script src="assets/js/lockervision.js?v=2"></script>
+<script>
+(function () {
+  const UI = window.PGBLVUI;
+  const LV = window.PGBLockerVision;
+  const slug = new URLSearchParams(location.search).get("team") || "miami-mighty-geckz";
+  const team = LV.teamBySlug(slug) || window.PGBTeams.all()[0];
+  document.title = `${team.name} — LockerVision | PuckGold`;
+  document.getElementById("lvSubnav").innerHTML = UI.subnav("teams");
+  document.getElementById("lvTeamBar").innerHTML = UI.teamFilterBar(team.slug);
+
+  const kitIds = ["home", "away", "alternate", "classic", "goalie"];
+  const games = LV.gamesForTeam(team.slug);
+
+  document.getElementById("lvRoot").innerHTML = `
+    <div class="lv-team-hero" style="background:linear-gradient(120deg,${team.colorDeep}88,transparent)">
+      <div class="lv-team-mark" style="background:linear-gradient(145deg,${team.color},${team.colorDeep})">${team.mono}</div>
+      <div>
+        <div class="kicker" style="color:${team.color}">${team.tagline}</div>
+        <h1 style="font-family:var(--display);font-size:clamp(2rem,6vw,3.2rem);margin:.25rem 0">${team.name}</h1>
+        <p style="color:rgba(255,255,255,.6);max-width:36rem">${team.blurb}</p>
+        <div class="cta-row" style="margin-top:.75rem">
+          <a href="team.html?team=${encodeURIComponent(team.slug)}" class="btn btn-platinum btn-sm">Team page</a>
+          <a href="shop.html?filter=${encodeURIComponent(team.shopFilter || "")}" class="btn btn-founding btn-sm">Shop kits</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="lv-section-head"><h2>Kit catalog</h2><p>Jersey · pads · helmet · gloves · skates per edition</p></div>
+    <div class="lv-kit-grid" id="lvKits"></div>
+
+    <div class="lv-section-head"><h2>Players</h2><p>Every locker — drop headshots into player folders anytime.</p></div>
+    <div class="lv-player-strip">
+      ${team.players
+        .map(
+          (p) => `
+        <div class="lv-player">
+          <span style="display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%;background:${team.colorDeep};font-weight:900">#${p.num}</span>
+          <b>${p.name}</b>
+          <span>${p.pos} · ${p.role}</span>
+        </div>`
+        )
+        .join("")}
+    </div>
+
+    <div class="lv-section-head"><h2>Games in this kit</h2><a href="lv-schedule.html?team=${encodeURIComponent(team.slug)}">Schedule →</a></div>
+    <div class="lv-game-grid">${games.map((g) => UI.gameCardHTML(g)).join("") || "<p style='color:rgba(255,255,255,.5)'>No games yet.</p>"}</div>
+
+    <div class="lv-rink-panel" style="margin-top:2rem">
+      <h4>Home ice · ${team.arena}</h4>
+      ${UI.rinkSvg(team)}
+    </div>
+  `;
+
+  document.getElementById("lvKits").innerHTML = kitIds.map((id) => UI.kitCardHTML(team, id)).join("");
+  UI.hydrateKitCards();
+})();
+</script>
+</body>
+</html>

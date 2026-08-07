@@ -17,7 +17,17 @@ games/
 Team jersey fallbacks still live at:
 `assets/teams/{slug}/05-Jerseys-Uniforms/home.png` · `away.png`
 
+Kit layers (per team):
+`assets/teams/{slug}/05-Jerseys-Uniforms/{home|away|alternate|classic|goalie}/`
+→ hero.png, jersey.png, pads.png, helmet.png, gloves.png, pants.png, skates.png
+
+Rink maps: `assets/vault/rinks/{slug}.png`
+
 Wire-up:
-- `play.html` — timed quizzes, learning quests, daily farm, fan XP board
-- `lockervision.html?gameid=` — game outfits
-- `standings.html` — NHL/NBA-style division table
+- `lockervision.html` — LV hub
+- `lv-schedule.html` — outfit schedule
+- `lv-game.html?gameid=` — game outfit (jersey + pads + rink)
+- `lv-team.html?team=` · `lv-outfit.html?team=&kit=` · `lv-edition.html?edition=`
+- `lv-about.html` — about / FAQs
+- `play.html` — Game Zone
+- Legacy `lockervision.html?gameid=` redirects to `lv-game.html`

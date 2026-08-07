@@ -1,1 +1,3 @@
-Drop files for **05-Jerseys-Uniforms** in this folder.
+# Jerseys — miami-mighty-geckz
+Folders: home away alternate classic goalie
+Legacy flats: home.png away.png

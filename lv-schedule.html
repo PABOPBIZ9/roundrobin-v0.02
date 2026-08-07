@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Outfit Schedule — LockerVision | PuckGold</title>
+<meta name="description" content="PuckGold LockerVision schedule — every game, every kit, home and road.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=28">
+<link rel="stylesheet" href="assets/css/lockervision.css?v=2">
+<meta name="theme-color" content="#0a0c10">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+</head>
+<body class="lv-body">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+<div id="lvSubnav"></div>
+<div id="lvTeamBar"></div>
+
+<section class="lv-hero" style="padding-bottom:0">
+  <div class="kicker">Uniform schedule</div>
+  <h1>GAME OUTFITS</h1>
+  <p>Pick a matchup. See jersey, pads, and rink for both clubs — NBA LockerVision schedule energy, hockey layers.</p>
+</section>
+
+<div class="lv-wrap lv-wrap-wide">
+  <div class="lv-section-head">
+    <div>
+      <h2>Editions on deck</h2>
+      <p id="lvFeaturedNote">Featured kits from the Founding Four.</p>
+    </div>
+  </div>
+  <div class="lv-kit-grid" id="lvFeatured" style="margin-bottom:2rem"></div>
+
+  <div id="lvSchedule"></div>
+</div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=28"></script>
+<script src="assets/js/support-widget.js?v=2"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/teams-data.js?v=2"></script>
+<script src="assets/js/standings-data.js?v=2"></script>
+<script src="assets/js/lockervision-data.js?v=2"></script>
+<script src="assets/js/lockervision.js?v=2"></script>
+<script>
+(function () {
+  const UI = window.PGBLVUI;
+  const LV = window.PGBLockerVision;
+  const filterTeam = new URLSearchParams(location.search).get("team");
+
+  document.getElementById("lvSubnav").innerHTML = UI.subnav("schedule");
+  document.getElementById("lvTeamBar").innerHTML = UI.teamFilterBar(filterTeam);
+
+  const teams = window.PGBTeams.all();
+  document.getElementById("lvFeatured").innerHTML = teams
+    .map((t) => UI.kitCardHTML(t, "home"))
+    .join("");
+  UI.hydrateKitCards();
+
+  let games = LV.allEnrichedGames();
+  if (filterTeam) {
+    games = games.filter((g) => g.home === filterTeam || g.away === filterTeam);
+    const t = LV.teamBySlug(filterTeam);
+    document.getElementById("lvFeaturedNote").textContent = t ? `${t.name} kits & matchups` : "";
+  }
+
+  // Group by month
+  const groups = {};
+  games.forEach((g) => {
+    const d = new Date(g.date + "T12:00:00");
+    const key = d.toLocaleDateString("en-US", { month: "long", year: "numeric" }).toUpperCase();
+    (groups[key] = groups[key] || []).push(g);
+  });
+
+  document.getElementById("lvSchedule").innerHTML = Object.entries(groups)
+    .map(
+      ([month, list]) => `
+      <div class="lv-section-head"><h2>${month}</h2></div>
+      <div class="lv-game-grid">${list.map((g) => UI.gameCardHTML(g)).join("")}</div>`
+    )
+    .join("");
+})();
+</script>
+</body>
+</html>

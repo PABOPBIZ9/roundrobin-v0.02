@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>About LockerVision | PuckGold</title>
+<meta name="description" content="About PuckGold LockerVision — every locker, every player, every game. Jerseys, pads, helmets, ice rink stages.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=28">
+<link rel="stylesheet" href="assets/css/lockervision.css?v=2">
+<meta name="theme-color" content="#0a0c10">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+</head>
+<body class="lv-body">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+<div id="lvSubnav"></div>
+
+<section class="lv-hero">
+  <div class="kicker">LockerVision</div>
+  <h1>ABOUT US</h1>
+</section>
+
+<div class="lv-wrap">
+  <div class="lv-about-card">
+    <p>
+      <strong style="color:#fff">PuckGold LockerVision</strong> gives fans a look into every Founding Four locker —
+      for every game and every player. It’s the destination for uniform schedules, kit design details,
+      jersey + pads + helmet layers, and ice-rink stages.
+    </p>
+    <p style="margin-top:1rem">
+      What started as game-night outfit reveals is growing into a full hockey kit browser —
+      Home Ice, Road White, Alternate Night, Classic Throwback, and Goalie Pad Sets —
+      with DROP folders ready for photography and 3D renders.
+    </p>
+    <p style="margin-top:1rem">
+      Pattern inspired by
+      <a href="https://lockervision.nba.com/about" style="color:#f0d78c">NBA LockerVision</a>,
+      rebuilt for hockey: jerseys, pads, and the sheet.
+    </p>
+  </div>
+
+  <div class="lv-faq">
+    <h2 style="font-family:var(--display);text-align:center;margin-bottom:1rem">FAQs</h2>
+    <details open>
+      <summary>How many kits does each Founding Four team have?</summary>
+      <p>Five edition lanes: Home Ice, Road White, Alternate Night, Classic Throwback, and a Goalie Pad Set. Named game outfits (e.g. Neon Reef Home) map into those editions on the schedule.</p>
+    </details>
+    <details>
+      <summary>Why show pads and helmets — not just jerseys?</summary>
+      <p>Hockey outfitting is a full kit. LockerVision stages jersey, pants/socks, pads, helmet, gloves, and skates — plus crease gear for goalies — so fans and merch partners see the whole look.</p>
+    </details>
+    <details>
+      <summary>What’s the ice rink panel?</summary>
+      <p>Each game and outfit page includes a rink schematic (and optional photo drop) for the venue — center ice, creases, and team mark — the hockey analog to NBA court maps.</p>
+    </details>
+    <details>
+      <summary>Where do I drop finished art?</summary>
+      <p><code style="color:#f0d78c">assets/teams/{slug}/05-Jerseys-Uniforms/{edition}/</code> for hero + layer PNGs. Per-game overrides in <code style="color:#f0d78c">assets/vault/games/outfits/{gameid}/</code>. Rinks in <code style="color:#f0d78c">assets/vault/rinks/</code>.</p>
+    </details>
+  </div>
+
+  <div class="cta-row" style="justify-content:center;margin-top:2rem">
+    <a href="lv-schedule.html" class="btn btn-founding btn-sm">Browse schedule</a>
+    <a href="lv-edition.html?edition=home" class="btn btn-platinum btn-sm">Editions</a>
+    <a href="developers.html" class="btn btn-ghost btn-sm">Dev Hub</a>
+  </div>
+</div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=28"></script>
+<script src="assets/js/support-widget.js?v=2"></script>
+<script src="assets/js/cart.js?v=6"></script>
+<script src="assets/js/lockervision.js?v=2"></script>
+<script>
+document.getElementById("lvSubnav").innerHTML = window.PGBLVUI.subnav("about");
+</script>
+</body>
+</html>
