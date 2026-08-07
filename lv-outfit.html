@@ -6,7 +6,7 @@
 <title>Outfit — LockerVision | PuckGold</title>
 <meta name="description" content="Uniform story — jersey, pads, helmet, and ice rink details for a PuckGold kit edition.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=28">
+<link rel="stylesheet" href="assets/css/site.css?v=33">
 <link rel="stylesheet" href="assets/css/lockervision.css?v=2">
 <meta name="theme-color" content="#0a0c10">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
@@ -19,8 +19,8 @@
 <div class="lv-wrap lv-wrap-wide" id="lvRoot"></div>
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=28"></script>
-<script src="assets/js/support-widget.js?v=3"></script>
+<script src="assets/js/site.js?v=33"></script>
+<script src="assets/js/support-widget.js?v=5"></script>
 <script src="assets/js/cart.js?v=6"></script>
 <script src="assets/js/teams-data.js?v=2"></script>
 <script src="assets/js/standings-data.js?v=2"></script>
@@ -64,7 +64,7 @@
       </div>
       <div class="lv-info">
         <span class="lv-kit-badge" style="background:${team.colorDeep};position:static;transform:none;display:inline-block;margin:0 0 .5rem">${team.name}</span>
-        <div style="font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45)">${ed?.name || kitId} · ${ed?.nbaAnalog || ""} analog</div>
+        <div style="font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45)">${ed?.name || kitId} edition</div>
         <h2>${kit?.name || kitId}</h2>
         <div class="lv-actions">
           <a href="lv-team.html?team=${encodeURIComponent(team.slug)}">← Team locker</a>

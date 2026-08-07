@@ -133,7 +133,7 @@
 }
 
 .pgb-lang-bar{
-  background:#0b1220;color:#fff;padding:.65rem 4vw;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.75rem;
+  background:linear-gradient(180deg,#10203a,#0a162c);color:#fff;padding:.65rem 4vw;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.75rem;
 }
 .pgb-lang-bar .pgb-lang-btn{
   border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;border-radius:999px;

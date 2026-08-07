@@ -27,7 +27,7 @@
       re: /pass|membership|ticket|sign ?up|join|founding|\$36|league pass|assinatura|abonnement|会員/,
       msg: "Founding membership locks a free limited gold puck plus a year of Premium League Pass for thirty-six dollars. Or ride twelve ninety-nine a month.",
       links: [
-        { href: "join.html", label: "League Pass / Founding · $36" },
+        { href: "join.html", label: "$36 OG Pass · Founding" },
         { href: "expansion.html", label: "Expansion Weekend clock" },
         { href: "signin.html", label: "Sign in" },
       ],
@@ -172,9 +172,9 @@
       links: [
         { href: "experience.html", label: "Event Experience" },
         { href: "schedule.html", label: "Schedule" },
-        { href: "join.html", label: "Get tickets / Pass" },
+        { href: "join.html", label: "Get $36 OG Pass" },
       ],
-      follow: "Village, Party Zone, or tickets?",
+      follow: "Village, Party Zone, or OG Pass?",
     },
     {
       id: "signin",
@@ -360,7 +360,7 @@
     if (document.querySelector("link[data-pgb-support-css]")) return;
     const l = document.createElement("link");
     l.rel = "stylesheet";
-    l.href = "assets/css/support-widget.css?v=3";
+    l.href = "assets/css/support-widget.css?v=5";
     l.dataset.pgbSupportCss = "1";
     document.head.appendChild(l);
   }
@@ -400,7 +400,7 @@
           <div class="pgb-quick" id="pgbQuick"></div>
           <div class="pgb-support-menu">
             <button type="button" data-act="chat"><span class="ico">💬</span><span>Chat with Pucky</span></button>
-            <a href="join.html"><span class="ico">🎟️</span><span>League Pass / founding</span></a>
+            <a href="join.html"><span class="ico">🎟️</span><span>$36 OG Pass · founding</span></a>
             <a href="gems.html"><span class="ico">💎</span><span>Sapphires · Rubies · Coins</span></a>
             <a href="gifts.html"><span class="ico">🎁</span><span>Gift cards · 35% bonus</span></a>
             <a href="lockervision.html"><span class="ico">👕</span><span>LockerVision outfits</span></a>

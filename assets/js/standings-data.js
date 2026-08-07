@@ -1,4 +1,4 @@
-/** Founding Four standings + games — NHL scores/schedule/stats feed */
+/** Founding Four standings + games — PGB scores/schedule/stats feed */
 window.PGB_STANDINGS = {
   season: "2025–26",
   asOf: "2026-08-06",

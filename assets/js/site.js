@@ -92,31 +92,31 @@
     { href: "gifts.html", label: "Gift Cards · Live FOMO" },
     { href: "gifts.html#send", label: "Send a gift pack" },
     { href: "profile.html", label: "My profile · share link" },
-    { href: "join.html", label: "League Pass · Plans" },
+    { href: "join.html", label: "$36 OG Pass · Plans" },
   ];
 
   const socials = [
-    { name: "X", href: "https://x.com/puckgoldbiz", path: "M18 2h3l-7 8 8 10h-6l-5-6-5 6H0l8-9L1 2h6l4 5 5-5z" },
-    { name: "TikTok", href: "https://www.tiktok.com/@puckgoldbiz", path: "M14 2c1 2.5 2.8 4 5.5 4.3V9c-1.7 0-3.2-.5-4.5-1.4V15a6 6 0 11-6-6c.3 0 .7 0 1 .1V12a3.2 3.2 0 100 6.3A3.2 3.2 0 0013.2 15V2h.8z" },
-    { name: "YouTube", href: "https://www.youtube.com/@puckgoldbiz", path: "M2 6.5A2.5 2.5 0 014.5 4h11A2.5 2.5 0 0118 6.5v7a2.5 2.5 0 01-2.5 2.5h-11A2.5 2.5 0 012 13.5v-7zM9 8.2v5.6l5-2.8-5-2.8z" },
-    { name: "Instagram", href: "https://www.instagram.com/puckgoldbiz", path: "M7 2h6a5 5 0 015 5v6a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm6.5 2.2a1 1 0 100 2 1 1 0 000-2zM10 6.5A3.5 3.5 0 1010 13.5 3.5 3.5 0 0010 6.5z" },
-    { name: "Facebook", href: "https://www.facebook.com/puckgoldbiz", path: "M11 20V11h3l.5-3H11V6.2c0-.9.3-1.5 1.6-1.5H15V2.1C14.5 2 13.5 2 12.4 2 9.8 2 8 3.5 8 6.5V8H5.5v3H8v9h3z" },
-    { name: "Twitch", href: "https://www.twitch.tv/puckgoldbiz", path: "M3 2h14v10l-3 3h-3l-2 2H7v-2H3V2zm2 2v8h3v2l2-2h3l2-2V4H5zm7 2h2v4h-2V6zM8 6h2v4H8V6z" },
-    { name: "Kick", href: "https://kick.com/puckgoldbiz", path: "M3 2h4v6l4-6h5L10 10l6 8h-5l-4-6v6H3V2z" },
-    { name: "Club", href: "https://club.com/", path: "M10 2a6 6 0 016 6c0 4-6 10-6 10S4 12 4 8a6 6 0 016-6zm0 3.5A2.5 2.5 0 1010 10.5 2.5 2.5 0 0010 5.5z" },
-    { name: "Discord", href: "https://discord.gg/puckgoldbiz", path: "M15.5 4A11 11 0 0012.7 3l-.3.6A10 10 0 017.6 3l-.3-.1A11 11 0 004.5 4C2 7.6 1.5 11.1 1.7 14.5A11 11 0 006 16.7l.5-.8a7 7 0 01-1.3-.6l.3-.2a7.8 7.8 0 009 0l.3.2c-.4.3-.9.5-1.3.6l.5.8a11 11 0 004.3-2.2c.3-3.8-.5-7.3-2.8-10.5zM7.3 12.4c-.7 0-1.3-.7-1.3-1.5S6.6 9.4 7.3 9.4s1.3.7 1.3 1.5-.6 1.5-1.3 1.5zm5.4 0c-.7 0-1.3-.7-1.3-1.5s.6-1.5 1.3-1.5 1.3.7 1.3 1.5-.6 1.5-1.3 1.5z" },
-    { name: "Telegram", href: "https://t.me/puckgoldbiz", path: "M2 10l16-7-3.2 14.2-4.4-3.4-2.4 2.3-.4-4.2L15 6.5 7.3 11.2 2 10z" },
-    { name: "WhatsApp", href: "https://wa.me/", path: "M10 2a8 8 0 00-6.9 12.1L2 18l4-1a8 8 0 104-15zm0 2.3A5.7 5.7 0 1110 15.7c-.6 0-1.2-.1-1.8-.3l-.4-.1-2.3.6.6-2.2-.1-.4A5.7 5.7 0 0110 4.3zm3 7.3c-.2-.1-1-.5-1.1-.5s-.3-.1-.4.1-.5.5-.6.6-.2.1-.4 0a4.6 4.6 0 01-2.3-2c-.2-.3.2-.3.5-.7l.2-.3c.1-.1 0-.2 0-.3s-.4-1-.6-1.3-.3-.2-.4-.2h-.4c-.1 0-.3.1-.5.3s-.6.6-.6 1.5.7 1.7.8 1.9 1.3 2.1 3.3 2.8c1.2.4 1.7.4 2.3.3.4-.1 1.1-.5 1.3-1s.2-.8.1-.9-.1-.2-.3-.3z" },
-    { name: "LinkedIn", href: "https://www.linkedin.com/company/puckgoldbiz", path: "M4 7H1V19h3V7zm.2-4.2A1.8 1.8 0 112.4 4.6 1.8 1.8 0 014.2 2.8zM19 19h-3v-5.7c0-1.5-.5-2.5-1.8-2.5A2 2 0 0012 12.7V19H9V7h3v1.5A3.2 3.2 0 0115 7c2.4 0 4 1.5 4 4.7V19z" },
-    { name: "Threads", href: "https://www.threads.net/@puckgoldbiz", path: "M12.3 7.2c.5-2.2-.4-3.8-2.5-3.8-2.4 0-3.6 1.9-3.6 4.5 0 3.3 1.7 5 4.5 5 1.3 0 2.5-.3 3.5-.8V14c-.8.4-1.8.6-3 .6-4 0-6.6-2.5-6.6-6.7C4.6 3.7 7 1.5 10.3 1.5c3 0 5 1.8 4.7 5.1-.1 1.5-.7 2.6-1.8 3.3.8-.2 1.4-.6 1.8-1.1.7-1 1-2.4 1-3.8h2c0 1.9-.4 3.7-1.5 5.1-.8 1-2 1.8-3.5 2.2v2.3c1.4-.3 2.7-.9 3.7-1.8 1.6-1.5 2.5-3.7 2.5-6.4H23c0 3.4-1.2 6.1-3.4 8-1.5 1.3-3.4 2.1-5.6 2.4v-2.3c3-.7 4.9-2.8 5-6.2-.1 1.7-.8 3.1-1.9 4-.5.4-1.1.7-1.8.9V12c1.2-.5 2-1.4 2.2-2.8.2-1.1 0-2.1-.5-2.9z" },
-    { name: "Pinterest", href: "https://www.pinterest.com/puckgoldbiz", path: "M10 2a8 8 0 00-2.9 15.5c0-.7.1-1.7.4-2.5l1.4-5.8s-.3-.7-.3-1.7c0-1.6 1-2.8 2.1-2.8 1 0 1.5.8 1.5 1.7 0 1-.7 2.6-1 4-.3 1.2.6 2.2 1.8 2.2 2.1 0 3.6-2.7 3.6-5.8 0-2.4-1.6-4.2-4.5-4.2A4.7 4.7 0 005.8 8.6c0 1 .3 1.7.8 2.2l.2.2c-.1.3-.2.7-.2.9 0 .3-.2.7-.4.9A7 7 0 0110 3.5 6.5 6.5 0 0116.6 10c0 4.1-2.3 7.1-5.4 7.1-1.1 0-2.1-.6-2.4-1.3l-.7 2.5A8 8 0 0010 18a8 8 0 000-16z" },
-    { name: "Snapchat", href: "https://www.snapchat.com/add/puckgoldbiz", path: "M10 2c3 0 5.2 2 5.2 5.2 0 1.7-.4 2.8-.4 4.1 0 .7.4 1.1 1.1 1.4.6.2 1.3.5 1.3 1.2 0 .7-.8 1.1-1.5 1.3-.3.1-.5.2-.5.4 0 .7.9 1.4 1.7 1.8.5.2.7.5.7.8 0 .7-1.1 1.2-2.6 1.2-1 0-1.6-.2-2.3-.2-.7 0-1.2.3-2.2.8-.6.3-1.3.5-2 .5C5.3 20 3 18.7 3 16.8c0-.6.3-1 .9-1.3.8-.4 1.8-1.1 1.8-1.9 0-.2-.2-.3-.5-.4C4.4 13 3.5 12.5 3.5 11.7c0-.7.7-1 1.3-1.2.7-.3 1.1-.7 1.1-1.4 0-1.3-.4-2.4-.4-4.1C5.5 4 7.2 2 10 2z" },
-    { name: "Spotify", href: "https://open.spotify.com/user/puckgoldbiz", path: "M10 2a8 8 0 100 16 8 8 0 000-16zm3.6 11.5a.6.6 0 01-.8.2c-2.2-1.3-5-1.6-8.2-.9a.6.6 0 11-.3-1.2c3.5-.8 6.6-.4 9.1 1a.6.6 0 01.2.9zm1-2.3a.7.7 0 01-1 .3c-2.5-1.5-6.3-2-9.3-1.1a.7.7 0 01-.4-1.4c3.4-1 7.6-.4 10.5 1.3a.7.7 0 01.2 1zm.1-2.4C11.6 7.6 6.7 7.4 4 8.2a.9.9 0 11-.5-1.7c3.1-.9 8.5-.7 12 1.4a.9.9 0 01-.8 1.6z" },
-    { name: "Rumble", href: "https://rumble.com/c/puckgoldbiz", path: "M3 5h4l3 5 3-5h4l-5 7.5L17 20h-4l-3-5-3 5H3l5-7.5L3 5z" },
-    { name: "Whatnot", href: "https://www.whatnot.com/", path: "M3 4h14v3H3V4zm0 5h10v3H3V9zm0 5h14v3H3v-3z" },
-    { name: "Parti", href: "https://parti.com/", path: "M10 2l2.4 5.2L18 8l-4 3.6L15.2 18 10 14.8 4.8 18 6 11.6 2 8l5.6-.8L10 2z" },
-    { name: "Substack", href: "https://substack.com/@puckgoldbiz", path: "M2 3h16v2.5H2V3zm0 4.5h16V18l-8-4.5L2 18V7.5z" },
-    { name: "Medium", href: "https://medium.com/@puckgoldbiz", path: "M2 5.5c0-.4.2-.6.5-.7l3.4-1.6c.2-.1.4 0 .4.2v11.7c0 .2-.1.3-.3.4l-3.3 1.6c-.4.2-.7 0-.7-.4V5.5zm5.2-.2l3.7 6.1v.1l3.7-6.1V16h-1.7V8.5L10.8 14h-.7L7.9 8.5V16H6.2V5.3h1zM18.4 5l1.4-.7c.3-.1.5 0 .5.3v10.8c0 .5-.3 1-.8 1.2l-1.6.7V5z" },
+    { name: "X", cls: "soc-x", href: "https://x.com/puckgoldbiz", path: "M18 2h3l-7 8 8 10h-6l-5-6-5 6H0l8-9L1 2h6l4 5 5-5z" },
+    { name: "TikTok", cls: "soc-tiktok", href: "https://www.tiktok.com/@puckgoldbiz", path: "M14 2c1 2.5 2.8 4 5.5 4.3V9c-1.7 0-3.2-.5-4.5-1.4V15a6 6 0 11-6-6c.3 0 .7 0 1 .1V12a3.2 3.2 0 100 6.3A3.2 3.2 0 0013.2 15V2h.8z" },
+    { name: "YouTube", cls: "soc-youtube", href: "https://www.youtube.com/@puckgoldbiz", path: "M2 6.5A2.5 2.5 0 014.5 4h11A2.5 2.5 0 0118 6.5v7a2.5 2.5 0 01-2.5 2.5h-11A2.5 2.5 0 012 13.5v-7zM9 8.2v5.6l5-2.8-5-2.8z" },
+    { name: "Instagram", cls: "soc-instagram", href: "https://www.instagram.com/puckgoldbiz", path: "M7 2h6a5 5 0 015 5v6a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm6.5 2.2a1 1 0 100 2 1 1 0 000-2zM10 6.5A3.5 3.5 0 1010 13.5 3.5 3.5 0 0010 6.5z" },
+    { name: "Facebook", cls: "soc-facebook", href: "https://www.facebook.com/puckgoldbiz", path: "M11 20V11h3l.5-3H11V6.2c0-.9.3-1.5 1.6-1.5H15V2.1C14.5 2 13.5 2 12.4 2 9.8 2 8 3.5 8 6.5V8H5.5v3H8v9h3z" },
+    { name: "Twitch", cls: "soc-twitch", href: "https://www.twitch.tv/puckgoldbiz", path: "M3 2h14v10l-3 3h-3l-2 2H7v-2H3V2zm2 2v8h3v2l2-2h3l2-2V4H5zm7 2h2v4h-2V6zM8 6h2v4H8V6z" },
+    { name: "Kick", cls: "soc-kick", href: "https://kick.com/puckgoldbiz", path: "M3 2h4v6l4-6h5L10 10l6 8h-5l-4-6v6H3V2z" },
+    { name: "Club", cls: "soc-club", href: "https://club.com/", path: "M10 2a6 6 0 016 6c0 4-6 10-6 10S4 12 4 8a6 6 0 016-6zm0 3.5A2.5 2.5 0 1010 10.5 2.5 2.5 0 0010 5.5z" },
+    { name: "Discord", cls: "soc-discord", href: "https://discord.gg/puckgoldbiz", path: "M15.5 4A11 11 0 0012.7 3l-.3.6A10 10 0 017.6 3l-.3-.1A11 11 0 004.5 4C2 7.6 1.5 11.1 1.7 14.5A11 11 0 006 16.7l.5-.8a7 7 0 01-1.3-.6l.3-.2a7.8 7.8 0 009 0l.3.2c-.4.3-.9.5-1.3.6l.5.8a11 11 0 004.3-2.2c.3-3.8-.5-7.3-2.8-10.5zM7.3 12.4c-.7 0-1.3-.7-1.3-1.5S6.6 9.4 7.3 9.4s1.3.7 1.3 1.5-.6 1.5-1.3 1.5zm5.4 0c-.7 0-1.3-.7-1.3-1.5s.6-1.5 1.3-1.5 1.3.7 1.3 1.5-.6 1.5-1.3 1.5z" },
+    { name: "Telegram", cls: "soc-telegram", href: "https://t.me/puckgoldbiz", path: "M2 10l16-7-3.2 14.2-4.4-3.4-2.4 2.3-.4-4.2L15 6.5 7.3 11.2 2 10z" },
+    { name: "WhatsApp", cls: "soc-whatsapp", href: "https://wa.me/", path: "M10 2a8 8 0 00-6.9 12.1L2 18l4-1a8 8 0 104-15zm0 2.3A5.7 5.7 0 1110 15.7c-.6 0-1.2-.1-1.8-.3l-.4-.1-2.3.6.6-2.2-.1-.4A5.7 5.7 0 0110 4.3zm3 7.3c-.2-.1-1-.5-1.1-.5s-.3-.1-.4.1-.5.5-.6.6-.2.1-.4 0a4.6 4.6 0 01-2.3-2c-.2-.3.2-.3.5-.7l.2-.3c.1-.1 0-.2 0-.3s-.4-1-.6-1.3-.3-.2-.4-.2h-.4c-.1 0-.3.1-.5.3s-.6.6-.6 1.5.7 1.7.8 1.9 1.3 2.1 3.3 2.8c1.2.4 1.7.4 2.3.3.4-.1 1.1-.5 1.3-1s.2-.8.1-.9-.1-.2-.3-.3z" },
+    { name: "LinkedIn", cls: "soc-linkedin", href: "https://www.linkedin.com/company/puckgoldbiz", path: "M4 7H1V19h3V7zm.2-4.2A1.8 1.8 0 112.4 4.6 1.8 1.8 0 014.2 2.8zM19 19h-3v-5.7c0-1.5-.5-2.5-1.8-2.5A2 2 0 0012 12.7V19H9V7h3v1.5A3.2 3.2 0 0115 7c2.4 0 4 1.5 4 4.7V19z" },
+    { name: "Threads", cls: "soc-threads", href: "https://www.threads.net/@puckgoldbiz", path: "M12.3 7.2c.5-2.2-.4-3.8-2.5-3.8-2.4 0-3.6 1.9-3.6 4.5 0 3.3 1.7 5 4.5 5 1.3 0 2.5-.3 3.5-.8V14c-.8.4-1.8.6-3 .6-4 0-6.6-2.5-6.6-6.7C4.6 3.7 7 1.5 10.3 1.5c3 0 5 1.8 4.7 5.1-.1 1.5-.7 2.6-1.8 3.3.8-.2 1.4-.6 1.8-1.1.7-1 1-2.4 1-3.8h2c0 1.9-.4 3.7-1.5 5.1-.8 1-2 1.8-3.5 2.2v2.3c1.4-.3 2.7-.9 3.7-1.8 1.6-1.5 2.5-3.7 2.5-6.4H23c0 3.4-1.2 6.1-3.4 8-1.5 1.3-3.4 2.1-5.6 2.4v-2.3c3-.7 4.9-2.8 5-6.2-.1 1.7-.8 3.1-1.9 4-.5.4-1.1.7-1.8.9V12c1.2-.5 2-1.4 2.2-2.8.2-1.1 0-2.1-.5-2.9z" },
+    { name: "Pinterest", cls: "soc-pinterest", href: "https://www.pinterest.com/puckgoldbiz", path: "M10 2a8 8 0 00-2.9 15.5c0-.7.1-1.7.4-2.5l1.4-5.8s-.3-.7-.3-1.7c0-1.6 1-2.8 2.1-2.8 1 0 1.5.8 1.5 1.7 0 1-.7 2.6-1 4-.3 1.2.6 2.2 1.8 2.2 2.1 0 3.6-2.7 3.6-5.8 0-2.4-1.6-4.2-4.5-4.2A4.7 4.7 0 005.8 8.6c0 1 .3 1.7.8 2.2l.2.2c-.1.3-.2.7-.2.9 0 .3-.2.7-.4.9A7 7 0 0110 3.5 6.5 6.5 0 0116.6 10c0 4.1-2.3 7.1-5.4 7.1-1.1 0-2.1-.6-2.4-1.3l-.7 2.5A8 8 0 0010 18a8 8 0 000-16z" },
+    { name: "Snapchat", cls: "soc-snapchat", href: "https://www.snapchat.com/add/puckgoldbiz", path: "M10 2c3 0 5.2 2 5.2 5.2 0 1.7-.4 2.8-.4 4.1 0 .7.4 1.1 1.1 1.4.6.2 1.3.5 1.3 1.2 0 .7-.8 1.1-1.5 1.3-.3.1-.5.2-.5.4 0 .7.9 1.4 1.7 1.8.5.2.7.5.7.8 0 .7-1.1 1.2-2.6 1.2-1 0-1.6-.2-2.3-.2-.7 0-1.2.3-2.2.8-.6.3-1.3.5-2 .5C5.3 20 3 18.7 3 16.8c0-.6.3-1 .9-1.3.8-.4 1.8-1.1 1.8-1.9 0-.2-.2-.3-.5-.4C4.4 13 3.5 12.5 3.5 11.7c0-.7.7-1 1.3-1.2.7-.3 1.1-.7 1.1-1.4 0-1.3-.4-2.4-.4-4.1C5.5 4 7.2 2 10 2z" },
+    { name: "Spotify", cls: "soc-spotify", href: "https://open.spotify.com/user/puckgoldbiz", path: "M10 2a8 8 0 100 16 8 8 0 000-16zm3.6 11.5a.6.6 0 01-.8.2c-2.2-1.3-5-1.6-8.2-.9a.6.6 0 11-.3-1.2c3.5-.8 6.6-.4 9.1 1a.6.6 0 01.2.9zm1-2.3a.7.7 0 01-1 .3c-2.5-1.5-6.3-2-9.3-1.1a.7.7 0 01-.4-1.4c3.4-1 7.6-.4 10.5 1.3a.7.7 0 01.2 1zm.1-2.4C11.6 7.6 6.7 7.4 4 8.2a.9.9 0 11-.5-1.7c3.1-.9 8.5-.7 12 1.4a.9.9 0 01-.8 1.6z" },
+    { name: "Rumble", cls: "soc-rumble", href: "https://rumble.com/c/puckgoldbiz", path: "M3 5h4l3 5 3-5h4l-5 7.5L17 20h-4l-3-5-3 5H3l5-7.5L3 5z" },
+    { name: "Whatnot", cls: "soc-whatnot", href: "https://www.whatnot.com/", path: "M3 4h14v3H3V4zm0 5h10v3H3V9zm0 5h14v3H3v-3z" },
+    { name: "Parti", cls: "soc-parti", href: "https://parti.com/", path: "M10 2l2.4 5.2L18 8l-4 3.6L15.2 18 10 14.8 4.8 18 6 11.6 2 8l5.6-.8L10 2z" },
+    { name: "Substack", cls: "soc-substack", href: "https://substack.com/@puckgoldbiz", path: "M2 3h16v2.5H2V3zm0 4.5h16V18l-8-4.5L2 18V7.5z" },
+    { name: "Medium", cls: "soc-medium", href: "https://medium.com/@puckgoldbiz", path: "M2 5.5c0-.4.2-.6.5-.7l3.4-1.6c.2-.1.4 0 .4.2v11.7c0 .2-.1.3-.3.4l-3.3 1.6c-.4.2-.7 0-.7-.4V5.5zm5.2-.2l3.7 6.1v.1l3.7-6.1V16h-1.7V8.5L10.8 14h-.7L7.9 8.5V16H6.2V5.3h1zM18.4 5l1.4-.7c.3-.1.5 0 .5.3v10.8c0 .5-.3 1-.8 1.2l-1.6.7V5z" },
   ];
 
   function ddLinks(items, isActive) {
@@ -186,7 +186,7 @@
     header.innerHTML = `
       <div class="nav-wrap nav-liv">
         <a class="logo-link" href="index.html" aria-label="PuckGold home">
-          <img class="logo-mark" src="assets/brand/lockup/primary-master.png?v=3" alt="PGB" width="42" height="70" style="width:42px;height:auto;object-fit:contain">
+          <img class="logo-mark" src="assets/brand/lockup/primary-master.png?v=3" alt="PGB" width="40" height="40">
           <div>
             <div class="logo-word">PUCK<span>GOLD</span></div>
             <span class="logo-sub">PGB LEAGUE</span>
@@ -198,15 +198,15 @@
           <a href="stats.html" class="${statsActive ? "active" : ""}">Stats</a>
           <a href="standings.html" class="${standingsActive ? "active" : ""}">Standings</a>
           <div class="nav-dd" data-dd>
-            <button type="button" class="${teamsActive ? "active" : ""}" aria-expanded="false" aria-haspopup="true">Teams &amp; Players <span class="chev">▾</span></button>
+            <button type="button" class="${teamsActive ? "active" : ""}" aria-expanded="false" aria-haspopup="true">Teams <span class="chev">▾</span></button>
             <div class="nav-dd-menu">${ddLinks(teamsLinks, isActive)}</div>
           </div>
           <div class="nav-dd" data-dd>
-            <button type="button" class="${newsActive ? "active" : ""}" aria-expanded="false" aria-haspopup="true">News &amp; Video <span class="chev">▾</span></button>
+            <button type="button" class="${newsActive ? "active" : ""}" aria-expanded="false" aria-haspopup="true">News <span class="chev">▾</span></button>
             <div class="nav-dd-menu">${ddLinks(newsLinks, isActive)}</div>
           </div>
           <div class="nav-dd" data-dd>
-            <button type="button" class="${formatActive ? "active" : ""}" aria-expanded="false" aria-haspopup="true">PGB Format <span class="chev">▾</span></button>
+            <button type="button" class="${formatActive ? "active" : ""}" aria-expanded="false" aria-haspopup="true">PGB <span class="chev">▾</span></button>
             <div class="nav-dd-menu">${ddLinks(formatLinks, isActive)}</div>
           </div>
           <div class="nav-dd" data-dd>
@@ -219,7 +219,10 @@
             <span class="nav-count-label">Expand</span>
             <span class="nav-count-time" id="navEventCountdown">--:--:--:--</span>
           </a>
-          <a href="join.html" class="nav-pill nav-pill-tickets">Tickets</a>
+          <a href="join.html" class="nav-pill nav-pill-og" title="$36 OG Offer — Gold Puck + 1-year Premium League Pass">
+            <span class="og-short">$36 OG</span>
+            <span class="og-full">$36 OG Offer</span>
+          </a>
           <a href="shop.html" class="nav-pill nav-pill-shop">Shop</a>
           <button type="button" class="nav-bag" id="navBagBtn" data-open-cart aria-label="Open bag">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 016 0"/></svg>
@@ -260,7 +263,7 @@
         <a href="media-videos.html">All Videos</a>
         <div class="drawer-group">Fan Zone</div>
         <a href="promos.html">Promotions</a>
-        <a href="join.html">League Pass · Plans</a>
+        <a href="join.html">$36 OG Pass · Plans</a>
         <a href="experience.html">Event Experience</a>
         <a href="play.html">Game Zone · Play</a>
         <a href="play.html#board">Fan leaderboard</a>
@@ -289,7 +292,7 @@
         <a href="brand.html">Brand Kit</a>
         <a href="retro.html">Retro League · '94</a>
         <div class="drawer-ctas">
-          <a href="join.html" class="btn btn-founding btn-block">Tickets · Become a founding member</a>
+          <a href="join.html" class="btn btn-founding btn-block">$36 OG Offer · Gold Puck + Pass</a>
           <a href="shop.html" class="btn btn-sapphire btn-block">Shop</a>
           <a href="signin.html" class="btn btn-signin btn-block">Sign In</a>
         </div>
@@ -298,31 +301,129 @@
 
     const btn = document.getElementById("menuBtn");
     const drawer = document.getElementById("mobileDrawer");
-    btn?.addEventListener("click", () => {
-      const open = drawer.classList.toggle("open");
-      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    const setDrawerOpen = (open) => {
+      drawer?.classList.toggle("open", open);
+      btn?.setAttribute("aria-expanded", open ? "true" : "false");
+      document.body.classList.toggle("drawer-open", !!open);
+    };
+    btn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      setDrawerOpen(!drawer?.classList.contains("open"));
     });
-
-    // Dropdowns — click toggle + desktop hover
-    document.querySelectorAll("[data-dd]").forEach((dd) => {
-      const b = dd.querySelector("button");
-      b?.addEventListener("click", (e) => {
+    // Keep wheel/trackpad scroll inside the drawer (don't fight the page)
+    drawer?.addEventListener(
+      "wheel",
+      (e) => {
         e.stopPropagation();
-        const willOpen = !dd.classList.contains("open");
-        document.querySelectorAll(".nav-dd.open").forEach((d) => {
-          d.classList.remove("open");
-          d.querySelector("button")?.setAttribute("aria-expanded", "false");
-        });
-        dd.classList.toggle("open", willOpen);
-        b.setAttribute("aria-expanded", willOpen ? "true" : "false");
-      });
-      dd.querySelector(".nav-dd-menu")?.addEventListener("click", (e) => e.stopPropagation());
-    });
-    document.addEventListener("click", () => {
+      },
+      { passive: true }
+    );
+    drawer?.addEventListener(
+      "touchmove",
+      (e) => {
+        e.stopPropagation();
+      },
+      { passive: true }
+    );
+
+    const closeAllDds = () => {
       document.querySelectorAll(".nav-dd.open").forEach((d) => {
         d.classList.remove("open");
         d.querySelector("button")?.setAttribute("aria-expanded", "false");
       });
+    };
+
+    // Dropdowns — open on hover (no click required); wheel scrolls the panel itself
+    document.querySelectorAll("[data-dd]").forEach((dd) => {
+      const b = dd.querySelector("button");
+      const menu = dd.querySelector(".nav-dd-menu");
+      let leaveTimer = 0;
+      const openDd = (hardPin) => {
+        clearTimeout(leaveTimer);
+        document.querySelectorAll(".nav-dd.open").forEach((d) => {
+          if (d !== dd) {
+            d.classList.remove("open");
+            d.dataset.pinned = "0";
+            d.querySelector("button")?.setAttribute("aria-expanded", "false");
+          }
+        });
+        dd.classList.add("open");
+        if (hardPin) dd.dataset.pinned = "1";
+        b?.setAttribute("aria-expanded", "true");
+      };
+      const closeDd = () => {
+        dd.classList.remove("open");
+        dd.dataset.pinned = "0";
+        b?.setAttribute("aria-expanded", "false");
+      };
+
+      b?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (dd.classList.contains("open") && dd.dataset.pinned === "1") closeDd();
+        else openDd(true);
+      });
+
+      dd.addEventListener("pointerenter", () => openDd(false));
+      dd.addEventListener("pointerleave", () => {
+        if (dd.dataset.pinned === "1") return;
+        leaveTimer = window.setTimeout(closeDd, 220);
+      });
+
+      menu?.addEventListener("click", (e) => e.stopPropagation());
+      menu?.addEventListener(
+        "wheel",
+        (e) => {
+          openDd(true); // stay open while scrolling — no prior click needed
+          const el = menu;
+          const canScroll = el.scrollHeight > el.clientHeight + 1;
+          if (!canScroll) {
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+          }
+          const before = el.scrollTop;
+          el.scrollTop += e.deltaY;
+          e.preventDefault();
+          e.stopPropagation();
+          if (el.scrollTop === before && Math.abs(e.deltaY) > 0) {
+            /* at edge — already consumed so page doesn't jump */
+          }
+        },
+        { passive: false }
+      );
+      menu?.addEventListener(
+        "touchstart",
+        () => {
+          openDd(true);
+        },
+        { passive: true }
+      );
+      menu?.addEventListener(
+        "touchmove",
+        (e) => {
+          e.stopPropagation();
+        },
+        { passive: true }
+      );
+    });
+    document.addEventListener("click", (e) => {
+      if (e.target.closest?.("[data-dd]")) return;
+      document.querySelectorAll("[data-dd]").forEach((d) => {
+        d.dataset.pinned = "0";
+      });
+      closeAllDds();
+      if (drawer?.classList.contains("open") && !e.target.closest?.("#menuBtn, #mobileDrawer")) {
+        setDrawerOpen(false);
+      }
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        document.querySelectorAll("[data-dd]").forEach((d) => {
+          d.dataset.pinned = "0";
+        });
+        closeAllDds();
+        setDrawerOpen(false);
+      }
     });
 
     applyTheme(getTheme());
@@ -337,11 +438,14 @@
       const socialHtml = socials
         .map(
           (s) => `
-          <a href="${s.href}" target="_blank" rel="noopener noreferrer" aria-label="${s.name}" title="${s.name}">
+          <a class="${s.cls}" href="${s.href}" target="_blank" rel="noopener noreferrer" aria-label="${s.name}" title="${s.name}">
             <svg viewBox="0 0 20 20" aria-hidden="true"><path d="${s.path}"/></svg>
           </a>`
         )
         .join("");
+
+      const deskOpen = typeof window.matchMedia === "function" && window.matchMedia("(min-width:900px)").matches;
+      const openAttr = deskOpen ? " open" : "";
 
       footer.innerHTML = `
         <div class="footer-shell">
@@ -352,64 +456,69 @@
                 <div class="logo-word">PUCK<span>GOLD</span></div>
               </a>
               <p>PuckGoldBiz (PGB) — the Founding Four era. Premium membership, Fan Zone rewards, and the coldest game on earth.</p>
-              <div class="cta-row" style="margin-top:1rem">
+              <div class="cta-row">
                 <a href="join.html" class="btn btn-founding btn-sm">Become a founding member</a>
                 <a href="fantasy.html" class="btn btn-sapphire btn-sm">Fan Zone</a>
               </div>
             </div>
-            <div class="footer-col">
-              <h4>League</h4>
-              <a href="schedule.html">Schedule</a>
-              <a href="scores.html">Scores</a>
-              <a href="stats.html">Stats</a>
-              <a href="bracket.html">Leaderboard</a>
-              <a href="teams.html">Teams</a>
-              <a href="rosters.html">Rosters</a>
-              <a href="stadiums.html">Stadiums</a>
-            </div>
-            <div class="footer-col">
-              <h4>Fans</h4>
-              <a href="promos.html">Promotions</a>
-              <a href="experience.html">Event Experience</a>
-              <a href="fantasy.html">Fan Zone</a>
-              <a href="lockervision.html">LockerVision</a>
-              <a href="lv-schedule.html">LV · Outfit schedule</a>
-              <a href="shop.html">Shop</a>
-              <a href="gems.html">Sapphires · Rubies · Coins</a>
-              <a href="gems.html?tab=gifts">Digital gifts</a>
-              <a href="gifts.html">Gift Cards · Live FOMO</a>
-              <a href="gifts.html#send">Send a gift pack</a>
-              <a href="profile.html">My profile · share link</a>
-              <a href="join.html">League Pass / Tickets</a>
-              <a href="awards.html">Awards</a>
-              <a href="stats.html">Player Stats</a>
-              <a href="stats.html?view=teams">Team Stats</a>
-            </div>
-            <div class="footer-col">
-              <h4>Company</h4>
-              <a href="about.html">About PuckGold</a>
-              <a href="apply.html">Franchise / Owner apply</a>
-              <a href="advertise.html">Advertise / Launch</a>
-              <a href="talent.html">Talent Community</a>
-              <a href="developers.html">Developer Hub</a>
-              <a href="partners.html">Partners</a>
-              <a href="brand.html">Brand Kit</a>
-              <a href="retro.html">Retro League · '94</a>
-              <a href="media.html">Media Hub</a>
-              <a href="format.html">League Format</a>
-            </div>
-            <div class="footer-col">
-              <h4 data-i18n="footer.support">Support</h4>
-              <a href="support.html" data-i18n="footer.help">Help Center</a>
-              <a href="contact.html" data-i18n="footer.contact">Contact Us</a>
-              <a href="affiliates-faqs.html" data-i18n="footer.faq">FAQs</a>
-              <a href="support.html?support=chat" data-i18n="support.chat">Chat with us</a>
-              <a href="#" data-i18n="footer.accessibility">Accessibility</a>
-              <h4 style="margin-top:1rem" data-i18n="footer.refer">Refer</h4>
-              <a href="ads-affiliate.html" data-i18n="footer.adsAff">Advertise Affiliate</a>
-              <a href="affiliates.html" data-i18n="footer.consAff">Consumer Affiliates</a>
-            </div>
+            <details class="footer-col"${openAttr}>
+              <summary>League</summary>
+              <div class="footer-links">
+                <a href="schedule.html">Schedule</a>
+                <a href="scores.html">Scores</a>
+                <a href="stats.html">Stats</a>
+                <a href="bracket.html">Leaderboard</a>
+                <a href="teams.html">Teams</a>
+                <a href="rosters.html">Rosters</a>
+                <a href="stadiums.html">Stadiums</a>
+                <a href="format.html">Format</a>
+              </div>
+            </details>
+            <details class="footer-col"${openAttr}>
+              <summary>Fans</summary>
+              <div class="footer-links">
+                <a href="fantasy.html">Fan Zone</a>
+                <a href="lockervision.html">LockerVision</a>
+                <a href="shop.html">Shop</a>
+                <a href="gems.html">Gems &amp; Coins</a>
+                <a href="gifts.html">Gift Cards</a>
+                <a href="gifts.html#send">Send a gift</a>
+                <a href="profile.html">My profile</a>
+                <a href="join.html">$36 OG Pass</a>
+                <a href="promos.html">Promotions</a>
+                <a href="experience.html">Experience</a>
+                <a href="awards.html">Awards</a>
+                <a href="lv-schedule.html">LV schedule</a>
+              </div>
+            </details>
+            <details class="footer-col"${openAttr}>
+              <summary>Company</summary>
+              <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="apply.html">Franchise apply</a>
+                <a href="advertise.html">Advertise</a>
+                <a href="talent.html">Talent</a>
+                <a href="developers.html">Developers</a>
+                <a href="partners.html">Partners</a>
+                <a href="brand.html">Brand Kit</a>
+                <a href="retro.html">Retro · '94</a>
+                <a href="media.html">Media Hub</a>
+              </div>
+            </details>
+            <details class="footer-col"${openAttr}>
+              <summary data-i18n="footer.support">Support</summary>
+              <div class="footer-links">
+                <a href="support.html" data-i18n="footer.help">Help Center</a>
+                <a href="contact.html" data-i18n="footer.contact">Contact</a>
+                <a href="affiliates-faqs.html" data-i18n="footer.faq">FAQs</a>
+                <a href="support.html?support=chat" data-i18n="support.chat">Chat with us</a>
+                <a href="#" data-i18n="footer.accessibility">Accessibility</a>
+                <a href="ads-affiliate.html" data-i18n="footer.adsAff">Ad Affiliate</a>
+                <a href="affiliates.html" data-i18n="footer.consAff">Fan Affiliates</a>
+              </div>
+            </details>
           </div>
+          <div class="footer-social-label">Follow PGB</div>
           <div class="social-grid" aria-label="Social media">${socialHtml}</div>
           <div class="footer-bottom">
             <div class="foot-note">© 2026 PuckGoldBiz (PGB). All rights reserved.</div>
@@ -423,6 +532,16 @@
           </div>
         </div>
       `;
+
+      // Keep accordion columns open on desktop when resizing up
+      const cols = footer.querySelectorAll("details.footer-col");
+      const mq = window.matchMedia("(min-width:900px)");
+      const syncFooterOpen = () => {
+        cols.forEach((d) => {
+          if (mq.matches) d.open = true;
+        });
+      };
+      mq.addEventListener?.("change", syncFooterOpen);
     }
   }
 
@@ -548,13 +667,15 @@
     btn.type = "button";
     btn.className = "av-toggle";
     btn.id = "avToggle";
-    // VeeFriends-style bold pill — sapphire, text on/off, no EQ bars
+    // VeeFriends-style round play/pause (not volume speaker)
     btn.innerHTML = `
-      <svg class="av-ico" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3 9v6h4l5 4V5L7 9H3z"/>
-        <path class="av-waves" d="M16 8a4 4 0 010 8M18.5 5.5a7 7 0 010 13"/>
+      <svg class="av-ico av-ico-play" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M8 5.5v13l11-6.5L8 5.5z"/>
       </svg>
-      <span class="av-label">Sound On</span>
+      <svg class="av-ico av-ico-pause" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7 5h3.5v14H7V5zm6.5 0H17v14h-3.5V5z"/>
+      </svg>
+      <span class="av-label">Play soundtrack</span>
     `;
     const heroSlot = document.getElementById("heroAvSlot");
     if (heroSlot) {
@@ -572,9 +693,9 @@
 
     function setUi() {
       btn.setAttribute("aria-pressed", enabled ? "true" : "false");
-      btn.setAttribute("aria-label", enabled ? "Mute soundtrack" : "Play soundtrack");
-      btn.title = enabled ? "Sound On — tap to mute" : "Sound Off — tap to play";
-      if (label) label.textContent = enabled ? "Sound On" : "Sound Off";
+      btn.setAttribute("aria-label", enabled ? "Pause soundtrack" : "Play soundtrack");
+      btn.title = enabled ? "Pause soundtrack" : "Play soundtrack";
+      if (label) label.textContent = enabled ? "Pause soundtrack" : "Play soundtrack";
       stages.forEach((el) => {
         el.classList.toggle("is-av-on", enabled);
         el.classList.toggle("is-av-off", !enabled);
