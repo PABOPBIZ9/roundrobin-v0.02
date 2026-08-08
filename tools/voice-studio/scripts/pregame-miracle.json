@@ -1,0 +1,15 @@
+{
+  "show": "PuckGold Backstory · Pre-Game Special",
+  "slug": "backstory-pregame-miracle",
+  "drop_to": "assets/vault/content/podcasts/backstory/",
+  "lines": [
+    {"voice": "desk-host-a", "text": "Welcome to PuckGold Backstory — Pre-Game Special. Tonight we rewind the Founding Four… and preview Expansion Weekend, Founding Four to First Sixteen."},
+    {"voice": "desk-host-b", "text": "Four teams walked into arenas that had never hosted a game. McLean looked like a coronation. Miami needed a tiebreaker just to make the playoffs."},
+    {"voice": "jack-jet-morrison", "text": "And then Neon Reef wrote a different ending. Game Two of the Golden Final — the Miracle Game — aggregate six to five Geckz."},
+    {"voice": "coach-chippy", "text": "Boys… the energy in that building was nuclear. Third period three unanswered. Overtime triple-deke top shelf. Put that man in jail!"},
+    {"voice": "veteran-color", "text": "McLean played the better hockey for five and a half of six periods. Structure, depth, the Wall Trophy in net. It did not matter. That's PuckGold."},
+    {"voice": "desk-host-a", "text": "Hardware reminder: PuckGold Cup to Miami. Golden Gecko MVP. Conductor's Crest to Chattanooga — zero wins, everyone's second favorite."},
+    {"voice": "desk-host-b", "text": "This weekend the ice opens wider. Sixteen teams. Four pools. Fan prizes live. O-G Pass members farm at five-X. Nobody's out until the horn sounds."},
+    {"voice": "arena-pa", "text": "PuckGold presents Founding Expansion Weekend. Faceoff under the clock. Welcome to the First Sixteen."}
+  ]
+}

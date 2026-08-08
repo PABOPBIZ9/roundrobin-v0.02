@@ -15,3 +15,7 @@ Season One origin story — LIV Media Guide energy, NHL/NBA newsroom depth.
 - `news.html` / `news-article.html?id=…` — newsroom articles
 - `awards.html` — hardware case
 - `expansion.html` — weekend countdown + prizes
+
+**Voice / podcasts**
+- `tools/voice-studio/` — Chatterbox TTS for booth announcers, pre/post-game shows, and all 36 player voices
+- Scripts: `pregame-miracle.json`, `postgame-cup.json`, `booth-sample-pack.json`

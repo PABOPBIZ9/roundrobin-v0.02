@@ -1,0 +1,16 @@
+{
+  "show": "Gold on 1 · Post-Cup Special",
+  "slug": "great-one-on-one-postgame-cup",
+  "drop_to": "assets/vault/content/podcasts/great-one-on-one/",
+  "lines": [
+    {"voice": "desk-host-a", "text": "Gold on One — Post-Cup Special. Confetti still on the Neon Reef ice. Miami Mighty Geckz are the first-ever PuckGold Champions."},
+    {"voice": "kai-sandoval", "text": "Small creature. Massive heart. We never stopped believing — even when it was five-one on aggregate."},
+    {"voice": "desk-host-b", "text": "Kai — walk us through overtime. Rebound springs free…"},
+    {"voice": "kai-sandoval", "text": "I just saw ice. One-on-one. Triple-deke. Top shelf. Then the village — booth, fans, Aura votes — lifted us."},
+    {"voice": "nathaniel-cross", "text": "We played five-and-a-half perfect periods. It wasn't enough. Empire doesn't fold — we reload for Expansion."},
+    {"voice": "wyatt-combs", "text": "Zero in the standings. Everything in the fans' hearts. Conductor's Crest means we played the right way."},
+    {"voice": "marcus-doyle", "text": "We made history in overtime Game One — then Miami made more. Capital hockey tip-off again this weekend."},
+    {"voice": "jack-jet-morrison", "text": "From Terminal Arena to golden confetti — Season One is lore. Season Two starts now. Road to PuckGold one-twenty-eight."},
+    {"voice": "desk-host-a", "text": "Farm the Fan Zone. Claim the O-G Pass for five-X. And we'll see you under the Expansion clock."}
+  ]
+}
