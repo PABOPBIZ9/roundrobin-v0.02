@@ -233,6 +233,18 @@ window.PGB_AWARDS = {
       detail: "Season One · Wall",
     },
     {
+      id: "rookie-rocket",
+      category: "individual",
+      name: "The Rookie Rocket",
+      short: "Best young player",
+      tag: "Rookie",
+      desc: "Tournament's top first-year standout — breakout energy.",
+      look: "Chrome rocket · teal trail · gold nose cone",
+      winner: "TBD · first-year board",
+      winnerSlug: null,
+      detail: "Season One · assign with scouting notes",
+    },
+    {
       id: "clutch-award",
       category: "individual",
       name: "The Clutch Award",
