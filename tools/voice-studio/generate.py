@@ -61,6 +61,13 @@ def slug(s: str) -> str:
 
 def load_model(device: str):
     print(f"[voice-studio] loading Chatterbox on {device} … (first run downloads weights)")
+    # Some resemble-perth wheels ship PerthImplicitWatermarker as None — fall back.
+    import perth
+
+    if getattr(perth, "PerthImplicitWatermarker", None) is None:
+        perth.PerthImplicitWatermarker = perth.DummyWatermarker
+        print("[voice-studio] using DummyWatermarker (PerthImplicitWatermarker unavailable)")
+
     from chatterbox.tts import ChatterboxTTS
 
     return ChatterboxTTS.from_pretrained(device=device)

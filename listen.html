@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Listen — PuckGold Broadcast</title>
+<meta name="description" content="Play Chatterbox Season One shows — Booth Sample Pack, Backstory Pre-Game, and Gold on 1 Post-Cup.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=42">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=2">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .lx-hero{
+    padding:2.75rem 4vw 2.1rem;color:#fff;text-align:center;
+    background:
+      radial-gradient(circle at 30% 0%, rgba(240,215,140,.22), transparent 45%),
+      linear-gradient(160deg,#041018 0%,#0a2a28 40%,#163a74 100%);
+  }
+  .lx-hero .kicker{font-size:.68rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#f0d78c}
+  .lx-hero h1{font-family:var(--display);font-size:clamp(2.2rem,7vw,3.6rem);letter-spacing:.04em;margin:.4rem 0}
+  .lx-hero p{max-width:34rem;margin:.5rem auto 0;color:rgba(238,243,250,.78);line-height:1.5;font-size:.95rem}
+  .lx-wrap{max-width:920px;margin:0 auto;padding:1.5rem 4vw 4rem}
+  .lx-picker{display:grid;gap:.65rem;margin:0 0 1.5rem}
+  @media(min-width:720px){.lx-picker{grid-template-columns:1fr 1fr 1fr}}
+  .lx-pick{
+    display:block;text-align:left;padding:1rem 1.05rem;border-radius:14px;border:1px solid rgba(18,24,38,.1);
+    background:#fff;cursor:pointer;color:#121826;text-decoration:none;
+  }
+  .lx-pick.is-on{border-color:#163a74;box-shadow:0 0 0 2px rgba(22,58,116,.18)}
+  .lx-pick .show{font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#8a93a3}
+  .lx-pick h3{font-family:var(--display);font-size:1.05rem;margin:.25rem 0 .35rem;letter-spacing:.02em}
+  .lx-pick p{font-size:.78rem;color:#5c6473;line-height:1.4;margin:0}
+  .lx-stage{
+    border-radius:18px;padding:1.35rem 1.25rem 1.15rem;color:#fff;margin-bottom:1.1rem;
+    background:linear-gradient(145deg,#163a74,#0b1220);
+  }
+  .lx-stage .meta{font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,215,140,.9)}
+  .lx-stage h2{font-family:var(--display);font-size:clamp(1.4rem,3.5vw,1.9rem);margin:.35rem 0 .45rem;letter-spacing:.03em}
+  .lx-stage .now{font-size:.9rem;color:rgba(238,243,250,.78);margin:0 0 1rem}
+  .lx-controls{display:flex;flex-wrap:wrap;gap:.55rem;align-items:center}
+  .lx-controls button{
+    font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    padding:.55rem .9rem;border-radius:999px;border:0;cursor:pointer;
+    background:#f0d78c;color:#121826;
+  }
+  .lx-controls button.ghost{background:rgba(255,255,255,.12);color:#fff}
+  .lx-controls .prog{flex:1;min-width:140px;height:4px;border-radius:999px;background:rgba(255,255,255,.18);overflow:hidden}
+  .lx-controls .prog > i{display:block;height:100%;width:0;background:#f0d78c}
+  .lx-tracks{display:grid;gap:.4rem}
+  .lx-track{
+    display:grid;grid-template-columns:auto 1fr auto;gap:.75rem;align-items:center;
+    padding:.75rem .9rem;border-radius:12px;border:1px solid rgba(18,24,38,.08);background:#fff;
+    cursor:pointer;text-align:left;width:100%;font:inherit;color:inherit;
+  }
+  .lx-track:hover{border-color:#163a74}
+  .lx-track.is-on{border-color:#163a74;background:#eef4ff}
+  .lx-track .n{font-family:var(--display);font-size:1.05rem;color:#163a74;min-width:1.5rem}
+  .lx-track .lbl{font-weight:700;font-size:.88rem}
+  .lx-track .voice{font-size:.72rem;color:#8a93a3;margin-top:.15rem}
+  .lx-track .dur{font-size:.68rem;font-weight:800;color:#8a93a3;letter-spacing:.06em}
+  .lx-note{font-size:.78rem;color:#5c6473;margin:1.25rem 0 0;line-height:1.45}
+</style>
+</head>
+<body class="nhl-light">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+
+<section class="lx-hero">
+  <div class="kicker">PGB Broadcast Network · Season One</div>
+  <h1>LISTEN</h1>
+  <p>Chatterbox booth + podcast drops from the Championship Book — Miracle Game climax, Expansion tease, and post-Cup Gold on 1.</p>
+</section>
+<nav class="nhl-sub" aria-label="Audio">
+  <a href="listen.html" class="is-active">Listen</a>
+  <a href="podcasts.html">Podcasts</a>
+  <a href="founding-four.html#ch10">Championship Book · Ch.10</a>
+  <a href="media.html">Media Hub</a>
+</nav>
+
+<div class="lx-wrap">
+  <div class="lx-picker" id="lxPicker"></div>
+  <div class="lx-stage" id="lxStage">
+    <div class="meta" id="lxShow">Loading…</div>
+    <h2 id="lxTitle">—</h2>
+    <p class="now" id="lxNow">Select a track to play.</p>
+    <div class="lx-controls">
+      <button type="button" id="lxPlay">Play</button>
+      <button type="button" class="ghost" id="lxPrev">Prev</button>
+      <button type="button" class="ghost" id="lxNext">Next</button>
+      <div class="prog" aria-hidden="true"><i id="lxBar"></i></div>
+    </div>
+  </div>
+  <div class="lx-tracks" id="lxTracks"></div>
+  <p class="lx-note">
+    Voices are Chatterbox TTS (default voice until clone refs land in <code>tools/voice-studio/refs/</code>).
+    Source scripts live in Voice Studio · <a href="founding-four.html#ch10" style="color:#163a74">Chapter 10 scripts</a>.
+  </p>
+</div>
+
+<audio id="lxAudio" preload="metadata"></audio>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=42"></script>
+<script src="assets/js/support-widget.js?v=5"></script>
+<script src="assets/js/cart.js?v=8"></script>
+<script src="assets/js/broadcast-shows.js?v=1"></script>
+<script>
+(function () {
+  const shows = window.PGB_BROADCAST_SHOWS || [];
+  const params = new URLSearchParams(location.search);
+  let showIdx = Math.max(0, shows.findIndex((s) => s.id === params.get("show")));
+  if (showIdx < 0) showIdx = 0;
+  let trackIdx = 0;
+  let playing = false;
+
+  const audio = document.getElementById("lxAudio");
+  const picker = document.getElementById("lxPicker");
+  const tracksEl = document.getElementById("lxTracks");
+  const playBtn = document.getElementById("lxPlay");
+  const bar = document.getElementById("lxBar");
+
+  function show() { return shows[showIdx]; }
+  function track() { return show().tracks[trackIdx]; }
+
+  function paintPicker() {
+    picker.innerHTML = shows
+      .map(
+        (s, i) => `
+      <button type="button" class="lx-pick${i === showIdx ? " is-on" : ""}" data-i="${i}">
+        <div class="show">${s.show}</div>
+        <h3>${s.title}</h3>
+        <p>${s.blurb}</p>
+      </button>`
+      )
+      .join("");
+    picker.querySelectorAll(".lx-pick").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        showIdx = +btn.dataset.i;
+        trackIdx = 0;
+        history.replaceState(null, "", `?show=${encodeURIComponent(show().id)}`);
+        load(true);
+      });
+    });
+  }
+
+  function paintStage() {
+    const s = show();
+    const t = track();
+    document.getElementById("lxShow").textContent = s.show;
+    document.getElementById("lxTitle").textContent = s.title;
+    document.getElementById("lxNow").textContent = t
+      ? `${String(trackIdx + 1).padStart(2, "0")} · ${t.label} · ${t.voice}`
+      : "No tracks.";
+    document.getElementById("lxStage").style.background = s.color;
+    playBtn.textContent = playing ? "Pause" : "Play";
+  }
+
+  function paintTracks() {
+    const s = show();
+    tracksEl.innerHTML = s.tracks
+      .map(
+        (t, i) => `
+      <button type="button" class="lx-track${i === trackIdx ? " is-on" : ""}" data-i="${i}">
+        <span class="n">${String(i + 1).padStart(2, "0")}</span>
+        <span>
+          <div class="lbl">${t.label}</div>
+          <div class="voice">${t.voice}</div>
+        </span>
+        <span class="dur">WAV</span>
+      </button>`
+      )
+      .join("");
+    tracksEl.querySelectorAll(".lx-track").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        trackIdx = +btn.dataset.i;
+        load(true);
+      });
+    });
+  }
+
+  function load(autoplay) {
+    const t = track();
+    if (!t) return;
+    audio.src = t.src;
+    paintPicker();
+    paintStage();
+    paintTracks();
+    if (autoplay) {
+      audio.play().then(() => {
+        playing = true;
+        paintStage();
+      }).catch(() => {
+        playing = false;
+        paintStage();
+      });
+    }
+  }
+
+  playBtn.addEventListener("click", () => {
+    if (!audio.src) load(true);
+    else if (audio.paused) {
+      audio.play();
+      playing = true;
+    } else {
+      audio.pause();
+      playing = false;
+    }
+    paintStage();
+  });
+  document.getElementById("lxPrev").addEventListener("click", () => {
+    trackIdx = (trackIdx - 1 + show().tracks.length) % show().tracks.length;
+    load(true);
+  });
+  document.getElementById("lxNext").addEventListener("click", () => {
+    trackIdx = (trackIdx + 1) % show().tracks.length;
+    load(true);
+  });
+  audio.addEventListener("ended", () => {
+    if (trackIdx < show().tracks.length - 1) {
+      trackIdx += 1;
+      load(true);
+    } else {
+      playing = false;
+      paintStage();
+    }
+  });
+  audio.addEventListener("timeupdate", () => {
+    if (!audio.duration) return;
+    bar.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
+  });
+  audio.addEventListener("play", () => { playing = true; paintStage(); });
+  audio.addEventListener("pause", () => { playing = false; paintStage(); });
+
+  history.replaceState(null, "", `?show=${encodeURIComponent(show().id)}`);
+  load(false);
+})();
+</script>
+</body>
+</html>

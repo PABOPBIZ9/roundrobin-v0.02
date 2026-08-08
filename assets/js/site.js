@@ -57,6 +57,7 @@
     { href: "video-recaps.html", label: "Game Recaps" },
     { href: "puck-personality.html", label: "Puck Personality" },
     { href: "podcasts.html", label: "Podcasts" },
+    { href: "listen.html", label: "Listen · Season One" },
     { href: "hype.html", label: "Hype Trailer" },
   ];
 
@@ -187,6 +188,7 @@
       active.startsWith("news") ||
       isActive("puck-personality.html") ||
       isActive("podcasts.html") ||
+      isActive("listen.html") ||
       isActive("expansion.html") ||
       isActive("founding-four.html") ||
       isActive("media-guide.html") ||
