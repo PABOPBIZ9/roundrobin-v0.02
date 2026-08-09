@@ -2,70 +2,189 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Schedule — PuckGold</title>
-<meta name="description" content="PuckGold game schedule — round robin, semifinals, Golden Final, and Season Two Opening Faceoff.">
+<meta name="description" content="PuckGold schedule — Expansion Weekend slate, Founding Four calendar, faceoff clock, and farm windows.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=50">
-<link rel="stylesheet" href="assets/css/nhl-league.css?v=1">
+<link rel="stylesheet" href="assets/css/site.css?v=51">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=7">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .sch-pulse{
+    display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;justify-content:space-between;
+    margin:0 0 1.25rem;padding:1rem 1.05rem;border-radius:16px;color:#fff;
+    background:
+      radial-gradient(circle at 12% 100%, rgba(240,215,140,.22), transparent 42%),
+      linear-gradient(145deg,#0b1220,#163a74);
+  }
+  .sch-pulse .lbl{font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#f0d78c}
+  .sch-pulse .clock{font-family:var(--display);font-size:clamp(1.3rem,4vw,1.7rem);letter-spacing:.06em;margin:.15rem 0}
+  .sch-pulse p{margin:0;font-size:.8rem;color:rgba(238,243,250,.72);max-width:28rem;line-height:1.4}
+  .sch-tabs{display:flex;gap:.35rem;margin:0 0 1rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .sch-tabs::-webkit-scrollbar{display:none}
+  .sch-tabs button{
+    flex:0 0 auto;min-height:40px;border:0;border-radius:999px;padding:.5rem .85rem;
+    font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+    background:#eef4ff;color:#163a74;cursor:pointer;
+  }
+  .sch-tabs button.is-on{background:#0b1220;color:#fff}
+  .sch-day-grid{display:grid;gap:.75rem;margin:0 0 1.5rem}
+  @media(min-width:720px){.sch-day-grid{grid-template-columns:repeat(3,1fr)}}
+  .sch-day-card{
+    padding:1rem .95rem;border-radius:14px;background:#fff;
+    border:1px solid rgba(18,24,38,.08);
+  }
+  .sch-day-card .d{
+    font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#8a93a3;
+  }
+  .sch-day-card h3{
+    font-family:var(--display);font-size:1.35rem;letter-spacing:.03em;margin:.25rem 0 .65rem;color:#121826;
+  }
+  .sch-day-card ul{margin:0;padding:0;list-style:none;display:grid;gap:.45rem}
+  .sch-day-card li{
+    font-size:.84rem;color:#5c6473;line-height:1.4;padding-left:.85rem;position:relative;
+  }
+  .sch-day-card li::before{
+    content:"";position:absolute;left:0;top:.55em;width:5px;height:5px;border-radius:50%;
+    background:#163a74;
+  }
+  .sch-farm{
+    display:flex;flex-wrap:wrap;gap:.4rem;margin:.85rem 0 0;
+  }
+  .sch-farm a{
+    display:inline-flex;align-items:center;min-height:34px;padding:.35rem .7rem;border-radius:999px;
+    font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;
+    background:#eef4ff;color:#163a74;
+  }
+  .sch-farm a.is-hot{background:#0b1220;color:#f0d78c}
+  .ex-sticky .ex-sticky-actions{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:flex-end}
+</style>
 </head>
-<body class="nhl-light">
+<body class="nhl-light has-ex-sticky">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
 
 <section class="nhl-hero">
-  <span class="kicker">Full slate</span>
+  <span class="kicker">Underdog Division · Expansion Weekend</span>
   <h1>SCHEDULE</h1>
-  <p>Founding Four game calendar — filter by round. Media nights live under Media Hub.</p>
+  <p>Fri faceoff → Sat heat → Sun knockout — plus the full Founding Four calendar.</p>
 </section>
 <nav class="nhl-sub" aria-label="League">
   <a href="scores.html">Scores</a>
   <a href="schedule.html" class="is-active">Schedule</a>
   <a href="standings.html">Standings</a>
-  <a href="stats.html">Stats</a>
+  <a href="aura-vote.html">Aura</a>
   <a href="bracket.html">Playoffs</a>
-  <a href="media-schedule.html">Media events</a>
+  <a href="media-schedule.html">Media</a>
 </nav>
 
 <div class="nhl-wrap nhl-wrap-wide">
-  <div class="pz-tabs" id="schFilter" style="margin-bottom:1rem;display:flex;flex-wrap:wrap;gap:.4rem">
-    <button type="button" class="is-active" data-round="all" style="border-radius:999px;padding:.55rem 1rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:#0b1220;color:#fff">All</button>
-    <button type="button" data-round="Round Robin" style="border-radius:999px;padding:.55rem 1rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#5c6473;background:#fff;border:1px solid rgba(18,24,38,.08)">Round Robin</button>
-    <button type="button" data-round="Semifinal" style="border-radius:999px;padding:.55rem 1rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#5c6473;background:#fff;border:1px solid rgba(18,24,38,.08)">Semifinals</button>
-    <button type="button" data-round="Golden Final" style="border-radius:999px;padding:.55rem 1rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#5c6473;background:#fff;border:1px solid rgba(18,24,38,.08)">Golden Final</button>
-    <button type="button" data-round="Season Two" style="border-radius:999px;padding:.55rem 1rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#5c6473;background:#fff;border:1px solid rgba(18,24,38,.08)">Season Two</button>
+  <div class="sch-pulse">
+    <div>
+      <div class="lbl">Expansion faceoff</div>
+      <div class="clock" id="exStickyClock">00 : 00 : 00 : 00</div>
+      <p id="schPulseBlurb">Weekend slate locks under the clock — farm Aura + Clip while you wait.</p>
+    </div>
+    <a href="expansion.html" class="btn btn-platinum btn-sm">Weekend hub</a>
   </div>
-  <div class="sch-scroll">
-    <table class="sch-table">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Matchup</th>
-          <th>Venue</th>
-          <th>Round</th>
-          <th>Result</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="schBody"></tbody>
-    </table>
+
+  <div class="sch-tabs" role="tablist" aria-label="Schedule view">
+    <button type="button" class="is-on" data-view="weekend">Weekend</button>
+    <button type="button" data-view="founding">Founding Four</button>
+  </div>
+
+  <div id="viewWeekend">
+    <div class="sch-day-grid" id="schWeekend"></div>
+  </div>
+
+  <div id="viewFounding" hidden>
+    <div class="pz-tabs" id="schFilter" style="margin-bottom:1rem;display:flex;flex-wrap:wrap;gap:.4rem">
+      <button type="button" class="is-active" data-round="all" style="border-radius:999px;padding:.55rem 1rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:#0b1220;color:#fff">All</button>
+      <button type="button" data-round="Round Robin" style="border-radius:999px;padding:.55rem 1rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#5c6473;background:#fff;border:1px solid rgba(18,24,38,.08)">Round Robin</button>
+      <button type="button" data-round="Semifinal" style="border-radius:999px;padding:.55rem 1rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#5c6473;background:#fff;border:1px solid rgba(18,24,38,.08)">Semifinals</button>
+      <button type="button" data-round="Golden Final" style="border-radius:999px;padding:.55rem 1rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#5c6473;background:#fff;border:1px solid rgba(18,24,38,.08)">Golden Final</button>
+      <button type="button" data-round="Season Two" style="border-radius:999px;padding:.55rem 1rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#5c6473;background:#fff;border:1px solid rgba(18,24,38,.08)">Season Two</button>
+    </div>
+    <div class="sch-scroll">
+      <table class="sch-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Matchup</th>
+            <th>Venue</th>
+            <th>Round</th>
+            <th>Result</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="schBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="ex-sticky" aria-label="Weekend farm shortcuts">
+  <div>
+    <div class="lbl">Farm while you wait</div>
+    <div class="clock" style="font-size:1rem">Aura · Crest · Clip</div>
+    <div class="sub">OG Pass multiplies XP ×5</div>
+  </div>
+  <div class="ex-sticky-actions">
+    <a href="aura-vote.html" class="btn btn-founding btn-sm">Aura</a>
+    <a href="checkout.html?offer=og" class="btn btn-platinum btn-sm" data-claim-og>$36</a>
   </div>
 </div>
 
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=50"></script>
+<script src="assets/js/site.js?v=51"></script>
 <script src="assets/js/support-widget.js?v=6"></script>
-<script src="assets/js/cart.js?v=8"></script>
+<script src="assets/js/cart.js?v=9"></script>
 <script src="assets/js/teams-data.js?v=2"></script>
 <script src="assets/js/standings-data.js?v=2"></script>
+<script src="assets/js/tournament-data.js?v=3"></script>
 <script>
 (function () {
   const bySlug = Object.fromEntries(window.PGBTeams.all().map((t) => [t.slug, t]));
+  const E = window.PGB_EXPANSION;
   const body = document.getElementById("schBody");
   let filter = "all";
+
+  document.getElementById("schPulseBlurb").textContent =
+    E.startLabel + " → " + E.endLabel + " · " + E.venue;
+
+  const farmByDay = {
+    0: [
+      { href: "listen.html", label: "Listen XP", hot: true },
+      { href: "shop.html#best", label: "Shop flash" },
+      { href: "scores.html", label: "Scores" },
+    ],
+    1: [
+      { href: "aura-vote.html", label: "Aura Vote", hot: true },
+      { href: "clip-crown.html", label: "Clip Crown", hot: true },
+      { href: "conductor-crest.html", label: "Crest" },
+    ],
+    2: [
+      { href: "checkout.html?offer=og", label: "$36 OG", hot: true },
+      { href: "bracket.html", label: "Knockout" },
+      { href: "scores.html", label: "Live scores" },
+    ],
+  };
+
+  document.getElementById("schWeekend").innerHTML = E.schedule
+    .map((d, i) => {
+      const farms = farmByDay[i] || [];
+      return `<article class="sch-day-card">
+        <div class="d">Day ${i + 1}</div>
+        <h3>${d.day}</h3>
+        <ul>${d.items.map((item) => `<li>${item}</li>`).join("")}</ul>
+        <div class="sch-farm">${farms
+          .map((f) => `<a href="${f.href}" class="${f.hot ? "is-hot" : ""}">${f.label}</a>`)
+          .join("")}</div>
+      </article>`;
+    })
+    .join("");
 
   function render() {
     const games = [...window.PGB_GAMES]
@@ -105,6 +224,24 @@
     });
     render();
   });
+
+  document.querySelectorAll(".sch-tabs button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".sch-tabs button").forEach((b) => b.classList.toggle("is-on", b === btn));
+      const w = btn.dataset.view === "weekend";
+      document.getElementById("viewWeekend").hidden = !w;
+      document.getElementById("viewFounding").hidden = w;
+    });
+  });
+
+  document.querySelectorAll("[data-claim-og]").forEach((a) => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.PGBCart?.addOgOffer({ open: false });
+      location.href = "checkout.html?offer=og";
+    });
+  });
+
   render();
 })();
 </script>

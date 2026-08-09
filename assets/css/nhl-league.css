@@ -48,6 +48,7 @@
 .ex-sticky .clock{font-family:var(--display);font-size:1.15rem;letter-spacing:.06em;margin-top:.1rem}
 .ex-sticky .sub{font-size:.68rem;color:rgba(238,243,250,.65);margin-top:.1rem}
 .ex-sticky .btn{white-space:nowrap}
+.ex-sticky .ex-sticky-actions{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:flex-end;align-items:center}
 body.has-ex-sticky{padding-bottom:calc(5.2rem + env(safe-area-inset-bottom))}
 body.has-ex-sticky .pgb-support-fab,
 body.has-ex-sticky .pgb-pucky-bubble,
