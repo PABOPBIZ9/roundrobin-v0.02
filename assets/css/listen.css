@@ -97,6 +97,18 @@ html:not([data-theme="light"]) .lx-page:not(.nhl-light) .lx-note a{color:#f0d78c
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:.1rem 0;
 }
 .lx-dock .ep .sub{font-size:.72rem;color:rgba(238,243,250,.65);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lx-dock .ep .xp{
+  margin-top:.2rem;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  color:rgba(240,215,140,.9);
+}
+.lx-dock-farm{
+  display:flex;flex-wrap:wrap;gap:.35rem;justify-content:flex-start;
+}
+.lx-dock-farm a{
+  display:inline-flex;align-items:center;min-height:30px;padding:.25rem .55rem;border-radius:999px;
+  font-size:.58rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;
+  color:#f0d78c;border:1px solid rgba(240,215,140,.35);background:rgba(255,255,255,.06);
+}
 .lx-dock-btns{display:flex;gap:.4rem;align-items:center}
 .lx-dock-btns button{
   width:44px;height:44px;border-radius:999px;border:0;cursor:pointer;
@@ -117,8 +129,13 @@ body.lx-page > .av-toggle{
 }
 body.lx-page .pgb-support-fab,
 body.lx-page .pgb-pucky-bubble{
-  bottom:calc(5.6rem + env(safe-area-inset-bottom)) !important;
+  bottom:calc(7.4rem + env(safe-area-inset-bottom)) !important;
 }
+.lx-page .av-toggle.av-float,
+body.lx-page > .av-toggle{
+  bottom:calc(7.4rem + env(safe-area-inset-bottom)) !important;
+}
+body.lx-page{padding-bottom:calc(7.2rem + env(safe-area-inset-bottom))}
 
 @media(min-width:900px){
   .lx-wrap{padding-bottom:4rem}

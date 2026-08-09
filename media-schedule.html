@@ -2,14 +2,39 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>2026 Schedule — PuckGold Media Hub</title>
+<meta name="description" content="PuckGold media schedule — Expansion Weekend farm windows, Founding Four media nights, and accreditation CTAs.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=54">
+<link rel="stylesheet" href="assets/css/site.css?v=55">
 <link rel="stylesheet" href="assets/css/media-hub.css?v=3">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=7">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .mh-pulse{
+    display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;justify-content:space-between;
+    margin:0 0 1.25rem;padding:1rem 1.05rem;border-radius:16px;color:#fff;
+    background:
+      radial-gradient(circle at 12% 100%, rgba(240,215,140,.22), transparent 42%),
+      linear-gradient(145deg,#0b1220,#163a74);
+  }
+  .mh-pulse .lbl{font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#f0d78c}
+  .mh-pulse .clock{font-family:var(--display);font-size:clamp(1.3rem,4vw,1.7rem);letter-spacing:.06em;margin:.15rem 0}
+  .mh-pulse p{margin:0;font-size:.8rem;color:rgba(238,243,250,.72);max-width:28rem;line-height:1.4}
+  .mh-farm{
+    display:grid;gap:.55rem;grid-template-columns:1fr 1fr;margin:0 0 1.5rem;
+  }
+  @media(min-width:720px){.mh-farm{grid-template-columns:repeat(4,1fr)}}
+  .mh-farm a{
+    display:block;padding:.85rem .8rem;border-radius:12px;text-decoration:none;color:#121826;
+    background:#fff;border:1px solid rgba(18,24,38,.08);
+  }
+  .mh-farm .t{font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#8a93a3}
+  .mh-farm strong{display:block;font-family:var(--display);font-size:1.15rem;margin:.2rem 0 .15rem;letter-spacing:.02em}
+  .mh-farm span{display:block;font-size:.72rem;color:#5c6473;line-height:1.35}
+</style>
 </head>
-<body class="mh-page" data-mh="schedule">
+<body class="mh-page has-ex-sticky" data-mh="schedule">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
 <div class="mh-subnav" id="mhSubnav"></div>
@@ -19,6 +44,38 @@
 </section>
 
 <div class="mh-wrap">
+  <div class="mh-pulse">
+    <div>
+      <div class="lbl">Expansion faceoff</div>
+      <div class="clock" id="exStickyClock">00 : 00 : 00 : 00</div>
+      <p id="mhPulseBlurb">Media nights + Fan Zone farms ride the weekend clock — Aura, Clip, Crest, Listen.</p>
+    </div>
+    <a href="expansion.html" class="btn btn-platinum btn-sm">Weekend hub</a>
+  </div>
+
+  <div class="mh-farm" aria-label="Weekend media farms">
+    <a href="aura-vote.html">
+      <div class="t">Live</div>
+      <strong>Aura Vote</strong>
+      <span>Windows open Sat heat</span>
+    </a>
+    <a href="clip-crown.html">
+      <div class="t">Sat–Sun</div>
+      <strong>Clip Crown</strong>
+      <span>Submit for broadcast stack</span>
+    </a>
+    <a href="listen.html">
+      <div class="t">Audio</div>
+      <strong>Listen XP</strong>
+      <span>Booth packs · farm tracks</span>
+    </a>
+    <a href="media-accreditation.html">
+      <div class="t">Press</div>
+      <strong>Credential</strong>
+      <span>Cover Neon Reef weekend</span>
+    </a>
+  </div>
+
   <p class="mh-legal" style="margin-top:0">Season One Founding Four — tournaments, media nights, and prize activations. Event pages include key info, resources, and accreditation CTAs.</p>
   <div class="mh-sched" id="mhSchedule"></div>
 
@@ -28,11 +85,33 @@
   <div class="mh-events" id="mhAllEvents"></div>
 </div>
 
+<div class="ex-sticky" aria-label="Media farm shortcuts">
+  <div>
+    <div class="lbl">Cover · farm · convert</div>
+    <div class="clock" style="font-size:1rem">Aura · Clip · $36</div>
+    <div class="sub">OG Pass multiplies Fan Zone XP ×5</div>
+  </div>
+  <div class="ex-sticky-actions">
+    <a href="aura-vote.html" class="btn btn-founding btn-sm">Aura</a>
+    <a href="checkout.html?offer=og" class="btn btn-platinum btn-sm">$36</a>
+  </div>
+</div>
+
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=54"></script>
+<script src="assets/js/site.js?v=55"></script>
 <script src="assets/js/support-widget.js?v=6"></script>
-<script src="assets/js/cart.js?v=8"></script>
+<script src="assets/js/cart.js?v=9"></script>
+<script src="assets/js/tournament-data.js?v=3"></script>
 <script src="assets/js/media-hub.js?v=5"></script>
+<script>
+(function () {
+  const E = window.PGB_EXPANSION;
+  if (E) {
+    document.getElementById("mhPulseBlurb").textContent =
+      E.startLabel + " → " + E.endLabel + " · " + E.venue;
+  }
+})();
+</script>
 </body>
 </html>

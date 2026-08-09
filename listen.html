@@ -6,9 +6,9 @@
 <title>Listen — PuckGold Broadcast</title>
 <meta name="description" content="Play Chatterbox Season One shows — Booth Sample Pack, Backstory Pre-Game, and Gold on 1 Post-Cup.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=54">
+<link rel="stylesheet" href="assets/css/site.css?v=55">
 <link rel="stylesheet" href="assets/css/nhl-league.css?v=7">
-<link rel="stylesheet" href="assets/css/listen.css?v=2">
+<link rel="stylesheet" href="assets/css/listen.css?v=3">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 </head>
 <body class="nhl-light lx-page">
@@ -16,15 +16,15 @@
 <header class="site-header" id="site-header"></header>
 
 <section class="lx-hero">
-  <div class="kicker">PGB Broadcast Network · Season One</div>
+  <div class="kicker">PGB Broadcast Network · Expansion Weekend</div>
   <h1>LISTEN</h1>
-  <p>Booth calls + podcast drops from the Championship Book — Miracle Game climax, Expansion tease, and post-Cup Gold on 1.</p>
+  <p>Booth calls + podcast drops from the Championship Book — finish tracks for XP, then stack Aura + Clip while the slate runs.</p>
 </section>
 <nav class="nhl-sub" aria-label="Audio">
   <a href="listen.html" class="is-active">Listen</a>
-  <a href="podcasts.html">Podcasts</a>
-  <a href="founding-four.html#ch10">Book · Ch.10</a>
-  <a href="media.html">Media Hub</a>
+  <a href="fantasy.html#quests">Quests</a>
+  <a href="aura-vote.html">Aura</a>
+  <a href="media-schedule.html">Media sked</a>
 </nav>
 
 <div class="lx-wrap">
@@ -59,6 +59,7 @@
       <div class="show" id="dockShow">—</div>
       <div class="ttl" id="dockTitle">Select a track</div>
       <div class="sub" id="dockSub">Season One</div>
+      <div class="xp" id="dockXp">Track +8 · Show +50</div>
     </div>
     <div class="lx-dock-btns">
       <button type="button" id="dockPrev" aria-label="Previous">‹</button>
@@ -67,6 +68,11 @@
     </div>
   </div>
   <div class="prog" id="dockProg" role="slider" aria-label="Seek"><i id="dockBar"></i></div>
+  <div class="lx-dock-farm" id="dockFarm">
+    <a href="aura-vote.html">Aura</a>
+    <a href="clip-crown.html">Clip</a>
+    <a href="checkout.html?offer=og" data-claim-og>$36 · 5×</a>
+  </div>
 </div>
 
 <audio id="lxAudio" preload="metadata"></audio>
@@ -75,7 +81,7 @@
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
 <script src="assets/js/auth.js?v=2"></script>
-<script src="assets/js/site.js?v=54"></script>
+<script src="assets/js/site.js?v=55"></script>
 <script src="assets/js/support-widget.js?v=6"></script>
 <script src="assets/js/cart.js?v=9"></script>
 <script src="assets/js/broadcast-shows.js?v=1"></script>
@@ -137,6 +143,27 @@
     el.classList.add("is-on");
     clearTimeout(toastXp._t);
     toastXp._t = setTimeout(() => el.classList.remove("is-on"), 2600);
+    paintDockXp();
+  }
+  function paintDockXp() {
+    const el = document.getElementById("dockXp");
+    if (!el) return;
+    const s = show();
+    const tKey = s ? `${s.id}:t${trackIdx}:${dayKey()}` : "";
+    const sKey = s ? `${s.id}:show:${dayKey()}` : "";
+    const store = (() => {
+      try { return JSON.parse(localStorage.getItem("pgb-listen-xp") || "{}"); } catch (_) { return {}; }
+    })();
+    const trackDone = tKey && !!store[tKey];
+    const showDone = sKey && !!store[sKey];
+    const mult = window.PGBAuth?.multiplier?.() || 1;
+    const trackPts = 8 * mult;
+    const showPts = 50 * mult;
+    const bits = [];
+    bits.push(trackDone ? "Track ✓" : `Track +${trackPts}`);
+    bits.push(showDone ? "Show ✓" : `Show +${showPts}`);
+    if (mult > 1) bits.push(`${mult}× OG`);
+    el.textContent = bits.join(" · ");
   }
   function awardListen(base, reason, onceKey) {
     if (!xpMark(onceKey)) return null;
@@ -176,10 +203,24 @@
     const premium = !!(window.PGBAuth?.isPremium?.());
     const signed = !!(window.PGBAuth?.isSignedIn?.());
     farm.innerHTML = premium
-      ? `<span><strong>OG active · 5× XP</strong> — finish a show for a weekend farm burst</span><a href="fantasy.html#board">Leaderboard</a>`
+      ? `<span><strong>OG active · 5× XP</strong> — finish a show for a weekend farm burst</span><a href="fantasy.html#quests">Quests</a><a href="aura-vote.html">Aura</a>`
       : signed
         ? `<span><strong>Expansion farm:</strong> finish tracks for XP · unlock <strong>5×</strong> with OG</span><a href="checkout.html?offer=og" data-claim-og>Unlock 5× · $36</a>`
         : `<span><strong>Expansion farm:</strong> finish tracks for XP · OG Pass = <strong>5×</strong></span><a href="signin.html">Sign in</a><a href="checkout.html?offer=og" data-claim-og>Unlock 5× · $36</a>`;
+    const dockFarm = document.getElementById("dockFarm");
+    if (dockFarm) {
+      dockFarm.innerHTML = premium
+        ? `<a href="aura-vote.html">Aura</a><a href="clip-crown.html">Clip</a><a href="fantasy.html#quests">Quests</a>`
+        : `<a href="aura-vote.html">Aura</a><a href="clip-crown.html">Clip</a><a href="checkout.html?offer=og" data-claim-og>$36 · 5×</a>`;
+      dockFarm.querySelectorAll("[data-claim-og]").forEach((a) => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          window.PGBCart?.addOgOffer({ open: false });
+          location.href = "checkout.html?offer=og";
+        });
+      });
+    }
+    paintDockXp();
   }
 
   function seekFromEvent(el, e) {
@@ -249,6 +290,7 @@
     document.getElementById("dockShow").textContent = s.show;
     document.getElementById("dockTitle").textContent = t ? t.label : s.title;
     document.getElementById("dockSub").textContent = t ? t.voice : "Season One";
+    paintDockXp();
   }
 
   function paintTracks() {
