@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Conductor’s Crest Fan Vote — Expansion Weekend | PuckGold</title>
+<meta name="description" content="Vote for Expansion Weekend sportsmanship — the Conductor’s Crest fan shoutout, PuckGoldBiz style.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=48">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=5">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .cv-hero{
+    color:#fff;padding:2.75rem 4vw 2.1rem;text-align:center;
+    background:
+      radial-gradient(circle at 25% 0%, rgba(240,215,140,.22), transparent 42%),
+      linear-gradient(160deg,#1a120c 0%,#2a2118 40%,#163a74 100%);
+  }
+  .cv-hero .kicker{font-size:.68rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#f0d78c}
+  .cv-hero h1{font-family:var(--display);font-size:clamp(2.2rem,7vw,3.6rem);letter-spacing:.03em;margin:.4rem 0;line-height:.95}
+  .cv-hero p{max-width:34rem;margin:.55rem auto 0;color:rgba(238,243,250,.78);line-height:1.5}
+  .cv-wrap{max-width:920px;margin:0 auto;padding:1.35rem 4vw 5.5rem}
+  .cv-lead{font-size:.92rem;color:#5c6473;line-height:1.5;margin:0 0 1.1rem}
+  .cv-grid{display:grid;gap:.65rem}
+  .cv-card{
+    display:grid;grid-template-columns:auto 1fr auto;gap:.85rem;align-items:center;
+    padding:1rem .95rem;border-radius:14px;border:1px solid rgba(18,24,38,.08);background:#fff;
+    text-align:left;width:100%;font:inherit;color:inherit;cursor:pointer;
+    min-height:72px;-webkit-tap-highlight-color:transparent;
+  }
+  .cv-card.is-on{border-color:#163a74;box-shadow:0 0 0 2px rgba(22,58,116,.16)}
+  .cv-card .orb{
+    width:44px;height:44px;border-radius:10px;display:grid;place-items:center;
+    font-family:var(--display);font-size:1.25rem;color:#fff;
+  }
+  .cv-card h3{font-family:var(--display);font-size:1.15rem;letter-spacing:.02em;margin:0 0 .2rem}
+  .cv-card p{margin:0;font-size:.78rem;color:#5c6473;line-height:1.35}
+  .cv-card .votes{font-family:var(--display);font-size:1.35rem;color:#163a74;min-width:2.5rem;text-align:right}
+  .cv-actions{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.1rem}
+  .cv-toast{
+    position:fixed;left:50%;bottom:calc(5.8rem + env(safe-area-inset-bottom));transform:translateX(-50%);
+    z-index:90;padding:.65rem 1rem;border-radius:999px;background:rgba(10,22,44,.94);
+    border:1px solid rgba(240,215,140,.45);color:#f0d78c;font-size:.78rem;font-weight:800;
+    opacity:0;pointer-events:none;transition:opacity .25s;
+  }
+  .cv-toast.is-on{opacity:1}
+  .cv-note{font-size:.78rem;color:#5c6473;margin-top:1rem;line-height:1.45}
+  .cv-note a{color:#163a74;font-weight:700}
+</style>
+</head>
+<body class="nhl-light has-ex-sticky">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+
+<section class="cv-hero">
+  <div class="kicker">Hardware · Fan vote</div>
+  <h1>CONDUCTOR’S CREST</h1>
+  <p>Sportsmanship shoutouts all Expansion Weekend. Tap the squad that played the game the right way — farm XP, crown the heart of the ice.</p>
+</section>
+<nav class="nhl-sub" aria-label="Conductor Crest">
+  <a href="conductor-crest.html" class="is-active">Fan vote</a>
+  <a href="awards.html#conductors-crest">Hardware</a>
+  <a href="clip-crown.html">Clip Crown</a>
+  <a href="expansion.html">Expansion</a>
+  <a href="fantasy.html#prizes">Prizes</a>
+</nav>
+
+<div class="cv-wrap">
+  <p class="cv-lead">Season One crest lives with Chattanooga. This weekend’s fan vote is open to Founding Four + invite energy — one vote per day, OG = 5× XP.</p>
+  <div class="cv-grid" id="cvGrid"></div>
+  <div class="cv-actions">
+    <button type="button" class="btn btn-founding" id="cvCast" disabled>Cast vote</button>
+    <a href="checkout.html?offer=og" class="btn btn-platinum btn-sm" data-claim-og>Unlock 5× · $36</a>
+    <a href="clip-crown.html" class="btn btn-ghost btn-sm">Submit a clip</a>
+  </div>
+  <p class="cv-note">Full hardware case: <a href="awards.html">The Hardware</a> · Choo Choo lore: <a href="news-article.html?id=choochoo-heart">zero points, everything in the heart</a>.</p>
+</div>
+
+<div class="ex-sticky" aria-label="Faceoff countdown">
+  <div>
+    <div class="lbl">Faceoff in</div>
+    <div class="clock" id="exStickyClock">00 : 00 : 00 : 00</div>
+    <div class="sub">Conductor’s Crest vote · Clip Crown open</div>
+  </div>
+  <a href="checkout.html?offer=og" class="btn btn-founding btn-sm" data-claim-og>Claim $36</a>
+</div>
+<div class="cv-toast" id="cvToast" role="status" aria-live="polite"></div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/auth.js?v=2"></script>
+<script src="assets/js/site.js?v=48"></script>
+<script src="assets/js/support-widget.js?v=5"></script>
+<script src="assets/js/cart.js?v=9"></script>
+<script>
+(function () {
+  const KEY_VOTES = "pgb-conductor-votes";
+  const KEY_DAY = "pgb-conductor-vote-day";
+  const teams = [
+    { id: "choo", name: "Choo Choo", blurb: "Blue-collar conscience · steam-whistle heart", color: "#78350f", mono: "T" },
+    { id: "geckz", name: "Mighty Geckz", blurb: "Small creature. Massive heart.", color: "#0f766e", mono: "M" },
+    { id: "cards", name: "Cardinals", blurb: "Discipline under fire — redemption weekend", color: "#7a1524", mono: "C" },
+    { id: "whoomp", name: "Whoomp!", blurb: "Quiet overachievers · District grit", color: "#1e3a8a", mono: "W" },
+    { id: "invite", name: "Expansion invite", blurb: "New markets · first-weekend class", color: "#163a74", mono: "16" },
+  ];
+  let selected = null;
+  const day = new Date().toISOString().slice(0, 10);
+
+  function votes() {
+    try { return JSON.parse(localStorage.getItem(KEY_VOTES) || "{}"); } catch (_) { return {}; }
+  }
+  function saveVotes(v) { localStorage.setItem(KEY_VOTES, JSON.stringify(v)); }
+
+  function toast(msg) {
+    const el = document.getElementById("cvToast");
+    el.textContent = msg;
+    el.classList.add("is-on");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => el.classList.remove("is-on"), 2600);
+  }
+
+  function paint() {
+    const v = votes();
+    document.getElementById("cvGrid").innerHTML = teams
+      .map((t) => {
+        const n = v[t.id] || 0;
+        return `<button type="button" class="cv-card${selected === t.id ? " is-on" : ""}" data-id="${t.id}">
+          <span class="orb" style="background:${t.color}">${t.mono}</span>
+          <span><h3>${t.name}</h3><p>${t.blurb}</p></span>
+          <span class="votes" aria-label="${n} votes">${n}</span>
+        </button>`;
+      })
+      .join("");
+    document.querySelectorAll(".cv-card").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        selected = btn.dataset.id;
+        document.getElementById("cvCast").disabled = false;
+        paint();
+      });
+    });
+    const votedToday = localStorage.getItem(KEY_DAY) === day;
+    document.getElementById("cvCast").textContent = votedToday ? "Voted today" : "Cast vote";
+    document.getElementById("cvCast").disabled = votedToday || !selected;
+  }
+
+  document.getElementById("cvCast").addEventListener("click", () => {
+    if (!selected) return;
+    if (localStorage.getItem(KEY_DAY) === day) {
+      toast("One vote per day — come back tomorrow.");
+      return;
+    }
+    const v = votes();
+    v[selected] = (v[selected] || 0) + 1;
+    saveVotes(v);
+    localStorage.setItem(KEY_DAY, day);
+    let msg = "Vote locked. Respect on ice.";
+    if (window.PGBAuth?.awardPoints) {
+      const r = window.PGBAuth.awardPoints(15, "conductor-crest-vote");
+      if (r?.awarded) msg = `+${r.awarded} XP${r.mult > 1 ? " · " + r.mult + "× OG" : ""} · vote locked`;
+    }
+    toast(msg);
+    paint();
+  });
+
+  document.querySelectorAll("[data-claim-og]").forEach((a) => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.PGBCart?.addOgOffer({ open: false });
+      location.href = "checkout.html?offer=og";
+    });
+  });
+
+  paint();
+})();
+</script>
+</body>
+</html>

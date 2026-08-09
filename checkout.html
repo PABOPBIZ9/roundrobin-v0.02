@@ -6,7 +6,7 @@
 <title>Checkout — PuckGold</title>
 <meta name="description" content="Secure PuckGold checkout — claim the $36 OG Offer or finish your bag.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=47">
+<link rel="stylesheet" href="assets/css/site.css?v=48">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <style>
   .check-wrap{max-width:960px;margin:0 auto;padding:2rem 4vw 4rem}
@@ -31,7 +31,27 @@
   .field label{display:block;font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem}
   .field input,.field textarea{
     width:100%;padding:.75rem .85rem;border-radius:10px;border:1px solid var(--line-soft);
-    background:var(--bg-2);color:var(--text);font:inherit;
+    background:var(--bg-2);color:var(--text);font:inherit;min-height:44px;
+  }
+  .check-urgency{
+    display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;justify-content:space-between;
+    margin-top:1rem;padding:.9rem 1rem;border-radius:14px;
+    background:linear-gradient(145deg,#163a74,#0b1220);color:#fff;
+  }
+  .check-urgency .lbl{font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#f0d78c}
+  .check-urgency .clock{font-family:var(--display);font-size:1.2rem;letter-spacing:.06em;margin-top:.15rem}
+  .check-urgency .sub{font-size:.75rem;color:rgba(238,243,250,.7);margin-top:.15rem}
+  .check-sticky{
+    position:fixed;left:0;right:0;bottom:0;z-index:86;
+    display:none;padding:.7rem max(.85rem,4vw) calc(.75rem + env(safe-area-inset-bottom));
+    background:rgba(10,22,44,.96);backdrop-filter:blur(16px);
+    border-top:1px solid rgba(240,215,140,.35);
+  }
+  .check-sticky .btn{width:100%;min-height:48px}
+  @media(max-width:799px){
+    .check-wrap{padding-bottom:5.5rem}
+    .check-sticky{display:block}
+    body .pgb-support-fab, body .av-toggle.av-float{bottom:calc(5.4rem + env(safe-area-inset-bottom)) !important}
   }
 </style>
 </head>
@@ -40,9 +60,17 @@
 <header class="site-header" id="site-header"></header>
 
 <div class="check-wrap">
-  <span class="kicker">Secure checkout</span>
+  <span class="kicker">Secure checkout · Founding window</span>
   <h1>CHECK OUT</h1>
-  <p style="color:var(--muted);margin-top:.5rem;max-width:36rem">Review your bag, then lock the order — founding OG Offer ships the limited gold puck with your Pass.</p>
+  <p style="color:var(--muted);margin-top:.5rem;max-width:36rem">Review your bag, then lock the order — founding OG Offer ships the limited gold puck with your Pass · <strong style="color:var(--gold-bright)">5× XP</strong>.</p>
+  <div class="check-urgency">
+    <div>
+      <div class="lbl">Expansion faceoff</div>
+      <div class="clock" id="exStickyClock">00 : 00 : 00 : 00</div>
+      <div class="sub">Sales window rides the same clock</div>
+    </div>
+    <a href="expansion.html" class="btn btn-platinum btn-sm">Weekend hub</a>
+  </div>
 
   <div class="check-grid">
     <div class="check-panel">
@@ -68,12 +96,16 @@
   </div>
 </div>
 
+<div class="check-sticky">
+  <button type="submit" form="checkForm" class="btn btn-founding" id="checkStickyBtn">Place order</button>
+</div>
+
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=47"></script>
+<script src="assets/js/auth.js?v=2"></script>
+<script src="assets/js/site.js?v=48"></script>
 <script src="assets/js/support-widget.js?v=5"></script>
-<script src="assets/js/cart.js?v=8"></script>
-<script src="assets/js/auth.js?v=1"></script>
+<script src="assets/js/cart.js?v=9"></script>
 <script>
 (function () {
   function money(n) { return "$" + Number(n).toFixed(2); }
