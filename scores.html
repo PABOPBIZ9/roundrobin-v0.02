@@ -2,46 +2,182 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Scores — PuckGold</title>
-<meta name="description" content="PuckGold scores — Founding Four final scores, three stars, recaps, and LockerVision outfits.">
+<meta name="description" content="PuckGold scores — Expansion Weekend slate, Founding Four finals, OT thrillers, and game-day cards.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=49">
-<link rel="stylesheet" href="assets/css/nhl-league.css?v=1">
+<link rel="stylesheet" href="assets/css/site.css?v=50">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=6">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .sc-pulse{
+    display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;justify-content:space-between;
+    margin:0 0 1.25rem;padding:1rem 1.05rem;border-radius:16px;color:#fff;
+    background:
+      radial-gradient(circle at 80% 0%, rgba(240,215,140,.28), transparent 45%),
+      linear-gradient(145deg,#0b1220,#163a74);
+  }
+  .sc-pulse .lbl{font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#f0d78c}
+  .sc-pulse .clock{font-family:var(--display);font-size:clamp(1.3rem,4vw,1.7rem);letter-spacing:.06em;margin:.15rem 0}
+  .sc-pulse p{margin:0;font-size:.8rem;color:rgba(238,243,250,.72);max-width:28rem;line-height:1.4}
+  .sc-tabs{display:flex;gap:.35rem;margin:0 0 1rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .sc-tabs::-webkit-scrollbar{display:none}
+  .sc-tabs button{
+    flex:0 0 auto;min-height:40px;border:0;border-radius:999px;padding:.5rem .85rem;
+    font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+    background:#eef4ff;color:#163a74;cursor:pointer;
+  }
+  .sc-tabs button.is-on{background:#0b1220;color:#fff}
+  .sc-card.is-live{border-color:rgba(122,21,36,.35);box-shadow:0 0 0 1px rgba(122,21,36,.15)}
+  .sc-card.is-live .sc-card-top{background:linear-gradient(90deg,#fff5f5,#f8fafc)}
+  .sc-card-top .live{display:inline-flex;align-items:center;gap:.3rem;color:#7a1524}
+  .sc-card-top .live::before{
+    content:"";width:6px;height:6px;border-radius:50%;background:#ef4444;
+    animation:scPulse 1.1s ease infinite;
+  }
+  @keyframes scPulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .sc-row{min-height:52px;padding:.85rem .9rem}
+  .sc-score{font-size:clamp(1.55rem,5vw,1.85rem)}
+  .sc-foot a{min-height:36px;display:inline-flex;align-items:center}
+  .sc-pool{
+    display:grid;gap:.55rem;grid-template-columns:1fr 1fr;margin:0 0 1.25rem;
+  }
+  @media(min-width:700px){.sc-pool{grid-template-columns:repeat(4,1fr)}}
+  .sc-pool a{
+    display:block;padding:.85rem .8rem;border-radius:12px;background:#fff;
+    border:1px solid rgba(18,24,38,.08);text-decoration:none;color:#121826;
+  }
+  .sc-pool .p{font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#8a93a3}
+  .sc-pool strong{display:block;font-family:var(--display);font-size:1.2rem;margin:.2rem 0 .35rem;letter-spacing:.03em}
+  .sc-pool span{display:block;font-size:.72rem;color:#5c6473;line-height:1.35}
+  body.has-ex-sticky{padding-bottom:calc(5.2rem + env(safe-area-inset-bottom))}
+</style>
 </head>
-<body class="nhl-light">
+<body class="nhl-light has-ex-sticky">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
 
 <section class="nhl-hero">
-  <span class="kicker">Underdog Division</span>
+  <span class="kicker">Underdog Division · Expansion Weekend</span>
   <h1>SCORES</h1>
-  <p>Every Founding Four result — finals, OT thrillers, and the next Opening Faceoff. Live PGB League scores.</p>
+  <p>Founding Four finals + First 16 slate — mobile game-day cards, Aura windows, and the faceoff clock.</p>
 </section>
 <nav class="nhl-sub" aria-label="League">
   <a href="scores.html" class="is-active">Scores</a>
   <a href="schedule.html">Schedule</a>
   <a href="standings.html">Standings</a>
-  <a href="stats.html">Stats</a>
+  <a href="aura-vote.html">Aura</a>
   <a href="bracket.html">Playoffs</a>
   <a href="video-recaps.html">Recaps</a>
-  <a href="video-condensed.html">Condensed</a>
 </nav>
 
-<div class="nhl-wrap" id="scoresRoot"></div>
+<div class="nhl-wrap">
+  <div class="sc-pulse">
+    <div>
+      <div class="lbl">Expansion faceoff</div>
+      <div class="clock" id="exStickyClock">00 : 00 : 00 : 00</div>
+      <p id="scPulseBlurb">First 16 pools tip under the clock — farm Aura + Clip Crown while you wait.</p>
+    </div>
+    <a href="expansion.html" class="btn btn-platinum btn-sm">Weekend hub</a>
+  </div>
+
+  <div class="sc-tabs" role="tablist" aria-label="Scores view">
+    <button type="button" class="is-on" data-view="weekend">Weekend</button>
+    <button type="button" data-view="finals">Founding Four</button>
+  </div>
+
+  <div id="viewWeekend">
+    <div class="sc-day">Pools A–D · First 16</div>
+    <div class="sc-pool" id="scPools"></div>
+    <div class="sc-day">Weekend slate</div>
+    <div class="sc-grid" id="scWeekend"></div>
+  </div>
+  <div id="viewFinals" hidden>
+    <div id="scoresRoot"></div>
+  </div>
+</div>
+
+<div class="ex-sticky" aria-label="Game day shortcuts">
+  <div>
+    <div class="lbl">Game day</div>
+    <div class="clock" style="font-size:1rem">Aura · Crest · Clip</div>
+    <div class="sub">Farm XP while the slate runs</div>
+  </div>
+  <a href="aura-vote.html" class="btn btn-founding btn-sm">Aura Vote</a>
+</div>
+
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=49"></script>
-<script src="assets/js/support-widget.js?v=5"></script>
-<script src="assets/js/cart.js?v=8"></script>
+<script src="assets/js/site.js?v=50"></script>
+<script src="assets/js/support-widget.js?v=6"></script>
+<script src="assets/js/cart.js?v=9"></script>
 <script src="assets/js/teams-data.js?v=2"></script>
 <script src="assets/js/standings-data.js?v=2"></script>
+<script src="assets/js/tournament-data.js?v=3"></script>
 <script>
 (function () {
   const bySlug = Object.fromEntries(window.PGBTeams.all().map((t) => [t.slug, t]));
+  const E = window.PGB_EXPANSION;
   const games = [...window.PGB_GAMES].sort((a, b) => (a.date < b.date ? 1 : -1));
-  const root = document.getElementById("scoresRoot");
+
+  document.getElementById("scPulseBlurb").textContent =
+    E.format + " · " + E.venue;
+
+  document.getElementById("scPools").innerHTML = ["A", "B", "C", "D"]
+    .map((p) => {
+      const teams = E.teams.filter((t) => t.pool === p);
+      return `<a href="expansion.html#pools">
+        <div class="p">Pool ${p}</div>
+        <strong>${teams.length} clubs</strong>
+        <span>${teams.map((t) => t.code).join(" · ")}</span>
+      </a>`;
+    })
+    .join("");
+
+  // Demo weekend matchups from pools (pair 0v1, 2v3) — upcoming / live feel
+  const weekendCards = ["A", "B", "C", "D"].flatMap((p, pi) => {
+    const teams = E.teams.filter((t) => t.pool === p);
+    const pairs = [
+      [teams[0], teams[1]],
+      [teams[2], teams[3]],
+    ];
+    return pairs.map((pair, i) => {
+      const live = pi === 0 && i === 0;
+      return { pool: p, away: pair[0], home: pair[1], live, tip: live ? "LIVE · P1" : "Upcoming" };
+    });
+  });
+
+  document.getElementById("scWeekend").innerHTML = weekendCards
+    .map((g) => {
+      return `
+      <article class="sc-card${g.live ? " is-live" : ""}">
+        <div class="sc-card-top">
+          <span>Pool ${g.pool} · Expansion</span>
+          ${g.live ? `<span class="live">Live</span>` : `<span>${g.tip}</span>`}
+        </div>
+        <div class="sc-row">
+          <div class="sc-team">
+            <span class="sc-mono" style="background:${g.away.color}">${g.away.code.slice(0, 1)}</span>
+            <span>${g.away.name.replace(/^[^ ]+ /, "")}</span>
+          </div>
+          <div class="sc-score">${g.live ? "1" : "—"}</div>
+        </div>
+        <div class="sc-row">
+          <div class="sc-team">
+            <span class="sc-mono" style="background:${g.home.color}">${g.home.code.slice(0, 1)}</span>
+            <span>${g.home.name.replace(/^[^ ]+ /, "")}</span>
+          </div>
+          <div class="sc-score">${g.live ? "1" : "—"}</div>
+        </div>
+        <div class="sc-foot">
+          <span>${E.venue.split("·")[0].trim()}</span>
+          <a href="aura-vote.html">Aura</a>
+          <a href="clip-crown.html">Clip</a>
+          <a href="listen.html">Listen</a>
+        </div>
+      </article>`;
+    })
+    .join("");
 
   function row(team, score, oppScore, status) {
     if (!team) return "";
@@ -62,7 +198,7 @@
     (byDate[g.date] = byDate[g.date] || []).push(g);
   });
 
-  root.innerHTML = Object.keys(byDate)
+  document.getElementById("scoresRoot").innerHTML = Object.keys(byDate)
     .sort((a, b) => (a < b ? 1 : -1))
     .map((date) => {
       const cards = byDate[date]
@@ -86,7 +222,7 @@
               ${g.series ? `<span>${g.series}</span>` : ""}
               <a href="lv-game.html?gameid=${g.id}">Outfit</a>
               <a href="video-recaps.html#${g.id}">Recap</a>
-              <a href="video-condensed.html#${g.id}">Condensed</a>
+              <a href="news-article.html?id=miracle-game">Miracle</a>
             </div>
           </article>`;
         })
@@ -94,6 +230,15 @@
       return `<div class="sc-day">${date}</div><div class="sc-grid">${cards}</div>`;
     })
     .join("");
+
+  document.querySelectorAll(".sc-tabs button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".sc-tabs button").forEach((b) => b.classList.toggle("is-on", b === btn));
+      const w = btn.dataset.view === "weekend";
+      document.getElementById("viewWeekend").hidden = !w;
+      document.getElementById("viewFinals").hidden = w;
+    });
+  });
 })();
 </script>
 </body>

@@ -23,15 +23,71 @@
 
   const INTENTS = [
     {
-      id: "pass",
-      re: /pass|membership|ticket|sign ?up|join|founding|\$36|league pass|assinatura|abonnement|会員/,
-      msg: "Founding membership locks a free limited gold puck plus a year of Premium League Pass for thirty-six dollars. Or ride twelve ninety-nine a month.",
+      id: "weekend",
+      re: /weekend|expansion|faceoff|countdown|this weekend|first ?16|prize vault/,
+      msg: "Expansion Weekend is live on the clock — Aura Vote, Clip Crown, Conductor’s Crest, and the thirty-six dollar OG Offer all ride faceoff.",
       links: [
-        { href: "join.html", label: "$36 OG Pass · Founding" },
-        { href: "expansion.html", label: "Expansion Weekend clock" },
-        { href: "signin.html", label: "Sign in" },
+        { href: "expansion.html", label: "Expansion hub" },
+        { href: "aura-vote.html", label: "Aura Vote live" },
+        { href: "clip-crown.html", label: "Submit Clip Crown" },
+        { href: "checkout.html?offer=og", label: "$36 OG Offer" },
       ],
-      follow: "Want me to open the founding offer, or the monthly plan?",
+      follow: "Aura, Clip Crown, or the founding offer?",
+    },
+    {
+      id: "aura",
+      re: /aura|teal|pink|gold clutch|vote window|aura vote/,
+      msg: "Aura Vote windows are open — tap teal rush, pink chaos, or gold clutch and farm XP. OG Pass multiplies at five times.",
+      links: [
+        { href: "aura-vote.html", label: "Open Aura Vote" },
+        { href: "checkout.html?offer=og", label: "Unlock 5× · $36" },
+        { href: "format.html#aura", label: "How auras work" },
+      ],
+      follow: "Want the live meter or the OG boost?",
+    },
+    {
+      id: "clip",
+      re: /clip crown|submit clip|viral clip|tiktok clip|reel/,
+      msg: "Clip Crown is open Sat through Sunday horn — paste your public clip link and grab submission XP.",
+      links: [
+        { href: "clip-crown.html", label: "Submit Clip Crown" },
+        { href: "listen.html", label: "Listen for vibes" },
+        { href: "awards.html#clip-crown", label: "Clip Crown hardware" },
+      ],
+      follow: "Ready to submit, or need Listen inspiration?",
+    },
+    {
+      id: "crest",
+      re: /conductor|crest|sportsmanship|choo ?choo heart/,
+      msg: "Conductor’s Crest fan vote crowns weekend sportsmanship — one vote a day, XP on every cast.",
+      links: [
+        { href: "conductor-crest.html", label: "Cast Crest vote" },
+        { href: "news-article.html?id=choochoo-heart", label: "Choo Choo heart story" },
+        { href: "awards.html#conductors-crest", label: "Hardware" },
+      ],
+      follow: "Vote now or read the lore?",
+    },
+    {
+      id: "listen",
+      re: /listen|podcast|booth|jack jet|miracle game audio|broadcast/,
+      msg: "Listen has Season One booth packs, Backstory, and Gold on 1 — finish tracks for Expansion XP.",
+      links: [
+        { href: "listen.html", label: "Open Listen" },
+        { href: "listen.html?show=booth-sample-pack", label: "Booth Sample Pack" },
+        { href: "news-article.html?id=miracle-game", label: "Miracle Game article" },
+      ],
+      follow: "Booth pack or Backstory?",
+    },
+    {
+      id: "pass",
+      re: /pass|membership|ticket|sign ?up|join|founding|\$36|league pass|og offer|gold puck|assinatura|abonnement|会員/,
+      msg: "Founding membership locks a free limited gold puck plus a year of Premium League Pass for thirty-six dollars — and five-times XP on Fan Zone farms.",
+      links: [
+        { href: "checkout.html?offer=og", label: "$36 OG Offer" },
+        { href: "join.html", label: "Pass details" },
+        { href: "expansion.html", label: "Expansion Weekend clock" },
+      ],
+      follow: "Claim the offer, or see Pass details?",
     },
     {
       id: "gems",
@@ -214,19 +270,24 @@
     {
       id: "hello",
       re: /^(hi|hey|hello|yo|sup|hola|bonjour|hallo)\b|how are you|who are you|what can you/,
-      msg: "Hey — I’m Pucky, your PuckGold guide. I talk, listen, and route you to League Pass, gems, gifts, LockerVision, franchise, affiliates, advertise, and the Dev Hub.",
+      msg: "Hey — I’m Pucky, your PuckGold guide. Expansion Weekend is live — I can route you to Aura Vote, Clip Crown, Listen XP, or the thirty-six dollar OG Offer.",
       links: [
-        { href: "join.html", label: "League Pass" },
-        { href: "gems.html", label: "Gems" },
-        { href: "lockervision.html", label: "LockerVision" },
-        { href: "apply.html", label: "Franchise" },
+        { href: "aura-vote.html", label: "Aura Vote" },
+        { href: "clip-crown.html", label: "Clip Crown" },
+        { href: "checkout.html?offer=og", label: "$36 OG" },
+        { href: "expansion.html", label: "Weekend hub" },
       ],
-      follow: "What do you want to do first?",
+      follow: "Aura, Clip Crown, or founding offer?",
     },
   ];
 
   const FOLLOW_MAP = {
-    pass: { yes: "join.html", open: "join.html", founding: "join.html", monthly: "join.html" },
+    pass: { yes: "checkout.html?offer=og", open: "checkout.html?offer=og", founding: "checkout.html?offer=og", monthly: "join.html", claim: "checkout.html?offer=og", offer: "checkout.html?offer=og" },
+    weekend: { aura: "aura-vote.html", clip: "clip-crown.html", offer: "checkout.html?offer=og", founding: "checkout.html?offer=og" },
+    aura: { meter: "aura-vote.html", live: "aura-vote.html", boost: "checkout.html?offer=og", og: "checkout.html?offer=og" },
+    clip: { submit: "clip-crown.html", listen: "listen.html", ready: "clip-crown.html" },
+    crest: { vote: "conductor-crest.html", lore: "news-article.html?id=choochoo-heart", now: "conductor-crest.html" },
+    listen: { booth: "listen.html?show=booth-sample-pack", backstory: "listen.html?show=backstory-pregame-miracle", open: "listen.html" },
     gems: { packs: "gems.html", gifts: "gems.html?tab=gifts", cards: "gifts.html" },
     gifts: { myself: "gifts.html", send: "gifts.html#send", pack: "gifts.html#send" },
     franchise: { yes: "apply.html", apply: "apply.html", start: "apply.html" },
@@ -235,14 +296,14 @@
   };
 
   const QUICK = [
-    { label: "League Pass", q: "I want a league pass" },
+    { label: "Aura Vote", q: "open aura vote" },
+    { label: "Clip Crown", q: "submit clip crown" },
+    { label: "$36 OG", q: "I want the $36 OG offer" },
+    { label: "Weekend", q: "expansion weekend" },
+    { label: "Listen", q: "listen to booth audio" },
+    { label: "Crest vote", q: "conductor crest vote" },
+    { label: "Scores", q: "show me scores" },
     { label: "Gems", q: "Tell me about sapphires and gems" },
-    { label: "Gift cards", q: "gift cards with bonus" },
-    { label: "LockerVision", q: "show me lockervision outfits" },
-    { label: "Own a team", q: "I want to own a franchise" },
-    { label: "Affiliates", q: "affiliate creator program" },
-    { label: "Advertise", q: "advertise and launch" },
-    { label: "Developers", q: "developer ice studio" },
   ];
 
   let lastIntent = null;
@@ -337,8 +398,10 @@
 
     if (!best) {
       return {
-        msg: "I can help with League Pass, Sapphires and gems, gift cards, LockerVision outfits, franchise ownership, affiliates, advertise, Game Zone, Retro League, or the Developer Hub. What do you want?",
+        msg: "I can help with Expansion Weekend — Aura Vote, Clip Crown, Conductor’s Crest, Listen XP, the thirty-six dollar OG Offer — plus gems, LockerVision, franchise, and more. What do you want?",
         links: [
+          { href: "aura-vote.html", label: "Aura Vote" },
+          { href: "checkout.html?offer=og", label: "$36 OG" },
           { href: "join.html", label: "League Pass" },
           { href: "gems.html", label: "Gems" },
           { href: "lockervision.html", label: "LockerVision" },

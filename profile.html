@@ -6,7 +6,7 @@
 <title>Fan Profile — PuckGold</title>
 <meta name="description" content="PuckGold fan profile — TikTok/Snapchat style. Like, upvote, comment, farm points. OG Pass = 5×.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=49">
+<link rel="stylesheet" href="assets/css/site.css?v=50">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <style>
   .pf{max-width:560px;margin:0 auto;padding:0 0 4rem}
@@ -121,8 +121,8 @@
 <div class="toast" id="toast"></div>
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=49"></script>
-<script src="assets/js/support-widget.js?v=5"></script>
+<script src="assets/js/site.js?v=50"></script>
+<script src="assets/js/support-widget.js?v=6"></script>
 <script src="assets/js/cart.js?v=8"></script>
 <script src="assets/js/gems-economy.js?v=1"></script>
 <script src="assets/js/auth.js?v=1"></script>
@@ -396,11 +396,32 @@
 
     document.getElementById("btnShare")?.addEventListener("click", async () => {
       const share = PF.shareUrl(viewing);
+      const me = viewing || {};
+      const pts = (JSON.parse(localStorage.getItem("pgb-play") || "{}").points || 0);
+      const mult = window.PGBAuth?.multiplier?.() || 1;
+      const card = [
+        `PUCKGOLD · FAN FARM`,
+        `${me.avatar || "🏒"} @${me.handle || "fan"}`,
+        me.displayName || "Fan",
+        `${pts} XP · ${mult}×`,
+        `Aura · Crest · Clip Crown`,
+        share,
+      ].join("\n");
       try {
-        await navigator.clipboard.writeText(share);
-        toast("Link copied");
-        if (isSelf) ptsMsg(PF.addXp(5, "share-profile"));
-      } catch (_) {}
+        if (navigator.share) {
+          await navigator.share({ title: "PuckGold farm", text: card, url: share });
+        } else {
+          await navigator.clipboard.writeText(card);
+          toast("Farm card copied");
+        }
+        if (isSelf) ptsMsg(PF.addXp(8, "share-profile"));
+      } catch (_) {
+        try {
+          await navigator.clipboard.writeText(share);
+          toast("Link copied");
+          if (isSelf) ptsMsg(PF.addXp(5, "share-profile"));
+        } catch (__) {}
+      }
     });
 
     document.getElementById("btnSignOut")?.addEventListener("click", () => {
