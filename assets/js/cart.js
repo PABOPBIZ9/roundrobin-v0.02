@@ -87,12 +87,14 @@
     const sub = document.getElementById("cartSubtotal");
     const badge = document.getElementById("navBagCount");
     const shopBadge = document.getElementById("bagCount");
+    const dockBadge = document.getElementById("bagCountDock");
     const n = count(items);
     if (badge) {
       badge.textContent = n ? String(n) : "";
       badge.dataset.count = String(n);
     }
     if (shopBadge) shopBadge.textContent = String(n);
+    if (dockBadge) dockBadge.textContent = String(n);
 
     if (!body) return;
     if (!items.length) {

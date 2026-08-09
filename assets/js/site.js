@@ -632,13 +632,16 @@
     const ogEl = document.getElementById("ogCountdown");
     const eventEl = document.getElementById("eventCountdown");
     const exEl = document.getElementById("exCountdown");
+    const exSticky = document.getElementById("exStickyClock");
 
     const tick = () => {
       const left = EVENT_END - Date.now();
-      if (heroEl) heroEl.textContent = left <= 0 ? "LIVE" : livClock(left);
+      const face = left <= 0 ? "LIVE" : livClock(left);
+      if (heroEl) heroEl.textContent = face;
       if (heroBoxes) heroBoxes.innerHTML = clockHtml(left);
       if (eventEl) eventEl.innerHTML = clockHtml(left);
-      if (exEl) exEl.textContent = left <= 0 ? "LIVE" : livClock(left);
+      if (exEl) exEl.textContent = face;
+      if (exSticky) exSticky.textContent = face;
       if (ogEl) ogEl.innerHTML = clockHtml(ogEnd - Date.now());
     };
     tick();
@@ -849,6 +852,7 @@
       document.body.appendChild(s);
     }
     if (!window.PGB_I18N) inject("assets/js/i18n.js?v=1", "data-pgb-i18n");
+    if (!window.PGBAuth) inject("assets/js/auth.js?v=2", "data-pgb-auth");
     inject("assets/js/support-widget.js?v=1", "data-pgb-support");
     const applyI18n = () => window.PGB_I18N?.apply(document);
     if (window.PGB_I18N) applyI18n();

@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Article — PuckGold</title>
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=45">
-<link rel="stylesheet" href="assets/css/nhl-league.css?v=2">
+<link rel="stylesheet" href="assets/css/site.css?v=46">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=4">
 <link rel="stylesheet" href="assets/css/media-guide.css?v=1">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <style>
@@ -27,6 +27,19 @@
     font-family:var(--display);font-size:1.25rem;line-height:1.3;color:#10203a;
   }
   .art-cta{margin-top:2rem;padding:1.2rem;border-radius:14px;background:#0b1220;color:#fff}
+  .art-audio{
+    margin:1.35rem 0 1.5rem;padding:1.1rem 1.05rem;border-radius:14px;color:#fff;
+    background:linear-gradient(145deg,#163a74,#0b1220);
+  }
+  .art-audio .meta{font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#f0d78c}
+  .art-audio strong{display:block;font-family:var(--display);font-size:1.2rem;letter-spacing:.03em;margin:.3rem 0 .55rem}
+  .art-audio audio{width:100%;margin:.35rem 0 .65rem}
+  .art-audio .links{display:flex;flex-wrap:wrap;gap:.45rem}
+  .art-audio .links a{
+    font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;
+    padding:.4rem .7rem;border-radius:999px;background:#f0d78c;color:#121826;
+  }
+  .art-audio .links a.ghost{background:rgba(255,255,255,.12);color:#fff}
 </style>
 </head>
 <body class="nhl-light">
@@ -41,9 +54,9 @@
 <article class="art" id="artRoot"></article>
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=45"></script>
+<script src="assets/js/site.js?v=46"></script>
 <script src="assets/js/support-widget.js?v=5"></script>
-<script src="assets/js/cart.js?v=8"></script>
+<script src="assets/js/cart.js?v=9"></script>
 <script src="assets/js/tournament-data.js?v=2"></script>
 <script>
 (function () {
@@ -90,6 +103,15 @@
       <h2>Overtime — Triple-deke, top shelf</h2>
       <p>McLean presses. Shot blocked. Rebound springs Miami on a clean breakaway. Signature move of the tournament: <strong>triple-deke, buried top shelf.</strong></p>
       <p class="pull">Miami 5, McLean 4 (OT) · Aggregate 6–5 · Golden confetti · First champions.</p>
+      <div class="art-audio">
+        <div class="meta">Booth · Jack Jet Morrison</div>
+        <strong>OT Cup winner call</strong>
+        <audio controls preload="metadata" src="assets/vault/content/broadcast/booth-sample-pack/04_jack-jet-morrison.wav"></audio>
+        <div class="links">
+          <a href="listen.html?show=booth-sample-pack">Full Booth Sample Pack</a>
+          <a class="ghost" href="listen.html?show=backstory-pregame-miracle">Backstory Pre-Game</a>
+        </div>
+      </div>
       <p>Clip Crown energy. Clutch Award. Golden Gecko night. Watch path: <a href="video-recaps.html">recaps</a> · <a href="scores.html">scores</a> · <a href="founding-four.html">championship book</a>.</p>`,
 
     "empire-fallen": `
@@ -142,8 +164,17 @@
       <p>Open the <a href="media-guide.html">Media Guide</a>. Lore vault: <a href="founding-four.html">Championship Book</a>. Apply for weekend coverage via <a href="media-accreditation.html">accreditation</a>.</p>`,
 
     "booth-bomb-audio": `
-      <p>Miami’s booth went late-night radio — latin-jazz cadence, Spanish on the breakaways — and the win outro hit like a reef siren.</p>
-      <p>Drop <code>main.mp3</code> into <code>assets/teams/miami-mighty-geckz/09-Audio/</code>. Blast the horn from the <a href="team.html?team=miami-mighty-geckz#audio">team vault page</a>. More shows on <a href="podcasts.html">podcasts</a>.</p>`,
+      <p>Miami’s booth went late-night radio — and the Miracle Game climax is live on Listen.</p>
+      <div class="art-audio">
+        <div class="meta">PGB Broadcast · Season One</div>
+        <strong>Booth Sample Pack · Miracle Game</strong>
+        <audio controls preload="metadata" src="assets/vault/content/broadcast/booth-sample-pack/04_jack-jet-morrison.wav"></audio>
+        <div class="links">
+          <a href="listen.html?show=booth-sample-pack">Play full pack</a>
+          <a class="ghost" href="news-article.html?id=miracle-game">Miracle Game story</a>
+        </div>
+      </div>
+      <p>Team vault horns: <a href="team.html?team=miami-mighty-geckz#audio">Mighty Geckz audio</a> · more shows on <a href="podcasts.html">podcasts</a>.</p>`,
 
     "hardware-stack": `
       <p>The trophy case is no longer a draft doodle.</p>

@@ -6,9 +6,9 @@
 <title>Listen — PuckGold Broadcast</title>
 <meta name="description" content="Play Chatterbox Season One shows — Booth Sample Pack, Backstory Pre-Game, and Gold on 1 Post-Cup.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=45">
-<link rel="stylesheet" href="assets/css/nhl-league.css?v=3">
-<link rel="stylesheet" href="assets/css/listen.css?v=1">
+<link rel="stylesheet" href="assets/css/site.css?v=46">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=4">
+<link rel="stylesheet" href="assets/css/listen.css?v=2">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 </head>
 <body class="nhl-light lx-page">
@@ -28,6 +28,11 @@
 </nav>
 
 <div class="lx-wrap">
+  <div class="lx-farm" id="lxFarm">
+    <span><strong>Expansion farm:</strong> finish tracks for XP · OG Pass = <strong>5×</strong></span>
+    <a href="checkout.html?offer=og" data-claim-og>Unlock 5× · $36</a>
+    <a href="signin.html">Sign in</a>
+  </div>
   <div class="lx-picker" id="lxPicker"></div>
   <div class="lx-stage" id="lxStage">
     <div class="meta" id="lxShow">Loading…</div>
@@ -65,12 +70,14 @@
 </div>
 
 <audio id="lxAudio" preload="metadata"></audio>
+<div class="lx-xp" id="lxXp" role="status" aria-live="polite"></div>
 
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=45"></script>
+<script src="assets/js/auth.js?v=2"></script>
+<script src="assets/js/site.js?v=46"></script>
 <script src="assets/js/support-widget.js?v=5"></script>
-<script src="assets/js/cart.js?v=8"></script>
+<script src="assets/js/cart.js?v=9"></script>
 <script src="assets/js/broadcast-shows.js?v=1"></script>
 <script>
 (function () {
@@ -103,6 +110,76 @@
     try {
       document.dispatchEvent(new CustomEvent(busy ? "pgb:listen-play" : "pgb:listen-pause"));
     } catch (_) {}
+  }
+
+  function dayKey() {
+    return new Date().toISOString().slice(0, 10);
+  }
+  function xpStore() {
+    try {
+      return JSON.parse(localStorage.getItem("pgb-listen-xp") || "{}");
+    } catch (_) {
+      return {};
+    }
+  }
+  function xpMark(key) {
+    const s = xpStore();
+    if (s[key]) return false;
+    s[key] = 1;
+    localStorage.setItem("pgb-listen-xp", JSON.stringify(s));
+    return true;
+  }
+  function toastXp(r) {
+    const el = document.getElementById("lxXp");
+    if (!el || !r?.awarded) return;
+    const mult = r.mult > 1 ? ` · ${r.mult}× OG` : "";
+    el.textContent = `+${r.awarded} XP${mult}`;
+    el.classList.add("is-on");
+    clearTimeout(toastXp._t);
+    toastXp._t = setTimeout(() => el.classList.remove("is-on"), 2600);
+  }
+  function awardListen(base, reason, onceKey) {
+    if (!xpMark(onceKey)) return null;
+    const award = () => {
+      if (!window.PGBAuth?.awardPoints) return null;
+      const r = window.PGBAuth.awardPoints(base, reason);
+      toastXp(r);
+      return r;
+    };
+    if (window.PGBAuth?.awardPoints) return award();
+    // auth may inject async via site.js
+    let n = 0;
+    const t = setInterval(() => {
+      n++;
+      if (window.PGBAuth?.awardPoints) {
+        clearInterval(t);
+        award();
+      } else if (n > 40) clearInterval(t);
+    }, 50);
+    return null;
+  }
+  function onTrackComplete() {
+    const s = show();
+    const t = track();
+    if (!s || !t) return;
+    awardListen(8, "listen-track", `${s.id}:t${trackIdx}:${dayKey()}`);
+  }
+  function onShowComplete() {
+    const s = show();
+    if (!s) return;
+    awardListen(50, "listen-show", `${s.id}:show:${dayKey()}`);
+  }
+
+  function refreshFarm() {
+    const farm = document.getElementById("lxFarm");
+    if (!farm) return;
+    const premium = !!(window.PGBAuth?.isPremium?.());
+    const signed = !!(window.PGBAuth?.isSignedIn?.());
+    farm.innerHTML = premium
+      ? `<span><strong>OG active · 5× XP</strong> — finish a show for a weekend farm burst</span><a href="fantasy.html#board">Leaderboard</a>`
+      : signed
+        ? `<span><strong>Expansion farm:</strong> finish tracks for XP · unlock <strong>5×</strong> with OG</span><a href="checkout.html?offer=og" data-claim-og>Unlock 5× · $36</a>`
+        : `<span><strong>Expansion farm:</strong> finish tracks for XP · OG Pass = <strong>5×</strong></span><a href="signin.html">Sign in</a><a href="checkout.html?offer=og" data-claim-og>Unlock 5× · $36</a>`;
   }
 
   function seekFromEvent(el, e) {
@@ -249,10 +326,12 @@
   });
 
   audio.addEventListener("ended", () => {
+    onTrackComplete();
     if (trackIdx < show().tracks.length - 1) {
       trackIdx += 1;
       load(true);
     } else {
+      onShowComplete();
       playing = false;
       setAmbient(false);
       paintStage();
@@ -279,6 +358,8 @@
   bindSeek(document.getElementById("dockProg"));
 
   history.replaceState(null, "", `?show=${encodeURIComponent(show().id)}`);
+  refreshFarm();
+  setTimeout(refreshFarm, 200);
   load(false);
 })();
 </script>
