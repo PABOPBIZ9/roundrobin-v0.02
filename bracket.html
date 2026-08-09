@@ -2,90 +2,262 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Playoff Bracket — PuckGold</title>
-<meta name="description" content="PuckGold Season One playoff bracket — semifinals into the Golden Final aggregate.">
+<meta name="description" content="PuckGold brackets — Expansion Weekend knockout path and Season One Golden Final aggregate.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=52">
-<link rel="stylesheet" href="assets/css/nhl-league.css?v=1">
+<link rel="stylesheet" href="assets/css/site.css?v=53">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=7">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .bk-pulse{
+    display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;justify-content:space-between;
+    margin:0 0 1.25rem;padding:1rem 1.05rem;border-radius:16px;color:#fff;
+    background:
+      radial-gradient(circle at 85% 0%, rgba(240,215,140,.26), transparent 44%),
+      linear-gradient(145deg,#0b1220,#163a74);
+  }
+  .bk-pulse .lbl{font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#f0d78c}
+  .bk-pulse .clock{font-family:var(--display);font-size:clamp(1.3rem,4vw,1.7rem);letter-spacing:.06em;margin:.15rem 0}
+  .bk-pulse p{margin:0;font-size:.8rem;color:rgba(238,243,250,.72);max-width:28rem;line-height:1.4}
+  .bk-tabs{display:flex;gap:.35rem;margin:0 0 1rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .bk-tabs::-webkit-scrollbar{display:none}
+  .bk-tabs button{
+    flex:0 0 auto;min-height:40px;border:0;border-radius:999px;padding:.5rem .85rem;
+    font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+    background:#eef4ff;color:#163a74;cursor:pointer;
+  }
+  .bk-tabs button.is-on{background:#0b1220;color:#fff}
+  .bk-path{display:grid;gap:.75rem;margin:0 0 1.5rem}
+  @media(min-width:900px){.bk-path{grid-template-columns:1.1fr 1fr .9fr}}
+  .bk-round{
+    background:#fff;border:1px solid rgba(18,24,38,.08);border-radius:14px;padding:.9rem .85rem;
+  }
+  .bk-round h3{
+    font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#8a93a3;margin:0 0 .7rem;
+  }
+  .bk-match{
+    padding:.7rem .65rem;border-radius:10px;background:#f6f8fc;margin:0 0 .5rem;
+    border:1px solid transparent;
+  }
+  .bk-match:last-child{margin-bottom:0}
+  .bk-match.is-live{border-color:rgba(122,21,36,.28);background:linear-gradient(90deg,#fff5f5,#f6f8fc)}
+  .bk-match .seed{font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#8a93a3;margin-bottom:.35rem}
+  .bk-match .seed .live{color:#7a1524;margin-left:.35rem}
+  .bk-match .row{display:flex;align-items:center;gap:.45rem;padding:.2rem 0;font-size:.86rem;font-weight:700;color:#121826}
+  .bk-match .row.is-out{color:#8a93a3;font-weight:650}
+  .bk-match .dot{width:8px;height:8px;border-radius:50%;flex:0 0 auto}
+  .bk-match .tip{font-size:.72rem;color:#5c6473;margin-top:.35rem}
+  .bk-cup{
+    margin:0 0 1.25rem;padding:1.15rem 1.05rem;border-radius:16px;color:#fff;text-align:center;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(240,215,140,.3), transparent 50%),
+      linear-gradient(160deg,#0a2a28,#0b1220 55%,#163a74);
+  }
+  .bk-cup .tag{font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#f0d78c}
+  .bk-cup h2{font-family:var(--display);font-size:clamp(1.5rem,4vw,2rem);letter-spacing:.04em;margin:.35rem 0}
+  .bk-cup p{margin:0;font-size:.85rem;color:rgba(238,243,250,.72);line-height:1.45}
+  .bk-farm{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin:.9rem 0 0}
+  .bk-farm a{
+    display:inline-flex;align-items:center;min-height:34px;padding:.35rem .7rem;border-radius:999px;
+    font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;
+    background:rgba(255,255,255,.1);color:#f0d78c;border:1px solid rgba(240,215,140,.35);
+  }
+</style>
 </head>
-<body class="nhl-light">
+<body class="nhl-light has-ex-sticky">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
 
 <section class="nhl-hero">
-  <span class="kicker">Season One · Playoffs</span>
-  <h1>GOLDEN BRACKET</h1>
-  <p>Round-robin seeds into knockout — capped by a best-of-two aggregate Golden Final. PGB playoff board energy.</p>
+  <span class="kicker">Underdog Division · Expansion Weekend</span>
+  <h1>BRACKETS</h1>
+  <p>Sunday knockout path for the First 16 — plus the Season One Golden Final that wrote the lore.</p>
 </section>
 <nav class="nhl-sub" aria-label="League">
   <a href="scores.html">Scores</a>
   <a href="schedule.html">Schedule</a>
   <a href="standings.html">Standings</a>
   <a href="bracket.html" class="is-active">Playoffs</a>
-  <a href="awards.html">Trophies</a>
-  <a href="video-recaps.html">Recaps</a>
+  <a href="aura-vote.html">Aura</a>
+  <a href="awards.html">Hardware</a>
 </nav>
 
 <div class="nhl-wrap nhl-wrap-wide">
-  <div class="bk-board">
-    <div class="bk-col">
-      <h3>Semifinals</h3>
-      <div class="bk-slot win">
-        <div class="seed">#1 vs #4</div>
-        <div class="team">McLean Cardinals</div>
-        <div class="team" style="color:#8a93a3;font-weight:650">Chattanooga Choo Choo</div>
-        <div class="res">McLean advances 6–2</div>
-      </div>
-      <div class="bk-slot win">
-        <div class="seed">#2 vs #3</div>
-        <div class="team">Miami Mighty Geckz</div>
-        <div class="team" style="color:#8a93a3;font-weight:650">Washington Whoomp!</div>
-        <div class="res">Miami advances 3–2 (OT)</div>
+  <div class="bk-pulse">
+    <div>
+      <div class="lbl">Expansion faceoff</div>
+      <div class="clock" id="exStickyClock">00 : 00 : 00 : 00</div>
+      <p id="bkPulseBlurb">Pools seed the Sunday board — farm Aura + Clip while the path fills.</p>
+    </div>
+    <a href="expansion.html" class="btn btn-platinum btn-sm">Weekend hub</a>
+  </div>
+
+  <div class="bk-tabs" role="tablist" aria-label="Bracket view">
+    <button type="button" class="is-on" data-view="weekend">Expansion knockout</button>
+    <button type="button" data-view="golden">Golden Bracket</button>
+  </div>
+
+  <div id="viewWeekend">
+    <div class="bk-cup">
+      <div class="tag">Sunday · Expansion Cup</div>
+      <h2>QF → SF → CUP</h2>
+      <p id="bkCupBlurb">Sudden Death Strobe OT. Pool winners + wild cards crash the Neon Reef board.</p>
+      <div class="bk-farm">
+        <a href="aura-vote.html">Aura Vote</a>
+        <a href="clip-crown.html">Clip Crown</a>
+        <a href="conductor-crest.html">Crest vote</a>
+        <a href="checkout.html?offer=og">$36 OG · 5×</a>
       </div>
     </div>
+    <div class="bk-path" id="bkPath"></div>
+  </div>
 
-    <div class="bk-final">
-      <div class="tag">The Golden Final · Best of two aggregate</div>
-      <h2>MIAMI MIGHTY GECKZ</h2>
-      <p style="color:rgba(255,255,255,.7);margin:.2rem 0">vs McLean Cardinals</p>
-      <div class="agg">6–5 AGGREGATE</div>
-      <p style="margin-top:.85rem;font-size:.85rem;color:rgba(255,255,255,.7)">
-        G1 · McLean 3–1<br>
-        G2 · Miami 5–4 (OT) — down 3–1, storm back
-      </p>
-      <div class="cta-row" style="margin-top:1.1rem;justify-content:center">
-        <a href="awards.html#puckgold-cup" class="btn btn-platinum btn-sm">PuckGold Cup</a>
-        <a href="video-recaps.html#0022500005" class="btn btn-ghost btn-sm">G2 Recap</a>
+  <div id="viewGolden" hidden>
+    <div class="bk-board">
+      <div class="bk-col">
+        <h3>Semifinals</h3>
+        <div class="bk-slot win">
+          <div class="seed">#1 vs #4</div>
+          <div class="team">McLean Cardinals</div>
+          <div class="team" style="color:#8a93a3;font-weight:650">Chattanooga Choo Choo</div>
+          <div class="res">McLean advances 6–2</div>
+        </div>
+        <div class="bk-slot win">
+          <div class="seed">#2 vs #3</div>
+          <div class="team">Miami Mighty Geckz</div>
+          <div class="team" style="color:#8a93a3;font-weight:650">Washington Whoomp!</div>
+          <div class="res">Miami advances 3–2 (OT)</div>
+        </div>
       </div>
-    </div>
 
-    <div class="bk-col">
-      <h3>Path notes</h3>
-      <div class="bk-slot">
-        <div class="seed">Round robin</div>
-        <div class="team">Seeds 1–4 locked</div>
-        <div class="res">McLean #1 · Whoomp #2 · Miami #3 · Choo #4</div>
+      <div class="bk-final">
+        <div class="tag">The Golden Final · Best of two aggregate</div>
+        <h2>MIAMI MIGHTY GECKZ</h2>
+        <p style="color:rgba(255,255,255,.7);margin:.2rem 0">vs McLean Cardinals</p>
+        <div class="agg">6–5 AGGREGATE</div>
+        <p style="margin-top:.85rem;font-size:.85rem;color:rgba(255,255,255,.7)">
+          G1 · McLean 3–1<br>
+          G2 · Miami 5–4 (OT) — down 3–1, storm back
+        </p>
+        <div class="cta-row" style="margin-top:1.1rem;justify-content:center">
+          <a href="awards.html#puck-gold-one" class="btn btn-platinum btn-sm">PuckGold Cup</a>
+          <a href="news-article.html?id=miracle-game" class="btn btn-ghost btn-sm">Miracle Game</a>
+        </div>
       </div>
-      <div class="bk-slot">
-        <div class="seed">Format</div>
-        <div class="team">Single-elim semis</div>
-        <div class="res">Golden Final = two-game aggregate</div>
-      </div>
-      <div class="bk-slot">
-        <div class="seed">Watch</div>
-        <div class="team"><a href="video-condensed.html" style="color:#163a74">Condensed games</a></div>
-        <div class="res"><a href="scores.html" style="color:#163a74">All scores →</a></div>
+
+      <div class="bk-col">
+        <h3>Path notes</h3>
+        <div class="bk-slot">
+          <div class="seed">Round robin</div>
+          <div class="team">Seeds 1–4 locked</div>
+          <div class="res">McLean #1 · Whoomp #2 · Miami #3 · Choo #4</div>
+        </div>
+        <div class="bk-slot">
+          <div class="seed">Format</div>
+          <div class="team">Single-elim semis</div>
+          <div class="res">Golden Final = two-game aggregate</div>
+        </div>
+        <div class="bk-slot">
+          <div class="seed">Watch</div>
+          <div class="team"><a href="video-condensed.html" style="color:#163a74">Condensed games</a></div>
+          <div class="res"><a href="scores.html" style="color:#163a74">All scores →</a></div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
+<div class="ex-sticky" aria-label="Bracket farm shortcuts">
+  <div>
+    <div class="lbl">Path fills · farm now</div>
+    <div class="clock" style="font-size:1rem">Aura · Crest · Clip</div>
+    <div class="sub">OG Pass multiplies XP ×5</div>
+  </div>
+  <div class="ex-sticky-actions">
+    <a href="aura-vote.html" class="btn btn-founding btn-sm">Aura</a>
+    <a href="checkout.html?offer=og" class="btn btn-platinum btn-sm">$36</a>
+  </div>
+</div>
+
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=52"></script>
+<script src="assets/js/site.js?v=53"></script>
 <script src="assets/js/support-widget.js?v=6"></script>
-<script src="assets/js/cart.js?v=8"></script>
+<script src="assets/js/cart.js?v=9"></script>
+<script src="assets/js/tournament-data.js?v=3"></script>
+<script>
+(function () {
+  const E = window.PGB_EXPANSION;
+  document.getElementById("bkPulseBlurb").textContent = E.format + " · " + E.venue;
+  document.getElementById("bkCupBlurb").textContent =
+    "Faceoff " + E.startLabel + " · wraps " + E.endLabel + " · " + E.venue;
+
+  function side(t) {
+    const label = t.pool ? t.name.replace(/^[^ ]+ /, "") : t.name.replace(/^Winner /, "");
+    return `<div class="row"><span class="dot" style="background:${t.color}"></span>${t.code} · ${label}</div>`;
+  }
+
+  // Demo path: founding clubs projected as pool winners + first invite as wild card
+  const winners = ["A", "B", "C", "D"].map(
+    (p) => E.teams.find((t) => t.pool === p && t.founding) || E.teams.find((t) => t.pool === p)
+  );
+  const wilds = ["A", "B", "C", "D"].map(
+    (p, i) => E.teams.filter((t) => t.pool === p && t.slug !== winners[i].slug)[0]
+  );
+  const qf = [
+    { label: "QF1 · Pool A/B", a: winners[0], b: wilds[1], live: true },
+    { label: "QF2 · Pool B/A", a: winners[1], b: wilds[0], live: false },
+    { label: "QF3 · Pool C/D", a: winners[2], b: wilds[3], live: false },
+    { label: "QF4 · Pool D/C", a: winners[3], b: wilds[2], live: false },
+  ];
+  const sf = [
+    { label: "SF1", a: { code: "QF1", name: "Winner QF1", color: "#163a74" }, b: { code: "QF2", name: "Winner QF2", color: "#0b1220" } },
+    { label: "SF2", a: { code: "QF3", name: "Winner QF3", color: "#0a2a28" }, b: { code: "QF4", name: "Winner QF4", color: "#7a1524" } },
+  ];
+  const cup = {
+    label: "Expansion Cup",
+    a: { code: "SF1", name: "Winner SF1", color: "#f0d78c" },
+    b: { code: "SF2", name: "Winner SF2", color: "#163a74" },
+  };
+
+  function matchHtml(m) {
+    return `<div class="bk-match${m.live ? " is-live" : ""}">
+      <div class="seed">${m.label}${m.live ? '<span class="live">· LIVE</span>' : ""}</div>
+      ${side(m.a)}
+      ${side(m.b)}
+      <div class="tip">${m.live ? "Neon Reef · P1 energy" : "Locks after pool play"}</div>
+    </div>`;
+  }
+
+  document.getElementById("bkPath").innerHTML = `
+    <div class="bk-round">
+      <h3>Quarterfinals</h3>
+      ${qf.map(matchHtml).join("")}
+    </div>
+    <div class="bk-round">
+      <h3>Semifinals</h3>
+      ${sf.map(matchHtml).join("")}
+    </div>
+    <div class="bk-round">
+      <h3>Expansion Cup</h3>
+      ${matchHtml(cup)}
+      <div class="bk-match">
+        <div class="seed">OT rule</div>
+        <div class="row">Sudden Death Strobe</div>
+        <div class="tip">First goal ends it · Clip Crown gold</div>
+      </div>
+    </div>`;
+
+  document.querySelectorAll(".bk-tabs button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".bk-tabs button").forEach((b) => b.classList.toggle("is-on", b === btn));
+      const w = btn.dataset.view === "weekend";
+      document.getElementById("viewWeekend").hidden = !w;
+      document.getElementById("viewGolden").hidden = w;
+    });
+  });
+})();
+</script>
 </body>
 </html>

@@ -2,22 +2,37 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>The Hardware — Trophies | PuckGold</title>
-<meta name="description" content="Founding Four round-robin awards — Underdog Division Crown, Firehorse MVP, Player of the Tournament, and the full hardware stack.">
+<meta name="description" content="PuckGold hardware — Expansion weekend trophies live now, plus Season One Founding Four awards.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=52">
+<link rel="stylesheet" href="assets/css/site.css?v=53">
 <link rel="stylesheet" href="assets/css/play-zone.css?v=3">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=7">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .aw-live{
+    display:grid;gap:.55rem;grid-template-columns:1fr;margin:0 0 1.25rem;
+  }
+  @media(min-width:720px){.aw-live{grid-template-columns:repeat(3,1fr)}}
+  .aw-live a{
+    display:block;padding:1rem .95rem;border-radius:14px;text-decoration:none;color:#fff;
+    background:linear-gradient(145deg,#0b1220,#163a74);
+    border:1px solid rgba(240,215,140,.28);
+  }
+  .aw-live a .t{font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#f0d78c}
+  .aw-live a strong{display:block;font-family:var(--display);font-size:1.35rem;letter-spacing:.03em;margin:.25rem 0 .3rem}
+  .aw-live a span{display:block;font-size:.78rem;color:rgba(238,243,250,.7);line-height:1.35}
+</style>
 </head>
-<body class="pz-light">
+<body class="pz-light has-ex-sticky">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
 
 <section class="pz-hero">
-  <span class="kicker">Season One · Underdog Division</span>
+  <span class="kicker">Expansion Weekend · hardware live</span>
   <h1>THE HARDWARE</h1>
-  <p>Founding Four round-robin awards — division crown, MVP, Player of the Tournament, and every clip-ready trophy built for broadcast overlays and merch drops. Official hi-res assets dropping soon.</p>
+  <p>Aura Vote, Clip Crown, and Conductor’s Crest are open this weekend — Season One cups stay in the vault below.</p>
   <div class="cta-row">
     <a href="aura-vote.html" class="btn btn-founding btn-sm">Aura Vote live</a>
     <a href="clip-crown.html" class="btn btn-platinum btn-sm">Clip Crown</a>
@@ -25,13 +40,44 @@
   </div>
 </section>
 
-<div class="pz-wrap pz-wrap-wide" id="awRoot"></div>
+<div class="pz-wrap pz-wrap-wide">
+  <div class="aw-live" aria-label="Weekend hardware">
+    <a href="aura-vote.html">
+      <div class="t">Live now</div>
+      <strong>Aura Vote</strong>
+      <span>Teal · Pink · Gold clutch — farm XP every window.</span>
+    </a>
+    <a href="clip-crown.html">
+      <div class="t">Sat–Sun horn</div>
+      <strong>Clip Crown</strong>
+      <span>Paste your public clip · grab submission XP.</span>
+    </a>
+    <a href="conductor-crest.html">
+      <div class="t">Fan vote</div>
+      <strong>Conductor’s Crest</strong>
+      <span>One cast a day · sportsmanship hardware.</span>
+    </a>
+  </div>
+  <div id="awRoot"></div>
+</div>
+
+<div class="ex-sticky" aria-label="Hardware farm shortcuts">
+  <div>
+    <div class="lbl">Weekend hardware</div>
+    <div class="clock" style="font-size:1rem">Vote · Clip · Crest</div>
+    <div class="sub">OG Pass multiplies farm XP ×5</div>
+  </div>
+  <div class="ex-sticky-actions">
+    <a href="aura-vote.html" class="btn btn-founding btn-sm">Aura</a>
+    <a href="checkout.html?offer=og" class="btn btn-platinum btn-sm">$36</a>
+  </div>
+</div>
 
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=52"></script>
+<script src="assets/js/site.js?v=53"></script>
 <script src="assets/js/support-widget.js?v=6"></script>
-<script src="assets/js/cart.js?v=8"></script>
+<script src="assets/js/cart.js?v=9"></script>
 <script src="assets/js/teams-data.js?v=2"></script>
 <script src="assets/js/awards-data.js?v=4"></script>
 <script>
