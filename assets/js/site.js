@@ -60,6 +60,7 @@
     { href: "listen.html", label: "Listen · Season One" },
     { href: "clip-crown.html", label: "Clip Crown submit" },
     { href: "conductor-crest.html", label: "Conductor’s Crest vote" },
+    { href: "aura-vote.html", label: "Aura Vote live" },
     { href: "hype.html", label: "Hype Trailer" },
   ];
 
@@ -194,6 +195,7 @@
       isActive("listen.html") ||
       isActive("clip-crown.html") ||
       isActive("conductor-crest.html") ||
+      isActive("aura-vote.html") ||
       isActive("expansion.html") ||
       isActive("founding-four.html") ||
       isActive("media-guide.html") ||

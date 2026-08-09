@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Aura Vote Live — Expansion Weekend | PuckGold</title>
+<meta name="description" content="Live fan aura windows for Expansion Weekend — tap teal, pink, or gold and farm XP. Official PuckGoldBiz Aura Vote.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=49">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=5">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .av-hero{
+    color:#fff;padding:2.6rem 4vw 2rem;text-align:center;overflow:hidden;position:relative;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(45,212,191,.35), transparent 40%),
+      radial-gradient(circle at 80% 30%, rgba(244,114,182,.32), transparent 42%),
+      radial-gradient(circle at 50% 100%, rgba(240,215,140,.22), transparent 45%),
+      linear-gradient(160deg,#050910,#0b1220 50%,#163a74);
+  }
+  .av-hero .kicker{font-size:.68rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#f0d78c}
+  .av-hero h1{font-family:var(--display);font-size:clamp(2.3rem,8vw,3.8rem);letter-spacing:.03em;margin:.4rem 0;line-height:.95}
+  .av-hero p{max-width:34rem;margin:.55rem auto 0;color:rgba(238,243,250,.78);line-height:1.5}
+  .av-live{
+    display:inline-flex;align-items:center;gap:.4rem;margin-top:.9rem;
+    font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    padding:.4rem .75rem;border-radius:999px;background:rgba(239,68,68,.18);color:#fecaca;
+  }
+  .av-live i{width:7px;height:7px;border-radius:50%;background:#ef4444;animation:pulse 1.1s ease infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.85)}}
+  .av-wrap{max-width:920px;margin:0 auto;padding:1.25rem 4vw 5.5rem}
+  .av-meter{
+    margin:0 0 1.15rem;padding:1.1rem 1rem 1rem;border-radius:18px;color:#fff;
+    background:linear-gradient(145deg,#0b1220,#163a74);
+  }
+  .av-meter .meta{font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#f0d78c}
+  .av-meter h2{font-family:var(--display);font-size:1.35rem;margin:.3rem 0 .7rem;letter-spacing:.03em}
+  .av-bars{display:grid;gap:.55rem}
+  .av-bar{display:grid;grid-template-columns:4.5rem 1fr 2.5rem;gap:.55rem;align-items:center;font-size:.78rem}
+  .av-bar .track{height:12px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden}
+  .av-bar .track > i{display:block;height:100%;width:0;border-radius:999px;transition:width .35s ease}
+  .av-bar.teal .track > i{background:linear-gradient(90deg,#2dd4bf,#14b8a6)}
+  .av-bar.pink .track > i{background:linear-gradient(90deg,#f472b6,#db2777)}
+  .av-bar.gold .track > i{background:linear-gradient(90deg,#f0d78c,#d4af37)}
+  .av-pad{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.55rem;margin-bottom:1rem}
+  .av-btn{
+    min-height:96px;border:0;border-radius:16px;cursor:pointer;color:#fff;
+    font-family:var(--display);font-size:1.15rem;letter-spacing:.04em;
+    display:grid;place-content:center;gap:.25rem;-webkit-tap-highlight-color:transparent;
+    transition:transform .12s ease, filter .12s ease;
+  }
+  .av-btn small{font-family:var(--font);font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.85}
+  .av-btn:active{transform:scale(.97)}
+  .av-btn:disabled{filter:grayscale(.35);opacity:.65;cursor:not-allowed}
+  .av-btn.teal{background:linear-gradient(145deg,#0f766e,#2dd4bf)}
+  .av-btn.pink{background:linear-gradient(145deg,#9d174d,#f472b6)}
+  .av-btn.gold{background:linear-gradient(145deg,#8a6a1e,#f0d78c);color:#121826}
+  .av-status{font-size:.84rem;color:#5c6473;margin:0 0 1rem;line-height:1.4}
+  .av-status strong{color:#163a74}
+  .av-toast{
+    position:fixed;left:50%;bottom:calc(5.8rem + env(safe-area-inset-bottom));transform:translateX(-50%);
+    z-index:90;padding:.65rem 1rem;border-radius:999px;background:rgba(10,22,44,.94);
+    border:1px solid rgba(240,215,140,.45);color:#f0d78c;font-size:.78rem;font-weight:800;
+    opacity:0;pointer-events:none;transition:opacity .25s;white-space:nowrap;max-width:92vw;
+  }
+  .av-toast.is-on{opacity:1}
+  .av-links{display:flex;flex-wrap:wrap;gap:.45rem}
+  .av-note{font-size:.78rem;color:#5c6473;margin-top:1rem;line-height:1.45}
+  .av-note a{color:#163a74;font-weight:700}
+</style>
+</head>
+<body class="nhl-light has-ex-sticky">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+
+<section class="av-hero">
+  <div class="kicker">Live window · Expansion Weekend</div>
+  <h1>AURA VOTE</h1>
+  <p>Tap the color of the ice — teal rush, pink chaos, gold clutch. Windows refresh all weekend. OG Pass farms at 5×.</p>
+  <div class="av-live"><i></i> Window open</div>
+</section>
+<nav class="nhl-sub" aria-label="Aura Vote">
+  <a href="aura-vote.html" class="is-active">Aura Vote</a>
+  <a href="conductor-crest.html">Crest vote</a>
+  <a href="clip-crown.html">Clip Crown</a>
+  <a href="awards.html#aura-vote-champion">Hardware</a>
+  <a href="expansion.html">Expansion</a>
+</nav>
+
+<div class="av-wrap">
+  <div class="av-meter">
+    <div class="meta">Building meter · session</div>
+    <h2 id="avLead">Tap to swing the aura</h2>
+    <div class="av-bars">
+      <div class="av-bar teal"><span>Teal</span><div class="track"><i id="barTeal"></i></div><span id="nTeal">0</span></div>
+      <div class="av-bar pink"><span>Pink</span><div class="track"><i id="barPink"></i></div><span id="nPink">0</span></div>
+      <div class="av-bar gold"><span>Gold</span><div class="track"><i id="barGold"></i></div><span id="nGold">0</span></div>
+    </div>
+  </div>
+
+  <div class="av-pad">
+    <button type="button" class="av-btn teal" data-aura="teal"><span>TEAL</span><small>Rush</small></button>
+    <button type="button" class="av-btn pink" data-aura="pink"><span>PINK</span><small>Chaos</small></button>
+    <button type="button" class="av-btn gold" data-aura="gold"><span>GOLD</span><small>Clutch</small></button>
+  </div>
+  <p class="av-status" id="avStatus">Ready — tap an aura. Cooldown keeps the board fair.</p>
+  <div class="av-links">
+    <a href="checkout.html?offer=og" class="btn btn-founding btn-sm" data-claim-og>Unlock 5× · $36</a>
+    <a href="listen.html" class="btn btn-platinum btn-sm">Listen · farm more</a>
+    <a href="format.html#aura" class="btn btn-ghost btn-sm">How auras work</a>
+  </div>
+  <p class="av-note">Trophy race: <a href="awards.html#aura-vote-champion">Aura Vote Champion</a> · sportsmanship: <a href="conductor-crest.html">Conductor’s Crest</a>.</p>
+</div>
+
+<div class="ex-sticky" aria-label="Faceoff countdown">
+  <div>
+    <div class="lbl">Faceoff in</div>
+    <div class="clock" id="exStickyClock">00 : 00 : 00 : 00</div>
+    <div class="sub">Aura windows live · OG = 5×</div>
+  </div>
+  <a href="checkout.html?offer=og" class="btn btn-founding btn-sm" data-claim-og>Claim $36</a>
+</div>
+<div class="av-toast" id="avToast" role="status" aria-live="polite"></div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/auth.js?v=2"></script>
+<script src="assets/js/site.js?v=49"></script>
+<script src="assets/js/support-widget.js?v=5"></script>
+<script src="assets/js/cart.js?v=9"></script>
+<script>
+(function () {
+  const KEY = "pgb-aura-meter";
+  const COOL_KEY = "pgb-aura-cool";
+  const COOL_MS = 4000;
+  const labels = { teal: "Teal rush", pink: "Pink chaos", gold: "Gold clutch" };
+  let cooling = false;
+
+  function read() {
+    try {
+      return JSON.parse(localStorage.getItem(KEY) || '{"teal":0,"pink":0,"gold":0}');
+    } catch (_) {
+      return { teal: 0, pink: 0, gold: 0 };
+    }
+  }
+  function write(m) { localStorage.setItem(KEY, JSON.stringify(m)); }
+
+  function toast(msg) {
+    const el = document.getElementById("avToast");
+    el.textContent = msg;
+    el.classList.add("is-on");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => el.classList.remove("is-on"), 2200);
+  }
+
+  function paint() {
+    const m = read();
+    const total = Math.max(1, m.teal + m.pink + m.gold);
+    document.getElementById("nTeal").textContent = m.teal;
+    document.getElementById("nPink").textContent = m.pink;
+    document.getElementById("nGold").textContent = m.gold;
+    document.getElementById("barTeal").style.width = `${(m.teal / total) * 100}%`;
+    document.getElementById("barPink").style.width = `${(m.pink / total) * 100}%`;
+    document.getElementById("barGold").style.width = `${(m.gold / total) * 100}%`;
+    const lead = Object.entries(m).sort((a, b) => b[1] - a[1])[0];
+    document.getElementById("avLead").textContent =
+      m.teal + m.pink + m.gold === 0 ? "Tap to swing the aura" : `${labels[lead[0]]} leading the building`;
+  }
+
+  function setCool(ms) {
+    cooling = true;
+    document.querySelectorAll(".av-btn").forEach((b) => (b.disabled = true));
+    const end = Date.now() + ms;
+    localStorage.setItem(COOL_KEY, String(end));
+    const tick = () => {
+      const left = end - Date.now();
+      if (left <= 0) {
+        cooling = false;
+        document.querySelectorAll(".av-btn").forEach((b) => (b.disabled = false));
+        document.getElementById("avStatus").innerHTML = "Ready — tap an aura. Cooldown keeps the board fair.";
+        return;
+      }
+      document.getElementById("avStatus").innerHTML = `Cooldown <strong>${(left / 1000).toFixed(1)}s</strong> — window stays live.`;
+      requestAnimationFrame(tick);
+    };
+    tick();
+  }
+
+  const coolUntil = Number(localStorage.getItem(COOL_KEY) || 0);
+  if (coolUntil > Date.now()) setCool(coolUntil - Date.now());
+
+  document.querySelectorAll(".av-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (cooling) return;
+      const aura = btn.dataset.aura;
+      const m = read();
+      m[aura] = (m[aura] || 0) + 1;
+      write(m);
+      paint();
+      let msg = `${labels[aura]} +1`;
+      if (window.PGBAuth?.awardPoints) {
+        const r = window.PGBAuth.awardPoints(6, "aura-vote");
+        if (r?.awarded) msg = `+${r.awarded} XP${r.mult > 1 ? " · " + r.mult + "× OG" : ""} · ${labels[aura]}`;
+      }
+      toast(msg);
+      setCool(COOL_MS);
+    });
+  });
+
+  document.querySelectorAll("[data-claim-og]").forEach((a) => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.PGBCart?.addOgOffer({ open: false });
+      location.href = "checkout.html?offer=og";
+    });
+  });
+
+  paint();
+})();
+</script>
+</body>
+</html>
