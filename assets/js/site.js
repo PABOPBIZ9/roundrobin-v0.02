@@ -58,6 +58,7 @@
     { href: "puck-personality.html", label: "Puck Personality" },
     { href: "podcasts.html", label: "Podcasts" },
     { href: "listen.html", label: "Listen · Season One" },
+    { href: "clip-crown.html", label: "Clip Crown submit" },
     { href: "hype.html", label: "Hype Trailer" },
   ];
 
@@ -190,6 +191,7 @@
       isActive("puck-personality.html") ||
       isActive("podcasts.html") ||
       isActive("listen.html") ||
+      isActive("clip-crown.html") ||
       isActive("expansion.html") ||
       isActive("founding-four.html") ||
       isActive("media-guide.html") ||
