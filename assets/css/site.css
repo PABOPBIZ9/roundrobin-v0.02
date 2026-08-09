@@ -130,7 +130,7 @@ html:not([data-theme="light"]) .site-header{
 }
 .nav-pill:hover{filter:brightness(1.06);transform:translateY(-1px)}
 
-/* Primary CTA — DraftKings / VeeFriends size: tall & punchy */
+/* Primary CTA — tall & punchy for mobile thumb reach */
 .nav-pill-og{
   background:linear-gradient(180deg,#fff4d4 0%,#f0d78c 28%,#d4af37 62%,#8a6a1e 100%);
   color:#1a1400;border-color:#fff8e6;
