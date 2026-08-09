@@ -6,7 +6,7 @@
 <title>Playoff Bracket — PuckGold</title>
 <meta name="description" content="PuckGold brackets — Expansion Weekend knockout path and Season One Golden Final aggregate.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=53">
+<link rel="stylesheet" href="assets/css/site.css?v=54">
 <link rel="stylesheet" href="assets/css/nhl-league.css?v=7">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <style>
@@ -182,10 +182,11 @@
 
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=53"></script>
+<script src="assets/js/site.js?v=54"></script>
 <script src="assets/js/support-widget.js?v=6"></script>
 <script src="assets/js/cart.js?v=9"></script>
 <script src="assets/js/tournament-data.js?v=3"></script>
+<script src="assets/js/live-demo.js?v=1"></script>
 <script>
 (function () {
   const E = window.PGB_EXPANSION;
@@ -221,8 +222,8 @@
     b: { code: "SF2", name: "Winner SF2", color: "#163a74" },
   };
 
-  function matchHtml(m) {
-    return `<div class="bk-match${m.live ? " is-live" : ""}">
+  function matchHtml(m, rotate) {
+    return `<div class="bk-match${rotate ? " bk-live-card" : ""}${m.live ? " is-live" : ""}">
       <div class="seed">${m.label}${m.live ? '<span class="live">· LIVE</span>' : ""}</div>
       ${side(m.a)}
       ${side(m.b)}
@@ -233,15 +234,15 @@
   document.getElementById("bkPath").innerHTML = `
     <div class="bk-round">
       <h3>Quarterfinals</h3>
-      ${qf.map(matchHtml).join("")}
+      ${qf.map((m) => matchHtml(m, true)).join("")}
     </div>
     <div class="bk-round">
       <h3>Semifinals</h3>
-      ${sf.map(matchHtml).join("")}
+      ${sf.map((m) => matchHtml(m, false)).join("")}
     </div>
     <div class="bk-round">
       <h3>Expansion Cup</h3>
-      ${matchHtml(cup)}
+      ${matchHtml(cup, false)}
       <div class="bk-match">
         <div class="seed">OT rule</div>
         <div class="row">Sudden Death Strobe</div>
@@ -257,6 +258,8 @@
       document.getElementById("viewGolden").hidden = w;
     });
   });
+
+  window.PGBLiveDemo?.rotate(".bk-live-card", 9000);
 })();
 </script>
 </body>

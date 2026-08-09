@@ -2,15 +2,35 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Stats — PuckGold Player &amp; Team Performance</title>
-<meta name="description" content="PuckGold statistics — player insights and team performance across Season One. All Events · All Stats.">
+<meta name="description" content="PuckGold stats — Expansion weekend leaders, Season One player insights, and team boards.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=53">
+<link rel="stylesheet" href="assets/css/site.css?v=54">
 <link rel="stylesheet" href="assets/css/play-zone.css?v=3">
-<link rel="stylesheet" href="assets/css/nhl-league.css?v=3">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=7">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <style>
+  .stat-pulse{
+    display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;justify-content:space-between;
+    margin:0 0 1.25rem;padding:1rem 1.05rem;border-radius:16px;color:#fff;
+    background:
+      radial-gradient(circle at 80% 0%, rgba(240,215,140,.24), transparent 42%),
+      linear-gradient(145deg,#0b1220,#163a74);
+  }
+  .stat-pulse .lbl{font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#f0d78c}
+  .stat-pulse .clock{font-family:var(--display);font-size:clamp(1.3rem,4vw,1.7rem);letter-spacing:.06em;margin:.15rem 0}
+  .stat-pulse p{margin:0;font-size:.8rem;color:rgba(238,243,250,.72);max-width:28rem;line-height:1.4}
+  .stat-lead{
+    display:grid;gap:.55rem;grid-template-columns:1fr 1fr;margin:0 0 1.25rem;
+  }
+  @media(min-width:720px){.stat-lead{grid-template-columns:repeat(4,1fr)}}
+  .stat-lead article{
+    background:#fff;border:1px solid rgba(18,24,38,.08);border-radius:12px;padding:.85rem .8rem;
+  }
+  .stat-lead .t{font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#8a93a3}
+  .stat-lead strong{display:block;font-family:var(--display);font-size:1.15rem;margin:.2rem 0 .15rem;letter-spacing:.02em}
+  .stat-lead span{display:block;font-size:.72rem;color:#5c6473;line-height:1.35}
   .stat-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1.25rem}
   .stat-chips a,.stat-chips button{
     border-radius:999px;padding:.45rem .85rem;font-size:.65rem;font-weight:800;letter-spacing:.1em;
@@ -26,25 +46,34 @@
   .stat-meta strong{color:#0b1220}
 </style>
 </head>
-<body class="pz-light nhl-light">
+<body class="pz-light nhl-light has-ex-sticky">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
 
 <section class="nhl-hero">
-  <span class="kicker">Statistics</span>
+  <span class="kicker">Underdog Division · Expansion Weekend</span>
   <h1>STATS</h1>
-  <p>Performance data, player insights and team stats from across the PuckGoldBiz season.</p>
+  <p>Weekend heat leaders + Season One boards — farm Aura while the slate fills the book.</p>
 </section>
 <nav class="nhl-sub" aria-label="League">
   <a href="scores.html">Scores</a>
   <a href="schedule.html">Schedule</a>
   <a href="standings.html">Standings</a>
   <a href="stats.html" class="is-active">Stats</a>
-  <a href="awards.html">Awards</a>
-  <a href="experience.html">Event Experience</a>
+  <a href="aura-vote.html">Aura</a>
+  <a href="bracket.html">Playoffs</a>
 </nav>
 
 <div class="pz-wrap pz-wrap-wide">
+  <div class="stat-pulse">
+    <div>
+      <div class="lbl">Expansion faceoff</div>
+      <div class="clock" id="exStickyClock">00 : 00 : 00 : 00</div>
+      <p id="statPulseBlurb">Leaders refresh as pools tip — Clip Crown + Aura windows farm while you watch.</p>
+    </div>
+    <a href="scores.html" class="btn btn-platinum btn-sm">Live scores</a>
+  </div>
+  <div class="stat-lead" id="statWeekendLead"></div>
   <div class="stat-meta">
     <strong>2026 Season</strong>
     <span>·</span>
@@ -62,15 +91,33 @@
   <div id="statsRoot"></div>
 </div>
 
+<div class="ex-sticky" aria-label="Stats farm shortcuts">
+  <div>
+    <div class="lbl">Board fills · farm now</div>
+    <div class="clock" style="font-size:1rem">Aura · Crest · Clip</div>
+    <div class="sub">OG Pass multiplies XP ×5</div>
+  </div>
+  <div class="ex-sticky-actions">
+    <a href="aura-vote.html" class="btn btn-founding btn-sm">Aura</a>
+    <a href="checkout.html?offer=og" class="btn btn-platinum btn-sm">$36</a>
+  </div>
+</div>
+
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=53"></script>
+<script src="assets/js/site.js?v=54"></script>
 <script src="assets/js/support-widget.js?v=6"></script>
-<script src="assets/js/cart.js?v=8"></script>
+<script src="assets/js/cart.js?v=9"></script>
 <script src="assets/js/teams-data.js?v=2"></script>
 <script src="assets/js/standings-data.js?v=2"></script>
+<script src="assets/js/tournament-data.js?v=3"></script>
 <script>
 (function () {
+  const E = window.PGB_EXPANSION;
+  if (E) {
+    document.getElementById("statPulseBlurb").textContent = E.format + " · " + E.venue;
+  }
+
   function hash(s) {
     let h = 0;
     for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
@@ -251,6 +298,25 @@
     cat = btn.dataset.cat;
     render();
   });
+
+  // Expansion weekend heat leaders (demo pace from Season One skaters)
+  const skaters = players.filter((p) => p.pos !== "G").sort((a, b) => b.pts - a.pts);
+  const hot = [
+    { t: "Points pace", p: skaters[0], sub: (skaters[0]?.pts || 0) + " PTS · Season One" },
+    { t: "Goal heat", p: [...skaters].sort((a, b) => b.g - a.g)[0], sub: "Goals board" },
+    { t: "Helper king", p: [...skaters].sort((a, b) => b.a - a.a)[0], sub: "Assists board" },
+    { t: "Hit machine", p: [...skaters].sort((a, b) => b.hits - a.hits)[0], sub: "Physical pace" },
+  ];
+  document.getElementById("statWeekendLead").innerHTML = hot
+    .map((h) => {
+      if (!h.p) return "";
+      return `<article>
+        <div class="t">${h.t}</div>
+        <strong><a href="player.html?id=${h.p.id}" style="color:inherit">${h.p.name.split(" ").slice(-1)[0]}</a></strong>
+        <span>${h.p.team.short} · ${h.sub}</span>
+      </article>`;
+    })
+    .join("");
 
   render();
 })();

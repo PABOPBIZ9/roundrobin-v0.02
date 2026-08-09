@@ -6,8 +6,8 @@
 <title>PuckGold Format — The Coldest Game on Earth</title>
 <meta name="description" content="PuckGoldBiz format — 3×3:33 running clock, pulled goalies, fan aura votes, Sudden Death Strobe overtime.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=53">
-<link rel="stylesheet" href="assets/css/nhl-league.css?v=2">
+<link rel="stylesheet" href="assets/css/site.css?v=54">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=7">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <style>
   .fm-block{margin:2.5rem 0}
@@ -37,7 +37,7 @@
   }
 </style>
 </head>
-<body class="nhl-light">
+<body class="nhl-light has-ex-sticky">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
 
@@ -46,22 +46,33 @@
   <h1>THE COLDEST GAME ON EARTH</h1>
   <p>PUCKGOLD is built for clips: running clock, aggressive strategies, and fan windows that light up the broadcast — Founding Four pace with PuckGoldBiz stakes.</p>
   <div class="cta-row" style="margin-top:1.1rem;display:flex;flex-wrap:wrap;gap:.5rem">
-    <a href="awards.html" class="btn btn-platinum btn-sm">Hardware &amp; awards</a>
-    <a href="video-condensed.html" class="btn btn-sapphire btn-sm">Watch</a>
-    <a href="apply.html" class="btn btn-ghost btn-sm">Franchise / Apply</a>
+    <a href="aura-vote.html" class="btn btn-founding btn-sm">Aura Vote live</a>
+    <a href="bracket.html" class="btn btn-platinum btn-sm">Expansion bracket</a>
+    <a href="checkout.html?offer=og" class="btn btn-ghost btn-sm">$36 OG · 5×</a>
   </div>
 </section>
 
 <nav class="nhl-sub" aria-label="Format">
-  <a href="#season" class="is-active">Season One</a>
+  <a href="#banana" class="is-active">Banana Hockey</a>
   <a href="#periods">3 × 3:33</a>
   <a href="#goalie">Pulled goalie</a>
   <a href="#aura">Fan auras</a>
-  <a href="#ot">Overtime</a>
+  <a href="#ot">Strobe OT</a>
   <a href="bracket.html">Playoffs</a>
 </nav>
 
 <div class="nhl-wrap">
+  <section class="fm-block" id="banana">
+    <h2>Banana Hockey</h2>
+    <p>Chaos with clarity — short periods, pulled goalies as weapons, fan aura windows that flip the broadcast, and Sudden Death Strobe OT built for Clip Crown. Expansion Weekend runs the full stack.</p>
+    <div class="fm-grid cols-4">
+      <div class="fm-card"><div class="tag">Pace</div><h3>Clip-first</h3><p>Every period is a highlight reel waiting to drop.</p></div>
+      <div class="fm-card"><div class="tag">Fans</div><h3>Aura windows</h3><p>Votes change the ice color live. <a href="aura-vote.html" style="color:#163a74">Vote now →</a></p></div>
+      <div class="fm-card"><div class="tag">OT</div><h3>Strobe finish</h3><p>Open-net sudden death. Horns + overlays.</p></div>
+      <div class="fm-card"><div class="tag">Weekend</div><h3>First 16</h3><p>Pools → knockout → Expansion Cup. <a href="bracket.html" style="color:#163a74">Bracket →</a></p></div>
+    </div>
+  </section>
+
   <section class="fm-block" id="season">
     <h2>Season One · Underdog Division</h2>
     <p>Founding Four round robin — Miami Mighty Geckz, McLean Climate Cardinals, Washington Whoomp!, and Chattanooga Choo Choos play a double round robin. Division crown, MVP, Player of the Tournament, and the full hardware stack on the line.</p>
@@ -75,7 +86,7 @@
   <div class="fm-big" id="periods">
     <div class="tag" style="color:#f0d78c;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase">Period structure</div>
     <div class="fm-stat">3 × 3:33</div>
-    <p style="margin-top:.75rem;max-width:36rem">Three periods of 3 minutes, 33 seconds. Running clock. Minimal stoppages. The game breathes like a livestream — LIV shotgun energy, hockey stakes.</p>
+    <p style="margin-top:.75rem;max-width:36rem">Three periods of 3 minutes, 33 seconds. Running clock. Minimal stoppages. The game breathes like a livestream — shotgun faceoffs, hockey stakes, zero dead air.</p>
   </div>
 
   <section class="fm-block" id="goalie">
@@ -97,23 +108,27 @@
 
   <section class="fm-block" id="aura">
     <h2>Fan-vote momentum</h2>
-    <p>Auras trigger in windows. Passing sequences and pressure meters open vote windows. Winning votes flips arena Aura effects in overlays (teal / pink / purple).</p>
+    <p>Auras trigger in windows. Passing sequences and pressure meters open vote windows. Winning votes flips arena Aura effects in overlays (teal / pink / gold clutch).</p>
     <div class="fm-grid cols-4">
-      <div class="fm-card"><div class="tag">Teal</div><h3>Pressure</h3><p>Sustained O-zone sequences charge the meter.</p></div>
-      <div class="fm-card"><div class="tag">Pink</div><h3>Clip mode</h3><p>Fans vote the moment into the highlight stack.</p></div>
-      <div class="fm-card"><div class="tag">Purple</div><h3>Aura flip</h3><p>Arena overlays shift — live, loud, shareable.</p></div>
-      <div class="fm-card"><div class="tag">Hardware</div><h3>Aura Vote Champion</h3><p>Season trophy for the fan-window king. <a href="aura-vote.html" style="color:#163a74">Vote live →</a> · <a href="awards.html#aura-vote-champion" style="color:#163a74">trophy</a></p></div>
+      <div class="fm-card"><div class="tag">Teal</div><h3>Rush</h3><p>Sustained O-zone sequences charge the meter.</p></div>
+      <div class="fm-card"><div class="tag">Pink</div><h3>Chaos</h3><p>Fans vote the moment into the highlight stack.</p></div>
+      <div class="fm-card"><div class="tag">Gold</div><h3>Clutch</h3><p>Late-game overlays go platinum — shareable.</p></div>
+      <div class="fm-card"><div class="tag">Live</div><h3>Aura Vote</h3><p>Windows open Expansion Weekend. <a href="aura-vote.html" style="color:#163a74">Vote live →</a> · <a href="awards.html#aura-vote-champion" style="color:#163a74">trophy</a></p></div>
+    </div>
+    <div class="cta-row" style="margin-top:1rem">
+      <a href="aura-vote.html" class="btn btn-founding btn-sm">Open Aura Vote</a>
+      <a href="checkout.html?offer=og" class="btn btn-platinum btn-sm">5× with $36 OG</a>
     </div>
   </section>
 
   <section class="fm-block" id="ot">
     <h2>Overtime · Sudden Death Strobe</h2>
-    <p>9-man shootout. Red-line to red-line. Open nets. Nine shooters per side. FIFA-style drama: momentum swings, bonus-time feel, and a clean ending for clips.</p>
+    <p>9-man shootout. Red-line to red-line. Open nets. Nine shooters per side. Momentum swings, bonus-time feel, and a clean ending for Clip Crown.</p>
     <div class="fm-grid cols-4">
       <div class="fm-card"><div class="tag">Run-up lane</div><h3>From the red line</h3><p>Shooters start at red line, full-speed attack.</p></div>
       <div class="fm-card"><div class="tag">Open net</div><h3>By rule</h3><p>Goalie pulled. No excuses.</p></div>
       <div class="fm-card"><div class="tag">9 rounds</div><h3>Deep benches</h3><p>Nine shooters. Depth matters.</p></div>
-      <div class="fm-card"><div class="tag">Strobe finish</div><h3>Lights + overlays</h3><p>Replay stacks, horns, Clip Crown energy.</p></div>
+      <div class="fm-card"><div class="tag">Strobe finish</div><h3>Lights + overlays</h3><p>Replay stacks, horns, Clip Crown energy. <a href="clip-crown.html" style="color:#163a74">Submit →</a></p></div>
     </div>
   </section>
 
@@ -135,10 +150,22 @@
   </section>
 </div>
 
+<div class="ex-sticky" aria-label="Format farm shortcuts">
+  <div>
+    <div class="lbl">Banana Hockey · live</div>
+    <div class="clock" style="font-size:1rem">Aura · Strobe · Clip</div>
+    <div class="sub">Farm the format · OG = 5× XP</div>
+  </div>
+  <div class="ex-sticky-actions">
+    <a href="aura-vote.html" class="btn btn-founding btn-sm">Aura</a>
+    <a href="checkout.html?offer=og" class="btn btn-platinum btn-sm">$36</a>
+  </div>
+</div>
+
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=53"></script>
+<script src="assets/js/site.js?v=54"></script>
 <script src="assets/js/support-widget.js?v=6"></script>
-<script src="assets/js/cart.js?v=8"></script>
+<script src="assets/js/cart.js?v=9"></script>
 </body>
 </html>
