@@ -87,6 +87,8 @@
       { href: "media-schedule.html", label: "Schedule", key: "schedule" },
       { href: "media-resources.html", label: "Resources", key: "resources" },
       { href: "media-videos.html", label: "Video Content", key: "videos" },
+      { href: "listen.html", label: "Listen", key: "listen" },
+      { href: "podcasts.html", label: "Podcasts", key: "podcasts" },
       { href: "transcripts.html", label: "Transcripts", key: "transcripts" },
       { href: "media-guide.html", label: "Media Guide", key: "guide" },
       { href: "news.html", label: "Newsroom", key: "news" },

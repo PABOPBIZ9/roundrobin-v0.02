@@ -814,6 +814,24 @@
       }
     });
 
+    // Listen page / podcasts duck ambient so booth audio stays clear
+    let ducked = false;
+    let wasEnabled = false;
+    document.addEventListener("pgb:listen-play", () => {
+      if (ducked) return;
+      ducked = true;
+      wasEnabled = enabled;
+      if (enabled) {
+        audio.pause();
+        stopScenes();
+      }
+    });
+    document.addEventListener("pgb:listen-pause", () => {
+      if (!ducked) return;
+      ducked = false;
+      if (wasEnabled && enabled) tryPlay();
+    });
+
     apply();
   }
 

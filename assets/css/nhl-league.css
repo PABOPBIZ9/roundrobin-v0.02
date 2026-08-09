@@ -14,15 +14,24 @@
 }
 .nhl-hero p{color:rgba(255,255,255,.72);margin-top:.55rem;max-width:40rem;font-size:.95rem}
 .nhl-sub{
-  display:flex;flex-wrap:wrap;gap:.35rem;padding:.65rem 4vw;
+  display:flex;flex-wrap:nowrap;gap:.35rem;padding:.55rem 4vw;
   background:#fff;border-bottom:1px solid rgba(18,24,38,.08);
   position:sticky;top:64px;z-index:30;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+  overscroll-behavior-x:contain;
 }
+.nhl-sub::-webkit-scrollbar{display:none}
 .nhl-sub a{
+  flex:0 0 auto;
   font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
-  color:#5c6473;padding:.45rem .75rem;border-radius:999px;
+  color:#5c6473;padding:.55rem .85rem;border-radius:999px;
+  min-height:40px;display:inline-flex;align-items:center;
+  -webkit-tap-highlight-color:transparent;white-space:nowrap;
 }
 .nhl-sub a.is-active,.nhl-sub a:hover{background:#0b1220;color:#fff}
+@media(min-width:800px){
+  .nhl-sub{flex-wrap:wrap;overflow:visible}
+}
 .nhl-wrap{max-width:1200px;margin:0 auto;padding:1.25rem 4vw 3.5rem}
 .nhl-wrap-wide{max-width:1400px}
 
