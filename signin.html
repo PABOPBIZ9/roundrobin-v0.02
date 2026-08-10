@@ -6,7 +6,7 @@
 <title>Join · Create your vibe — PuckGold</title>
 <meta name="description" content="Snapchat-style onboarding for PuckGoldBiz — pick your emoji avatar, sign, and handle. Farm points. OG Pass gets 5×.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=55">
+<link rel="stylesheet" href="assets/css/site.css?v=56">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <style>
   .ob-page{min-height:calc(100svh - 70px);display:flex;flex-direction:column}
@@ -173,9 +173,9 @@
 
       <!-- Step 4: done -->
       <div class="step" data-step="4">
-        <div class="ob-kicker">You're in</div>
+        <div class="ob-kicker">You're in · Expansion Weekend</div>
         <h1>LET'S FARM</h1>
-        <p class="lead">Profile live. Points stack on every interaction. Climb the board · chase giveaways.</p>
+        <p class="lead" id="doneLead">Profile live. Unlock 5× with OG, then stack Aura · Clip · Crest before faceoff.</p>
         <div class="ob-card" style="text-align:center">
           <div class="ob-av" id="doneAv">🏒</div>
           <div class="ob-name" id="doneName">Fan</div>
@@ -185,11 +185,11 @@
             <div><strong id="donePts">+50</strong><span>Welcome XP</span></div>
             <div><strong id="doneMult">1×</strong><span>Multiplier</span></div>
           </div>
-          <div class="ob-actions">
-            <a class="btn btn-founding btn-block" id="goProfile" href="profile.html">Open my profile</a>
-            <a class="btn btn-platinum btn-block" href="fantasy.html#board">Fan Zone leaderboard</a>
-            <a class="btn btn-ghost btn-block" href="play.html" style="border-color:rgba(255,255,255,.25);color:#fff">Game Zone quests</a>
-            <a class="btn btn-ghost btn-block" href="checkout.html?offer=og" data-claim-og style="border-color:rgba(240,215,140,.4);color:#f0d78c">Unlock 5× with $36 OG</a>
+          <div class="ob-actions" id="doneActions">
+            <a class="btn btn-founding btn-block" id="goPrimary" href="checkout.html?offer=og" data-claim-og>Unlock 5× · $36 OG</a>
+            <a class="btn btn-platinum btn-block" href="aura-vote.html">Open Aura Vote</a>
+            <a class="btn btn-ghost btn-block" href="fantasy.html#quests" style="border-color:rgba(255,255,255,.25);color:#fff">Weekend quests</a>
+            <a class="btn btn-ghost btn-block" id="goProfile" href="profile.html" style="border-color:rgba(255,255,255,.25);color:#fff">Open my profile</a>
           </div>
         </div>
       </div>
@@ -198,22 +198,29 @@
 </div>
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=55"></script>
+<script src="assets/js/site.js?v=56"></script>
 <script src="assets/js/support-widget.js?v=6"></script>
-<script src="assets/js/cart.js?v=8"></script>
-<script src="assets/js/auth.js?v=1"></script>
+<script src="assets/js/cart.js?v=9"></script>
+<script src="assets/js/auth.js?v=2"></script>
 <script src="assets/js/fan-profile.js?v=2"></script>
 <script>
 (function () {
   const A = window.PGBAuth;
   const params = new URLSearchParams(location.search);
-  const next = params.get("next") || "profile.html";
+  const wantOg = params.get("offer") === "og" || params.get("plan") === "og" || params.get("next")?.includes("checkout");
+  const nextRaw = params.get("next") || (wantOg ? "checkout.html?offer=og" : "fantasy.html#quests");
+  const next = nextRaw.startsWith("http") ? "fantasy.html#quests" : nextRaw;
   let step = 0;
   let kit = A.shuffleKit();
 
-  // Already fully onboarded? bounce
+  function safeNext(url) {
+    if (!url || url.startsWith("http") || url.startsWith("//")) return "fantasy.html#quests";
+    return url;
+  }
+
+  // Already fully onboarded? bounce to next (OG checkout if requested)
   if (A.isSignedIn() && A.isOnboarded() && !params.get("redo")) {
-    location.replace(next.startsWith("http") ? "profile.html" : next);
+    location.replace(safeNext(wantOg ? "checkout.html?offer=og" : next));
     return;
   }
   if (A.isSignedIn() && !A.isOnboarded()) step = 1;
@@ -308,10 +315,42 @@
     document.getElementById("doneHandle").textContent = window.PGBProfile.myProfile().handle;
     document.getElementById("donePts").textContent = "+" + (50 * m.multiplier);
     document.getElementById("doneMult").textContent = m.multiplier + "×";
-    document.getElementById("goProfile").href = "profile.html?u=" + encodeURIComponent(window.PGBProfile.myProfile().handle);
+    const profileUrl = "profile.html?u=" + encodeURIComponent(window.PGBProfile.myProfile().handle);
+    document.getElementById("goProfile").href = profileUrl;
+    const primary = document.getElementById("goPrimary");
+    const lead = document.getElementById("doneLead");
+    if (m.multiplier >= 5) {
+      primary.href = safeNext(next.includes("checkout") ? "aura-vote.html" : next);
+      primary.removeAttribute("data-claim-og");
+      primary.textContent = next.includes("aura") ? "Open Aura Vote" : "Start weekend farm";
+      if (lead) lead.textContent = "OG active · 5× live. Hit Aura, Clip Crown, and quests before the horn.";
+    } else if (wantOg || next.includes("checkout")) {
+      primary.href = "checkout.html?offer=og";
+      primary.setAttribute("data-claim-og", "");
+      primary.textContent = "Unlock 5× · $36 OG";
+      if (lead) lead.textContent = "Profile live. Claim the founding offer next — then farm Aura at 5×.";
+    } else {
+      primary.href = "checkout.html?offer=og";
+      primary.setAttribute("data-claim-og", "");
+      primary.textContent = "Unlock 5× · $36 OG";
+    }
+    primary.addEventListener("click", (e) => {
+      if (primary.hasAttribute("data-claim-og")) {
+        e.preventDefault();
+        window.PGBCart?.addOgOffer({ open: false });
+        location.href = "checkout.html?offer=og";
+      }
+    });
     setStep(4);
-    // refresh nav chip
-    setTimeout(() => location.hash = "ready", 0);
+    setTimeout(() => { location.hash = "ready"; }, 0);
+  });
+
+  document.querySelectorAll("[data-claim-og]").forEach((a) => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.PGBCart?.addOgOffer({ open: false });
+      location.href = "checkout.html?offer=og";
+    });
   });
 
   syncPreview();
