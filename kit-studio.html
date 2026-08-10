@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Kit Studio — LockerVision | PuckGold</title>
+<meta name="description" content="PuckGold Kit Studio — build jerseys, player kits, backgrounds, and marketing exports. Randomize, share, download.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=58">
+<link rel="stylesheet" href="assets/css/lockervision.css?v=2">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=7">
+<link rel="stylesheet" href="assets/css/kit-studio.css?v=1">
+<link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+</head>
+<body class="ks-page has-ks-sticky has-ex-sticky">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+<div id="lvSubnav"></div>
+
+<div class="ks-shell">
+  <div class="ks-head">
+    <div class="kicker" style="color:#163a74">LockerVision · Kit Studio</div>
+    <h1>kit[studio]</h1>
+    <p>Build player kits, jersey colorways, stages, and marketing exports — Founding Four first.</p>
+    <div class="ks-collections" id="ksTeams" role="tablist" aria-label="Team"></div>
+  </div>
+
+  <section class="ks-panel" aria-label="Traits">
+    <div class="ks-toolbar">
+      <label class="ks-search">
+        <span aria-hidden="true">⌕</span>
+        <input id="ksSearch" type="search" placeholder="Search any trait…" autocomplete="off">
+      </label>
+      <div class="ks-seasons" id="ksSeasons" aria-label="Kit edition"></div>
+    </div>
+    <div class="ks-cats" id="ksCats"></div>
+    <div class="ks-grid" id="ksGrid"></div>
+  </section>
+
+  <section class="ks-preview-wrap">
+    <div class="ks-panel">
+      <div class="ks-preview-tools">
+        <button type="button" id="ksUndo" title="Undo">↶</button>
+        <button type="button" id="ksLayers" title="Layer summary">☰</button>
+        <button type="button" id="ksTheme" title="Canvas contrast">☾</button>
+        <button type="button" id="ksFull" title="Fullscreen preview">⛶</button>
+      </div>
+      <div class="ks-canvas-frame" id="ksFrame">
+        <canvas id="ksCanvas" width="720" height="720" aria-label="Kit preview"></canvas>
+        <div class="ks-meta" id="ksMeta"></div>
+      </div>
+      <div class="ks-actions">
+        <input id="ksSeed" value="#home" aria-label="Seed / kit id">
+        <button type="button" class="icon-btn" id="ksLock" title="Lock current category">🔒</button>
+        <button type="button" class="rand" id="ksRandom">Randomize</button>
+        <button type="button" class="icon-btn" id="ksReset" title="Reset">↺</button>
+        <button type="button" class="icon-btn" id="ksShare" title="Copy share link">🔗</button>
+      </div>
+      <div class="ks-export-row" id="ksExport"></div>
+      <button type="button" class="ks-download" id="ksDownload">Download</button>
+      <p class="ks-note">
+        Procedural layers until PNG drops land in team jersey folders.
+        Browse real kits on <a href="lv-edition.html?edition=home">Editions</a> ·
+        farm XP on <a href="aura-vote.html">Aura Vote</a>.
+      </p>
+    </div>
+  </section>
+</div>
+
+<div class="ex-sticky" aria-label="Kit Studio convert">
+  <div>
+    <div class="lbl">Kit Studio · live</div>
+    <div class="clock" style="font-size:1rem">Build · share · shop</div>
+    <div class="sub">OG Pass · early drops · 5× farm</div>
+  </div>
+  <div class="ex-sticky-actions">
+    <a href="shop.html#best" class="btn btn-platinum btn-sm">Shop</a>
+    <a href="checkout.html?offer=og" class="btn btn-founding btn-sm" data-claim-og>$36</a>
+  </div>
+</div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=58"></script>
+<script src="assets/js/support-widget.js?v=7"></script>
+<script src="assets/js/cart.js?v=9"></script>
+<script src="assets/js/teams-data.js?v=2"></script>
+<script src="assets/js/standings-data.js?v=2"></script>
+<script src="assets/js/lockervision-data.js?v=2"></script>
+<script src="assets/js/lockervision.js?v=3"></script>
+<script src="assets/js/kit-studio.js?v=1"></script>
+<script>
+(function () {
+  const KS = window.PGBKitStudio;
+  const UI = window.PGBLVUI;
+  document.getElementById("lvSubnav").innerHTML = UI.subnav("studio");
+
+  let state = KS.stateFromUrl();
+  let cat = "kit";
+  let query = "";
+  const historyStack = [];
+  const canvas = document.getElementById("ksCanvas");
+
+  function pushHistory() {
+    historyStack.push(JSON.stringify({ ...state, locked: [...state.locked] }));
+    if (historyStack.length > 30) historyStack.shift();
+  }
+
+  function optionsFor(catId) {
+    const LV = window.PGBLockerVision;
+    if (catId === "kit") {
+      return (LV?.editions || []).map((e) => ({ id: e.id, label: e.name }));
+    }
+    if (catId === "background") return KS.BACKGROUNDS.map((b) => ({ id: b.id, label: b.label, raw: b }));
+    if (catId === "stage") return KS.STAGES.map((s) => ({ id: s.id, label: s.label }));
+    if (catId === "jersey") {
+      return [
+        { id: "shell", label: "Team shell" },
+        { id: "inverse", label: "Inverse" },
+        { id: "gold-trim", label: "Gold trim" },
+      ];
+    }
+    if (catId === "helmet") return KS.HELMETS.map((h) => ({ id: h.id, label: h.label }));
+    if (catId === "number") {
+      return [
+        { id: "auto", label: "Auto" },
+        { id: "9", label: "#9" },
+        { id: "7", label: "#7" },
+        { id: "14", label: "#14" },
+        { id: "30", label: "#30" },
+        { id: "00", label: "#00" },
+      ];
+    }
+    if (catId === "specialty") return KS.SPECIALS.map((s) => ({ id: s.id, label: s.label }));
+    if (catId === "player") {
+      return [
+        { id: "captain", label: "Captain" },
+        { id: "skater", label: "Skater" },
+        { id: "goalie", label: "Goalie" },
+      ];
+    }
+    return [];
+  }
+
+  function paintTeams() {
+    document.getElementById("ksTeams").innerHTML = KS.teams()
+      .map(
+        (t) =>
+          `<button type="button" data-team="${t.slug}" class="${state.team === t.slug ? "is-on" : ""}">${t.short}</button>`
+      )
+      .join("");
+  }
+
+  function paintSeasons() {
+    const eds = window.PGBLockerVision?.editions || [];
+    document.getElementById("ksSeasons").innerHTML = eds
+      .map(
+        (e) =>
+          `<button type="button" data-kit="${e.id}" class="${state.kit === e.id ? "is-on" : ""}" title="${e.name}">${e.id.slice(0, 2).toUpperCase()}</button>`
+      )
+      .join("");
+  }
+
+  function paintCats() {
+    document.getElementById("ksCats").innerHTML = KS.CATS.map(
+      (c) =>
+        `<button type="button" data-cat="${c.id}" class="${cat === c.id ? "is-on" : ""}">${c.icon}<span>${c.label}</span></button>`
+    ).join("");
+  }
+
+  function paintExport() {
+    document.getElementById("ksExport").innerHTML = KS.EXPORTS.map(
+      (e) =>
+        `<button type="button" data-export="${e.id}" class="${state.export === e.id ? "is-on" : ""}">${e.label}</button>`
+    ).join("");
+  }
+
+  function paintGrid() {
+    let opts = optionsFor(cat);
+    if (query) {
+      const q = query.toLowerCase();
+      opts = opts.filter((o) => o.label.toLowerCase().includes(q) || o.id.toLowerCase().includes(q));
+    }
+    const selected = state[cat === "kit" ? "kit" : cat === "background" ? "background" : cat];
+    const grid = document.getElementById("ksGrid");
+    grid.innerHTML = "";
+    opts.forEach((o) => {
+      const tile = document.createElement("button");
+      tile.type = "button";
+      tile.className = "ks-tile" + (selected === o.id ? " is-on" : "");
+      tile.dataset.id = o.id;
+
+      if (cat === "background" && o.raw) {
+        const sw = document.createElement("div");
+        sw.className = "swatch";
+        if (o.raw.type === "none") {
+          tile.textContent = "None";
+        } else if (o.raw.type === "solid") {
+          sw.style.background = o.raw.color;
+          tile.appendChild(sw);
+        } else {
+          sw.style.background = `radial-gradient(circle at 70% 20%, ${o.raw.c0}, ${o.raw.c1})`;
+          tile.appendChild(sw);
+        }
+      } else if (cat === "jersey") {
+        const kit = KS.kitMeta(state);
+        const sw = document.createElement("div");
+        sw.className = "swatch";
+        const shell = o.id === "inverse" ? kit.secondary : kit.shell;
+        const accent = o.id === "gold-trim" ? "#f0d78c" : kit.accent;
+        sw.style.background = `linear-gradient(160deg,${accent},${shell})`;
+        tile.appendChild(sw);
+      } else {
+        tile.innerHTML = `<span>${o.label}</span>`;
+      }
+
+      tile.addEventListener("click", () => {
+        pushHistory();
+        if (cat === "kit") state.kit = o.id;
+        else if (cat === "background") state.background = o.id;
+        else state[cat] = o.id;
+        paint();
+      });
+      grid.appendChild(tile);
+    });
+  }
+
+  function paintPreview() {
+    const info = KS.renderToCanvas(canvas, state);
+    document.getElementById("ksMeta").innerHTML = `<strong>${info.team.short} · ${info.kit.name || state.kit}</strong>#${info.num} ${info.player} · ${state.export}`;
+    document.getElementById("ksSeed").value = `#${state.kit}-${state.team.split("-").pop()}`;
+    document.getElementById("ksLock").textContent = state.locked.has(cat) ? "🔐" : "🔒";
+    KS.writeUrl(state);
+  }
+
+  function paint() {
+    paintTeams();
+    paintSeasons();
+    paintCats();
+    paintExport();
+    paintGrid();
+    paintPreview();
+  }
+
+  document.getElementById("ksTeams").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-team]");
+    if (!btn) return;
+    pushHistory();
+    state.team = btn.dataset.team;
+    paint();
+  });
+  document.getElementById("ksSeasons").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-kit]");
+    if (!btn) return;
+    pushHistory();
+    state.kit = btn.dataset.kit;
+    paint();
+  });
+  document.getElementById("ksCats").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-cat]");
+    if (!btn) return;
+    cat = btn.dataset.cat;
+    paintCats();
+    paintGrid();
+    document.getElementById("ksLock").textContent = state.locked.has(cat) ? "🔐" : "🔒";
+  });
+  document.getElementById("ksExport").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-export]");
+    if (!btn) return;
+    pushHistory();
+    state.export = btn.dataset.export;
+    paintExport();
+    paintPreview();
+  });
+  document.getElementById("ksSearch").addEventListener("input", (e) => {
+    query = e.target.value.trim();
+    paintGrid();
+  });
+  document.getElementById("ksRandom").addEventListener("click", () => {
+    pushHistory();
+    const pick = (arr, key) => {
+      if (state.locked.has(key)) return;
+      const opts = optionsFor(key);
+      if (!opts.length) return;
+      const o = opts[Math.floor(Math.random() * opts.length)];
+      if (key === "kit") state.kit = o.id;
+      else if (key === "background") state.background = o.id;
+      else state[key] = o.id;
+    };
+    if (!state.locked.has("kit")) {
+      const teams = KS.teams();
+      state.team = teams[Math.floor(Math.random() * teams.length)].slug;
+    }
+    ["kit", "background", "stage", "jersey", "helmet", "number", "specialty", "player"].forEach(pick);
+    paint();
+  });
+  document.getElementById("ksReset").addEventListener("click", () => {
+    pushHistory();
+    state = KS.stateFromUrl();
+    state.background = "reef";
+    state.stage = "rink";
+    state.jersey = "shell";
+    state.helmet = "classic";
+    state.number = "auto";
+    state.specialty = "none";
+    state.player = "captain";
+    state.locked = new Set();
+    paint();
+  });
+  document.getElementById("ksUndo").addEventListener("click", () => {
+    const prev = historyStack.pop();
+    if (!prev) return;
+    const p = JSON.parse(prev);
+    state = { ...p, locked: new Set(p.locked || []) };
+    paint();
+  });
+  document.getElementById("ksLock").addEventListener("click", () => {
+    if (state.locked.has(cat)) state.locked.delete(cat);
+    else state.locked.add(cat);
+    document.getElementById("ksLock").textContent = state.locked.has(cat) ? "🔐" : "🔒";
+    KS.writeUrl(state);
+  });
+  document.getElementById("ksShare").addEventListener("click", async () => {
+    KS.writeUrl(state);
+    try {
+      await navigator.clipboard.writeText(location.href);
+      document.getElementById("ksShare").textContent = "✓";
+      setTimeout(() => (document.getElementById("ksShare").textContent = "🔗"), 1200);
+    } catch (_) {}
+  });
+  document.getElementById("ksLayers").addEventListener("click", () => {
+    alert(
+      [
+        `Team: ${state.team}`,
+        `Kit: ${state.kit}`,
+        `BG: ${state.background}`,
+        `Stage: ${state.stage}`,
+        `Jersey: ${state.jersey}`,
+        `Helmet: ${state.helmet}`,
+        `Number: ${KS.playerNum(state)}`,
+        `Specialty: ${state.specialty}`,
+        `Player: ${KS.playerLabel(state)}`,
+      ].join("\n")
+    );
+  });
+  document.getElementById("ksTheme").addEventListener("click", () => {
+    pushHistory();
+    state.background = state.background === "navy" ? "ice" : "navy";
+    paint();
+  });
+  document.getElementById("ksFull").addEventListener("click", () => {
+    const frame = document.getElementById("ksFrame");
+    if (frame.requestFullscreen) frame.requestFullscreen().catch(() => {});
+  });
+  document.getElementById("ksDownload").addEventListener("click", () => {
+    const exp = KS.EXPORTS.find((e) => e.id === state.export) || KS.EXPORTS[0];
+    const off = document.createElement("canvas");
+    KS.renderToCanvas(off, state, { w: exp.w, h: exp.h });
+    const a = document.createElement("a");
+    a.download = `pgb-kit-${state.team}-${state.kit}-${state.export}.png`;
+    a.href = off.toDataURL("image/png");
+    a.click();
+    if (window.PGBAuth?.awardPoints) {
+      try {
+        window.PGBAuth.awardPoints(5, "kit-studio-download");
+      } catch (_) {}
+    }
+  });
+
+  document.querySelectorAll("[data-claim-og]").forEach((a) => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.PGBCart?.addOgOffer({ open: false });
+      location.href = "checkout.html?offer=og";
+    });
+  });
+
+  paint();
+})();
+</script>
+</body>
+</html>

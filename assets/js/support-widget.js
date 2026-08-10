@@ -124,14 +124,14 @@
     },
     {
       id: "lockervision",
-      re: /locker|outfit|jersey|pads|uniform|kit|rink|lv\b/,
-      msg: "LockerVision shows every game outfit — jersey, pads, helmet, and ice rink — for the Founding Four. Home Ice, Road White, Alternate, Classic, Goalie.",
+      re: /locker|outfit|jersey|pads|uniform|kit studio|generator|rink|lv\b/,
+      msg: "LockerVision shows every game outfit — and Kit Studio lets you build jerseys, stages, and marketing exports. Randomize, share, download.",
       links: [
+        { href: "kit-studio.html", label: "Open Kit Studio" },
         { href: "lockervision.html", label: "LockerVision home" },
-        { href: "lv-schedule.html", label: "Outfit schedule" },
         { href: "lv-edition.html?edition=home", label: "Browse editions" },
       ],
-      follow: "Want a team locker or tonight’s game outfit?",
+      follow: "Kit Studio, a team locker, or editions?",
     },
     {
       id: "retro",
@@ -291,7 +291,7 @@
     gems: { packs: "gems.html", gifts: "gems.html?tab=gifts", cards: "gifts.html" },
     gifts: { myself: "gifts.html", send: "gifts.html#send", pack: "gifts.html#send" },
     franchise: { yes: "apply.html", apply: "apply.html", start: "apply.html" },
-    lockervision: { team: "lv-team.html", game: "lv-schedule.html", schedule: "lv-schedule.html" },
+    lockervision: { team: "lv-team.html", game: "lv-schedule.html", schedule: "lv-schedule.html", studio: "kit-studio.html", kit: "kit-studio.html", open: "kit-studio.html" },
     schedule: { scores: "scores.html", standings: "standings.html", outfit: "lv-schedule.html" },
   };
 

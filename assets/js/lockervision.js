@@ -153,6 +153,7 @@
   function subnav(active) {
     const links = [
       ["lockervision.html", "Home", "home"],
+      ["kit-studio.html", "Kit Studio", "studio"],
       ["lv-schedule.html", "Schedule", "schedule"],
       ["lv-edition.html?edition=home", "Editions", "editions"],
       ["lv-team.html", "Teams", "teams"],
