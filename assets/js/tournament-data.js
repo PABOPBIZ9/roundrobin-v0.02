@@ -126,7 +126,7 @@
       cat: "Media",
       date: "2026-08-06",
       title: "Season One Media Guide is live for press & partners",
-      dek: "LIV-style booklet: league, teams, results, records — plus accreditation links.",
+      dek: "Broadcast booklet: league, teams, results, records — plus accreditation links.",
       href: "news-article.html?id=media-guide-drop",
     },
     {

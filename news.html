@@ -2,50 +2,124 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Newsroom — Recaps, Audio &amp; Highlights | PuckGold</title>
-<meta name="description" content="PuckGold newsroom — Golden Final recaps, Expansion Weekend preview, booth audio, and media guide drops.">
+<meta name="description" content="PuckGold newsroom — Expansion Weekend package, Golden Final recaps, booth audio, and media guide drops.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=56">
-<link rel="stylesheet" href="assets/css/nhl-league.css?v=2">
+<link rel="stylesheet" href="assets/css/site.css?v=57">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=7">
 <link rel="stylesheet" href="assets/css/media-guide.css?v=1">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+<style>
+  .nw-pulse{
+    display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;justify-content:space-between;
+    margin:0 0 1.25rem;padding:1rem 1.05rem;border-radius:16px;color:#fff;
+    background:
+      radial-gradient(circle at 85% 0%, rgba(240,215,140,.24), transparent 42%),
+      linear-gradient(145deg,#0b1220,#163a74);
+  }
+  .nw-pulse .lbl{font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#f0d78c}
+  .nw-pulse .clock{font-family:var(--display);font-size:clamp(1.3rem,4vw,1.7rem);letter-spacing:.06em;margin:.15rem 0}
+  .nw-pulse p{margin:0;font-size:.8rem;color:rgba(238,243,250,.72);max-width:28rem;line-height:1.4}
+  .nw-pack{
+    display:grid;gap:.55rem;grid-template-columns:1fr 1fr;margin:0 0 1.5rem;
+  }
+  @media(min-width:720px){.nw-pack{grid-template-columns:repeat(4,1fr)}}
+  .nw-pack a{
+    display:block;padding:.85rem .8rem;border-radius:12px;text-decoration:none;color:#121826;
+    background:#fff;border:1px solid rgba(18,24,38,.08);
+  }
+  .nw-pack .t{font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#8a93a3}
+  .nw-pack strong{display:block;font-family:var(--display);font-size:1.1rem;margin:.2rem 0 .15rem;letter-spacing:.02em}
+  .nw-pack span{display:block;font-size:.72rem;color:#5c6473;line-height:1.35}
+</style>
 </head>
-<body class="nhl-light mg-light">
+<body class="nhl-light mg-light has-ex-sticky">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
 
 <section class="nhl-hero">
-  <span class="kicker">Newsroom</span>
+  <span class="kicker">Newsroom · Expansion Weekend</span>
   <h1>RECAPS · AUDIO · HIGHLIGHTS</h1>
-  <p>Championship Book energy — how Miami stole the Cup, Miracle Game lore, Expansion Weekend prizes, booth drops, and the Media Guide.</p>
+  <p>Prize vault, faceoff clock, Miracle Game lore, booth drops — farm the story while the slate runs.</p>
   <div class="cta-row" style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:.5rem">
-    <a href="founding-four.html" class="btn btn-founding btn-sm">Championship Book</a>
-    <a href="expansion.html" class="btn btn-platinum btn-sm">Expansion · prizes</a>
-    <a href="media-guide.html" class="btn btn-ghost btn-sm">Media Guide</a>
+    <a href="news-article.html?id=expansion-prizes" class="btn btn-founding btn-sm">Prize vault</a>
+    <a href="expansion.html" class="btn btn-platinum btn-sm">Weekend hub</a>
+    <a href="aura-vote.html" class="btn btn-ghost btn-sm">Aura Vote</a>
   </div>
 </section>
 <nav class="nhl-sub">
   <a href="news.html" class="is-active">All</a>
+  <a href="news-article.html?id=expansion-prizes">Prizes</a>
   <a href="founding-four.html">Championship Book</a>
-  <a href="video-condensed.html">Condensed</a>
-  <a href="video-recaps.html">Recaps</a>
-  <a href="podcasts.html">Podcasts</a>
+  <a href="listen.html">Listen</a>
   <a href="media-guide.html">Media Guide</a>
 </nav>
 
-<div class="nhl-wrap" id="newsRoot"></div>
+<div class="nhl-wrap">
+  <div class="nw-pulse">
+    <div>
+      <div class="lbl">Expansion faceoff</div>
+      <div class="clock" id="exStickyClock">00 : 00 : 00 : 00</div>
+      <p id="nwPulseBlurb">Read the package · farm Aura · claim $36 before the horn.</p>
+    </div>
+    <a href="checkout.html?offer=og" class="btn btn-founding btn-sm" data-claim-og>$36 OG</a>
+  </div>
+
+  <div class="nw-pack" aria-label="Expansion package">
+    <a href="news-article.html?id=expansion-prizes">
+      <div class="t">Breaking</div>
+      <strong>Prize vault</strong>
+      <span>Merch · Clip · 5× farm</span>
+    </a>
+    <a href="news-article.html?id=expansion-24h">
+      <div class="t">Preview</div>
+      <strong>Faceoff clock</strong>
+      <span>16 teams · 4 pools</span>
+    </a>
+    <a href="news-article.html?id=how-to-watch-weekend">
+      <div class="t">Guide</div>
+      <strong>How to watch</strong>
+      <span>Streams · auras · shop</span>
+    </a>
+    <a href="news-article.html?id=miracle-game">
+      <div class="t">Lore</div>
+      <strong>Miracle Game</strong>
+      <span>OT that wrote the Cup</span>
+    </a>
+  </div>
+
+  <div id="newsRoot"></div>
+</div>
+
+<div class="ex-sticky" aria-label="Newsroom farm">
+  <div>
+    <div class="lbl">Story → farm</div>
+    <div class="clock" style="font-size:1rem">Aura · Clip · $36</div>
+    <div class="sub">OG Pass multiplies XP ×5</div>
+  </div>
+  <div class="ex-sticky-actions">
+    <a href="aura-vote.html" class="btn btn-founding btn-sm">Aura</a>
+    <a href="checkout.html?offer=og" class="btn btn-platinum btn-sm" data-claim-og>$36</a>
+  </div>
+</div>
 
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=56"></script>
+<script src="assets/js/site.js?v=57"></script>
 <script src="assets/js/support-widget.js?v=6"></script>
-<script src="assets/js/cart.js?v=8"></script>
-<script src="assets/js/tournament-data.js?v=2"></script>
+<script src="assets/js/cart.js?v=9"></script>
+<script src="assets/js/tournament-data.js?v=4"></script>
 <script>
 (function () {
+  const E = window.PGB_EXPANSION;
+  if (E) {
+    document.getElementById("nwPulseBlurb").textContent =
+      E.startLabel + " · " + E.venue;
+  }
   const items = window.PGBNews.all();
-  const hero = items.find((n) => n.hero) || items[0];
+  const packIds = new Set(["expansion-prizes", "expansion-24h", "how-to-watch-weekend", "miracle-game"]);
+  const hero = items.find((n) => n.id === "expansion-prizes") || items.find((n) => n.hero) || items[0];
   const rest = items.filter((n) => n !== hero);
   document.getElementById("newsRoot").innerHTML = `
     <a class="news-hero" href="${hero.href}" style="display:block;text-decoration:none;color:inherit">
@@ -59,18 +133,21 @@
         .map(
           (n) => `
         <a class="news-card" href="${n.href}">
-          <div class="cat">${n.cat} · ${n.date}</div>
+          <div class="cat">${n.cat} · ${n.date}${packIds.has(n.id) ? " · Weekend" : ""}</div>
           <h3>${n.title}</h3>
           <p>${n.dek}</p>
         </a>`
         )
         .join("")}
     </div>
-    <p style="margin-top:1.5rem;font-size:.82rem;color:#5c6473">
-      Drop article art into <code style="color:#163a74">assets/vault/content/news/{id}/hero.jpg</code>.
-      Replay masters still land in condensed/recaps game folders.
-    </p>
   `;
+  document.querySelectorAll("[data-claim-og]").forEach((a) => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.PGBCart?.addOgOffer({ open: false });
+      location.href = "checkout.html?offer=og";
+    });
+  });
 })();
 </script>
 </body>

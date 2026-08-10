@@ -6,7 +6,8 @@
 <title>Fan Profile — PuckGold</title>
 <meta name="description" content="PuckGold fan profile — TikTok/Snapchat style. Like, upvote, comment, farm points. OG Pass = 5×.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=56">
+<link rel="stylesheet" href="assets/css/site.css?v=57">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=7">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <style>
   .pf{max-width:560px;margin:0 auto;padding:0 0 4rem}
@@ -112,20 +113,52 @@
     margin:2rem 1.15rem;padding:1.5rem;border-radius:16px;text-align:center;
     background:linear-gradient(145deg,#10203a,#163a74);color:#fff;
   }
+  .pf-farm{
+    margin:0 1.15rem 1rem;padding:1rem .95rem;border-radius:16px;
+    background:linear-gradient(145deg,#0b1220,#163a74);color:#fff;
+  }
+  .pf-farm .lbl{font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#f0d78c}
+  .pf-farm .row{display:flex;justify-content:space-between;align-items:baseline;gap:.75rem;margin:.35rem 0 .75rem}
+  .pf-farm .pts{font-family:var(--display);font-size:1.6rem;letter-spacing:.03em}
+  .pf-farm .sub{font-size:.75rem;color:rgba(238,243,250,.65)}
+  .pf-quests{display:grid;gap:.4rem}
+  .pf-quests a{
+    display:flex;align-items:center;gap:.55rem;padding:.55rem .65rem;border-radius:10px;
+    text-decoration:none;color:#fff;background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.1);font-size:.82rem;font-weight:700;
+  }
+  .pf-quests a.done{border-color:rgba(240,215,140,.4);background:rgba(240,215,140,.12)}
+  .pf-quests .mark{
+    width:22px;height:22px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;
+    font-size:.65rem;font-weight:900;background:rgba(255,255,255,.12);color:rgba(255,255,255,.55);
+  }
+  .pf-quests a.done .mark{background:#f0d78c;color:#0b1220}
+  .pf-quests .go{margin-left:auto;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:#f0d78c}
 </style>
 </head>
-<body>
+<body class="has-ex-sticky">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
 <div class="pf" id="pfRoot"><p style="padding:2rem;color:var(--muted)">Loading…</p></div>
+<div class="ex-sticky" aria-label="Farm shortcuts" id="pfSticky" hidden>
+  <div>
+    <div class="lbl">Weekend farm</div>
+    <div class="clock" style="font-size:1rem" id="pfStickyLine">Aura · Crest · Clip</div>
+    <div class="sub">OG Pass multiplies XP ×5</div>
+  </div>
+  <div class="ex-sticky-actions">
+    <a href="aura-vote.html" class="btn btn-founding btn-sm">Aura</a>
+    <a href="checkout.html?offer=og" class="btn btn-platinum btn-sm" data-claim-og>$36</a>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=56"></script>
+<script src="assets/js/site.js?v=57"></script>
 <script src="assets/js/support-widget.js?v=6"></script>
-<script src="assets/js/cart.js?v=8"></script>
+<script src="assets/js/cart.js?v=9"></script>
 <script src="assets/js/gems-economy.js?v=1"></script>
-<script src="assets/js/auth.js?v=1"></script>
+<script src="assets/js/auth.js?v=2"></script>
 <script src="assets/js/fan-profile.js?v=2"></script>
 <script>
 (function () {
@@ -228,7 +261,7 @@
           <button type="button" class="btn btn-founding btn-sm" id="btnShare">Share</button>
           ${
             isSelf
-              ? `<a href="fantasy.html#board" class="btn btn-sapphire btn-sm">Leaderboard</a>
+              ? `<a href="fantasy.html#quests" class="btn btn-sapphire btn-sm">Quests</a>
                  <a href="checkout.html?offer=og" class="btn btn-ghost btn-sm" data-claim-og style="border-color:rgba(255,255,255,.3);color:#fff">${mem.multiplier >= 5 ? "OG locked ✓" : "Get 5× · $36"}</a>
                  <button type="button" class="btn btn-ghost btn-sm" id="btnSignOut" style="border-color:rgba(255,255,255,.3);color:#fff">Sign out</button>`
               : signed
@@ -238,6 +271,8 @@
           }
         </div>
       </div>
+
+      ${isSelf ? `<div class="pf-farm" id="pfFarm"></div>` : ""}
 
       <div class="pf-body">
         <div class="pf-tabs">
@@ -383,7 +418,81 @@
         : `<p style="color:#5c6473;font-size:.85rem">No links yet.</p>`;
     }
 
+    paintFarm(pts, mem);
     bind();
+  }
+
+  function dayKey() {
+    return new Date().toISOString().slice(0, 10);
+  }
+  function questDone() {
+    const day = dayKey();
+    let listen = false;
+    try {
+      const store = JSON.parse(localStorage.getItem("pgb-listen-xp") || "{}");
+      listen = Object.keys(store).some((k) => k.endsWith(":" + day) || k.includes(":" + day));
+    } catch (_) {}
+    return {
+      aura: localStorage.getItem("pgb-aura-day") === day,
+      crest: localStorage.getItem("pgb-conductor-vote-day") === day,
+      clip: !!localStorage.getItem("pgb-clip-crown-xp:" + day),
+      listen,
+    };
+  }
+  function paintFarm(pts, mem) {
+    const el = document.getElementById("pfFarm");
+    const sticky = document.getElementById("pfSticky");
+    if (sticky) sticky.hidden = !isSelf;
+    if (!el || !isSelf) return;
+    const q = questDone();
+    const doneN = [q.aura, q.crest, q.clip, q.listen].filter(Boolean).length;
+    const last = (() => {
+      try {
+        return JSON.parse(localStorage.getItem("pgb-play") || "{}").lastSocial || null;
+      } catch (_) {
+        return null;
+      }
+    })();
+    const lastLine = last?.pts
+      ? `Last +${last.pts} · ${last.reason || "farm"}`
+      : "Finish a quest to stack XP";
+    const items = [
+      { ok: q.aura, href: "aura-vote.html", label: "Aura Vote", tip: "+6 / window" },
+      { ok: q.crest, href: "conductor-crest.html", label: "Conductor’s Crest", tip: "+15 / day" },
+      { ok: q.clip, href: "clip-crown.html", label: "Clip Crown", tip: "submit XP" },
+      { ok: q.listen, href: "listen.html", label: "Listen track", tip: "+8 / track" },
+    ];
+    el.innerHTML = `
+      <div class="lbl">Today’s farm · ${doneN}/4</div>
+      <div class="row">
+        <div class="pts">${pts.toLocaleString()} XP</div>
+        <div class="sub">${mem.multiplier}× · ${lastLine}</div>
+      </div>
+      <div class="pf-quests">
+        ${items
+          .map(
+            (i) => `<a href="${i.href}" class="${i.ok ? "done" : ""}">
+              <span class="mark">${i.ok ? "✓" : ""}</span>
+              <span>${i.label}<br><span style="font-size:.68rem;font-weight:600;color:rgba(238,243,250,.55)">${i.tip}</span></span>
+              <span class="go">${i.ok ? "Done" : "Go"}</span>
+            </a>`
+          )
+          .join("")}
+      </div>
+      ${
+        mem.multiplier < 5
+          ? `<p style="margin:.75rem 0 0;font-size:.78rem"><a href="checkout.html?offer=og" data-claim-og style="color:#f0d78c;font-weight:800">Unlock 5× · $36 OG →</a></p>`
+          : `<p style="margin:.75rem 0 0;font-size:.78rem;color:rgba(240,215,140,.9)">OG active — farm hard before the horn.</p>`
+      }`;
+    const line = document.getElementById("pfStickyLine");
+    if (line) line.textContent = `${doneN}/4 quests · ${pts.toLocaleString()} XP`;
+    el.querySelectorAll("[data-claim-og]").forEach((a) => {
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.PGBCart?.addOgOffer({ open: false });
+        location.href = "checkout.html?offer=og";
+      });
+    });
   }
 
   function bind() {
