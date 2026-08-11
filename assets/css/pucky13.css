@@ -217,10 +217,15 @@
 .pk13-modal[hidden]{display:none}
 .pk13-modal{
   position:fixed;inset:0;z-index:100;background:rgba(3,8,18,.72);
-  display:grid;place-items:center;padding:1rem;
+  display:grid;align-items:start;justify-items:center;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+  padding:max(.75rem,env(safe-area-inset-top)) 1rem max(1.25rem,env(safe-area-inset-bottom));
 }
 .pk13-modal-card{
   width:min(420px,100%);border-radius:18px;padding:1.2rem;
+  margin:auto 0;
+  max-height:min(92dvh,920px);
+  overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
   background:linear-gradient(165deg,#163a74,#0b1220);border:1px solid rgba(240,215,140,.35);color:#fff;
 }
 .pk13-modal-card h3{font-family:var(--pk-face);font-size:1.6rem;margin-bottom:.35rem}
@@ -281,16 +286,25 @@
   background:rgba(240,215,140,.12);color:var(--pk-gold);
 }
 
-.pk13-deep-card{width:min(480px,100%)}
-.pk13-deep-form{display:grid;gap:.55rem}
+.pk13-deep-card{
+  width:min(480px,100%);
+  max-height:min(90dvh,860px);
+  padding:1rem 1rem .9rem;
+}
+.pk13-deep-card h3{font-size:clamp(1.25rem,5vw,1.55rem);margin-bottom:.25rem}
+.pk13-deep-card > p{margin-bottom:.65rem;font-size:.85rem}
+.pk13-deep-form{display:grid;gap:.45rem}
 .pk13-deep-form label{
-  display:grid;gap:.28rem;font-size:.72rem;font-weight:800;letter-spacing:.06em;
+  display:grid;gap:.22rem;font-size:.68rem;font-weight:800;letter-spacing:.06em;
   text-transform:uppercase;color:rgba(238,243,250,.72);
 }
 .pk13-deep-form label span{text-transform:none;letter-spacing:0;font-weight:600;opacity:.75}
 .pk13-deep-form input,.pk13-deep-form textarea{
-  min-height:44px;border-radius:12px;border:1px solid rgba(240,215,140,.28);
-  background:rgba(0,0,0,.28);color:#fff;padding:.65rem .75rem;font:inherit;font-size:.95rem;
+  min-height:42px;border-radius:12px;border:1px solid rgba(240,215,140,.28);
+  background:rgba(0,0,0,.28);color:#fff;padding:.55rem .7rem;font:inherit;font-size:.95rem;
 }
-.pk13-deep-form textarea{min-height:88px;resize:vertical}
-.pk13-deep-form .row{margin-top:.35rem}
+.pk13-deep-form textarea{min-height:72px;resize:vertical}
+.pk13-deep-form .row{
+  position:sticky;bottom:0;margin-top:.45rem;padding-top:.55rem;
+  background:linear-gradient(180deg,transparent,rgba(11,18,32,.96) 28%);
+}
