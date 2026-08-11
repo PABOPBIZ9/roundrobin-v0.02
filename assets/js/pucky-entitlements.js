@@ -25,18 +25,24 @@
     window.dispatchEvent(new CustomEvent("pgb-pucky-entitlements", { detail: data }));
   }
 
+  function isTipSku(id) {
+    return /^pucky-(tip-|wish-)/.test(String(id || ""));
+  }
+
   function grantFromItems(items) {
     const data = read();
     const now = Date.now();
     const granted = [];
     (items || []).forEach((item) => {
       const map = SKU_MAP[item.id];
-      if (!map) return;
-      if (map.tip) {
+      const tipLike = map?.tip || (!map && isTipSku(item.id));
+      if (!map && !tipLike) return;
+      if (tipLike) {
         data.tips = (data.tips || 0) + (item.price || 0) * (item.qty || 1);
         data.lastTipAt = new Date().toISOString();
-        granted.push(map.label);
+        granted.push(map?.label || item.name || "Custom tip / wish");
       }
+      if (!map) return;
       if (map.dailyAstro) {
         const add = (map.days || 1) * 24 * 60 * 60 * 1000 * (item.qty || 1);
         data.dailyAstroUntil = Math.max(data.dailyAstroUntil || 0, now) + add;

@@ -7,7 +7,7 @@
 <meta name="description" content="Meet Pucky 13 — vigilante Swiftie oracle. Free daily jokes & star vibes, chat advice, tip jar, and premium astrology reports.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
 <link rel="stylesheet" href="assets/css/site.css?v=63">
-<link rel="stylesheet" href="assets/css/pucky13.css?v=3">
+<link rel="stylesheet" href="assets/css/pucky13.css?v=4">
 <link rel="icon" href="assets/brand/pucky/pucky-13.png" type="image/png">
 </head>
 <body class="pk13-page">
@@ -26,7 +26,7 @@
       <div class="pk13-cta">
         <a class="primary" href="#chat">Chat with Pucky</a>
         <button type="button" class="tip" id="pk13OpenTip">Tip the puck</button>
-        <a class="ghost" href="#services">Paid services</a>
+        <a class="ghost" href="#wishlist">Wish list</a>
       </div>
     </div>
   </div>
@@ -62,6 +62,7 @@
         <button type="button" data-q="daily astrology">Astrology</button>
         <button type="button" data-q="dad joke">Dad joke</button>
         <button type="button" data-q="I want to tip you">Tip jar</button>
+        <button type="button" data-q="show me the wish list macbook">Wish list</button>
         <button type="button" data-q="expansion weekend farm">Farm XP</button>
       </div>
       <div class="pk13-msgs" id="pk13Msgs" aria-live="polite"></div>
@@ -89,10 +90,19 @@
         <button type="button" data-pk-svc="dailyAstro">Add daily reading</button>
       </article>
       <article class="pk13-svc">
-        <div class="price">$13 <small>Lucky tip</small></div>
-        <h3>Tip the oracle</h3>
-        <p>Fuel the vigilante. Swiftie karma. Kane mythology tax. I notice tippers.</p>
-        <button type="button" data-pk-svc="tip13">Tip $13</button>
+        <div class="price">Any $ <small>Patreon-style</small></div>
+        <h3>Custom tip</h3>
+        <p>Pick $3.50 / $13 / $36 / $350 — or type any amount. Early community fuel.</p>
+        <form class="pk13-custom-tip" data-pk-custom-tip>
+          <input type="number" min="1" step="0.01" inputmode="decimal" placeholder="$ amount" aria-label="Custom tip amount" required>
+          <button type="submit">Add tip</button>
+        </form>
+        <div class="pk13-tip-presets">
+          <button type="button" data-pk-custom="3.5">$3.50</button>
+          <button type="button" data-pk-custom="13">$13</button>
+          <button type="button" data-pk-custom="36">$36</button>
+          <button type="button" data-pk-custom="350">$350</button>
+        </div>
       </article>
       <article class="pk13-svc">
         <div class="price">$13 <small>13-day pack</small></div>
@@ -111,6 +121,132 @@
         <h3>$36 OG Offer</h3>
         <p>Not me — the league. Gold puck + 1-year Pass + 5× XP. I still want a tip after.</p>
         <a class="btnish" href="checkout.html?offer=og">Claim OG</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="pk13-panel" id="wishlist">
+    <h2>Wish list · lift-off tiers</h2>
+    <p class="sub">We cooked hard to get here — cracked screens, storage pop-ups, machines on fire. Early community can help the league scale. Fans first.</p>
+    <div class="pk13-manifesto">
+      <p><strong>Why this exists:</strong> PuckGoldBiz is building a fan-first league — collectors and players with real say, not billionaire owners, big-tech middlemen, or casino-style rip culture extracting the value fans create. No $90M festival flex. No private-jet white-party lifestyle funded by the people who actually play and collect. We're the opposite of that machine.</p>
+      <p>Power packs, monopoly card printers, influencer auction theater, and prediction-market stacks owned by VCs don't align fans — they harvest them. We're trying to align interests so everyone wins together. Tips and wishlist gifts go straight into keeping the ice open.</p>
+    </div>
+
+    <div class="pk13-tiers">
+      <article class="pk13-tier">
+        <header>
+          <span class="tier-tag">Tier 1 · Immediate</span>
+          <h3>Snack &amp; survival</h3>
+        </header>
+        <ul class="pk13-wish">
+          <li>
+            <div>
+              <strong>3 packs of Bomb Pops</strong>
+              <span>Immediate freezer morale. Vigilante fuel.</span>
+            </div>
+            <button type="button" data-pk-wish="bombpops" data-price="12" data-name="Wish · 3 packs Bomb Pops">$12</button>
+          </li>
+          <li>
+            <div>
+              <strong>Diet Dr Pepper case</strong>
+              <span>Hydration for overtime coding sessions.</span>
+            </div>
+            <button type="button" data-pk-wish="diet-dp" data-price="18" data-name="Wish · Diet Dr Pepper case">$18</button>
+          </li>
+        </ul>
+      </article>
+
+      <article class="pk13-tier">
+        <header>
+          <span class="tier-tag">Tier 2 · Chains</span>
+          <h3>Crypto runway</h3>
+        </header>
+        <ul class="pk13-wish">
+          <li>
+            <div>
+              <strong>$350 on Solana</strong>
+              <span>Tip rail / ops runway on SOL.</span>
+            </div>
+            <button type="button" data-pk-wish="sol-350" data-price="350" data-name="Wish · $350 Solana fuel">$350</button>
+          </li>
+          <li>
+            <div>
+              <strong>$350 on Robinhood Chain</strong>
+              <span>Same lift — RH chain rail.</span>
+            </div>
+            <button type="button" data-pk-wish="rh-350" data-price="350" data-name="Wish · $350 Robinhood Chain fuel">$350</button>
+          </li>
+          <li>
+            <div>
+              <strong>Multi-chain tip</strong>
+              <span>SOL · Robinhood Chain · HYPE · BNB · Base · Tron — any amount.</span>
+            </div>
+            <button type="button" data-pk-wish="multichain" data-price="50" data-name="Wish · Multi-chain tip (SOL/RH/HYPE/BNB/Base/Tron)">$50+</button>
+          </li>
+        </ul>
+        <form class="pk13-custom-tip pk13-custom-tip--inline" data-pk-custom-tip data-pk-custom-label="Multi-chain custom">
+          <input type="number" min="1" step="0.01" inputmode="decimal" placeholder="Custom chain $" aria-label="Custom multi-chain tip" required>
+          <button type="submit">Send custom</button>
+        </form>
+      </article>
+
+      <article class="pk13-tier">
+        <header>
+          <span class="tier-tag">Tier 3 · Tools</span>
+          <h3>Storage &amp; software</h3>
+        </header>
+        <ul class="pk13-wish">
+          <li>
+            <div>
+              <strong>Flash drives / data storage</strong>
+              <span>Every account is screaming about storage. Need clean media.</span>
+            </div>
+            <button type="button" data-pk-wish="storage" data-price="40" data-name="Wish · Flash drives / data storage">$40</button>
+          </li>
+          <li>
+            <div>
+              <strong>Premium AI + creative stack</strong>
+              <span>ChatGPT · Cursor · Apple · Music · Spotify — keep shipping.</span>
+            </div>
+            <button type="button" data-pk-wish="ai-stack" data-price="65" data-name="Wish · ChatGPT/Cursor/Apple/Music/Spotify stack">$65</button>
+          </li>
+        </ul>
+      </article>
+
+      <article class="pk13-tier pk13-tier--hero">
+        <header>
+          <span class="tier-tag">Tier 4 · Really needed</span>
+          <h3>MacBook Pro fund</h3>
+        </header>
+        <p class="tier-note">The Mac Airs are cooked — cracked screens, heat, crashes, RAM/storage pop-ups all day. One screen literally shattered mid-cook. We pulled every goalie move to ship this far. To scale the roadmap, the early community can help lift off with a real Pro machine.</p>
+        <ul class="pk13-wish">
+          <li>
+            <div>
+              <strong>Toward MacBook Pro</strong>
+              <span>Any amount counts. Presets or custom below.</span>
+            </div>
+            <button type="button" data-pk-wish="macbook-100" data-price="100" data-name="Wish · MacBook Pro fund $100">$100</button>
+          </li>
+          <li>
+            <div>
+              <strong>Serious chip-in</strong>
+              <span>Halfway energy toward a working Pro.</span>
+            </div>
+            <button type="button" data-pk-wish="macbook-500" data-price="500" data-name="Wish · MacBook Pro fund $500">$500</button>
+          </li>
+          <li>
+            <div>
+              <strong>Full lift-off chip</strong>
+              <span>Replace the fire-hazard Airs. Fans first infrastructure.</span>
+            </div>
+            <button type="button" data-pk-wish="macbook-2000" data-price="2000" data-name="Wish · MacBook Pro fund $2000">$2000</button>
+          </li>
+        </ul>
+        <form class="pk13-custom-tip pk13-custom-tip--inline" data-pk-custom-tip data-pk-custom-label="MacBook Pro fund">
+          <input type="number" min="1" step="0.01" inputmode="decimal" placeholder="Custom MacBook $" aria-label="Custom MacBook Pro tip" required>
+          <button type="submit">Add to fund</button>
+        </form>
       </article>
     </div>
   </section>
@@ -162,14 +298,22 @@
 <div class="pk13-modal" id="pk13TipModal" hidden>
   <div class="pk13-modal-card" role="dialog" aria-label="Tip Pucky">
     <h3>Tip the puck</h3>
-    <p>USD via bag unlocks at checkout. Prefer SOL? Jump to the tip rail and copy the address.</p>
+    <p>Patreon-style: any amount. Or grab a wish-list tier. SOL tip rail for chain sends.</p>
     <div class="pk13-tip-opts">
       <button type="button" data-pk-tip="tip35">$3.50 · coffee</button>
       <button type="button" data-pk-tip="tip13">$13 · lucky</button>
-      <button type="button" data-pk-tip="dailyAstro">$3.50 · daily stars</button>
-      <button type="button" data-pk-tip="dadJokes">$13 · joke pack</button>
+      <button type="button" data-pk-custom="36">$36 · OG energy</button>
+      <button type="button" data-pk-custom="350">$350 · runway</button>
     </div>
-    <p style="font-size:.78rem;margin:.2rem 0 .8rem"><button type="button" id="pk13SolNote" style="background:none;border:0;color:#f0d78c;font:inherit;font-weight:800;cursor:pointer;padding:0">Open SOL tip rail →</button></p>
+    <form class="pk13-custom-tip" data-pk-custom-tip>
+      <input type="number" min="1" step="0.01" inputmode="decimal" placeholder="Custom $" aria-label="Custom tip amount" required>
+      <button type="submit">Add custom tip</button>
+    </form>
+    <p style="font-size:.78rem;margin:.55rem 0 .8rem">
+      <a href="#wishlist" id="pk13WishNote" style="color:#f0d78c;font-weight:800;text-decoration:none">Open wish list →</a>
+      ·
+      <button type="button" id="pk13SolNote" style="background:none;border:0;color:#f0d78c;font:inherit;font-weight:800;cursor:pointer;padding:0">SOL tip rail →</button>
+    </p>
     <div class="row">
       <button type="button" class="pay" data-pk-tip="deepAstro">$350 deep report</button>
       <button type="button" class="close" data-pk-tip-close>Close</button>
@@ -203,7 +347,7 @@
 <script src="assets/js/site.js?v=63"></script>
 <script src="assets/js/support-widget.js?v=11"></script>
 <script src="assets/js/cart.js?v=10"></script>
-<script src="assets/js/pucky-entitlements.js?v=1"></script>
-<script src="assets/js/pucky13.js?v=2"></script>
+<script src="assets/js/pucky-entitlements.js?v=2"></script>
+<script src="assets/js/pucky13.js?v=3"></script>
 </body>
 </html>

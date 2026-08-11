@@ -125,6 +125,44 @@
     toast(opts?.toast || "Added to bag — finish at checkout");
   }
 
+  function addCustomTip(amount, opts) {
+    const n = Math.round(Number(amount) * 100) / 100;
+    if (!Number.isFinite(n) || n < 1) {
+      toast("Enter at least $1");
+      return;
+    }
+    const label = opts?.label || "Custom tip";
+    const cents = Math.round(n * 100);
+    addService(
+      {
+        id: `pucky-tip-custom-${cents}`,
+        name: `${label} · $${n.toFixed(2)}`,
+        maker: "Pucky 13 · Patreon-style tip",
+        price: n,
+      },
+      { toast: opts?.toast || `$${n.toFixed(2)} tip added to bag`, open: opts?.open }
+    );
+    recordTip(n);
+    closeTipModal();
+  }
+
+  function addWish(btn) {
+    const price = Number(btn.getAttribute("data-price"));
+    const name = btn.getAttribute("data-name") || "Pucky wish";
+    const slug = btn.getAttribute("data-pk-wish") || "item";
+    if (!Number.isFinite(price) || price < 1) return;
+    addService(
+      {
+        id: `pucky-wish-${slug}`,
+        name,
+        maker: "Pucky 13 · Wish list",
+        price,
+      },
+      { toast: `${name} added — thank you` }
+    );
+    recordTip(price);
+  }
+
   function recordTip(amount) {
     try {
       const prev = JSON.parse(localStorage.getItem(TIP_KEY) || "[]");
@@ -201,15 +239,15 @@
       };
     }
 
-    if (/tip|donate|sol|coffee|badger|wallet/.test(s)) {
+    if (/tip|donate|sol|coffee|badger|wallet|patreon|custom tip|wish ?list|macbook|bomb ?pop|dr pepper/.test(s)) {
       return {
         msg: tipped
-          ? `You're already in the tipper club${nameBit} — respect. More tips = louder oracle. USD bag or SOL copy tip works.`
-          : `YES. Tip jar open. $3.50 coffee (~0.035 SOL), lucky $13 (~0.13 SOL), or the $350 deep report. Heh heh.`,
+          ? `Tipper club${nameBit} — respect. Custom any-amount tips + wish list tiers still open (Bomb Pops → MacBook Pro fund).`
+          : `YES. Patreon-style custom tips, wish-list tiers (snacks, SOL/RH chain, storage, AI stack, MacBook Pro fund), or SOL copy tip. Fans first.`,
         links: [
-          { label: "Tip SOL / $", href: "#sol" },
-          { label: "Tip $13", action: "tip13" },
-          { label: "Daily stars", action: "dailyAstro" },
+          { label: "Wish list", href: "#wishlist" },
+          { label: "Custom tip $13", action: "tip13" },
+          { label: "SOL rail", href: "#sol" },
         ],
       };
     }
@@ -555,6 +593,25 @@
     document.getElementById("pk13SolNote")?.addEventListener("click", () => {
       closeTipModal();
       document.getElementById("sol")?.scrollIntoView({ behavior: "smooth" });
+    });
+    document.getElementById("pk13WishNote")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      closeTipModal();
+      document.getElementById("wishlist")?.scrollIntoView({ behavior: "smooth" });
+    });
+    document.querySelectorAll("[data-pk-custom-tip]").forEach((form) => {
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const input = form.querySelector('input[type="number"]');
+        addCustomTip(input?.value, { label: form.getAttribute("data-pk-custom-label") || "Custom tip" });
+        if (input) input.value = "";
+      });
+    });
+    document.querySelectorAll("[data-pk-custom]").forEach((btn) => {
+      btn.addEventListener("click", () => addCustomTip(btn.getAttribute("data-pk-custom")));
+    });
+    document.querySelectorAll("[data-pk-wish]").forEach((btn) => {
+      btn.addEventListener("click", () => addWish(btn));
     });
     document.getElementById("pk13CopySol")?.addEventListener("click", () => copySol());
     document.getElementById("pk13CopySolDaily")?.addEventListener("click", () => copySol(0.035));
