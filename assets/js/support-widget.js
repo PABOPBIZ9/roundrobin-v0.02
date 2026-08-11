@@ -76,7 +76,7 @@
     {
       id: "gems",
       re: /sapphire|ruby|gem|coin|digital gift|bits|robux|douyin|wallet/,
-      msg: "Sapphires, Rubies, and Coins power digital gifts — TikTok and Twitch style. Buy packs, tip creators, stack your wallet.",
+      msg: "Sapphires, Rubies, and Coins power PuckGold digital gifts. Buy packs, tip creators, stack your wallet.",
       links: [
         { href: "gems.html", label: "Buy Sapphires" },
         { href: "gems.html?tab=gifts", label: "Digital gifts" },

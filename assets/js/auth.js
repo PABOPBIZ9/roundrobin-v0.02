@@ -1,5 +1,5 @@
 /**
- * PGBAuth — local session, Snapchat-style onboarding, membership multipliers.
+ * PGBAuth — local session, vibe onboarding, membership multipliers.
  * Real payments later; demo checkout can grant OG Pass for 5× points.
  */
 (function () {

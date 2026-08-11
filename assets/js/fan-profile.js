@@ -1,5 +1,5 @@
 /**
- * Fan social profiles — Snapchat/TikTok style share, Reddit votes, likes, comments.
+ * Fan social profiles — share, votes, likes, comments.
  * Points flow through PGBAuth.awardPoints (5× for OG Pass+).
  */
 (function () {
@@ -21,7 +21,6 @@
     { id: "youtube", label: "YouTube", pts: 40 },
     { id: "x", label: "X / Twitter", pts: 30 },
     { id: "twitch", label: "Twitch", pts: 40 },
-    { id: "whatnot", label: "Whatnot", pts: 50 },
     { id: "linktree", label: "Linktree", pts: 25 },
     { id: "discord", label: "Discord", pts: 25 },
   ];
@@ -436,7 +435,7 @@
       { handle: "neonfarmr", displayName: "NeonFarmr", avatar: "🔥", signEmoji: "♌", signLabel: "Leo", bio: "5× grinding · gift whale.", likes: 420, subscribers: 88, tipsReceived: 1200 },
       { handle: "perchpulse", displayName: "PerchPulse", avatar: "🐧", signEmoji: "♒", signLabel: "Aquarius", bio: "Clip Crown clips all day.", likes: 310, subscribers: 54, tipsReceived: 800 },
       { handle: "goldrushgus", displayName: "GoldRushGus", avatar: "👑", signEmoji: "♈", signLabel: "Aries", bio: "OG Pass · board chaser.", likes: 990, subscribers: 210, tipsReceived: 4000 },
-      { handle: "clipqueen", displayName: "ClipQueen", avatar: "💅", signEmoji: "♏", signLabel: "Scorpio", bio: "TikTok energy on ice.", likes: 640, subscribers: 140, tipsReceived: 2100 },
+      { handle: "clipqueen", displayName: "ClipQueen", avatar: "💅", signEmoji: "♏", signLabel: "Scorpio", bio: "Clip Crown energy on ice.", likes: 640, subscribers: 140, tipsReceived: 2100 },
     ];
     demos.forEach((d) => {
       if (!map[d.handle]) {

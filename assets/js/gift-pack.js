@@ -29,7 +29,7 @@
     { id: "strobe", name: "Strobe OT", src: "" },
   ];
 
-  /** Preset Roblox-style stack sizes */
+  /** Preset gift stack sizes */
   const PRESETS = [
     { amt: 35, name: "Starter Stack", tag: "ENTRY", tone: "" },
     { amt: 88, name: "Lucky Eighty-Eight", tag: "HOT", tone: "hot" },

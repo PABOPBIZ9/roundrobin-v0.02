@@ -1,4 +1,4 @@
-/** PuckGold gems economy — Sapphires / Rubies / Coins + digital gifts (TikTok/Robux/Twitch-style) */
+/** PuckGold gems economy — Sapphires / Rubies / Coins + digital gifts */
 (function () {
   const WALLET_KEY = "pgb-gems-wallet";
   const INV_KEY = "pgb-gems-inventory";
@@ -33,7 +33,7 @@
     { id: "good-badge", name: "Animated Profile Badge", priceS: 150, priceR: 0, type: "Profile", desc: "Permanent flair on Fan Zone" },
     { id: "good-emotes", name: "Founding Four Emote Pack", priceS: 250, priceR: 0, type: "Emotes", desc: "Chat / stream emotes" },
     { id: "good-frame", name: "Champagne Cam Frame", priceS: 400, priceR: 2, type: "Overlay", desc: "Live stream cam border" },
-    { id: "good-alert", name: "Horn Alert Bundle", priceS: 600, priceR: 5, type: "Alerts", desc: "Twitch/TikTok-style gift alerts" },
+    { id: "good-alert", name: "Horn Alert Bundle", priceS: 600, priceR: 5, type: "Alerts", desc: "PuckGold stream gift alerts" },
     { id: "good-locker", name: "LockerVision Skin Drop", priceS: 900, priceR: 8, type: "Outfit", desc: "Exclusive outfit unlock" },
     { id: "good-boost", name: "Aura Vote ×10", priceS: 120, priceR: 0, type: "Boost", desc: "Instant Fan Zone power" },
   ];

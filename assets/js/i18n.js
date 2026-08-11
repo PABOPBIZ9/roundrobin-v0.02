@@ -1,4 +1,4 @@
-/** PuckGold global i18n — Douyin/TikTok/PokerStars-scale language coverage */
+/** PuckGold global i18n — broad language coverage */
 (function () {
   const LANG_KEY = "pgb-lang";
 
