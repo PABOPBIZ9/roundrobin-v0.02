@@ -67,12 +67,18 @@ Then wire files on `podcasts.html` / team pages (or keep as vault drops for now)
 
 ## Voice roster (already in `voices.json`)
 
-**Booth (6)**  
-Jack “The Jet” Morrison · Veteran Color · Coach Chippy · Arena PA · Desk Host A/B
+**Booth (8)**  
+Jack “The Jet” Morrison · Veteran Color · Coach Chippy · Arena PA · **Lexi Gold** (♀) · **Riley Vance** · **Nova Reyes** (♀ sideline) · **Mira Chen** (♀ studio)
+
+**Mascot**  
+**Pucky** — high-pitch friendly + mischievous Chucky wink (`pitch_semitones: +8`)
 
 **Players (36)** — 9 per Founding Four club (from `teams-data.js`)
 
+Without clone refs, `generate.py` shapes default Chatterbox via `pitch_semitones` + `speed` so roles stay distinct.
+
 **Shows scripted**
+- `voice-roster-showcase.json` → male/female booth + captains + Pucky (Listen hero)
 - `pregame-miracle.json` → Backstory pre-game (Cup lore + Expansion tease)
 - `postgame-cup.json` → Gold on 1 with Kai / Cross / Combs / Doyle
 - `booth-sample-pack.json` → Miracle Game call pack from the Championship Book

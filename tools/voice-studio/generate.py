@@ -33,10 +33,11 @@ OUT = ROOT / "out"
 def load_voices():
     data = json.loads(VOICES_PATH.read_text())
     by_id = {}
-    for v in data.get("booth", []):
-        by_id[v["id"]] = {**v, "kind": "booth"}
-    for v in data.get("players", []):
-        by_id[v["id"]] = {**v, "kind": "player"}
+    for kind in ("booth", "players", "mascots"):
+        for v in data.get(kind, []):
+            # players/booth/mascots folders under out/
+            folder = {"booth": "booth", "players": "player", "mascots": "mascot"}[kind]
+            by_id[v["id"]] = {**v, "kind": folder}
     return data, by_id
 
 
@@ -73,6 +74,33 @@ def load_model(device: str):
     return ChatterboxTTS.from_pretrained(device=device)
 
 
+def apply_voice_shape(wav, sr: int, voice: dict):
+    """Differentiate default Chatterbox output via pitch / speed when no clone ref."""
+    import torch
+    import torchaudio.functional as F
+
+    # Ensure [channels, samples]
+    if wav.dim() == 1:
+        wav = wav.unsqueeze(0)
+
+    steps = float(voice.get("pitch_semitones", 0) or 0)
+    if steps:
+        wav = F.pitch_shift(wav, sr, n_steps=steps)
+
+    speed = float(voice.get("speed", 1.0) or 1.0)
+    if abs(speed - 1.0) > 0.01:
+        # tempo via resample trick (keeps duration change = rate change)
+        new_sr = max(8000, int(sr / speed))
+        wav = F.resample(wav, sr, new_sr)
+        wav = F.resample(wav, new_sr, sr)
+
+    # Soft peak normalize — keeps mascot / PA punch without clipping
+    peak = wav.abs().max()
+    if float(peak) > 0:
+        wav = wav / peak * 0.95
+    return wav
+
+
 def synth(model, text: str, voice: dict, out_path: Path):
     import torchaudio as ta
 
@@ -83,16 +111,24 @@ def synth(model, text: str, voice: dict, out_path: Path):
         kwargs["cfg_weight"] = float(voice["cfg_weight"])
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    shape_note = []
+    if voice.get("pitch_semitones"):
+        shape_note.append(f"pitch{voice['pitch_semitones']:+g}")
+    if voice.get("speed") and float(voice.get("speed", 1)) != 1.0:
+        shape_note.append(f"speed×{voice['speed']}")
+    shape_s = f" [{', '.join(shape_note)}]" if shape_note else ""
+
     if ref.is_file():
-        print(f"  → clone {voice['id']}  ref={ref.name}")
+        print(f"  → clone {voice['id']}  ref={ref.name}{shape_s}")
         wav = model.generate(text, audio_prompt_path=str(ref), **kwargs)
     else:
-        print(f"  → default voice ({voice['id']}) — drop {voice.get('ref')} for clone")
+        print(f"  → shaped default ({voice['id']}){shape_s} — drop {voice.get('ref')} for clone")
         try:
             wav = model.generate(text, **kwargs)
         except TypeError:
             wav = model.generate(text)
 
+    wav = apply_voice_shape(wav, model.sr, voice)
     ta.save(str(out_path), wav, model.sr)
     print(f"  ✓ {out_path.relative_to(ROOT)}")
     return out_path
@@ -112,12 +148,13 @@ def resolve_lines(script_path: Path, by_id: dict):
 def main():
     ap = argparse.ArgumentParser(description="PuckGold Chatterbox voice studio")
     ap.add_argument("--list", action="store_true", help="List booth + player voices")
-    ap.add_argument("--script", type=Path, help="JSON script under scripts/")
+    ap.add_argument("--script", type=Path, action="append", help="JSON script under scripts/ (repeatable)")
     ap.add_argument("--voice", help="Single voice id")
     ap.add_argument("--text", help="Text for --voice")
     ap.add_argument("--samples", action="store_true", help="Generate every sample_line")
     ap.add_argument("--players", action="store_true", help="All player samples")
     ap.add_argument("--booth", action="store_true", help="All booth samples")
+    ap.add_argument("--mascots", action="store_true", help="All mascot sample lines")
     ap.add_argument("--device", choices=["mps", "cuda", "cpu"], default=None)
     ap.add_argument("--dry-run", action="store_true", help="Print plan only")
     args = ap.parse_args()
@@ -127,22 +164,29 @@ def main():
     if args.list:
         print("\nBOOTH")
         for v in data["booth"]:
-            ref_ok = "✓" if (ROOT / v["ref"]).is_file() else "·"
-            print(f"  [{ref_ok}] {v['id']:22} {v['name']} — {v['role']}")
+            ref_ok = "✓" if (ROOT / v.get("ref", "")).is_file() else "·"
+            g = v.get("gender", "?")[0]
+            print(f"  [{ref_ok}] {v['id']:22} ({g}) {v['name']} — {v['role']}")
         print("\nPLAYERS")
         for v in data["players"]:
-            ref_ok = "✓" if (ROOT / v["ref"]).is_file() else "·"
+            ref_ok = "✓" if (ROOT / v.get("ref", "")).is_file() else "·"
             print(f"  [{ref_ok}] {v['id']:22} {v['name']:18} ({v['team']})")
+        if data.get("mascots"):
+            print("\nMASCOTS")
+            for v in data["mascots"]:
+                ref_ok = "✓" if (ROOT / v.get("ref", "")).is_file() else "·"
+                print(f"  [{ref_ok}] {v['id']:22} {v['name']} — {v.get('role', '')}")
         print("\n✓ = reference WAV present for cloning")
         return
 
     jobs = []  # (voice, text, out_path)
 
     if args.script:
-        for i, voice, text, doc in resolve_lines(args.script, by_id):
-            show = slug(doc.get("slug") or doc.get("show") or args.script.stem)
-            out = OUT / "shows" / show / f"{i:02d}_{voice['id']}.wav"
-            jobs.append((voice, text, out))
+        for script_path in args.script:
+            for i, voice, text, doc in resolve_lines(script_path, by_id):
+                show = slug(doc.get("slug") or doc.get("show") or script_path.stem)
+                out = OUT / "shows" / show / f"{i:02d}_{voice['id']}.wav"
+                jobs.append((voice, text, out))
 
     if args.voice:
         if args.voice not in by_id:
@@ -153,12 +197,14 @@ def main():
         out = OUT / kind / f"{voice['id']}" / f"{slug(text)[:40] or 'line'}.wav"
         jobs.append((voice, text, out))
 
-    if args.samples or args.players or args.booth:
+    if args.samples or args.players or args.booth or args.mascots:
         pool = []
         if args.samples or args.booth:
-            pool += data["booth"]
+            pool += data.get("booth", [])
         if args.samples or args.players:
-            pool += data["players"]
+            pool += data.get("players", [])
+        if args.samples or args.mascots:
+            pool += data.get("mascots", [])
         for v in pool:
             voice = by_id[v["id"]]
             text = v.get("sample_line") or f"Hi, I'm {v['name']}."

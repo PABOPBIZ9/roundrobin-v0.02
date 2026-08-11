@@ -70,13 +70,13 @@
     {
       id: "listen",
       re: /listen|podcast|booth|jack jet|miracle game audio|broadcast/,
-      msg: "Listen has Season One booth packs, Backstory, and Gold on 1 — finish tracks for Expansion XP.",
+      msg: "Listen has the Voice Roster (Pucky + Lexi + Nova + captains), Miracle Booth pack, Backstory, and Gold on 1 — finish tracks for Expansion XP.",
       links: [
-        { href: "listen.html", label: "Open Listen" },
+        { href: "listen.html?show=voice-roster-showcase", label: "Voice Roster + Pucky" },
         { href: "listen.html?show=booth-sample-pack", label: "Booth Sample Pack" },
-        { href: "news-article.html?id=miracle-game", label: "Miracle Game article" },
+        { href: "listen.html", label: "Open Listen" },
       ],
-      follow: "Booth pack or Backstory?",
+      follow: "Roster showcase or Miracle booth?",
     },
     {
       id: "pass",
@@ -287,7 +287,12 @@
     aura: { meter: "aura-vote.html", live: "aura-vote.html", boost: "checkout.html?offer=og", og: "checkout.html?offer=og" },
     clip: { submit: "clip-crown.html", listen: "listen.html", ready: "clip-crown.html" },
     crest: { vote: "conductor-crest.html", lore: "news-article.html?id=choochoo-heart", now: "conductor-crest.html" },
-    listen: { booth: "listen.html?show=booth-sample-pack", backstory: "listen.html?show=backstory-pregame-miracle", open: "listen.html" },
+    listen: {
+      booth: "listen.html?show=booth-sample-pack",
+      backstory: "listen.html?show=backstory-pregame-miracle",
+      roster: "listen.html?show=voice-roster-showcase",
+      open: "listen.html?show=voice-roster-showcase",
+    },
     gems: { packs: "gems.html", gifts: "gems.html?tab=gifts", cards: "gifts.html" },
     gifts: { myself: "gifts.html", send: "gifts.html#send", pack: "gifts.html#send" },
     franchise: { yes: "apply.html", apply: "apply.html", start: "apply.html" },
@@ -300,7 +305,7 @@
     { label: "Clip Crown", q: "submit clip crown" },
     { label: "$36 OG", q: "I want the $36 OG offer" },
     { label: "Weekend", q: "expansion weekend" },
-    { label: "Listen", q: "listen to booth audio" },
+    { label: "Listen", q: "open voice roster with pucky" },
     { label: "Crest vote", q: "conductor crest vote" },
     { label: "Scores", q: "show me scores" },
     { label: "Gems", q: "Tell me about sapphires and gems" },
@@ -311,24 +316,53 @@
   let listening = false;
   let recognition = null;
 
+  /** Chatterbox Pucky bites (high + mischievous) — falls back to browser TTS */
+  const PUCKY_VOICE_CLIPS = {
+    greet: "assets/vault/content/broadcast/voice-roster-showcase/00_pucky.wav",
+    close: "assets/vault/content/broadcast/voice-roster-showcase/15_pucky.wav",
+  };
+  let puckyAudio = null;
+
+  function speakPuckyClip(key) {
+    const src = PUCKY_VOICE_CLIPS[key];
+    if (!speakOn || !src) return false;
+    try {
+      stopSpeak();
+      if (!puckyAudio) puckyAudio = new Audio();
+      puckyAudio.src = src;
+      puckyAudio.currentTime = 0;
+      const play = puckyAudio.play();
+      if (play && typeof play.catch === "function") play.catch(() => {});
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
   function speakText(text) {
     if (!speakOn || !window.speechSynthesis) return;
     try {
       window.speechSynthesis.cancel();
+      if (puckyAudio) {
+        try {
+          puckyAudio.pause();
+        } catch (_) {}
+      }
       const clean = String(text || "")
         .replace(/[🏒💎🎁🎟️❄⭐❓📢🔗💬←→]/g, "")
         .replace(/\s+/g, " ")
         .trim();
       if (!clean) return;
+      // High-pitch friendly + tiny Chucky wink via browser TTS when no clip
       const u = new SpeechSynthesisUtterance(clean);
-      u.rate = 1.02;
-      u.pitch = 1.05;
+      u.rate = 1.14;
+      u.pitch = 1.48;
       u.volume = 1;
       const lang = window.PGB_I18N?.getLang?.() || "en";
       u.lang = lang === "en" ? "en-US" : lang;
       const voices = window.speechSynthesis.getVoices?.() || [];
       const prefer =
-        voices.find((v) => /en(-|_)US/i.test(v.lang) && /female|samantha|google US/i.test(v.name)) ||
+        voices.find((v) => /en(-|_)US/i.test(v.lang) && /female|samantha|karen|victoria|google US/i.test(v.name)) ||
         voices.find((v) => /^en/i.test(v.lang));
       if (prefer) u.voice = prefer;
       window.speechSynthesis.speak(u);
@@ -339,6 +373,12 @@
     try {
       window.speechSynthesis?.cancel();
     } catch (_) {}
+    if (puckyAudio) {
+      try {
+        puckyAudio.pause();
+        puckyAudio.currentTime = 0;
+      } catch (_) {}
+    }
   }
 
   function getRecognition() {
@@ -654,7 +694,7 @@
           { href: "lockervision.html", label: "LockerVision" },
           { href: "apply.html", label: "Franchise" },
         ]);
-        speakText(intro);
+        if (!speakPuckyClip("greet")) speakText(intro);
       }
       if (seed) setTimeout(() => ask(seed), 280);
       input?.focus();
@@ -732,7 +772,7 @@
       speakBtn.setAttribute("aria-pressed", speakOn ? "true" : "false");
       speakBtn.textContent = speakOn ? "🔊" : "🔇";
       if (!speakOn) stopSpeak();
-      else speakText("Voice on. I’m Pucky.");
+      else if (!speakPuckyClip("greet")) speakText("Voice on. I’m Pucky.");
       setStatus(speakOn ? "Voice on" : "Voice muted");
     });
 
@@ -744,7 +784,9 @@
       if (open) {
         showHome();
         nudge?.classList.remove("is-on");
-        if (speakOn) speakText("Hey, I’m Pucky. Tap chat and ask me anything.");
+        if (speakOn && !speakPuckyClip("greet")) {
+          speakText("Hey, I’m Pucky. Tap chat and ask me anything.");
+        }
       } else {
         stopSpeak();
       }

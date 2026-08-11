@@ -1,0 +1,23 @@
+{
+  "show": "Voice Roster Showcase · Season One",
+  "slug": "voice-roster-showcase",
+  "drop_to": "assets/vault/content/broadcast/voice-roster-showcase/",
+  "lines": [
+    {"voice": "pucky", "text": "Heeey bestie — I'm Pucky! Welcome to the PuckGold voice booth… heh heh… don't blink."},
+    {"voice": "jack-jet-morrison", "text": "Jack Jet Morrison — play-by-play from Neon Reef. Live calls, overtime chaos, Cup nights."},
+    {"voice": "veteran-color", "text": "Veteran color. I break down the bench, the structure, and why miracles still matter."},
+    {"voice": "coach-chippy", "text": "Coach Chippy in the house — culture, chirps, and absolute nuclear rink energy!"},
+    {"voice": "arena-pa", "text": "Your Arena P A. Deep ice. Long vowels. Goal announcements with gravitas."},
+    {"voice": "desk-host-a", "text": "Lexi Gold — podcast desk. Warm studio energy for Backstory and Gold on One."},
+    {"voice": "desk-host-b", "text": "Riley Vance — co-host. Fantasy angles, Expansion teases, and cold hard tape."},
+    {"voice": "sideline-nova", "text": "Nova Reyes, rink-side. Between the benches, between the whistles — I'll get you the quote."},
+    {"voice": "studio-mira", "text": "Mira Chen in studio. Weak-side seams, matchup edges, and Expansion pool reads."},
+    {"voice": "kai-sandoval", "text": "Kai Sandoval, Miami. Small creature. Massive heart. We never stopped believing."},
+    {"voice": "nathaniel-cross", "text": "Nathaniel Cross, McLean. Empire doesn't fold — we reload for Expansion."},
+    {"voice": "marcus-doyle", "text": "Marcus Doyle, Washington. Capital hockey tip-off — history, then the next shift."},
+    {"voice": "wyatt-combs", "text": "Wyatt Combs, Chattanooga. Zero in the standings. Everything in the fans' hearts."},
+    {"voice": "milo-reyes", "text": "Milo Reyes — when the Reef shook in the third, I knew we had them."},
+    {"voice": "emmett-solis", "text": "Emmett Solis in net. See the puck. Stop the puck. Let the boys cook."},
+    {"voice": "pucky", "text": "That's the village voice pack! Farm Listen XP, grab the thirty-six dollar O-G Offer for five-X… heh heh… see you under the clock!"}
+  ]
+}
