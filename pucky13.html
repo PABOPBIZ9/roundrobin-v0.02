@@ -7,7 +7,7 @@
 <meta name="description" content="Meet Pucky 13 — vigilante Swiftie oracle. Free daily jokes & star vibes, chat advice, tip jar, and premium astrology reports.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
 <link rel="stylesheet" href="assets/css/site.css?v=63">
-<link rel="stylesheet" href="assets/css/pucky13.css?v=4">
+<link rel="stylesheet" href="assets/css/pucky13.css?v=5">
 <link rel="icon" href="assets/brand/pucky/pucky-13.png" type="image/png">
 </head>
 <body class="pk13-page">
@@ -127,39 +127,119 @@
 
   <section class="pk13-panel" id="wishlist">
     <h2>Wish list · lift-off tiers</h2>
-    <p class="sub">We cooked hard to get here — cracked screens, storage pop-ups, machines on fire. Early community can help the league scale. Fans first.</p>
+    <p class="sub">Cracked iPhone 8 on Wi‑Fi, no working phone line, no bank account, machines on fire — and still shipping. Early community can help us scale at blitz speed. Fans first.</p>
     <div class="pk13-manifesto">
       <p><strong>Why this exists:</strong> PuckGoldBiz is building a fan-first league — collectors and players with real say, not billionaire owners, big-tech middlemen, or casino-style rip culture extracting the value fans create. No $90M festival flex. No private-jet white-party lifestyle funded by the people who actually play and collect. We're the opposite of that machine.</p>
       <p>Power packs, monopoly card printers, influencer auction theater, and prediction-market stacks owned by VCs don't align fans — they harvest them. We're trying to align interests so everyone wins together. Tips and wishlist gifts go straight into keeping the ice open.</p>
     </div>
 
+    <div class="pk13-goal" id="pk13BankGoal" aria-live="polite">
+      <div class="pk13-goal-top">
+        <strong>Bank account open fund</strong>
+        <span id="pk13BankGoalMeta">$0 / $3,500</span>
+      </div>
+      <div class="pk13-goal-bar"><i id="pk13BankGoalFill" style="width:0%"></i></div>
+      <p>No bank account yet. Community tips toward a <strong>$3,500</strong> open-account / runway goal so we can operate like a real league ops desk.</p>
+    </div>
+
     <div class="pk13-tiers">
-      <article class="pk13-tier">
+      <article class="pk13-tier pk13-tier--hero">
         <header>
-          <span class="tier-tag">Tier 1 · Immediate</span>
-          <h3>Snack &amp; survival</h3>
+          <span class="tier-tag">Tier 1 · Critical now</span>
+          <h3>Phone, audio &amp; snacks</h3>
         </header>
+        <p class="tier-note">No working phone — cracked iPhone 8 stuck on Wi‑Fi. Need SIM + plan and headphones so we can actually get in the zone.</p>
         <ul class="pk13-wish">
           <li>
             <div>
+              <strong>Boost Mobile / Cricket SIM + plan</strong>
+              <span>Working line. Texts, 2FA, ops calls. Not optional.</span>
+            </div>
+            <button type="button" data-pk-wish="sim-plan" data-price="60" data-name="Wish · Boost/Cricket SIM + plan">$60</button>
+          </li>
+          <li>
+            <div>
+              <strong>Phone plan runway (3 months)</strong>
+              <span>Keep the line alive while we ship.</span>
+            </div>
+            <button type="button" data-pk-wish="phone-plan-3mo" data-price="150" data-name="Wish · Phone plan runway (3 mo)">$150</button>
+          </li>
+          <li>
+            <div>
+              <strong>AirPods</strong>
+              <span>Higher need — really need 'em for calls + focus.</span>
+            </div>
+            <button type="button" data-pk-wish="airpods" data-price="179" data-name="Wish · AirPods">$179</button>
+          </li>
+          <li>
+            <div>
+              <strong>Bose / Apple over-ear headphones</strong>
+              <span>Deep zone for vibe-coding and voice studio.</span>
+            </div>
+            <button type="button" data-pk-wish="overear" data-price="349" data-name="Wish · Bose/Apple over-ear headphones">$349</button>
+          </li>
+          <li>
+            <div>
               <strong>3 packs of Bomb Pops</strong>
-              <span>Immediate freezer morale. Vigilante fuel.</span>
+              <span>Immediate freezer morale.</span>
             </div>
             <button type="button" data-pk-wish="bombpops" data-price="12" data-name="Wish · 3 packs Bomb Pops">$12</button>
           </li>
           <li>
             <div>
               <strong>Diet Dr Pepper case</strong>
-              <span>Hydration for overtime coding sessions.</span>
+              <span>Overtime hydration.</span>
             </div>
             <button type="button" data-pk-wish="diet-dp" data-price="18" data-name="Wish · Diet Dr Pepper case">$18</button>
           </li>
         </ul>
       </article>
 
+      <article class="pk13-tier pk13-tier--hero">
+        <header>
+          <span class="tier-tag">Tier 2 · Bank &amp; runway</span>
+          <h3>$3,500 account open goal</h3>
+        </header>
+        <p class="tier-note">Chip toward opening a real bank account + basic operating runway. Custom amount welcome.</p>
+        <ul class="pk13-wish">
+          <li>
+            <div>
+              <strong>Bank fund · starter chip</strong>
+              <span>Every dollar counts toward $3,500.</span>
+            </div>
+            <button type="button" data-pk-wish="bank-100" data-price="100" data-name="Wish · Bank account fund $100">$100</button>
+          </li>
+          <li>
+            <div>
+              <strong>Bank fund · serious chip</strong>
+              <span>Move the bar for real.</span>
+            </div>
+            <button type="button" data-pk-wish="bank-500" data-price="500" data-name="Wish · Bank account fund $500">$500</button>
+          </li>
+          <li>
+            <div>
+              <strong>Bank fund · big lift</strong>
+              <span>Halfway-plus energy.</span>
+            </div>
+            <button type="button" data-pk-wish="bank-1750" data-price="1750" data-name="Wish · Bank account fund $1750">$1,750</button>
+          </li>
+          <li>
+            <div>
+              <strong>Hit the $3,500 goal</strong>
+              <span>Open the account. Unlock ops.</span>
+            </div>
+            <button type="button" data-pk-wish="bank-3500" data-price="3500" data-name="Wish · Bank account fund $3500 goal">$3,500</button>
+          </li>
+        </ul>
+        <form class="pk13-custom-tip pk13-custom-tip--inline" data-pk-custom-tip data-pk-custom-label="Bank account fund">
+          <input type="number" min="1" step="0.01" inputmode="decimal" placeholder="Custom bank $" aria-label="Custom bank account tip" required>
+          <button type="submit">Add to bank goal</button>
+        </form>
+      </article>
+
       <article class="pk13-tier">
         <header>
-          <span class="tier-tag">Tier 2 · Chains</span>
+          <span class="tier-tag">Tier 3 · Chains</span>
           <h3>Crypto runway</h3>
         </header>
         <ul class="pk13-wish">
@@ -193,21 +273,35 @@
 
       <article class="pk13-tier">
         <header>
-          <span class="tier-tag">Tier 3 · Tools</span>
-          <h3>Storage &amp; software</h3>
+          <span class="tier-tag">Tier 4 · Web &amp; tools</span>
+          <h3>Domains, hosting, software</h3>
         </header>
         <ul class="pk13-wish">
           <li>
             <div>
+              <strong>Website domains / URLs</strong>
+              <span>Brand domains for league surfaces + redirects.</span>
+            </div>
+            <button type="button" data-pk-wish="domains" data-price="75" data-name="Wish · Website domains / URLs">$75</button>
+          </li>
+          <li>
+            <div>
+              <strong>Hosting runway</strong>
+              <span>Vercel / DNS / CDN / email — keep the site fast.</span>
+            </div>
+            <button type="button" data-pk-wish="hosting" data-price="120" data-name="Wish · Website hosting runway">$120</button>
+          </li>
+          <li>
+            <div>
               <strong>Flash drives / data storage</strong>
-              <span>Every account is screaming about storage. Need clean media.</span>
+              <span>Every account is screaming about storage.</span>
             </div>
             <button type="button" data-pk-wish="storage" data-price="40" data-name="Wish · Flash drives / data storage">$40</button>
           </li>
           <li>
             <div>
               <strong>Premium AI + creative stack</strong>
-              <span>ChatGPT · Cursor · Apple · Music · Spotify — keep shipping.</span>
+              <span>ChatGPT · Cursor · Apple · Music · Spotify.</span>
             </div>
             <button type="button" data-pk-wish="ai-stack" data-price="65" data-name="Wish · ChatGPT/Cursor/Apple/Music/Spotify stack">$65</button>
           </li>
@@ -216,15 +310,15 @@
 
       <article class="pk13-tier pk13-tier--hero">
         <header>
-          <span class="tier-tag">Tier 4 · Really needed</span>
+          <span class="tier-tag">Tier 5 · Really needed</span>
           <h3>MacBook Pro fund</h3>
         </header>
-        <p class="tier-note">The Mac Airs are cooked — cracked screens, heat, crashes, RAM/storage pop-ups all day. One screen literally shattered mid-cook. We pulled every goalie move to ship this far. To scale the roadmap, the early community can help lift off with a real Pro machine.</p>
+        <p class="tier-note">The Mac Airs are cooked — cracked screens, heat, crashes, RAM/storage pop-ups all day. One screen literally shattered mid-cook. Help lift a real Pro machine.</p>
         <ul class="pk13-wish">
           <li>
             <div>
               <strong>Toward MacBook Pro</strong>
-              <span>Any amount counts. Presets or custom below.</span>
+              <span>Any amount counts.</span>
             </div>
             <button type="button" data-pk-wish="macbook-100" data-price="100" data-name="Wish · MacBook Pro fund $100">$100</button>
           </li>
@@ -238,7 +332,7 @@
           <li>
             <div>
               <strong>Full lift-off chip</strong>
-              <span>Replace the fire-hazard Airs. Fans first infrastructure.</span>
+              <span>Replace the fire-hazard Airs.</span>
             </div>
             <button type="button" data-pk-wish="macbook-2000" data-price="2000" data-name="Wish · MacBook Pro fund $2000">$2000</button>
           </li>
@@ -246,6 +340,148 @@
         <form class="pk13-custom-tip pk13-custom-tip--inline" data-pk-custom-tip data-pk-custom-label="MacBook Pro fund">
           <input type="number" min="1" step="0.01" inputmode="decimal" placeholder="Custom MacBook $" aria-label="Custom MacBook Pro tip" required>
           <button type="submit">Add to fund</button>
+        </form>
+      </article>
+
+      <article class="pk13-tier">
+        <header>
+          <span class="tier-tag">Tier 6 · Useful travel</span>
+          <h3>Airbnb &amp; field ops</h3>
+        </header>
+        <ul class="pk13-wish">
+          <li>
+            <div>
+              <strong>Airbnb gift card</strong>
+              <span>Travel / crash pad for league ops &amp; road work.</span>
+            </div>
+            <button type="button" data-pk-wish="airbnb-100" data-price="100" data-name="Wish · Airbnb gift card $100">$100</button>
+          </li>
+          <li>
+            <div>
+              <strong>Airbnb gift card · bigger</strong>
+              <span>Longer stays when we need to show up IRL.</span>
+            </div>
+            <button type="button" data-pk-wish="airbnb-250" data-price="250" data-name="Wish · Airbnb gift card $250">$250</button>
+          </li>
+        </ul>
+      </article>
+
+      <article class="pk13-tier pk13-tier--soft">
+        <header>
+          <span class="tier-tag">Tier 7 · Cheers / less needed</span>
+          <h3>Tip Pucky for the grind</h3>
+        </header>
+        <p class="tier-note">If you just want to tip #13 for cooking this hard — food gift cards welcome. Nice-to-have, not blocking lift-off.</p>
+        <ul class="pk13-wish">
+          <li>
+            <div>
+              <strong>Applebee's gift card</strong>
+              <span>Classic tip-the-oracle energy.</span>
+            </div>
+            <button type="button" data-pk-wish="applebees" data-price="25" data-name="Wish · Applebee's gift card">$25</button>
+          </li>
+          <li>
+            <div>
+              <strong>Chili's gift card</strong>
+              <span>Overtime dinner on the community.</span>
+            </div>
+            <button type="button" data-pk-wish="chilis" data-price="25" data-name="Wish · Chili's gift card">$25</button>
+          </li>
+          <li>
+            <div>
+              <strong>Chipotle / Qdoba gift card</strong>
+              <span>Fast fuel between commits.</span>
+            </div>
+            <button type="button" data-pk-wish="chipotle" data-price="25" data-name="Wish · Chipotle/Qdoba gift card">$25</button>
+          </li>
+          <li>
+            <div>
+              <strong>Starbucks / Dunkin gift card</strong>
+              <span>Caffeine for the night shift.</span>
+            </div>
+            <button type="button" data-pk-wish="coffee-gc" data-price="20" data-name="Wish · Starbucks/Dunkin gift card">$20</button>
+          </li>
+          <li>
+            <div>
+              <strong>Target / Walmart gift card</strong>
+              <span>Snacks, cables, random ops gear.</span>
+            </div>
+            <button type="button" data-pk-wish="target-gc" data-price="50" data-name="Wish · Target/Walmart gift card">$50</button>
+          </li>
+          <li>
+            <div>
+              <strong>Amazon gift card</strong>
+              <span>Whatever's out of stock locally.</span>
+            </div>
+            <button type="button" data-pk-wish="amazon-gc" data-price="50" data-name="Wish · Amazon gift card">$50</button>
+          </li>
+        </ul>
+        <form class="pk13-custom-tip pk13-custom-tip--inline" data-pk-custom-tip data-pk-custom-label="Cheers tip for Pucky">
+          <input type="number" min="1" step="0.01" inputmode="decimal" placeholder="Custom cheers $" aria-label="Custom cheers tip" required>
+          <button type="submit">Tip for the grind</button>
+        </form>
+      </article>
+
+      <article class="pk13-tier pk13-tier--dream">
+        <header>
+          <span class="tier-tag">Tier 8 · Dream Machine</span>
+          <h3>VibeCoder full setup</h3>
+        </header>
+        <p class="tier-note">Blitz-speed scale kit — the stuff we'll actually need for a real content + product war room: maxed Mac power, pro display, audio, pointing devices, and a fleet of phones/tablets/Pros so the team isn't sharing one cracked brick.</p>
+        <ul class="pk13-wish">
+          <li>
+            <div>
+              <strong>Mac Studio / Mac Pro (maxed)</strong>
+              <span>The most expensive Mac power thing. Dream machine core.</span>
+            </div>
+            <button type="button" data-pk-wish="mac-studio" data-price="4000" data-name="Wish · Mac Studio/Pro maxed">$4,000</button>
+          </li>
+          <li>
+            <div>
+              <strong>Pro display / best monitor</strong>
+              <span>Studio Display / ultra-wide class — eyes on the ice.</span>
+            </div>
+            <button type="button" data-pk-wish="pro-monitor" data-price="1600" data-name="Wish · Pro display / best monitor">$1,600</button>
+          </li>
+          <li>
+            <div>
+              <strong>Magic Mouse / trackpad kit</strong>
+              <span>Mighty pointing devices for long sessions.</span>
+            </div>
+            <button type="button" data-pk-wish="magic-mouse" data-price="129" data-name="Wish · Magic Mouse / trackpad kit">$129</button>
+          </li>
+          <li>
+            <div>
+              <strong>iPhone fleet (3–5+)</strong>
+              <span>QA, social, 2FA, field capture — not one cracked 8.</span>
+            </div>
+            <button type="button" data-pk-wish="iphone-fleet" data-price="3000" data-name="Wish · iPhone fleet (3-5+)">$3,000</button>
+          </li>
+          <li>
+            <div>
+              <strong>iPad fleet (3–5+)</strong>
+              <span>Design reviews, booth notes, arena-day ops.</span>
+            </div>
+            <button type="button" data-pk-wish="ipad-fleet" data-price="2500" data-name="Wish · iPad fleet (3-5+)">$2,500</button>
+          </li>
+          <li>
+            <div>
+              <strong>Extra MacBook Pros (pair)</strong>
+              <span>Couple more Pros so nobody waits on a burning Air.</span>
+            </div>
+            <button type="button" data-pk-wish="macbook-pair" data-price="4500" data-name="Wish · Extra MacBook Pros (pair)">$4,500</button>
+          </li>
+          <li>
+            <div>
+              <strong>Full Dream Machine bundle</strong>
+              <span>Studio/Pro + display + audio + mouse + starter device fleet energy.</span>
+            </div>
+            <button type="button" data-pk-wish="dream-bundle" data-price="12000" data-name="Wish · Full Dream Machine VibeCoder bundle">$12,000</button>
+          </li>
+        </ul>
+        <form class="pk13-custom-tip pk13-custom-tip--inline" data-pk-custom-tip data-pk-custom-label="Dream Machine fund">
+          <input type="number" min="1" step="0.01" inputmode="decimal" placeholder="Custom dream $" aria-label="Custom Dream Machine tip" required>
+          <button type="submit">Fund the dream</button>
         </form>
       </article>
     </div>
@@ -348,6 +584,6 @@
 <script src="assets/js/support-widget.js?v=11"></script>
 <script src="assets/js/cart.js?v=10"></script>
 <script src="assets/js/pucky-entitlements.js?v=2"></script>
-<script src="assets/js/pucky13.js?v=3"></script>
+<script src="assets/js/pucky13.js?v=4"></script>
 </body>
 </html>

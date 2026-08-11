@@ -239,15 +239,15 @@
       };
     }
 
-    if (/tip|donate|sol|coffee|badger|wallet|patreon|custom tip|wish ?list|macbook|bomb ?pop|dr pepper/.test(s)) {
+    if (/tip|donate|sol|coffee|badger|wallet|patreon|custom tip|wish ?list|macbook|bomb ?pop|dr pepper|bank|sim|cricket|boost|airpods|dream machine|vibecoder|airbnb|applebee|chili/.test(s)) {
       return {
         msg: tipped
-          ? `Tipper club${nameBit} — respect. Custom any-amount tips + wish list tiers still open (Bomb Pops → MacBook Pro fund).`
-          : `YES. Patreon-style custom tips, wish-list tiers (snacks, SOL/RH chain, storage, AI stack, MacBook Pro fund), or SOL copy tip. Fans first.`,
+          ? `Tipper club${nameBit} — respect. Wish list still open: phone/SIM, $3,500 bank goal, domains/hosting, AirPods, MacBook Pro, Dream Machine VibeCoder kit, plus cheers gift cards.`
+          : `YES. Critical now: Boost/Cricket SIM (no working phone), AirPods, $3,500 bank goal. Also domains/hosting, Airbnb, MacBook Pro, full Dream Machine setup — or tip any amount for the grind.`,
         links: [
           { label: "Wish list", href: "#wishlist" },
-          { label: "Custom tip $13", action: "tip13" },
-          { label: "SOL rail", href: "#sol" },
+          { label: "Bank goal", href: "#pk13BankGoal" },
+          { label: "Dream Machine", href: "#wishlist" },
         ],
       };
     }
@@ -435,6 +435,17 @@
     }
   }
 
+  const BANK_GOAL = 3500;
+
+  function renderBankGoal() {
+    const tips = window.PGBPucky?.tipTotal?.() || 0;
+    const pct = Math.min(100, Math.round((tips / BANK_GOAL) * 100));
+    const meta = document.getElementById("pk13BankGoalMeta");
+    const fill = document.getElementById("pk13BankGoalFill");
+    if (meta) meta.textContent = `$${tips.toFixed(0)} / $3,500`;
+    if (fill) fill.style.width = `${pct}%`;
+  }
+
   function renderEntitlements() {
     const el = document.getElementById("pk13Vault");
     if (!el || !window.PGBPucky) return;
@@ -444,6 +455,7 @@
     const status = window.PGBPucky.read()?.deepAstroStatus;
     const bits = [];
     if (tips) bits.push(`Tips received: $${tips.toFixed(2)}`);
+    if (tips) bits.push(`Bank goal progress: $${Math.min(tips, BANK_GOAL).toFixed(0)} / $3,500`);
     if (window.PGBPucky.hasDailyAstro()) bits.push("Daily astrology unlocked");
     if (window.PGBPucky.hasDadJokes()) bits.push("Premium dad jokes unlocked");
     if (deep) {
@@ -456,6 +468,7 @@
     el.innerHTML = bits.length
       ? `<strong>Your Pucky vault</strong><ul>${bits.map((b) => `<li>${b}</li>`).join("")}</ul>`
       : `<strong>Your Pucky vault</strong><p>No unlocks yet — tip, grab daily stars, or start the deep report.</p>`;
+    renderBankGoal();
   }
 
   function maybeBadger() {
@@ -510,6 +523,7 @@
   function mount() {
     renderDailies();
     renderEntitlements();
+    renderBankGoal();
     renderSol();
     maybeBadger();
 
