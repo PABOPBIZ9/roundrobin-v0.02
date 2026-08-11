@@ -81,6 +81,7 @@
     { href: "developers.html", label: "Developer Hub" },
     { href: "partners.html", label: "Partners" },
     { href: "brand.html", label: "Brand Kit" },
+    { href: "brand-factory/studio.html", label: "Brand Factory · Banners" },
     { href: "retro.html", label: "Retro League · '94" },
   ];
 
@@ -317,6 +318,7 @@
         <a href="contact.html">Contact</a>
         <a href="affiliates.html">Affiliates</a>
         <a href="brand.html">Brand Kit</a>
+        <a href="brand-factory/studio.html">Brand Factory</a>
         <div class="drawer-ctas">
           <a href="shop.html" class="btn btn-sapphire btn-block">Shop</a>
           ${navAuthDrawerHtml()}
@@ -543,6 +545,7 @@
                 <a href="developers.html">Developers</a>
                 <a href="partners.html">Partners</a>
                 <a href="brand.html">Brand Kit</a>
+                <a href="brand-factory/studio.html">Brand Factory</a>
                 <a href="retro.html">Retro · '94</a>
                 <a href="media.html">Media Hub</a>
               </div>

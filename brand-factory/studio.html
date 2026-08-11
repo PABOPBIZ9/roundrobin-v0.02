@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Brand Factory — Promo + Fan Banners | PuckGold Labs</title>
+<meta name="description" content="Batch marketing banners and MonkeDAO-style brand kits for PUMPSLUT, BADMONZ, BOMBPOPZ, and PuckGoldBiz.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css?v=64">
+<link rel="stylesheet" href="studio.css?v=1">
+<link rel="icon" href="../assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
+</head>
+<body class="bf-page">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+
+<section class="bf-hero">
+  <div class="bf-hero-inner">
+    <div class="eyebrow">PuckGold Labs · Brand Factory</div>
+    <h1>BATCH BANNERS.<br><span>FULL BRAND KITS.</span></h1>
+    <p class="lede">Amazon/Target-style promo walls + Cirrus-style early supporter banners + MonkeDAO-style kits. Switch brand → generate → download PNG batches. SOL / Dynamic / Whop later.</p>
+    <div class="bf-brand-switch" id="brandSwitch" role="tablist" aria-label="Brand"></div>
+  </div>
+</section>
+
+<nav class="bf-tabs" id="bfTabs">
+  <button type="button" class="is-on" data-panel="kit">Brand kit</button>
+  <button type="button" data-panel="promo">Promo batch</button>
+  <button type="button" data-panel="fan">Fan / supporter</button>
+  <button type="button" data-panel="refs">Refs</button>
+</nav>
+
+<main class="bf-wrap">
+  <!-- KIT -->
+  <section class="bf-panel is-on" id="panel-kit">
+    <header class="bf-sec-head">
+      <h2 id="kitTitle">Brand kit</h2>
+      <p id="kitSub">Logos, colors, type, assets — newsroom / MonkeDAO layout.</p>
+    </header>
+
+    <div class="bf-kit-grid">
+      <article class="bf-card">
+        <h3>1. Full logo</h3>
+        <p class="hint">Stacked + horizontal. Auto-mark until you drop finals.</p>
+        <div class="bf-logo-stage" id="logoStacked"></div>
+        <div class="bf-logo-stage wide" id="logoHorizontal"></div>
+        <button type="button" class="bf-btn" data-dl="logo">Download logo PNG</button>
+      </article>
+      <article class="bf-card">
+        <h3>2. Logo icon</h3>
+        <p class="hint">Fill for dark · outline for light.</p>
+        <div class="bf-icon-row">
+          <div class="bf-logo-stage dark" id="logoIconFill"></div>
+          <div class="bf-logo-stage light" id="logoIconOutline"></div>
+        </div>
+      </article>
+      <article class="bf-card span2">
+        <h3>Colors</h3>
+        <p class="hint">Primary building blocks + promo tile trio (Amazon wall energy).</p>
+        <div class="bf-swatches" id="swatches"></div>
+      </article>
+      <article class="bf-card">
+        <h3>Typography</h3>
+        <p class="hint" id="typeHint">Display + body.</p>
+        <div class="bf-type" id="typeSample">
+          <div class="disp">THE QUICK BROWN FOX</div>
+          <div class="body">Consistent type keeps the brand loud and legible on Twitter, email, and billboards.</div>
+        </div>
+      </article>
+      <article class="bf-card">
+        <h3>Voice</h3>
+        <ul class="bf-voice" id="voiceList"></ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- PROMO -->
+  <section class="bf-panel" id="panel-promo">
+    <header class="bf-sec-head">
+      <h2>Promo / email / social batch</h2>
+      <p>Uber · Amazon · Target deal-wall templates. Solid color tiles + bold sans + pill CTAs. Batch export for Twitter / email / billboard ratios.</p>
+    </header>
+    <div class="bf-controls">
+      <label>Size
+        <select id="promoSize">
+          <option value="1200x628">Twitter / X 1200×628</option>
+          <option value="1080x1080">Square 1080×1080</option>
+          <option value="1080x1920">Story 1080×1920</option>
+          <option value="1600x400">Email hero 1600×400</option>
+          <option value="1920x600">Billboard-ish 1920×600</option>
+        </select>
+      </label>
+      <label>Template
+        <select id="promoTpl">
+          <option value="hero">Last-call hero</option>
+          <option value="primebar">Join / sign-up bar</option>
+          <option value="pricetiles">Under $X tiles</option>
+          <option value="cattiles">Category deal tiles</option>
+          <option value="premium">Premium brands strip</option>
+        </select>
+      </label>
+      <label>Count
+        <input id="promoCount" type="number" min="1" max="48" value="6">
+      </label>
+      <label class="grow">Custom headlines <span>(one per line — optional)</span>
+        <textarea id="promoLines" rows="3" placeholder="Leave blank to use brand pack headlines"></textarea>
+      </label>
+      <div class="bf-actions">
+        <button type="button" class="bf-btn" id="promoGen">Generate batch</button>
+        <button type="button" class="bf-btn ghost" id="promoDlAll">Download all PNGs</button>
+      </div>
+    </div>
+    <div class="bf-gallery" id="promoGallery"></div>
+  </section>
+
+  <!-- FAN -->
+  <section class="bf-panel" id="panel-fan">
+    <header class="bf-sec-head">
+      <h2>Early fan / supporter banners</h2>
+      <p>Cirrus-style: framed avatar · @handle · “Now on …” CTA. Paste a list of handles to mint a batch for early players and supporters.</p>
+    </header>
+    <div class="bf-controls">
+      <label>Avatar emoji
+        <input id="fanEmoji" type="text" maxlength="4" value="🏒">
+      </label>
+      <label>Or avatar image URL
+        <input id="fanImg" type="url" placeholder="https://… optional">
+      </label>
+      <label class="grow">Handles <span>(one per line — with or without @)</span>
+        <textarea id="fanHandles" rows="5" placeholder="@Cirrus&#10;@GoldRushGus&#10;earlyfan01"></textarea>
+      </label>
+      <label>CTA line
+        <input id="fanCta" type="text" placeholder="Now on …">
+      </label>
+      <label>Size
+        <select id="fanSize">
+          <option value="1080x1080">Square 1080×1080</option>
+          <option value="1500x500">Twitter banner 1500×500</option>
+          <option value="1080x1920">Story 1080×1920</option>
+        </select>
+      </label>
+      <div class="bf-actions">
+        <button type="button" class="bf-btn" id="fanGen">Generate fan batch</button>
+        <button type="button" class="bf-btn ghost" id="fanDlAll">Download all PNGs</button>
+      </div>
+    </div>
+    <div class="bf-gallery" id="fanGallery"></div>
+  </section>
+
+  <!-- REFS -->
+  <section class="bf-panel" id="panel-refs">
+    <header class="bf-sec-head">
+      <h2>Reference wall</h2>
+      <p>Style targets — not competitor plugs in product copy. Templates borrow the <em>layout system</em> (color blocks, pill CTAs, framed avatars).</p>
+    </header>
+    <div class="bf-refs">
+      <figure>
+        <img src="refs/amazon-promo-ref.png" alt="Promo deal-wall reference">
+        <figcaption>Promo / email deal wall — color tiles + urgency + pill CTA</figcaption>
+      </figure>
+      <figure>
+        <img src="refs/cirrus-fan-banner-ref.png" alt="Fan supporter banner reference">
+        <figcaption>Early supporter banner — framed avatar + @handle + platform CTA</figcaption>
+      </figure>
+    </div>
+    <p class="bf-note">MonkeDAO-style kit structure: Full logo (stacked/horizontal) · Icon fill/outline · Colors + tints · Type · Mascot · Banners/wallpapers. Drop finals into <code>brand-factory/assets/{brand}/</code> when ready.</p>
+  </section>
+</main>
+
+<div class="bf-toast" id="bfToast" role="status"></div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="../assets/js/i18n.js?v=1"></script>
+<script src="../assets/js/site.js?v=65"></script>
+<script src="../assets/js/support-widget.js?v=12"></script>
+<script src="studio.js?v=1"></script>
+</body>
+</html>

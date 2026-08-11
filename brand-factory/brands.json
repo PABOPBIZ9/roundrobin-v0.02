@@ -1,0 +1,130 @@
+{
+  "pgb": {
+    "id": "pgb",
+    "name": "PuckGoldBiz",
+    "domain": "puckgoldbiz.com",
+    "tagline": "Fans first. Founding Four era.",
+    "mascot": "Pucky 13",
+    "fonts": {
+      "display": "Bricolage Grotesque",
+      "body": "DM Sans"
+    },
+    "colors": {
+      "primary": "#0b1f4a",
+      "secondary": "#163a74",
+      "accent": "#f0d78c",
+      "accent2": "#d4af37",
+      "ink": "#eef3fa",
+      "mute": "#8b93a3",
+      "bg": "#061428",
+      "tileA": "#c23b4a",
+      "tileB": "#0071dc",
+      "tileC": "#ffd814"
+    },
+    "promoHeadlines": [
+      "Last call for OG Pass",
+      "Deals end tonight!",
+      "Farm XP · 5× with OG",
+      "Founding Four lift-off",
+      "Join the farm"
+    ],
+    "cta": "Claim $36 OG",
+    "fanCta": "Now on PuckGoldBiz"
+  },
+  "pumpslut": {
+    "id": "pumpslut",
+    "name": "PUMPSLUT",
+    "domain": "pumpslut.com",
+    "tagline": "Chaotic pump energy. No soft launches.",
+    "mascot": "Slutty Pump Pill",
+    "fonts": {
+      "display": "Bricolage Grotesque",
+      "body": "Space Grotesk"
+    },
+    "colors": {
+      "primary": "#0a0a0a",
+      "secondary": "#1a0010",
+      "accent": "#ff2d6a",
+      "accent2": "#39ff14",
+      "ink": "#ffffff",
+      "mute": "#c9a0b0",
+      "bg": "#050505",
+      "tileA": "#ff2d6a",
+      "tileB": "#7c3aed",
+      "tileC": "#39ff14"
+    },
+    "promoHeadlines": [
+      "Last call for the pump",
+      "Bags end tonight!",
+      "Premium degens from $20",
+      "Shop big pumps by vibe",
+      "Top 100+ slutty drops"
+    ],
+    "cta": "Pump now",
+    "fanCta": "Now on Pump.fun"
+  },
+  "badmonz": {
+    "id": "badmonz",
+    "name": "BADMONZ",
+    "domain": "badmonz.com",
+    "tagline": "Street monke energy. Bad on purpose.",
+    "mascot": "Bad Monke",
+    "fonts": {
+      "display": "Space Grotesk",
+      "body": "DM Sans"
+    },
+    "colors": {
+      "primary": "#184623",
+      "secondary": "#0d2818",
+      "accent": "#ffc919",
+      "accent2": "#4a8f5d",
+      "ink": "#f3efcd",
+      "mute": "#86c994",
+      "bg": "#0a160e",
+      "tileA": "#184623",
+      "tileB": "#0033a1",
+      "tileC": "#ffc919"
+    },
+    "promoHeadlines": [
+      "Last call for Bad Monz",
+      "Jungle deals end tonight!",
+      "Premium monz from $20",
+      "Shop big deals by troop",
+      "Top 100+ bad drops"
+    ],
+    "cta": "Go bad",
+    "fanCta": "Now on BadMonz"
+  },
+  "bombpopz": {
+    "id": "bombpopz",
+    "name": "BOMBPOPZ",
+    "domain": "bombpopz.com",
+    "tagline": "Freeze the timeline. Red · white · blue sugar.",
+    "mascot": "Bomb Popz Stick",
+    "fonts": {
+      "display": "Bricolage Grotesque",
+      "body": "DM Sans"
+    },
+    "colors": {
+      "primary": "#e10600",
+      "secondary": "#0033a1",
+      "accent": "#ffffff",
+      "accent2": "#ffc919",
+      "ink": "#ffffff",
+      "mute": "#f3efcd",
+      "bg": "#0b1220",
+      "tileA": "#e10600",
+      "tileB": "#0033a1",
+      "tileC": "#ffc919"
+    },
+    "promoHeadlines": [
+      "Last call for freezer deals",
+      "Pops melt tonight!",
+      "Premium pops from $3",
+      "Shop big deals by flavor",
+      "Top 100+ summer favorites"
+    ],
+    "cta": "Grab a pop",
+    "fanCta": "Now on BombPopz"
+  }
+}
