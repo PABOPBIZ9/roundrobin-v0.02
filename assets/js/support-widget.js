@@ -70,13 +70,13 @@
     {
       id: "listen",
       re: /listen|podcast|booth|jack jet|miracle game audio|broadcast/,
-      msg: "Listen has the Voice Roster (Pucky + Lexi + Nova + captains), Miracle Booth pack, Backstory, and Gold on 1 — finish tracks for Expansion XP.",
+      msg: "Listen has Voice Roster, Founding Four player bites, Miracle Booth, Backstory, and Gold on 1 — finish tracks for Expansion XP.",
       links: [
+        { href: "listen.html?show=founding-four-player-bites", label: "36 player bites" },
         { href: "listen.html?show=voice-roster-showcase", label: "Voice Roster + Pucky" },
         { href: "listen.html?show=booth-sample-pack", label: "Booth Sample Pack" },
-        { href: "listen.html", label: "Open Listen" },
       ],
-      follow: "Roster showcase or Miracle booth?",
+      follow: "Player bites or Miracle booth?",
     },
     {
       id: "pass",
@@ -320,6 +320,18 @@
   const PUCKY_VOICE_CLIPS = {
     greet: "assets/vault/content/broadcast/voice-roster-showcase/00_pucky.wav",
     close: "assets/vault/content/broadcast/voice-roster-showcase/15_pucky.wav",
+    pass: "assets/vault/content/broadcast/pucky-intent-pack/00_pucky.wav",
+    aura: "assets/vault/content/broadcast/pucky-intent-pack/01_pucky.wav",
+    clip: "assets/vault/content/broadcast/pucky-intent-pack/02_pucky.wav",
+    listen: "assets/vault/content/broadcast/pucky-intent-pack/03_pucky.wav",
+    weekend: "assets/vault/content/broadcast/pucky-intent-pack/04_pucky.wav",
+  };
+  const PUCKY_INTENT_CLIP = {
+    pass: "pass",
+    aura: "aura",
+    clip: "clip",
+    listen: "listen",
+    weekend: "weekend",
   };
   let puckyAudio = null;
 
@@ -661,7 +673,8 @@
         if (intent) lastIntent = intent;
         addBubble(msg, "bot", links);
         setStatus(speakOn ? "Speaking…" : "Online · talks & listens");
-        speakText(msg);
+        const clipKey = intent ? PUCKY_INTENT_CLIP[intent.id] : null;
+        if (!clipKey || !speakPuckyClip(clipKey)) speakText(msg);
         if (speakOn) {
           const done = () => setStatus("Online · talks & listens");
           setTimeout(done, Math.min(12000, msg.length * 55));

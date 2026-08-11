@@ -1,0 +1,27 @@
+{
+  "show": "Pucky Intent Pack",
+  "slug": "pucky-intent-pack",
+  "drop_to": "assets/vault/content/broadcast/pucky-intent-pack/",
+  "lines": [
+    {
+      "voice": "pucky",
+      "text": "Heeey bestie \u2014 thirty-six dollar O-G Offer locks your gold puck and five-X XP. Tap checkout\u2026 heh heh\u2026 don't keep the village waiting!"
+    },
+    {
+      "voice": "pucky",
+      "text": "Aura Vote is live \u2014 flip the vibe, farm the XP, make the Reef pink\u2026 heh heh!"
+    },
+    {
+      "voice": "pucky",
+      "text": "Clip Crown time \u2014 drop your best highlight and chase that crown\u2026 heh heh\u2026 I believe in your chaos!"
+    },
+    {
+      "voice": "pucky",
+      "text": "Open Listen \u2014 booth, podcasts, and player bites. Finish tracks for XP\u2026 heh heh!"
+    },
+    {
+      "voice": "pucky",
+      "text": "Expansion Weekend is ticking \u2014 Aura, Clip, Listen, then the O-G Pass. Move those thumbs\u2026 heh heh!"
+    }
+  ]
+}
