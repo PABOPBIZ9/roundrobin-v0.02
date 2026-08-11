@@ -1,0 +1,26 @@
+{
+  "show": "Founding Four · Arena Pack",
+  "slug": "founding-four-arena-pack",
+  "drop_to": "assets/vault/content/broadcast/founding-four-arena-pack/",
+  "lines": [
+    {"voice": "arena-pa", "text": "Ladies and gentlemen — your Miami Mighty Geckz!"},
+    {"voice": "jack-jet-morrison", "text": "Geckz score! Kai Sandoval lights the lamp at Neon Reef Stadium!"},
+    {"voice": "arena-pa", "text": "Goal! Miami Mighty Geckz!"},
+    {"voice": "arena-pa", "text": "Final from Neon Reef — Miami Mighty Geckz win!"},
+
+    {"voice": "arena-pa", "text": "Now entering the ice — your McLean Cardinals!"},
+    {"voice": "jack-jet-morrison", "text": "Cardinals score! Nathaniel Cross buries it at Cardinal Perch Gardens!"},
+    {"voice": "arena-pa", "text": "Goal! McLean Cardinals!"},
+    {"voice": "arena-pa", "text": "Final from the Perch — McLean Cardinals win!"},
+
+    {"voice": "arena-pa", "text": "Capital city, make some noise — your Washington Whoomp!"},
+    {"voice": "jack-jet-morrison", "text": "Whoomp score! Marcus Doyle finishes at the District Dome!"},
+    {"voice": "arena-pa", "text": "Goal! Washington Whoomp!"},
+    {"voice": "arena-pa", "text": "Final from the Dome — Washington Whoomp win!"},
+
+    {"voice": "arena-pa", "text": "All aboard — your Chattanooga Choo Choo!"},
+    {"voice": "jack-jet-morrison", "text": "Choo Choo score! Wyatt Combs puts one home at Terminal Arena!"},
+    {"voice": "arena-pa", "text": "Goal! Chattanooga Choo Choo!"},
+    {"voice": "arena-pa", "text": "Final from the Terminal — Chattanooga Choo Choo win!"}
+  ]
+}

@@ -134,6 +134,17 @@
       follow: "Kit Studio, a team locker, or editions?",
     },
     {
+      id: "teams",
+      re: /team audio|goal horn|goal call|walkout|arena pack|stadium sound|geckz|cardinals|whoomp|choo ?choo/,
+      msg: "Founding Four arena packs are live — walkouts, goal calls, PA blasts, and win outros on every team page plus Listen.",
+      links: [
+        { href: "listen.html?show=founding-four-arena-pack", label: "Arena Pack on Listen" },
+        { href: "team.html?team=miami-mighty-geckz#audio", label: "Geckz stadium sound" },
+        { href: "teams.html", label: "All teams" },
+      ],
+      follow: "Listen pack or a team vault?",
+    },
+    {
       id: "retro",
       re: /retro|throwback|nhl.?94|sixteen.?bit|16.?bit|pixel|shimmer/,
       msg: "PGB Retro League is our nineteen ninety-four throwback — shimmer logo, championship crests, Game Zone energy.",

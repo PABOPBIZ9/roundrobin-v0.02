@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Team — PuckGold</title>
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=58">
-<link rel="stylesheet" href="assets/css/teams.css?v=2">
+<link rel="stylesheet" href="assets/css/site.css?v=61">
+<link rel="stylesheet" href="assets/css/teams.css?v=3">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <style>
   .vault-grid{display:grid;gap:.75rem;grid-template-columns:1fr}
@@ -39,8 +39,10 @@
     background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
     border-radius:10px;padding:.75rem .85rem;
   }
-  .booth-item b{display:block;font-size:.9rem;margin-bottom:.2rem}
+  .booth-item b{display:block;font-size:.9rem;margin-bottom:.35rem}
   .booth-item span{font-size:.78rem;color:rgba(255,255,255,.65)}
+  .booth-item audio{width:100%;margin-top:.35rem;border-radius:8px}
+  .booth-item .miss{font-size:.72rem;color:rgba(255,255,255,.45);margin-top:.3rem}
   .map-note{
     margin:0 4vw 2.5rem;max-width:1200px;margin-left:auto;margin-right:auto;
     background:#fff;border:1px solid rgba(18,24,38,.08);border-radius:14px;padding:1.2rem 1.3rem;
@@ -55,8 +57,8 @@
 <div id="teamRoot"></div>
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=58"></script>
-<script src="assets/js/support-widget.js?v=9"></script>
+<script src="assets/js/site.js?v=61"></script>
+<script src="assets/js/support-widget.js?v=10"></script>
 <script src="assets/js/cart.js?v=8"></script>
 <script src="assets/js/teams-data.js?v=2"></script>
 <script>
@@ -135,20 +137,21 @@
       <h2>Stadium sound</h2>
       <div class="audio-box">
         <div>
-          <div class="tag" style="color:#f0d78c">Goal horn</div>
-          <h3 style="font-family:var(--display);font-size:1.8rem;letter-spacing:.04em;margin:.35rem 0 .6rem">${team.name} goal horn</h3>
-          <p style="color:rgba(255,255,255,.75);margin-bottom:1rem">Tap to blast the arena horn — live on mobile and desktop when <code>09-Audio/goal-horn/main.mp3</code> is dropped.</p>
-          <button type="button" class="horn-btn" id="hornBtn">Play goal horn</button>
-          <p id="hornNote" style="margin-top:.7rem;font-size:.78rem;color:rgba(255,255,255,.55)">Looking for ${team.folder}09-Audio/goal-horn/main.mp3</p>
+          <div class="tag" style="color:#f0d78c">Goal blast</div>
+          <h3 style="font-family:var(--display);font-size:1.8rem;letter-spacing:.04em;margin:.35rem 0 .6rem">${team.name} goal call</h3>
+          <p style="color:rgba(255,255,255,.75);margin-bottom:1rem">Chatterbox PA / booth drops live in the team vault — tap to blast. Swap in a real horn WAV anytime.</p>
+          <button type="button" class="horn-btn" id="hornBtn">Play goal blast</button>
+          <p id="hornNote" style="margin-top:.7rem;font-size:.78rem;color:rgba(255,255,255,.55)">Loading stadium audio…</p>
+          <p style="margin-top:.85rem"><a href="listen.html?show=founding-four-arena-pack" style="color:#f0d78c;font-weight:800;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:underline;text-underline-offset:3px">All Founding Four arena packs ›</a></p>
         </div>
         <div>
           <div class="tag" style="color:#f0d78c">From the booth</div>
           <h3 style="margin:.35rem 0 .55rem">${team.name} · Booth</h3>
           <p style="color:rgba(255,255,255,.75);font-size:.9rem;margin-bottom:.8rem">${team.booth}</p>
           <div class="booth-list">
-            <div class="booth-item"><b>Walkout intro</b><span>Audio drops soon — Voicebox / Chatterbox</span></div>
-            <div class="booth-item"><b>Goal call</b><span>Audio drops soon — Voicebox / Chatterbox</span></div>
-            <div class="booth-item"><b>Win outro</b><span>Audio drops soon — Voicebox / Chatterbox</span></div>
+            <div class="booth-item"><b>Walkout intro</b><audio id="audWalkout" controls preload="metadata"></audio><div class="miss" id="missWalkout" hidden>Drop soon</div></div>
+            <div class="booth-item"><b>Goal call</b><audio id="audGoal" controls preload="metadata"></audio><div class="miss" id="missGoal" hidden>Drop soon</div></div>
+            <div class="booth-item"><b>Win outro</b><audio id="audWin" controls preload="metadata"></audio><div class="miss" id="missWin" hidden>Drop soon</div></div>
           </div>
         </div>
       </div>
@@ -219,20 +222,62 @@
     </div>
   `;
 
+  const base = team.folder + "09-Audio/";
+  const clips = {
+    horn: [base + "goal-horn/main.wav", base + "goal-horn/main.mp3", base + "goal-call/main.wav"],
+    walkout: [base + "walkout-intro/main.wav", base + "walkout-intro/main.mp3"],
+    goal: [base + "goal-call/main.wav", base + "goal-call/main.mp3"],
+    win: [base + "win-outro/main.wav", base + "win-outro/main.mp3"],
+  };
+
+  function bindAudio(el, missEl, candidates) {
+    if (!el) return;
+    let i = 0;
+    const tryNext = () => {
+      if (i >= candidates.length) {
+        el.removeAttribute("src");
+        el.style.display = "none";
+        if (missEl) {
+          missEl.hidden = false;
+          missEl.textContent = "Drop WAV into team 09-Audio folder";
+        }
+        return;
+      }
+      el.src = candidates[i++];
+    };
+    el.addEventListener("error", tryNext);
+    tryNext();
+  }
+
+  bindAudio(document.getElementById("audWalkout"), document.getElementById("missWalkout"), clips.walkout);
+  bindAudio(document.getElementById("audGoal"), document.getElementById("missGoal"), clips.goal);
+  bindAudio(document.getElementById("audWin"), document.getElementById("missWin"), clips.win);
+
   const hornBtn = document.getElementById("hornBtn");
   const hornNote = document.getElementById("hornNote");
-  const hornSrc = team.folder + "09-Audio/goal-horn/main.mp3";
+  let hornIdx = 0;
   let audio;
-  hornBtn?.addEventListener("click", async () => {
+  async function playHorn() {
+    const src = clips.horn[hornIdx];
+    if (!src) {
+      if (hornNote) hornNote.textContent = "Drop main.wav into 09-Audio/goal-horn/ or goal-call/";
+      return;
+    }
     try {
-      if (!audio) audio = new Audio(hornSrc);
+      audio = new Audio(src);
       audio.currentTime = 0;
       await audio.play();
-      if (hornNote) hornNote.textContent = "Horn blasting 🏒";
+      if (hornNote) hornNote.textContent = "Goal blast live";
     } catch (_) {
-      if (hornNote) hornNote.textContent = "Drop main.mp3 into 09-Audio/goal-horn/ then tap again.";
+      hornIdx += 1;
+      playHorn();
     }
+  }
+  hornBtn?.addEventListener("click", () => {
+    hornIdx = 0;
+    playHorn();
   });
+  if (hornNote) hornNote.textContent = "Tap for PA goal blast · real horn WAV optional";
 })();
 </script>
 </body>

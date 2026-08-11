@@ -1,6 +1,95 @@
 /** PuckGold Chatterbox show playlists — Season One */
 window.PGB_BROADCAST_SHOWS = [
   {
+    "id": "founding-four-arena-pack",
+    "title": "Founding Four \u00b7 Arena Pack",
+    "show": "PGB Stadium Network",
+    "blurb": "Walkouts, goal calls, PA blasts, and win outros for all four Founding clubs.",
+    "color": "linear-gradient(145deg,#0b1220,#163a74)",
+    "tracks": [
+      {
+        "src": "assets/vault/content/broadcast/founding-four-arena-pack/00_arena-pa.wav",
+        "label": "MIA \u00b7 Walkout",
+        "voice": "Arena PA"
+      },
+      {
+        "src": "assets/vault/content/broadcast/founding-four-arena-pack/01_jack-jet-morrison.wav",
+        "label": "MIA \u00b7 Goal call",
+        "voice": "Jack Jet"
+      },
+      {
+        "src": "assets/vault/content/broadcast/founding-four-arena-pack/02_arena-pa.wav",
+        "label": "MIA \u00b7 Goal blast",
+        "voice": "Arena PA"
+      },
+      {
+        "src": "assets/vault/content/broadcast/founding-four-arena-pack/03_arena-pa.wav",
+        "label": "MIA \u00b7 Win outro",
+        "voice": "Arena PA"
+      },
+      {
+        "src": "assets/vault/content/broadcast/founding-four-arena-pack/04_arena-pa.wav",
+        "label": "MCL \u00b7 Walkout",
+        "voice": "Arena PA"
+      },
+      {
+        "src": "assets/vault/content/broadcast/founding-four-arena-pack/05_jack-jet-morrison.wav",
+        "label": "MCL \u00b7 Goal call",
+        "voice": "Jack Jet"
+      },
+      {
+        "src": "assets/vault/content/broadcast/founding-four-arena-pack/06_arena-pa.wav",
+        "label": "MCL \u00b7 Goal blast",
+        "voice": "Arena PA"
+      },
+      {
+        "src": "assets/vault/content/broadcast/founding-four-arena-pack/07_arena-pa.wav",
+        "label": "MCL \u00b7 Win outro",
+        "voice": "Arena PA"
+      },
+      {
+        "src": "assets/vault/content/broadcast/founding-four-arena-pack/08_arena-pa.wav",
+        "label": "WAS \u00b7 Walkout",
+        "voice": "Arena PA"
+      },
+      {
+        "src": "assets/vault/content/broadcast/founding-four-arena-pack/09_jack-jet-morrison.wav",
+        "label": "WAS \u00b7 Goal call",
+        "voice": "Jack Jet"
+      },
+      {
+        "src": "assets/vault/content/broadcast/founding-four-arena-pack/10_arena-pa.wav",
+        "label": "WAS \u00b7 Goal blast",
+        "voice": "Arena PA"
+      },
+      {
+        "src": "assets/vault/content/broadcast/founding-four-arena-pack/11_arena-pa.wav",
+        "label": "WAS \u00b7 Win outro",
+        "voice": "Arena PA"
+      },
+      {
+        "src": "assets/vault/content/broadcast/founding-four-arena-pack/12_arena-pa.wav",
+        "label": "CHA \u00b7 Walkout",
+        "voice": "Arena PA"
+      },
+      {
+        "src": "assets/vault/content/broadcast/founding-four-arena-pack/13_jack-jet-morrison.wav",
+        "label": "CHA \u00b7 Goal call",
+        "voice": "Jack Jet"
+      },
+      {
+        "src": "assets/vault/content/broadcast/founding-four-arena-pack/14_arena-pa.wav",
+        "label": "CHA \u00b7 Goal blast",
+        "voice": "Arena PA"
+      },
+      {
+        "src": "assets/vault/content/broadcast/founding-four-arena-pack/15_arena-pa.wav",
+        "label": "CHA \u00b7 Win outro",
+        "voice": "Arena PA"
+      }
+    ]
+  },
+  {
     "id": "founding-four-player-bites",
     "title": "Founding Four \u00b7 Player Voice Bites",
     "show": "PGB Voice Studio",
