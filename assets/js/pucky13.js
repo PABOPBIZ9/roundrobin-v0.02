@@ -495,29 +495,62 @@
     const addr = window.PGBPucky?.solAddress?.() || "";
     const box = document.getElementById("pk13SolAddr");
     const meta = document.getElementById("pk13SolMeta");
+    const qrWrap = document.getElementById("pk13SolQrWrap");
+    const qr = document.getElementById("pk13SolQr");
+    const fallback = document.getElementById("pk13SolFallback");
+    const setForm = document.getElementById("pk13SolSetForm");
+    const published = !!(window.PGB_PUCKY_SOL_ADDRESS && String(window.PGB_PUCKY_SOL_ADDRESS).trim());
+
     if (box) {
-      box.textContent = addr || "Set tip wallet with ?setSol=YOUR_SOLANA_ADDRESS (saved on this browser)";
+      box.textContent = addr || "No tip wallet set yet";
       box.dataset.addr = addr;
+      box.classList.toggle("is-empty", !addr);
     }
     if (meta) {
-      meta.textContent = `Daily reading ≈ ${window.PGBPucky?.dailySol ?? 0.035} SOL · Lucky tip ≈ ${window.PGBPucky?.tip13Sol ?? 0.13} SOL · or pay USD in bag`;
+      meta.textContent = addr
+        ? `Daily ≈ ${window.PGBPucky?.dailySol ?? 0.035} SOL · Lucky tip ≈ ${window.PGBPucky?.tip13Sol ?? 0.13} SOL · $350 runway ≈ ${window.PGBPucky?.tip350Sol ?? 3.5} SOL · or pay USD in bag`
+        : "Paste a Solana address below, or tip in USD from services / wish list.";
     }
+    if (qrWrap && qr) {
+      if (addr) {
+        const pay = window.PGBPucky.solPayUri?.(0.13) || addr;
+        qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=168x168&margin=8&data=${encodeURIComponent(pay)}`;
+        qrWrap.hidden = false;
+      } else {
+        qrWrap.hidden = true;
+      }
+    }
+    if (fallback) fallback.hidden = !!addr;
+    if (setForm) setForm.hidden = published;
   }
 
   async function copySol(amountSol) {
     const addr = window.PGBPucky?.solAddress?.() || "";
     if (!addr) {
-      toast("Set SOL address first: pucky13.html?setSol=YourAddress");
+      toast("Set SOL address first — paste below or use USD tip");
+      document.getElementById("sol")?.scrollIntoView({ behavior: "smooth" });
       return;
     }
-    const text = amountSol ? `${amountSol} SOL → ${addr}` : addr;
     try {
-      await navigator.clipboard.writeText(amountSol ? addr : addr);
+      await navigator.clipboard.writeText(addr);
       toast(amountSol ? `Address copied — send ${amountSol} SOL` : "SOL address copied");
-      recordTip(amountSol === 0.13 ? 13 : amountSol === 0.035 ? 3.5 : 0);
+      if (amountSol) recordTip(amountSol === 0.13 ? 13 : amountSol === 0.035 ? 3.5 : amountSol === 3.5 ? 350 : 0);
     } catch (_) {
-      toast(text);
+      toast(addr);
     }
+  }
+
+  function openPhantom(amountSol) {
+    const addr = window.PGBPucky?.solAddress?.() || "";
+    if (!addr) {
+      toast("Set SOL address first — paste below or use USD tip");
+      return;
+    }
+    const deep = window.PGBPucky.phantomBrowseUri?.(amountSol) || window.PGBPucky.solPayUri?.(amountSol);
+    if (!deep) return;
+    window.location.href = deep;
+    if (amountSol) recordTip(amountSol === 0.13 ? 13 : amountSol === 0.035 ? 3.5 : amountSol === 3.5 ? 350 : 0);
+    toast(amountSol ? `Opening Phantom · ${amountSol} SOL` : "Opening Phantom");
   }
 
   function mount() {
@@ -628,6 +661,38 @@
       btn.addEventListener("click", () => addWish(btn));
     });
     document.getElementById("pk13CopySol")?.addEventListener("click", () => copySol());
+    document.getElementById("pk13OpenPhantom")?.addEventListener("click", () => openPhantom(0.13));
+    document.querySelectorAll("[data-pk-sol-amt]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const amt = Number(btn.getAttribute("data-pk-sol-amt"));
+        copySol(amt);
+        openPhantom(amt);
+      });
+    });
+    document.getElementById("pk13SolCustom")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const input = e.target.querySelector('input[type="number"]');
+      const amt = Number(input?.value);
+      if (!Number.isFinite(amt) || amt <= 0) {
+        toast("Enter a SOL amount");
+        return;
+      }
+      openPhantom(amt);
+    });
+    document.getElementById("pk13SolSetForm")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const raw = document.getElementById("pk13SolSetInput")?.value?.trim() || "";
+      if (!/^[1-9A-HJ-NP-Za-km-z]{32,48}$/.test(raw)) {
+        toast("That doesn't look like a Solana address");
+        return;
+      }
+      try {
+        localStorage.setItem("pgb-pucky-sol-address", raw);
+      } catch (_) {}
+      renderSol();
+      toast("Tip wallet saved on this device");
+    });
+    // legacy ids (safe no-ops if removed)
     document.getElementById("pk13CopySolDaily")?.addEventListener("click", () => copySol(0.035));
     document.getElementById("pk13CopySol13")?.addEventListener("click", () => copySol(0.13));
 

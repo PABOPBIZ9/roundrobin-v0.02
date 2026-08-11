@@ -7,7 +7,7 @@
 <meta name="description" content="Meet Pucky 13 — vigilante Swiftie oracle. Free daily jokes & star vibes, chat advice, tip jar, and premium astrology reports.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
 <link rel="stylesheet" href="assets/css/site.css?v=63">
-<link rel="stylesheet" href="assets/css/pucky13.css?v=6">
+<link rel="stylesheet" href="assets/css/pucky13.css?v=7">
 <link rel="icon" href="assets/brand/pucky/pucky-13.png" type="image/png">
 </head>
 <body class="pk13-page">
@@ -496,15 +496,36 @@
 
   <section class="pk13-panel" id="sol">
     <h2>SOL tip rail</h2>
-    <p class="sub">Copy-ready Solana address. Set once with <code>?setSol=YourAddress</code> — saved on this browser.</p>
+    <p class="sub">Send SOL direct to Pucky — copy address, scan QR, or open Phantom. USD bag still works anytime.</p>
     <div class="pk13-sol">
-      <div class="pk13-sol-addr" id="pk13SolAddr" data-addr="">Set tip wallet with ?setSol=YOUR_SOLANA_ADDRESS</div>
-      <p class="pk13-sol-meta" id="pk13SolMeta">Daily reading ≈ 0.035 SOL · Lucky tip ≈ 0.13 SOL · or pay USD in bag</p>
-      <div class="pk13-sol-actions">
-        <button type="button" id="pk13CopySol">Copy address</button>
-        <button type="button" id="pk13CopySolDaily">Copy · 0.035 SOL daily</button>
-        <button type="button" id="pk13CopySol13">Copy · 0.13 SOL tip</button>
+      <div class="pk13-sol-grid">
+        <div>
+          <div class="pk13-sol-addr" id="pk13SolAddr" data-addr="">Loading tip wallet…</div>
+          <p class="pk13-sol-meta" id="pk13SolMeta">Daily ≈ 0.035 SOL · Lucky 13 ≈ 0.13 SOL · $350 runway ≈ 3.5 SOL · or pay USD in bag</p>
+          <div class="pk13-sol-actions">
+            <button type="button" id="pk13CopySol">Copy address</button>
+            <button type="button" id="pk13OpenPhantom" class="pk13-sol-phantom">Open Phantom</button>
+          </div>
+          <div class="pk13-sol-actions">
+            <button type="button" data-pk-sol-amt="0.035">0.035 SOL · daily</button>
+            <button type="button" data-pk-sol-amt="0.13">0.13 SOL · lucky</button>
+            <button type="button" data-pk-sol-amt="3.5">3.5 SOL · $350</button>
+          </div>
+          <form class="pk13-custom-tip pk13-custom-tip--inline" id="pk13SolCustom">
+            <input type="number" min="0.001" step="0.001" inputmode="decimal" placeholder="Custom SOL" aria-label="Custom SOL amount" required>
+            <button type="submit">Phantom · custom</button>
+          </form>
+        </div>
+        <div class="pk13-sol-qr-wrap" id="pk13SolQrWrap" hidden>
+          <img id="pk13SolQr" alt="SOL tip QR" width="168" height="168">
+          <span>Scan with Phantom</span>
+        </div>
       </div>
+      <form class="pk13-sol-set" id="pk13SolSetForm" hidden>
+        <label>Set tip wallet on this device<input id="pk13SolSetInput" type="text" spellcheck="false" autocomplete="off" placeholder="Paste Solana address" required></label>
+        <button type="submit">Save wallet</button>
+      </form>
+      <p class="pk13-sol-fallback" id="pk13SolFallback" hidden>Tip wallet not published yet — use <a href="#services">USD custom tip</a> / wish list, or paste a Solana address below to unlock the rail on this browser.</p>
     </div>
   </section>
 
@@ -590,7 +611,8 @@
 <script src="assets/js/site.js?v=64"></script>
 <script src="assets/js/support-widget.js?v=12"></script>
 <script src="assets/js/cart.js?v=10"></script>
-<script src="assets/js/pucky-entitlements.js?v=2"></script>
-<script src="assets/js/pucky13.js?v=5"></script>
+<script src="assets/js/pucky-config.js?v=1"></script>
+<script src="assets/js/pucky-entitlements.js?v=3"></script>
+<script src="assets/js/pucky13.js?v=6"></script>
 </body>
 </html>

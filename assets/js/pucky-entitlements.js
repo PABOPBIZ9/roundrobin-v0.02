@@ -102,10 +102,26 @@
       }
     } catch (_) {}
     return (
-      window.PGB_PUCKY_SOL_ADDRESS ||
+      (window.PGB_PUCKY_SOL_ADDRESS && String(window.PGB_PUCKY_SOL_ADDRESS).trim()) ||
       localStorage.getItem(SOL_KEY) ||
       ""
     );
+  }
+
+  function solPayUri(amountSol) {
+    const addr = solAddress();
+    if (!addr) return "";
+    const params = new URLSearchParams();
+    if (amountSol) params.set("amount", String(amountSol));
+    params.set("label", window.PGB_PUCKY_SOL_LABEL || "Pucky 13");
+    params.set("message", window.PGB_PUCKY_SOL_MEMO || "Pucky13 tip");
+    return `solana:${addr}?${params.toString()}`;
+  }
+
+  function phantomBrowseUri(amountSol) {
+    const pay = solPayUri(amountSol);
+    if (!pay) return "";
+    return `https://phantom.app/ul/v1/browse/${encodeURIComponent(pay)}?ref=${encodeURIComponent(location.origin)}`;
   }
 
   window.PGBPucky = {
@@ -119,7 +135,10 @@
     saveIntake,
     readIntake,
     solAddress,
+    solPayUri,
+    phantomBrowseUri,
     dailySol: 0.035,
     tip13Sol: 0.13,
+    tip350Sol: 3.5,
   };
 })();
