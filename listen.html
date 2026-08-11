@@ -8,7 +8,7 @@
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
 <link rel="stylesheet" href="assets/css/site.css?v=59">
 <link rel="stylesheet" href="assets/css/nhl-league.css?v=7">
-<link rel="stylesheet" href="assets/css/listen.css?v=4">
+<link rel="stylesheet" href="assets/css/listen.css?v=5">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 </head>
 <body class="nhl-light lx-page">
@@ -45,6 +45,13 @@
       <div class="prog" id="lxProg" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="lxBar"></i></div>
     </div>
     <div class="times"><span id="lxCur">0:00</span><span id="lxDur">0:00</span></div>
+  </div>
+  <div class="lx-dl" id="lxDl" aria-label="Downloads">
+    <div class="lx-dl-head">
+      <strong>Download this show</strong>
+      <span>Audio WAVs + transcripts (JSON/MD)</span>
+    </div>
+    <div class="lx-dl-actions" id="lxDlActions"></div>
   </div>
   <div class="lx-tracks" id="lxTracks"></div>
   <p class="lx-note">
@@ -84,10 +91,11 @@
 <script src="assets/js/site.js?v=59"></script>
 <script src="assets/js/support-widget.js?v=8"></script>
 <script src="assets/js/cart.js?v=9"></script>
-<script src="assets/js/broadcast-shows.js?v=2"></script>
+<script src="assets/js/broadcast-shows.js?v=3"></script>
 <script>
 (function () {
   const shows = window.PGB_BROADCAST_SHOWS || [];
+  const packs = window.PGB_LISTEN_DOWNLOADS || {};
   const params = new URLSearchParams(location.search);
   let showIdx = Math.max(0, shows.findIndex((s) => s.id === params.get("show")));
   if (showIdx < 0) showIdx = 0;
@@ -101,6 +109,7 @@
   const dockPlay = document.getElementById("dockPlay");
   const bar = document.getElementById("lxBar");
   const dockBar = document.getElementById("dockBar");
+  const dlActions = document.getElementById("lxDlActions");
 
   function show() { return shows[showIdx]; }
   function track() { return show()?.tracks?.[trackIdx]; }
@@ -273,6 +282,27 @@
     });
   }
 
+  function paintDownloads() {
+    if (!dlActions) return;
+    const s = show();
+    const t = track();
+    const links = [];
+    if (s?.pack) {
+      links.push(`<a class="primary" href="${s.pack}" download>Show pack ZIP</a>`);
+    }
+    if (t?.src) {
+      const name = t.src.split("/").pop() || "track.wav";
+      links.push(`<a href="${t.src}" download="${name}">This track WAV</a>`);
+    }
+    if (packs.season) links.push(`<a href="${packs.season}" download>All Season One</a>`);
+    if (packs.brandKit) links.push(`<a href="${packs.brandKit}" download>Brand kit</a>`);
+    if (packs.logosOnly) links.push(`<a href="${packs.logosOnly}" download>Logos only</a>`);
+    if (packs.transcripts) links.push(`<a href="${packs.transcripts}">Transcripts desk</a>`);
+    if (packs.media) links.push(`<a href="${packs.media}">Media hub</a>`);
+    if (packs.brand) links.push(`<a href="${packs.brand}">Brand page</a>`);
+    dlActions.innerHTML = links.join("");
+  }
+
   function paintStage() {
     const s = show();
     const t = track();
@@ -291,6 +321,7 @@
     document.getElementById("dockTitle").textContent = t ? t.label : s.title;
     document.getElementById("dockSub").textContent = t ? t.voice : "Season One";
     paintDockXp();
+    paintDownloads();
   }
 
   function paintTracks() {
@@ -298,14 +329,17 @@
     tracksEl.innerHTML = s.tracks
       .map(
         (t, i) => `
-      <button type="button" class="lx-track${i === trackIdx ? " is-on" : ""}" data-i="${i}">
-        <span class="n">${String(i + 1).padStart(2, "0")}</span>
-        <span>
-          <div class="lbl">${t.label}</div>
-          <div class="voice">${t.voice}</div>
-        </span>
-        <span class="dur">WAV</span>
-      </button>`
+      <div class="lx-track-row${i === trackIdx ? " is-on" : ""}">
+        <button type="button" class="lx-track${i === trackIdx ? " is-on" : ""}" data-i="${i}">
+          <span class="n">${String(i + 1).padStart(2, "0")}</span>
+          <span>
+            <div class="lbl">${t.label}</div>
+            <div class="voice">${t.voice}</div>
+          </span>
+          <span class="dur">WAV</span>
+        </button>
+        <a class="lx-track-dl" href="${t.src}" download title="Download WAV" aria-label="Download ${t.label}">↓</a>
+      </div>`
       )
       .join("");
     tracksEl.querySelectorAll(".lx-track").forEach((btn) => {

@@ -6,6 +6,7 @@ window.PGB_BROADCAST_SHOWS = [
     show: "PGB Voice Studio",
     blurb: "Male & female announcers, captains, and Pucky — high-pitch friendly with a mischievous wink.",
     color: "linear-gradient(145deg,#8a6a1e,#163a74)",
+    pack: "assets/vault/content/downloads/voice-roster-showcase.zip",
     tracks: [
       { src: "assets/vault/content/broadcast/voice-roster-showcase/00_pucky.wav", label: "Pucky — welcome (heh heh)", voice: "Pucky" },
       { src: "assets/vault/content/broadcast/voice-roster-showcase/01_jack-jet-morrison.wav", label: "PBP — Jack Jet", voice: "Jack Jet" },
@@ -31,6 +32,7 @@ window.PGB_BROADCAST_SHOWS = [
     show: "PGB Broadcast Network",
     blurb: "Jack Jet, Chippy, Color & PA — Golden Final climax calls from the Championship Book.",
     color: "linear-gradient(145deg,#163a74,#0b1220)",
+    pack: "assets/vault/content/downloads/booth-sample-pack.zip",
     tracks: [
       { src: "assets/vault/content/broadcast/booth-sample-pack/00_jack-jet-morrison.wav", label: "PBP — Neon Reef intro", voice: "Jack Jet" },
       { src: "assets/vault/content/broadcast/booth-sample-pack/01_coach-chippy.wav", label: "Chippy — nuclear warmups", voice: "Coach Chippy" },
@@ -47,6 +49,7 @@ window.PGB_BROADCAST_SHOWS = [
     show: "PuckGold Backstory",
     blurb: "Rewind the Founding Four · tease Expansion Weekend · First 16 under the clock.",
     color: "linear-gradient(145deg,#163a74,#8a6a1e)",
+    pack: "assets/vault/content/downloads/backstory-pregame-miracle.zip",
     tracks: [
       { src: "assets/vault/content/podcasts/backstory/00_desk-host-a.wav", label: "Open", voice: "Lexi Gold" },
       { src: "assets/vault/content/podcasts/backstory/01_desk-host-b.wav", label: "Four teams walked in", voice: "Riley Vance" },
@@ -64,6 +67,7 @@ window.PGB_BROADCAST_SHOWS = [
     show: "Gold on 1",
     blurb: "Kai, Cross, Combs & Doyle after the Miracle Game — confetti still on the ice.",
     color: "linear-gradient(145deg,#d4af37,#8a6a1e)",
+    pack: "assets/vault/content/downloads/great-one-on-one-postgame-cup.zip",
     tracks: [
       { src: "assets/vault/content/podcasts/great-one-on-one/00_desk-host-a.wav", label: "Open", voice: "Lexi Gold" },
       { src: "assets/vault/content/podcasts/great-one-on-one/01_kai-sandoval.wav", label: "Kai — massive heart", voice: "Kai Sandoval" },
@@ -77,3 +81,12 @@ window.PGB_BROADCAST_SHOWS = [
     ],
   },
 ];
+
+window.PGB_LISTEN_DOWNLOADS = {
+  season: "assets/vault/content/downloads/pgb-listen-season-one.zip",
+  brandKit: "brand-kit/Downloads/PGB-Brand-Kit.zip",
+  logosOnly: "brand-kit/Downloads/PGB-Logos-Only.zip",
+  media: "media-resources.html",
+  transcripts: "transcripts.html",
+  brand: "brand.html",
+};

@@ -57,7 +57,45 @@ html:not([data-theme="light"]) .lx-page:not(.nhl-light) .lx-pick p{color:var(--m
 }
 .lx-controls .prog > i{display:block;height:100%;width:0;background:#f0d78c;pointer-events:none}
 
+.lx-dl{
+  margin:0 0 1.1rem;padding:1rem 1.05rem;border-radius:14px;
+  border:1px solid rgba(18,24,38,.1);background:#fff;
+}
+html:not([data-theme="light"]) .lx-page:not(.nhl-light) .lx-dl{
+  background:rgba(255,255,255,.04);border-color:var(--line-soft);
+}
+.lx-dl-head{display:grid;gap:.2rem;margin-bottom:.7rem}
+.lx-dl-head strong{font-size:.88rem}
+.lx-dl-head span{font-size:.72rem;color:#8a93a3}
+html:not([data-theme="light"]) .lx-page:not(.nhl-light) .lx-dl-head span{color:var(--muted)}
+.lx-dl-actions{display:flex;flex-wrap:wrap;gap:.4rem}
+.lx-dl-actions a{
+  display:inline-flex;align-items:center;min-height:40px;padding:.45rem .8rem;border-radius:999px;
+  font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
+  color:#163a74;border:1px solid rgba(22,58,116,.28);background:rgba(22,58,116,.06);
+}
+.lx-dl-actions a.primary{background:#163a74;color:#fff;border-color:#163a74}
+html:not([data-theme="light"]) .lx-page:not(.nhl-light) .lx-dl-actions a{
+  color:#f0d78c;border-color:rgba(240,215,140,.35);background:rgba(255,255,255,.06);
+}
+html:not([data-theme="light"]) .lx-page:not(.nhl-light) .lx-dl-actions a.primary{
+  background:#f0d78c;color:#121826;border-color:#f0d78c;
+}
+
 .lx-tracks{display:grid;gap:.4rem}
+.lx-track-row{display:grid;grid-template-columns:1fr auto;gap:.4rem;align-items:stretch}
+.lx-track-dl{
+  display:grid;place-items:center;min-width:44px;min-height:52px;border-radius:12px;
+  text-decoration:none;font-weight:800;color:#163a74;
+  border:1px solid rgba(18,24,38,.08);background:#fff;
+}
+html:not([data-theme="light"]) .lx-page:not(.nhl-light) .lx-track-dl{
+  background:rgba(255,255,255,.04);border-color:var(--line-soft);color:#f0d78c;
+}
+.lx-track-row.is-on .lx-track-dl{border-color:#163a74;background:#eef4ff}
+html:not([data-theme="light"]) .lx-page:not(.nhl-light) .lx-track-row.is-on .lx-track-dl{
+  background:rgba(22,58,116,.35);
+}
 .lx-track{
   display:grid;grid-template-columns:auto 1fr auto;gap:.75rem;align-items:center;
   padding:.85rem .9rem;border-radius:12px;border:1px solid rgba(18,24,38,.08);background:#fff;
