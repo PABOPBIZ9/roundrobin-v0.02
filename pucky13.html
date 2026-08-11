@@ -6,8 +6,8 @@
 <title>Pucky 13 — Advice, Stars, Jokes & Tips | PuckGold</title>
 <meta name="description" content="Meet Pucky 13 — vigilante Swiftie oracle. Free daily jokes & star vibes, chat advice, tip jar, and premium astrology reports.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=62">
-<link rel="stylesheet" href="assets/css/pucky13.css?v=1">
+<link rel="stylesheet" href="assets/css/site.css?v=63">
+<link rel="stylesheet" href="assets/css/pucky13.css?v=2">
 <link rel="icon" href="assets/brand/pucky/pucky-13.png" type="image/png">
 </head>
 <body class="pk13-page">
@@ -38,18 +38,19 @@
     <p class="sub">One joke + one star vibe per day on the house. Tip me anyway. Heh heh.</p>
     <div class="pk13-free">
       <article>
-        <div class="tag">Free · Dad joke</div>
+        <div class="tag" id="pk13JokeTag">Free · Dad joke</div>
         <h3>Joke of the day</h3>
         <p id="pk13Joke">Loading chaos…</p>
-        <button type="button" class="refresh" id="pk13RefreshJoke">Shuffle free joke</button>
+        <button type="button" class="refresh" id="pk13RefreshJoke">Shuffle joke</button>
       </article>
       <article>
-        <div class="tag">Free · Star vibe</div>
+        <div class="tag" id="pk13StarTag">Free · Star vibe</div>
         <h3>Quick astrology</h3>
         <p id="pk13Star">Reading the ice…</p>
-        <button type="button" class="refresh" id="pk13RefreshStar">Shuffle free vibe</button>
+        <button type="button" class="refresh" id="pk13RefreshStar">Shuffle vibe</button>
       </article>
     </div>
+    <div class="pk13-vault" id="pk13Vault"></div>
   </section>
 
   <section class="pk13-panel" id="chat">
@@ -73,7 +74,7 @@
 
   <section class="pk13-panel" id="services">
     <h2>Services · free + paid</h2>
-    <p class="sub">Simple menu. USD checkout today · SOL amounts shown as the vibe target (wallet rail next).</p>
+    <p class="sub">USD via bag/checkout unlocks instantly in demo. SOL tip rail below — copy address + send.</p>
     <div class="pk13-services">
       <article class="pk13-svc">
         <span class="free-tag">Free</span>
@@ -103,7 +104,7 @@
         <div class="price">$350 <small>30–50 page custom</small></div>
         <h3>Deep research astrology</h3>
         <p>Huge customized personal report — birth-chart deep dive, timing windows, Expansion-weekend energy map. Hasek-level detail.</p>
-        <button type="button" data-pk-svc="deepAstro">Add deep report</button>
+        <button type="button" data-pk-svc="deepAstro">Start deep report</button>
       </article>
       <article class="pk13-svc">
         <div class="price">$36 <small>Village pass</small></div>
@@ -112,6 +113,26 @@
         <a class="btnish" href="checkout.html?offer=og">Claim OG</a>
       </article>
     </div>
+  </section>
+
+  <section class="pk13-panel" id="sol">
+    <h2>SOL tip rail</h2>
+    <p class="sub">Copy-ready Solana address. Set once with <code>?setSol=YourAddress</code> — saved on this browser.</p>
+    <div class="pk13-sol">
+      <div class="pk13-sol-addr" id="pk13SolAddr" data-addr="">Set tip wallet with ?setSol=YOUR_SOLANA_ADDRESS</div>
+      <p class="pk13-sol-meta" id="pk13SolMeta">Daily reading ≈ 0.035 SOL · Lucky tip ≈ 0.13 SOL · or pay USD in bag</p>
+      <div class="pk13-sol-actions">
+        <button type="button" id="pk13CopySol">Copy address</button>
+        <button type="button" id="pk13CopySolDaily">Copy · 0.035 SOL daily</button>
+        <button type="button" id="pk13CopySol13">Copy · 0.13 SOL tip</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="pk13-panel" id="deep">
+    <h2>Deep report intake</h2>
+    <p class="sub">$350 custom 30–50 pager. Save birth data → bag → checkout → queued in your vault.</p>
+    <button type="button" class="pk13-deep-open" id="pk13OpenDeepInline">Open intake form</button>
   </section>
 
   <section class="pk13-panel" id="lore">
@@ -141,14 +162,14 @@
 <div class="pk13-modal" id="pk13TipModal" hidden>
   <div class="pk13-modal-card" role="dialog" aria-label="Tip Pucky">
     <h3>Tip the puck</h3>
-    <p>USD via bag/checkout today. SOL amounts are the target vibe — wallet connect is next on the wiring list.</p>
+    <p>USD via bag unlocks at checkout. Prefer SOL? Jump to the tip rail and copy the address.</p>
     <div class="pk13-tip-opts">
       <button type="button" data-pk-tip="tip35">$3.50 · coffee</button>
       <button type="button" data-pk-tip="tip13">$13 · lucky</button>
       <button type="button" data-pk-tip="dailyAstro">$3.50 · daily stars</button>
       <button type="button" data-pk-tip="dadJokes">$13 · joke pack</button>
     </div>
-    <p style="font-size:.78rem;margin:.2rem 0 .8rem"><button type="button" id="pk13SolNote" style="background:none;border:0;color:#f0d78c;font:inherit;font-weight:800;cursor:pointer;padding:0">~0.035 SOL daily · wallet rail soon</button></p>
+    <p style="font-size:.78rem;margin:.2rem 0 .8rem"><button type="button" id="pk13SolNote" style="background:none;border:0;color:#f0d78c;font:inherit;font-weight:800;cursor:pointer;padding:0">Open SOL tip rail →</button></p>
     <div class="row">
       <button type="button" class="pay" data-pk-tip="deepAstro">$350 deep report</button>
       <button type="button" class="close" data-pk-tip-close>Close</button>
@@ -156,13 +177,33 @@
   </div>
 </div>
 
+<div class="pk13-modal" id="pk13DeepModal" hidden>
+  <div class="pk13-modal-card pk13-deep-card" role="dialog" aria-label="Deep report intake">
+    <h3>Deep report intake</h3>
+    <p>Birth data + focus. Saved on this device, then $350 hits the bag.</p>
+    <form class="pk13-deep-form" id="pk13DeepForm">
+      <label>Name<input id="pkDeepName" type="text" required autocomplete="name"></label>
+      <label>Email<input id="pkDeepEmail" type="email" required autocomplete="email"></label>
+      <label>Birth date<input id="pkDeepBirth" type="date" required></label>
+      <label>Birth time <span>(if known)</span><input id="pkDeepTime" type="text" placeholder="e.g. 14:30" autocomplete="off"></label>
+      <label>Birth place<input id="pkDeepPlace" type="text" required placeholder="City, region, country"></label>
+      <label>Focus / questions<textarea id="pkDeepFocus" rows="3" placeholder="Career, love, Expansion weekend timing…"></textarea></label>
+      <div class="row">
+        <button type="submit" class="pay">Save + add $350</button>
+        <button type="button" class="close" data-pk-deep-close>Close</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <div class="pk13-toast" id="pk13Toast" role="status"></div>
 
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=62"></script>
+<script src="assets/js/site.js?v=63"></script>
 <script src="assets/js/support-widget.js?v=11"></script>
 <script src="assets/js/cart.js?v=10"></script>
-<script src="assets/js/pucky13.js?v=1"></script>
+<script src="assets/js/pucky-entitlements.js?v=1"></script>
+<script src="assets/js/pucky13.js?v=2"></script>
 </body>
 </html>
