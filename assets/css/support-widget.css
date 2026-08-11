@@ -8,7 +8,7 @@
   transition:transform .2s ease;
 }
 .pgb-support-fab:hover{transform:scale(1.05)}
-.pgb-support-fab .pucky-face{width:48px;height:48px}
+.pgb-support-fab .pucky-face{width:48px;height:48px;border-radius:999px;display:block;object-fit:cover}
 .pgb-support-fab .dot{
   position:absolute;top:6px;right:8px;width:10px;height:10px;border-radius:999px;
   background:#22c55e;border:2px solid #0b1220;

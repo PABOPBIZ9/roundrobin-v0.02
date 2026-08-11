@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Pucky 13 — Advice, Stars, Jokes & Tips | PuckGold</title>
+<meta name="description" content="Meet Pucky 13 — vigilante Swiftie oracle. Free daily jokes & star vibes, chat advice, tip jar, and premium astrology reports.">
+<script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/css/site.css?v=62">
+<link rel="stylesheet" href="assets/css/pucky13.css?v=1">
+<link rel="icon" href="assets/brand/pucky/pucky-13.png" type="image/png">
+</head>
+<body class="pk13-page">
+<div class="ice-lines"></div>
+<header class="site-header" id="site-header"></header>
+
+<section class="pk13-hero">
+  <div class="pk13-hero-inner">
+    <div class="pk13-face-wrap" aria-hidden="true">
+      <img src="assets/brand/pucky/pucky-13.png" alt="" width="840" height="840">
+    </div>
+    <div class="pk13-copy">
+      <div class="eyebrow">PuckGoldBiz · Official mascot oracle</div>
+      <h1>PUCKY <span>13</span></h1>
+      <p class="lede">Vigilante Swiftie. Kane mythology. Tip-hungry advice machine. Chat free — unlock stars, premium dad jokes, and deep reports when you're ready.</p>
+      <div class="pk13-cta">
+        <a class="primary" href="#chat">Chat with Pucky</a>
+        <button type="button" class="tip" id="pk13OpenTip">Tip the puck</button>
+        <a class="ghost" href="#services">Paid services</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="pk13-wrap">
+  <section class="pk13-panel" id="free">
+    <h2>Free daily drops</h2>
+    <p class="sub">One joke + one star vibe per day on the house. Tip me anyway. Heh heh.</p>
+    <div class="pk13-free">
+      <article>
+        <div class="tag">Free · Dad joke</div>
+        <h3>Joke of the day</h3>
+        <p id="pk13Joke">Loading chaos…</p>
+        <button type="button" class="refresh" id="pk13RefreshJoke">Shuffle free joke</button>
+      </article>
+      <article>
+        <div class="tag">Free · Star vibe</div>
+        <h3>Quick astrology</h3>
+        <p id="pk13Star">Reading the ice…</p>
+        <button type="button" class="refresh" id="pk13RefreshStar">Shuffle free vibe</button>
+      </article>
+    </div>
+  </section>
+
+  <section class="pk13-panel" id="chat">
+    <h2>Chat / ask advice</h2>
+    <p class="sub">Typical AI chatbot energy — Expansion tips, lore, jokes, stars — plus shameless tip badgering.</p>
+    <div class="pk13-chat">
+      <div class="pk13-quick" id="pk13Quick">
+        <button type="button" data-q="why number 13 kane swift">Why 13?</button>
+        <button type="button" data-q="daily astrology">Astrology</button>
+        <button type="button" data-q="dad joke">Dad joke</button>
+        <button type="button" data-q="I want to tip you">Tip jar</button>
+        <button type="button" data-q="expansion weekend farm">Farm XP</button>
+      </div>
+      <div class="pk13-msgs" id="pk13Msgs" aria-live="polite"></div>
+      <form class="pk13-form" id="pk13Form">
+        <input id="pk13Input" type="text" autocomplete="off" placeholder="Ask Pucky anything…" aria-label="Message Pucky">
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="pk13-panel" id="services">
+    <h2>Services · free + paid</h2>
+    <p class="sub">Simple menu. USD checkout today · SOL amounts shown as the vibe target (wallet rail next).</p>
+    <div class="pk13-services">
+      <article class="pk13-svc">
+        <span class="free-tag">Free</span>
+        <h3>Chat + daily drops</h3>
+        <p>Advice, Expansion routing, free joke + star vibe. I will still badger for tips.</p>
+        <a class="btnish" href="#chat">Open chat</a>
+      </article>
+      <article class="pk13-svc">
+        <div class="price">$3.50 <small>~0.035 SOL</small></div>
+        <h3>Daily astrology</h3>
+        <p>Personalized daily reading — sharper than the free vibe. Add to bag and unlock at checkout.</p>
+        <button type="button" data-pk-svc="dailyAstro">Add daily reading</button>
+      </article>
+      <article class="pk13-svc">
+        <div class="price">$13 <small>Lucky tip</small></div>
+        <h3>Tip the oracle</h3>
+        <p>Fuel the vigilante. Swiftie karma. Kane mythology tax. I notice tippers.</p>
+        <button type="button" data-pk-svc="tip13">Tip $13</button>
+      </article>
+      <article class="pk13-svc">
+        <div class="price">$13 <small>13-day pack</small></div>
+        <h3>Premium dad jokes</h3>
+        <p>A curated fortnight-minus-one of premium puck dad jokes. Painfully clean. Spiritually sticky.</p>
+        <button type="button" data-pk-svc="dadJokes">Add joke pack</button>
+      </article>
+      <article class="pk13-svc featured">
+        <div class="price">$350 <small>30–50 page custom</small></div>
+        <h3>Deep research astrology</h3>
+        <p>Huge customized personal report — birth-chart deep dive, timing windows, Expansion-weekend energy map. Hasek-level detail.</p>
+        <button type="button" data-pk-svc="deepAstro">Add deep report</button>
+      </article>
+      <article class="pk13-svc">
+        <div class="price">$36 <small>Village pass</small></div>
+        <h3>$36 OG Offer</h3>
+        <p>Not me — the league. Gold puck + 1-year Pass + 5× XP. I still want a tip after.</p>
+        <a class="btnish" href="checkout.html?offer=og">Claim OG</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="pk13-panel" id="lore">
+    <h2>Why thirteen</h2>
+    <div class="pk13-lore">
+      <div>
+        <p><strong>Pucky 13</strong> is a huge Patrick Kane mythologist and a certified Swiftie. Thirteen is Taylor's secret lucky number — and it's the jersey energy Kane grew up worshipping on Pavel Datsyuk, the sticky-hands magician out of Russia via Detroit. Kane even has that thirteen ink in the lore we tell around here.</p>
+        <p>Childhood hero path: Dominik Hasek of Buffalo — the Dominator — before the timeline bent and Hasek suited up in Chicago. Kane's first legendary shootout moment vs that childhood-hero aura? Peak hockey fairy tale. Me? I took the number, the mischief, and the tip jar.</p>
+      </div>
+      <div>
+        <ul>
+          <li><strong>#13</strong> — Swift luck + Datsyuk hands mythology</li>
+          <li><strong>Kane 88 orbit</strong> — stickhandling gospel, shootout lore</li>
+          <li><strong>Hasek childhood hero</strong> — Buffalo roots, Chicago chapter</li>
+          <li><strong>Vigilante mode</strong> — helpful, high-pitch, lightly menacing for tips</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="pk13-tipbar" id="pk13TipBar">
+  <div class="msg" id="pk13TipMsg"><strong>Pucky:</strong> Tips keep the oracle online…</div>
+  <button type="button" id="pk13TipBarBtn">Tip Pucky</button>
+</div>
+
+<div class="pk13-modal" id="pk13TipModal" hidden>
+  <div class="pk13-modal-card" role="dialog" aria-label="Tip Pucky">
+    <h3>Tip the puck</h3>
+    <p>USD via bag/checkout today. SOL amounts are the target vibe — wallet connect is next on the wiring list.</p>
+    <div class="pk13-tip-opts">
+      <button type="button" data-pk-tip="tip35">$3.50 · coffee</button>
+      <button type="button" data-pk-tip="tip13">$13 · lucky</button>
+      <button type="button" data-pk-tip="dailyAstro">$3.50 · daily stars</button>
+      <button type="button" data-pk-tip="dadJokes">$13 · joke pack</button>
+    </div>
+    <p style="font-size:.78rem;margin:.2rem 0 .8rem"><button type="button" id="pk13SolNote" style="background:none;border:0;color:#f0d78c;font:inherit;font-weight:800;cursor:pointer;padding:0">~0.035 SOL daily · wallet rail soon</button></p>
+    <div class="row">
+      <button type="button" class="pay" data-pk-tip="deepAstro">$350 deep report</button>
+      <button type="button" class="close" data-pk-tip-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="pk13-toast" id="pk13Toast" role="status"></div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=1"></script>
+<script src="assets/js/site.js?v=62"></script>
+<script src="assets/js/support-widget.js?v=11"></script>
+<script src="assets/js/cart.js?v=10"></script>
+<script src="assets/js/pucky13.js?v=1"></script>
+</body>
+</html>

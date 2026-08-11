@@ -58,6 +58,7 @@
     { href: "puck-personality.html", label: "Puck Personality" },
     { href: "podcasts.html", label: "Podcasts" },
     { href: "listen.html", label: "Listen · Season One" },
+    { href: "pucky13.html", label: "Pucky 13 · Oracle" },
     { href: "clip-crown.html", label: "Clip Crown submit" },
     { href: "conductor-crest.html", label: "Conductor’s Crest vote" },
     { href: "aura-vote.html", label: "Aura Vote live" },

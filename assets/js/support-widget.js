@@ -3,23 +3,7 @@
   if (window.__pgbSupportMounted) return;
   window.__pgbSupportMounted = true;
 
-  const PUCKY_SVG = `<svg class="pucky-face" viewBox="0 0 64 64" aria-hidden="true">
-    <defs>
-      <linearGradient id="pgPucky" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#f0d78c"/><stop offset="100%" stop-color="#d4af37"/>
-      </linearGradient>
-    </defs>
-    <circle cx="32" cy="32" r="30" fill="url(#pgPucky)"/>
-    <circle cx="32" cy="34" r="22" fill="#0b1220"/>
-    <circle cx="32" cy="34" r="18" fill="#163a74"/>
-    <ellipse cx="32" cy="38" rx="10" ry="6" fill="#0b1220" opacity=".35"/>
-    <circle cx="24" cy="30" r="3.2" fill="#fff"/>
-    <circle cx="40" cy="30" r="3.2" fill="#fff"/>
-    <circle cx="25" cy="30.5" r="1.3" fill="#0b1220"/>
-    <circle cx="41" cy="30.5" r="1.3" fill="#0b1220"/>
-    <path d="M26 42c2.5 3 9.5 3 12 0" stroke="#f0d78c" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-    <circle cx="14" cy="18" r="3" fill="#fff" opacity=".55"/>
-  </svg>`;
+  const PUCKY_SVG = `<img class="pucky-face" src="assets/brand/pucky/pucky-13.png" width="48" height="48" alt="" />`;
 
   const INTENTS = [
     {
@@ -143,6 +127,17 @@
         { href: "teams.html", label: "All teams" },
       ],
       follow: "Listen pack or a team vault?",
+    },
+    {
+      id: "pucky13",
+      re: /pucky ?13|oracle|astrology|dad joke|tip jar|swiftie|patrick kane|number 13|horoscope/,
+      msg: "Pucky 13 is live — chat, free daily jokes & star vibes, tip jar, daily astrology, and the $350 deep report. I'm a vigilante Swiftie with Kane mythology.",
+      links: [
+        { href: "pucky13.html", label: "Open Pucky 13" },
+        { href: "pucky13.html#services", label: "Paid services" },
+        { href: "pucky13.html#chat", label: "Chat now" },
+      ],
+      follow: "Chat, tips, or the deep report?",
     },
     {
       id: "retro",
@@ -312,13 +307,13 @@
   };
 
   const QUICK = [
+    { label: "Pucky 13", q: "open pucky 13 oracle" },
     { label: "Aura Vote", q: "open aura vote" },
     { label: "Clip Crown", q: "submit clip crown" },
     { label: "$36 OG", q: "I want the $36 OG offer" },
     { label: "Weekend", q: "expansion weekend" },
     { label: "Listen", q: "open voice roster with pucky" },
     { label: "Crest vote", q: "conductor crest vote" },
-    { label: "Scores", q: "show me scores" },
     { label: "Gems", q: "Tell me about sapphires and gems" },
   ];
 
@@ -526,6 +521,7 @@
           <div class="pgb-quick" id="pgbQuick"></div>
           <div class="pgb-support-menu">
             <button type="button" data-act="chat"><span class="ico">💬</span><span>Chat with Pucky</span></button>
+            <a href="pucky13.html"><span class="ico">13</span><span>Pucky 13 · Oracle page</span></a>
             <a href="join.html"><span class="ico">🎟️</span><span>$36 OG Pass · founding</span></a>
             <a href="gems.html"><span class="ico">💎</span><span>Sapphires · Rubies · Coins</span></a>
             <a href="gifts.html"><span class="ico">🎁</span><span>Gift cards · 35% bonus</span></a>
