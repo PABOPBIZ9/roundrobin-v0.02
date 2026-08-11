@@ -243,7 +243,7 @@
       return {
         msg: tipped
           ? `Tipper club${nameBit} — respect. Wish list still open: phone/SIM, $3,500 bank goal, domains/hosting, AirPods, MacBook Pro, Dream Machine VibeCoder kit, plus cheers gift cards.`
-          : `YES. Critical now: Boost/Cricket SIM (no working phone), AirPods, $3,500 bank goal. Also domains/hosting, Airbnb, MacBook Pro, full Dream Machine setup — or tip any amount for the grind.`,
+          : `YES. Critical now: Boost/Cricket SIM (no working phone), wireless keyboard (iMac spacebar popped), AirPods, $3,500 bank goal. Also domains/hosting, Airbnb, MacBook Pro, full Dream Machine setup — or tip any amount for the grind.`,
         links: [
           { label: "Wish list", href: "#wishlist" },
           { label: "Bank goal", href: "#pk13BankGoal" },
