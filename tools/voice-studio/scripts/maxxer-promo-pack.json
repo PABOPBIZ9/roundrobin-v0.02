@@ -1,0 +1,23 @@
+{
+  "show": "MAXXER Promo Pack",
+  "slug": "maxxer-promo-pack",
+  "drop_to": "assets/vault/content/broadcast/maxxer-promo-pack/",
+  "lines": [
+    {
+      "voice": "maxxer",
+      "text": "MAXXER here — Founding Four is LIVE. Fans first. Grab the thirty-six dollar O-G Offer and run the farm at five-X. Let's go!"
+    },
+    {
+      "voice": "maxxer",
+      "text": "This is not a drill. Brand Factory is open — PUMPSLUT, BADMONZ, BOMBPOPZ — batch your banners and ship the hype!"
+    },
+    {
+      "voice": "maxxer",
+      "text": "Last call energy — deals end when the clock hits zero. Tip Pucky, farm Aura, crown your clip. Move!"
+    },
+    {
+      "voice": "maxxer",
+      "text": "Early community lift-off — keyboard broke, screens cracked, still cooking. You know what to do. Support the wish list. MAXXER out."
+    }
+  ]
+}

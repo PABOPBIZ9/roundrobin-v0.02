@@ -368,6 +368,19 @@ window.PGB_BROADCAST_SHOWS = [
       { src: "assets/vault/content/podcasts/great-one-on-one/08_desk-host-a.wav", label: "Close", voice: "Lexi Gold" },
     ],
   },
+  {
+    id: "maxxer-promo-pack",
+    title: "MAXXER · Promo Pack",
+    show: "PGB Hype Network",
+    blurb: "Celebrity clone from your ref clip — launch hype, Brand Factory, OG Offer, wish-list lift-off.",
+    color: "linear-gradient(145deg,#ff2d6a,#0b1220)",
+    tracks: [
+      { src: "assets/vault/content/broadcast/maxxer-promo-pack/00_maxxer.wav", label: "MAXXER — Founding Four live", voice: "MAXXER" },
+      { src: "assets/vault/content/broadcast/maxxer-promo-pack/01_maxxer.wav", label: "MAXXER — Brand Factory", voice: "MAXXER" },
+      { src: "assets/vault/content/broadcast/maxxer-promo-pack/02_maxxer.wav", label: "MAXXER — Last call", voice: "MAXXER" },
+      { src: "assets/vault/content/broadcast/maxxer-promo-pack/03_maxxer.wav", label: "MAXXER — Lift-off", voice: "MAXXER" },
+    ],
+  },
 ];
 
 window.PGB_LISTEN_DOWNLOADS = {

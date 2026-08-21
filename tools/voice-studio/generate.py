@@ -33,10 +33,10 @@ OUT = ROOT / "out"
 def load_voices():
     data = json.loads(VOICES_PATH.read_text())
     by_id = {}
-    for kind in ("booth", "players", "mascots"):
+    for kind in ("booth", "players", "mascots", "celebrity"):
         for v in data.get(kind, []):
-            # players/booth/mascots folders under out/
-            folder = {"booth": "booth", "players": "player", "mascots": "mascot"}[kind]
+            # players/booth/mascots/celebrity folders under out/
+            folder = {"booth": "booth", "players": "player", "mascots": "mascot", "celebrity": "celebrity"}[kind]
             by_id[v["id"]] = {**v, "kind": folder}
     return data, by_id
 
@@ -155,6 +155,7 @@ def main():
     ap.add_argument("--players", action="store_true", help="All player samples")
     ap.add_argument("--booth", action="store_true", help="All booth samples")
     ap.add_argument("--mascots", action="store_true", help="All mascot sample lines")
+    ap.add_argument("--celebrity", action="store_true", help="All celebrity sample lines")
     ap.add_argument("--device", choices=["mps", "cuda", "cpu"], default=None)
     ap.add_argument("--dry-run", action="store_true", help="Print plan only")
     args = ap.parse_args()
@@ -176,6 +177,12 @@ def main():
             for v in data["mascots"]:
                 ref_ok = "✓" if (ROOT / v.get("ref", "")).is_file() else "·"
                 print(f"  [{ref_ok}] {v['id']:22} {v['name']} — {v.get('role', '')}")
+        if data.get("celebrity"):
+            print("\nCELEBRITY")
+            for v in data["celebrity"]:
+                ref_ok = "✓" if (ROOT / v.get("ref", "")).is_file() else "·"
+                g = v.get("gender", "?")[0]
+                print(f"  [{ref_ok}] {v['id']:22} ({g}) {v['name']} — {v['role']}")
         print("\n✓ = reference WAV present for cloning")
         return
 
@@ -197,7 +204,7 @@ def main():
         out = OUT / kind / f"{voice['id']}" / f"{slug(text)[:40] or 'line'}.wav"
         jobs.append((voice, text, out))
 
-    if args.samples or args.players or args.booth or args.mascots:
+    if args.samples or args.players or args.booth or args.mascots or args.celebrity:
         pool = []
         if args.samples or args.booth:
             pool += data.get("booth", [])
@@ -205,6 +212,8 @@ def main():
             pool += data.get("players", [])
         if args.samples or args.mascots:
             pool += data.get("mascots", [])
+        if args.samples or args.celebrity:
+            pool += data.get("celebrity", [])
         for v in pool:
             voice = by_id[v["id"]]
             text = v.get("sample_line") or f"Hi, I'm {v['name']}."

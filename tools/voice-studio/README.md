@@ -26,6 +26,7 @@ Chatterbox **clones** from a short clean WAV:
 |--------|-----|
 | `refs/booth/*.wav` | Jack Jet, Color, Chippy, PA, desk hosts |
 | `refs/players/{player-id}.wav` | Every roster player |
+| `refs/celebrity/*.wav` | Celebrity / promo hosts (e.g. MAXXER) |
 
 **Tips for refs:** 5–15 seconds, one speaker, no music, quiet room, WAV/MP3.  
 Name files exactly like `voices.json` → `ref` paths.
@@ -49,7 +50,10 @@ WAVs land in `out/shows/...`
 ```bash
 python generate.py --booth      # announcer sample pack
 python generate.py --players    # all 36 Founding Four player lines
-python generate.py --voice kai-sandoval --text "We never stopped believing."
+python generate.py --celebrity  # MAXXER promo host
+python generate.py --voice maxxer --text "Your custom line."
+python generate.py --script scripts/maxxer-promo-pack.json
+bash scripts/deploy-show.sh maxxer-promo-pack
 ```
 
 ### 5. Drop onto the site
@@ -72,6 +76,14 @@ Jack “The Jet” Morrison · Veteran Color · Coach Chippy · Arena PA · **Le
 
 **Mascot**  
 **Pucky** — high-pitch friendly + mischievous Chucky wink (`pitch_semitones: +8`)
+
+**Celebrity**  
+**MAXXER** — promo / hype host (clone ref: `refs/celebrity/maxxer.wav` from your MP4)
+
+Extract ref from video:
+```bash
+python scripts/extract_ref.py "/path/to/Celebrity Maxxer.mp4"
+```
 
 **Players (36)** — 9 per Founding Four club (from `teams-data.js`)
 
