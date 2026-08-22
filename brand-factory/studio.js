@@ -110,6 +110,7 @@
       `<li><strong>Mascot:</strong> ${brand.mascot}</li>`,
       `<li><strong>Primary CTA:</strong> ${brand.cta}</li>`,
       `<li><strong>Fan CTA:</strong> ${brand.fanCta}</li>`,
+      `<li><strong>Promo voice:</strong> <a href="../listen.html?show=maxxer-promo-pack">MAXXER clone · Listen</a></li>`,
     ].join("");
 
     const mount = (id, mode) => {

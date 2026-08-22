@@ -58,6 +58,7 @@
       links: [
         { href: "listen.html?show=founding-four-player-bites", label: "36 player bites" },
         { href: "listen.html?show=voice-roster-showcase", label: "Voice Roster + Pucky" },
+        { href: "listen.html?show=maxxer-promo-pack", label: "MAXXER promo pack" },
         { href: "listen.html?show=booth-sample-pack", label: "Booth Sample Pack" },
       ],
       follow: "Player bites or Miracle booth?",
@@ -127,6 +128,17 @@
         { href: "teams.html", label: "All teams" },
       ],
       follow: "Listen pack or a team vault?",
+    },
+    {
+      id: "maxxer",
+      re: /maxxer|hype voice|promo host|celebrity clone|brand factory voice/,
+      msg: "MAXXER is live — cloned promo host for Founding Four launch, Brand Factory, and OG Offer hype. Track 1 on Listen now.",
+      links: [
+        { href: "listen.html?show=maxxer-promo-pack", label: "Play MAXXER promo" },
+        { href: "brand-factory/studio.html", label: "Brand Factory" },
+        { href: "pucky13.html#maxxer", label: "Preview on Pucky 13" },
+      ],
+      follow: "Promo pack, Brand Factory, or Pucky?",
     },
     {
       id: "pucky13",
@@ -297,6 +309,7 @@
       booth: "listen.html?show=booth-sample-pack",
       backstory: "listen.html?show=backstory-pregame-miracle",
       roster: "listen.html?show=voice-roster-showcase",
+      maxxer: "listen.html?show=maxxer-promo-pack",
       open: "listen.html?show=voice-roster-showcase",
     },
     gems: { packs: "gems.html", gifts: "gems.html?tab=gifts", cards: "gifts.html" },
@@ -312,6 +325,7 @@
     { label: "Clip Crown", q: "submit clip crown" },
     { label: "$36 OG", q: "I want the $36 OG offer" },
     { label: "Weekend", q: "expansion weekend" },
+    { label: "MAXXER", q: "play maxxer promo hype" },
     { label: "Listen", q: "open voice roster with pucky" },
     { label: "Crest vote", q: "conductor crest vote" },
     { label: "Gems", q: "Tell me about sapphires and gems" },
@@ -331,6 +345,7 @@
     clip: "assets/vault/content/broadcast/pucky-intent-pack/02_pucky.wav",
     listen: "assets/vault/content/broadcast/pucky-intent-pack/03_pucky.wav",
     weekend: "assets/vault/content/broadcast/pucky-intent-pack/04_pucky.wav",
+    maxxer: "assets/vault/content/broadcast/maxxer-promo-pack/00_maxxer.wav",
   };
   const PUCKY_INTENT_CLIP = {
     pass: "pass",
@@ -338,6 +353,7 @@
     clip: "clip",
     listen: "listen",
     weekend: "weekend",
+    maxxer: "maxxer",
   };
   let puckyAudio = null;
 

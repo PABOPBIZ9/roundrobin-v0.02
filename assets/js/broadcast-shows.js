@@ -290,9 +290,9 @@ window.PGB_BROADCAST_SHOWS = [
   },
   {
     id: "voice-roster-showcase",
-    title: "Voice Roster · Booth + Players + Pucky",
+    title: "Voice Roster · Booth + Players + Pucky + MAXXER",
     show: "PGB Voice Studio",
-    blurb: "Male & female announcers, captains, and Pucky — high-pitch friendly with a mischievous wink.",
+    blurb: "Male & female announcers, captains, Pucky — plus MAXXER celebrity hype clone.",
     color: "linear-gradient(145deg,#8a6a1e,#163a74)",
     pack: "assets/vault/content/downloads/voice-roster-showcase.zip",
     tracks: [
@@ -312,6 +312,7 @@ window.PGB_BROADCAST_SHOWS = [
       { src: "assets/vault/content/broadcast/voice-roster-showcase/13_milo-reyes.wav", label: "Milo — Reef energy", voice: "Milo Reyes" },
       { src: "assets/vault/content/broadcast/voice-roster-showcase/14_emmett-solis.wav", label: "Emmett — crease calm", voice: "Emmett Solis" },
       { src: "assets/vault/content/broadcast/voice-roster-showcase/15_pucky.wav", label: "Pucky — OG close", voice: "Pucky" },
+      { src: "assets/vault/content/broadcast/maxxer-promo-pack/00_maxxer.wav", label: "MAXXER — Founding Four hype", voice: "MAXXER" },
     ],
   },
   {

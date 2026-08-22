@@ -264,6 +264,29 @@
 .pk13-vault ul{margin:.35rem 0 0;padding-left:1.1rem}
 .pk13-vault li{margin:.25rem 0}
 
+.pk13-maxxer{
+  background:linear-gradient(145deg,rgba(255,45,106,.12),rgba(11,18,32,.92));
+  border:1px solid rgba(255,45,106,.28);
+}
+.pk13-maxxer-head{
+  display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1rem;
+}
+.pk13-maxxer .tag{
+  display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:#ff8fb8;margin-bottom:.35rem;
+}
+.pk13-maxxer h2{
+  font-family:var(--pk-face);font-size:clamp(2rem,6vw,2.8rem);margin:0;line-height:1;
+  background:linear-gradient(90deg,#fff,#ff8fb8);-webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.pk13-maxxer-audio{width:100%;margin-top:.25rem;border-radius:12px}
+.pk13-maxxer .ghost{
+  display:inline-flex;align-items:center;padding:.55rem .9rem;border-radius:999px;
+  border:1px solid rgba(255,255,255,.18);color:#f5d0dc;font-weight:800;font-size:.78rem;
+  letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
+}
+.pk13-maxxer .ghost:hover{border-color:rgba(255,45,106,.55);color:#fff}
+
 .pk13-sol{
   display:grid;gap:.75rem;
 }

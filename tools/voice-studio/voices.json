@@ -129,6 +129,7 @@
       "cfg_weight": 0.4,
       "pitch_semitones": 1,
       "speed": 1.06,
+      "max_new_tokens": 420,
       "prompt": "Celebrity promo host — loud, confident, charismatic, fast cadence, main-character energy, perfect for launch hype and deal-wall reads.",
       "ref": "refs/celebrity/maxxer.wav",
       "sample_line": "MAXXER here — this is the moment. Founding Four. Fans first. Lock the O-G Offer and let's run it up!"

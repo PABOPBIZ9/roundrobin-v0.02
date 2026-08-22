@@ -118,15 +118,30 @@ def synth(model, text: str, voice: dict, out_path: Path):
         shape_note.append(f"speed×{voice['speed']}")
     shape_s = f" [{', '.join(shape_note)}]" if shape_note else ""
 
-    if ref.is_file():
-        print(f"  → clone {voice['id']}  ref={ref.name}{shape_s}")
-        wav = model.generate(text, audio_prompt_path=str(ref), **kwargs)
-    else:
-        print(f"  → shaped default ({voice['id']}){shape_s} — drop {voice.get('ref')} for clone")
-        try:
-            wav = model.generate(text, **kwargs)
-        except TypeError:
-            wav = model.generate(text)
+    max_new_tokens = int(voice.get("max_new_tokens") or 1000)
+    orig_inference = None
+    if max_new_tokens != 1000:
+        orig_inference = model.t3.inference
+
+        def patched_inference(*args, **inf_kwargs):
+            inf_kwargs["max_new_tokens"] = max_new_tokens
+            return orig_inference(*args, **inf_kwargs)
+
+        model.t3.inference = patched_inference
+
+    try:
+        if ref.is_file():
+            print(f"  → clone {voice['id']}  ref={ref.name}{shape_s}")
+            wav = model.generate(text, audio_prompt_path=str(ref), **kwargs)
+        else:
+            print(f"  → shaped default ({voice['id']}){shape_s} — drop {voice.get('ref')} for clone")
+            try:
+                wav = model.generate(text, **kwargs)
+            except TypeError:
+                wav = model.generate(text)
+    finally:
+        if orig_inference is not None:
+            model.t3.inference = orig_inference
 
     wav = apply_voice_shape(wav, model.sr, voice)
     ta.save(str(out_path), wav, model.sr)
