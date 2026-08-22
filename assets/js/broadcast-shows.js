@@ -372,13 +372,10 @@ window.PGB_BROADCAST_SHOWS = [
     id: "maxxer-promo-pack",
     title: "MAXXER · Promo Pack",
     show: "PGB Hype Network",
-    blurb: "Celebrity clone from your ref clip — launch hype, Brand Factory, OG Offer, wish-list lift-off.",
+    blurb: "MAXXER clone live — track 1 of 4 shipped. Brand Factory, OG Offer, and wish-list drops generating.",
     color: "linear-gradient(145deg,#ff2d6a,#0b1220)",
     tracks: [
       { src: "assets/vault/content/broadcast/maxxer-promo-pack/00_maxxer.wav", label: "MAXXER — Founding Four live", voice: "MAXXER" },
-      { src: "assets/vault/content/broadcast/maxxer-promo-pack/01_maxxer.wav", label: "MAXXER — Brand Factory", voice: "MAXXER" },
-      { src: "assets/vault/content/broadcast/maxxer-promo-pack/02_maxxer.wav", label: "MAXXER — Last call", voice: "MAXXER" },
-      { src: "assets/vault/content/broadcast/maxxer-promo-pack/03_maxxer.wav", label: "MAXXER — Lift-off", voice: "MAXXER" },
     ],
   },
 ];

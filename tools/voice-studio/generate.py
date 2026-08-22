@@ -158,6 +158,7 @@ def main():
     ap.add_argument("--celebrity", action="store_true", help="All celebrity sample lines")
     ap.add_argument("--device", choices=["mps", "cuda", "cpu"], default=None)
     ap.add_argument("--dry-run", action="store_true", help="Print plan only")
+    ap.add_argument("--skip-existing", action="store_true", help="Skip WAVs that already exist")
     args = ap.parse_args()
 
     data, by_id = load_voices()
@@ -235,6 +236,9 @@ def main():
     device = pick_device(args.device)
     model = load_model(device)
     for voice, text, out in jobs:
+        if args.skip_existing and out.is_file():
+            print(f"  · skip {out.relative_to(ROOT)}")
+            continue
         synth(model, text, voice, out)
     print(f"\nDone. WAVs in {OUT}/")
     print("Copy show folders into assets/vault/content/podcasts/{slug}/ when happy.")
