@@ -479,16 +479,41 @@
 
   function openTipModal() {
     document.getElementById("pk13TipModal")?.removeAttribute("hidden");
+    lockBodyScroll(true);
   }
   function closeTipModal() {
     document.getElementById("pk13TipModal")?.setAttribute("hidden", "");
+    if (document.getElementById("pk13DeepModal")?.hasAttribute("hidden")) lockBodyScroll(false);
   }
   function openDeep() {
     document.getElementById("pk13DeepModal")?.removeAttribute("hidden");
+    lockBodyScroll(true);
     document.getElementById("deep")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
   function closeDeep() {
     document.getElementById("pk13DeepModal")?.setAttribute("hidden", "");
+    if (document.getElementById("pk13TipModal")?.hasAttribute("hidden")) lockBodyScroll(false);
+  }
+
+  let pk13ScrollY = 0;
+  function lockBodyScroll(on) {
+    if (on) {
+      pk13ScrollY = window.scrollY || 0;
+      document.body.classList.add("pk13-modal-open");
+      document.body.style.top = `-${pk13ScrollY}px`;
+    } else {
+      document.body.classList.remove("pk13-modal-open");
+      document.body.style.top = "";
+      window.scrollTo(0, pk13ScrollY);
+    }
+  }
+
+  function bindModalDismiss(modalId, closeFn) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeFn();
+    });
   }
 
   function renderSol() {
@@ -620,6 +645,13 @@
     });
     document.getElementById("pk13OpenTip")?.addEventListener("click", openTipModal);
     document.getElementById("pk13TipBarBtn")?.addEventListener("click", openTipModal);
+    bindModalDismiss("pk13TipModal", closeTipModal);
+    bindModalDismiss("pk13DeepModal", closeDeep);
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      if (!document.getElementById("pk13DeepModal")?.hasAttribute("hidden")) closeDeep();
+      else if (!document.getElementById("pk13TipModal")?.hasAttribute("hidden")) closeTipModal();
+    });
     document.querySelectorAll("[data-pk-tip-close]").forEach((b) => b.addEventListener("click", closeTipModal));
     document.querySelectorAll("[data-pk-deep-close]").forEach((b) => b.addEventListener("click", closeDeep));
     document.querySelectorAll("[data-pk-tip]").forEach((b) => {

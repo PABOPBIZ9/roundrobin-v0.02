@@ -30,7 +30,7 @@
 
 .bf-brand-switch{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.2rem}
 .bf-brand-switch button{
-  min-height:42px;padding:0 .95rem;border-radius:999px;cursor:pointer;border:1px solid var(--bf-line);
+  min-height:var(--touch, 44px);padding:0 .95rem;border-radius:999px;cursor:pointer;border:1px solid var(--bf-line);
   background:rgba(255,255,255,.04);color:var(--bf-ink);font:inherit;font-weight:800;font-size:.72rem;
   letter-spacing:.08em;text-transform:uppercase;
 }
@@ -39,18 +39,22 @@
 }
 
 .bf-tabs{
-  display:flex;flex-wrap:wrap;gap:.35rem;max-width:1100px;margin:0 auto;padding:.5rem 4vw 0;
-  position:sticky;top:64px;z-index:40;background:rgba(5,9,16,.92);backdrop-filter:blur(10px);
+  display:flex;flex-wrap:nowrap;gap:.35rem;max-width:1100px;margin:0 auto;padding:.5rem 4vw 0;
+  position:sticky;top:var(--header-h, 64px);z-index:40;background:rgba(5,9,16,.92);backdrop-filter:blur(10px);
+  overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+  overscroll-behavior-x:contain;
 }
+.bf-tabs::-webkit-scrollbar{display:none}
 .bf-tabs button{
-  min-height:40px;padding:0 .85rem;border:0;border-radius:10px;cursor:pointer;
+  flex:0 0 auto;
+  min-height:var(--touch, 44px);padding:0 .85rem;border:0;border-radius:10px;cursor:pointer;
   background:transparent;color:var(--bf-mute);font:inherit;font-weight:800;font-size:.72rem;
   letter-spacing:.08em;text-transform:uppercase;
 }
 .bf-tabs button.is-on{background:rgba(240,215,140,.14);color:var(--bf-accent)}
 
-.bf-wrap{max-width:1100px;margin:0 auto;padding:1.4rem 4vw 5rem}
-.bf-panel{display:none}
+.bf-wrap{max-width:1100px;margin:0 auto;padding:1.4rem 4vw calc(5rem + env(safe-area-inset-bottom))}
+.bf-panel{display:none;scroll-margin-top:calc(var(--header-h, 64px) + 3rem)}
 .bf-panel.is-on{display:block}
 .bf-sec-head{margin-bottom:1.1rem}
 .bf-sec-head h2{font-family:"Bricolage Grotesque",Georgia,serif;font-size:clamp(1.6rem,4vw,2.2rem);margin:0 0 .35rem}
@@ -142,7 +146,7 @@
 .bf-note code{color:var(--bf-accent);font-size:.85em}
 
 .bf-toast{
-  position:fixed;left:50%;bottom:1.5rem;transform:translateX(-50%);z-index:120;
+  position:fixed;left:50%;bottom:calc(1.5rem + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:120;
   background:#f0d78c;color:#1a1400;padding:.65rem 1rem;border-radius:999px;
   font-weight:800;font-size:.78rem;display:none;box-shadow:0 12px 30px rgba(0,0,0,.35);
 }

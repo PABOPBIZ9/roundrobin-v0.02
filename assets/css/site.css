@@ -34,9 +34,18 @@
 
   --radius:10px;
   --max:1200px;
+  --header-h:64px;
+  --touch:44px;
+  --pad-x:max(1rem, 4vw);
+  --safe-b:env(safe-area-inset-bottom, 0px);
   --font:"Manrope", system-ui, sans-serif;
   --display:"Bebas Neue", "Arial Narrow", Impact, sans-serif;
 }
+@media (min-width:640px){
+  :root{--header-h:68px}
+}
+
+[id]{scroll-margin-top:calc(var(--header-h) + .85rem)}
 
 html[data-theme="light"]{
   color-scheme: light;
@@ -202,7 +211,8 @@ body.drawer-open .mobile-drawer{
   touch-action:pan-y;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
 }
 .mobile-drawer a{
-  display:block;padding:.8rem 0;border-bottom:1px solid var(--line-soft);
+  display:flex;align-items:center;min-height:var(--touch);
+  padding:.8rem 0;border-bottom:1px solid var(--line-soft);
   font-size:.9rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--text);
 }
 .mobile-drawer a.active{color:var(--gold-bright)}
@@ -225,8 +235,8 @@ body.drawer-open .mobile-drawer{
   .nav-bag,.menu-btn{width:52px;min-width:52px}
 }
 
-/* Desktop: full nav — higher breakpoint so mid-widths don’t crush */
-@media (min-width:1280px){
+/* Desktop: full nav — 1024px so tablets get horizontal nav */
+@media (min-width:1024px){
   .nav-wrap{padding:.65rem 3vw;min-height:68px;gap:.75rem}
   .logo-mark{width:44px}
   .logo-word{font-size:1.45rem}
@@ -570,7 +580,10 @@ html[dir="rtl"] body > .av-toggle{
   padding:1.1rem 1.2rem;border-bottom:1px solid rgba(18,24,38,.08);
 }
 .cart-head h2{font-family:var(--display);font-size:1.6rem;letter-spacing:.06em}
-.cart-close{width:36px;height:36px;border-radius:50%;border:1px solid rgba(18,24,38,.12);font-size:1.2rem}
+.cart-close{
+  width:var(--touch);height:var(--touch);border-radius:50%;border:1px solid rgba(18,24,38,.12);font-size:1.2rem;
+  display:grid;place-items:center;
+}
 .cart-body{flex:1;overflow:auto;padding:1rem 1.2rem}
 .cart-empty{color:#5c6473;padding:2rem 0;text-align:center}
 .cart-item{
@@ -604,8 +617,9 @@ html[dir="rtl"] body > .av-toggle{
 }
 .pdp-close{
   position:absolute;top:.7rem;right:.7rem;z-index:2;
-  width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.2);
+  width:var(--touch);height:var(--touch);border-radius:50%;border:1px solid rgba(255,255,255,.2);
   background:rgba(0,0,0,.35);font-size:1.3rem;color:#fff;
+  display:grid;place-items:center;
 }
 .pdp-viz{
   min-height:200px;display:flex;align-items:center;justify-content:center;
@@ -620,12 +634,17 @@ html[dir="rtl"] body > .av-toggle{
 .pdp-body p{color:rgba(238,243,250,.75);font-size:.95rem;margin-bottom:1rem}
 .hero-inner{
   position:relative;z-index:2;width:100%;max-width:1400px;margin:0 auto;
-  /* Leave room for VeeFriends sound control in the bottom-right corner */
-  padding:2.2rem max(4vw, 1rem) 2.4rem;
-  padding-right:max(5.5rem, 18vw);
+  padding:2.2rem var(--pad-x) 2.4rem;
+  padding-right:var(--pad-x);
 }
 @media (min-width:701px){
-  .hero-inner{padding-right:max(6.5rem, 12vw);padding-bottom:2.8rem}
+  .hero-inner{
+    padding-right:max(6.5rem, 12vw);
+    padding-bottom:2.8rem;
+  }
+}
+@media (max-width:700px){
+  .hero:has(.hero-av-slot) .hero-inner{padding-right:max(4.5rem, 14vw)}
 }
 .hero-inner .cta-row{max-width:min(100%, 22rem)}
 .live-pill{
@@ -662,7 +681,7 @@ html[data-theme="light"] .hero-countdown-digits{color:#0b1220;text-shadow:none}
   display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.85rem;max-width:min(100%, 26rem);
 }
 .hero-farm a{
-  display:inline-flex;align-items:center;min-height:34px;padding:.35rem .7rem;border-radius:999px;
+  display:inline-flex;align-items:center;min-height:var(--touch);padding:.5rem .85rem;border-radius:999px;
   font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;
   color:#f0d78c;border:1px solid rgba(240,215,140,.4);background:rgba(10,22,44,.35);
   backdrop-filter:blur(8px);
@@ -699,7 +718,8 @@ html[data-theme="light"] .theme-toggle{
 }
 
 /* ---------- sections ---------- */
-.section{position:relative;z-index:1;padding:4.5rem 4vw;max-width:var(--max);margin:0 auto}
+.section{position:relative;z-index:1;padding:3rem var(--pad-x);max-width:var(--max);margin:0 auto}
+@media(min-width:900px){.section{padding:4.5rem 4vw}}
 .section-wide{max-width:1400px}
 .section-head{margin-bottom:2rem;max-width:40rem}
 .kicker{display:block;color:var(--gold-bright);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700;margin-bottom:.55rem}
