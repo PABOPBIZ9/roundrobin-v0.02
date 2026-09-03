@@ -737,6 +737,20 @@
     let sceneTimer = null;
     let sceneIndex = 0;
 
+    function syncVideos() {
+      scenes.forEach((scene, idx) => {
+        const video = scene.querySelector(".hero-video");
+        if (!video) return;
+        video.muted = true;
+        video.playsInline = true;
+        if (enabled && idx === sceneIndex) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    }
+
     function setUi() {
       btn.classList.toggle("on", enabled);
       btn.setAttribute("aria-pressed", enabled ? "true" : "false");
@@ -754,6 +768,7 @@
     function showScene(i) {
       if (!scenes.length) return;
       scenes.forEach((s, idx) => s.classList.toggle("is-active", idx === i));
+      syncVideos();
     }
 
     function startScenes() {
@@ -762,11 +777,12 @@
       if (sceneTimer) return;
       const tick = () => {
         if (!enabled) return;
+        const delay = scenes[sceneIndex]?.classList.contains("hero-scene-video") ? 9000 : 5200;
         sceneTimer = setTimeout(() => {
           sceneIndex = (sceneIndex + 1) % scenes.length;
           showScene(sceneIndex);
           tick();
-        }, 4800);
+        }, delay);
       };
       tick();
     }
@@ -776,6 +792,7 @@
         clearTimeout(sceneTimer);
         sceneTimer = null;
       }
+      syncVideos();
     }
 
     async function tryPlay() {
