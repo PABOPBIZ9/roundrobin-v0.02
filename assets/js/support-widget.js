@@ -143,7 +143,7 @@
     {
       id: "pucky13",
       re: /pucky ?13|oracle|astrology|dad joke|tip jar|swiftie|patrick kane|number 13|horoscope/,
-      msg: "Pucky 13 is live — chat, free daily jokes & star vibes, tip jar, daily astrology, and the $350 deep report. I'm a vigilante Swiftie with Kane mythology.",
+      msg: "Pucky 13 is live — chat, free daily jokes & star vibes, tip jar, daily astrology, and the $350 deep report. PuckGold's #13 mascot oracle.",
       links: [
         { href: "pucky13.html", label: "Open Pucky 13" },
         { href: "pucky13.html#services", label: "Paid services" },
@@ -268,7 +268,8 @@
       links: [
         { href: "support.html", label: "Help Center" },
         { href: "contact.html", label: "Contact Us" },
-        { href: "mailto:hello@puckgold.com", label: "hello@puckgold.com" },
+        { href: "mailto:vibe@puckgold.com", label: "vibe@puckgold.com" },
+        { href: "mailto:pucky13@puckgold.com", label: "pucky13@puckgold.com" },
       ],
       follow: "Help Center or a human contact form?",
     },
@@ -497,7 +498,7 @@
     if (document.querySelector("link[data-pgb-support-css]")) return;
     const l = document.createElement("link");
     l.rel = "stylesheet";
-    l.href = "assets/css/support-widget.css?v=5";
+    l.href = "assets/css/support-widget.css?v=6";
     l.dataset.pgbSupportCss = "1";
     document.head.appendChild(l);
   }
@@ -562,18 +563,18 @@
           </form>
         </div>
       </div>
-      <div class="pgb-lang-pop" id="pgbLangPop" aria-hidden="true">
+      ${document.getElementById("pgbLangPop") || document.getElementById("navLangMenu") ? "" : `<div class="pgb-lang-pop" id="pgbLangPop" aria-hidden="true">
         <div class="pgb-lang-sheet" role="dialog" aria-label="Language">
           <button type="button" class="close" id="pgbLangClose" aria-label="Close">×</button>
           <h3 data-i18n="lang.label">Language / Region</h3>
           <div id="pgbLangList"></div>
         </div>
-      </div>
+      </div>`}
     `;
     document.body.appendChild(root);
 
     const footer = document.getElementById("site-footer");
-    if (footer && !document.getElementById("pgbLangBar")) {
+    if (footer && !document.getElementById("pgbLangBar") && !document.getElementById("navLangBtn")) {
       const bar = document.createElement("div");
       bar.className = "pgb-lang-bar";
       bar.id = "pgbLangBar";
@@ -625,13 +626,19 @@
     }
 
     function openLang() {
+      const navBtn = document.getElementById("navLangBtn");
+      if (navBtn) {
+        navBtn.click();
+        return;
+      }
       fillLangList();
-      langPop.classList.add("is-open");
-      langPop.setAttribute("aria-hidden", "false");
+      langPop?.classList.add("is-open");
+      langPop?.setAttribute("aria-hidden", "false");
     }
     function closeLang() {
-      langPop.classList.remove("is-open");
-      langPop.setAttribute("aria-hidden", "true");
+      document.getElementById("navLangWrap")?.classList.remove("is-open");
+      langPop?.classList.remove("is-open");
+      langPop?.setAttribute("aria-hidden", "true");
     }
 
     function addBubble(text, who, links) {

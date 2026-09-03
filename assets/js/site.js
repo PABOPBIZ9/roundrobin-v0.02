@@ -8,13 +8,12 @@
   function applyTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme === "light" ? "light" : "dark");
     localStorage.setItem(THEME_KEY, theme === "light" ? "light" : "dark");
-    const btn = document.getElementById("themeToggle");
-    if (btn) {
-      const isLight = theme === "light";
+    const isLight = theme === "light";
+    document.querySelectorAll(".theme-toggle").forEach((btn) => {
       btn.setAttribute("aria-pressed", isLight ? "true" : "false");
       btn.setAttribute("aria-label", isLight ? "Switch to dark mode" : "Switch to light mode");
       btn.title = isLight ? "Dark mode" : "Light mode";
-    }
+    });
   }
   applyTheme(getTheme());
 
@@ -103,6 +102,63 @@
     { href: "join.html", label: "$36 OG Pass · Plans" },
   ];
 
+  /* DraftKings-style product switcher + top bar */
+  const productLinks = [
+    { href: "index.html", label: "League", ico: "league" },
+    { href: "fantasy.html", label: "Fan Zone", ico: "fan" },
+    { href: "play.html", label: "Game Zone", ico: "play" },
+    { href: "shop.html", label: "Shop", ico: "shop" },
+    { href: "lockervision.html", label: "LockerVision", ico: "lv" },
+    { href: "retro.html", label: "Retro '94", ico: "retro" },
+    { href: "media.html", label: "Media Hub", ico: "media" },
+  ];
+
+  const PRODUCT_ICONS = {
+    league:
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg>',
+    fan:
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 3l2.4 5.4 5.9.9-4.3 4.1 1 5.8L12 16.4 6.9 18.2l1-5.8L3.7 9.3l5.9-.9L12 3z"/></svg>',
+    play:
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M6 9h12a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2a2 2 0 012-2z"/><path fill="currentColor" d="M10 15V9l5 3-5 3z"/></svg>',
+    shop:
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M6 8h12l-1 12H7L6 8z"/><path fill="none" stroke="currentColor" stroke-width="1.8" d="M9 8a3 3 0 016 0"/></svg>',
+    lv:
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M6 4h12l1 4H5l1-4z"/><path fill="none" stroke="currentColor" stroke-width="1.8" d="M5 8h14v10a2 2 0 01-2 2H7a2 2 0 01-2-2V8z"/></svg>',
+    retro:
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="none" stroke="currentColor" stroke-width="1.8" d="M8 9h8M8 13h5"/><text x="12" y="12.5" text-anchor="middle" fill="currentColor" font-size="5.5" font-weight="800" font-family="system-ui,sans-serif">94</text></svg>',
+    media:
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="currentColor" d="M10 9.5v5l5-2.5-5-2.5z"/></svg>',
+  };
+
+  function productIconHtml(ico) {
+    return `<span class="ico ico-${ico}">${PRODUCT_ICONS[ico] || ""}</span>`;
+  }
+
+  const moreNavLinks = [
+    { href: "teams.html", label: "Teams" },
+    { href: "schedule.html", label: "Schedule" },
+    { href: "standings.html", label: "Standings" },
+    { href: "stats.html", label: "Stats" },
+    { href: "news.html", label: "News" },
+    { href: "founding-four.html", label: "Founding Four" },
+    { href: "format.html", label: "How It Works" },
+    { href: "experience.html", label: "Event Experience" },
+    { href: "support.html", label: "Help Center" },
+  ];
+
+  function productLinksHtml(isActive) {
+    return productLinks
+      .map(
+        (l) =>
+          `<a href="${l.href}" class="nav-product-item${isActive(l.href.split("#")[0]) ? " active" : ""}">${productIconHtml(l.ico)}${l.label}</a>`
+      )
+      .join("");
+  }
+
+  function signInHref() {
+    return "signin.html?next=checkout.html%3Foffer%3Dog";
+  }
+
   /* Monochrome footer icons — Simple Icons glyphs, 24×24 viewBox */
   const socials = [
     { name: "X", href: "https://x.com/puckgoldbiz", path: 'M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z' },
@@ -151,9 +207,11 @@
 
   function navAuthHtml() {
     const chip = readAuthChip();
-    if (!chip) return `<a href="signin.html" class="nav-pill nav-pill-signin">Sign In</a>`;
+    if (!chip) {
+      return `<a href="${signInHref()}" class="nav-cta-login">Sign Up or Log In</a>`;
+    }
     if (!chip.onboarded) {
-      return `<a href="signin.html" class="nav-pill nav-pill-signin">Finish setup</a>`;
+      return `<a href="${signInHref()}" class="nav-cta-login">Finish setup</a>`;
     }
     return `<a href="profile.html" class="nav-me" title="@${chip.handle}">
       <span class="nav-me-av">${chip.avatar}</span>
@@ -164,12 +222,91 @@
 
   function navAuthDrawerHtml() {
     const chip = readAuthChip();
-    if (!chip) return `<a href="signin.html" class="btn btn-signin btn-block">Sign In · create profile</a>`;
+    if (!chip) {
+      return `<a href="${signInHref()}" class="btn btn-founding btn-block">Sign Up or Log In</a>`;
+    }
     if (!chip.onboarded) {
-      return `<a href="signin.html" class="btn btn-signin btn-block">Finish profile setup</a>`;
+      return `<a href="${signInHref()}" class="btn btn-founding btn-block">Finish profile setup</a>`;
     }
     return `<a href="profile.html" class="btn btn-sapphire btn-block">${chip.avatar} @${chip.handle}${chip.premium ? " · 5×" : ""}</a>
       <a href="fantasy.html#board" class="btn btn-ghost btn-block">Farm &amp; leaderboard</a>`;
+  }
+
+  function refreshNavLangCode() {
+    if (!window.PGB_I18N) return;
+    const code = window.PGB_I18N.getLang();
+    const meta = window.PGB_I18N.languages.find((l) => l.code === code);
+    const flagEl = document.getElementById("navLangFlag");
+    const codeEl = document.getElementById("navLangCode");
+    if (flagEl) flagEl.textContent = meta?.flag || "🌐";
+    if (codeEl) codeEl.textContent = meta?.short || code.split("-")[0].toUpperCase();
+  }
+
+  function initLangPicker() {
+    const wrap = document.getElementById("navLangWrap");
+    const btn = document.getElementById("navLangBtn");
+    const menu = document.getElementById("navLangMenu");
+    const list = document.getElementById("pgbLangList");
+    if (!wrap || !btn || !menu || !list) return;
+
+    const renderList = () => {
+      if (!window.PGB_I18N) return;
+      const cur = window.PGB_I18N.getLang();
+      list.innerHTML = window.PGB_I18N.languages
+        .map((l) => {
+          const name = l.label.includes(" — ") ? l.label.split(" — ")[0] : l.label;
+          const on = l.code === cur;
+          return `<button type="button" role="option" data-lang="${l.code}" class="nav-lang-opt${on ? " is-on" : ""}" aria-selected="${on ? "true" : "false"}">
+            <span class="nav-lang-opt-flag" aria-hidden="true">${l.flag || "🌐"}</span>
+            <span class="nav-lang-opt-label">${name}</span>
+            <span class="nav-lang-opt-check" aria-hidden="true">✓</span>
+          </button>`;
+        })
+        .join("");
+    };
+
+    const close = () => {
+      wrap.classList.remove("is-open");
+      btn.setAttribute("aria-expanded", "false");
+      menu.setAttribute("aria-hidden", "true");
+    };
+    const open = () => {
+      renderList();
+      wrap.classList.add("is-open");
+      btn.setAttribute("aria-expanded", "true");
+      menu.setAttribute("aria-hidden", "false");
+    };
+    const toggle = () => {
+      if (wrap.classList.contains("is-open")) close();
+      else open();
+    };
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggle();
+    });
+    document.getElementById("footerLangBtn")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      toggle();
+    });
+    document.getElementById("pgbLangOpen")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      toggle();
+    });
+    list.addEventListener("click", (e) => {
+      const opt = e.target.closest("[data-lang]");
+      if (!opt || !window.PGB_I18N) return;
+      window.PGB_I18N.setLang(opt.dataset.lang);
+      refreshNavLangCode();
+      close();
+    });
+    document.addEventListener("click", (e) => {
+      if (!wrap.contains(e.target)) close();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") close();
+    });
+    window.addEventListener("pgb:lang", refreshNavLangCode);
   }
 
   function mount() {
@@ -235,113 +372,136 @@
     const scheduleActive = isActive("schedule.html");
     const standingsActive = isActive("standings.html");
     const statsActive = isActive("stats.html");
+    const homeActive = isActive("index.html");
+    const myPassActive =
+      isActive("profile.html") ||
+      isActive("signin.html") ||
+      isActive("fantasy.html") ||
+      isActive("play.html");
+    const liveActive =
+      isActive("aura-vote.html") ||
+      isActive("clip-crown.html") ||
+      isActive("conductor-crest.html") ||
+      isActive("scores.html");
+    const rewardsActive = isActive("join.html") || isActive("checkout.html") || isActive("promos.html");
+    const shopActive = isActive("shop.html") || isActive("gems.html") || isActive("gifts.html");
+    const moreActive = moreNavLinks.some((l) => isActive(l.href.split("#")[0]));
 
     header.innerHTML = `
-      <div class="nav-wrap nav-liv">
-        <a class="logo-link" href="index.html" aria-label="PuckGold home">
-          <img class="logo-mark" src="assets/brand/lockup/primary-master.png?v=3" alt="PGB" width="40" height="40">
-          <div>
-            <div class="logo-word">PUCK<span>GOLD</span></div>
-            <span class="logo-sub">PGB LEAGUE</span>
+      <div class="nav-wrap nav-dk">
+        <div class="nav-left">
+          <a class="logo-link logo-link-home" href="index.html" aria-label="PuckGold home">
+            <img class="logo-mark" src="assets/brand/lockup/primary-master.png?v=3" alt="PGB" width="36" height="36">
+            <span class="logo-word">PUCK<span>GOLD</span></span>
+          </a>
+          <div class="nav-product nav-dd" data-dd>
+            <button type="button" class="nav-product-btn" aria-expanded="false" aria-haspopup="true">
+              <span class="nav-product-name">League</span>
+              <span class="chev" aria-hidden="true">▾</span>
+            </button>
+            <div class="nav-product-panel nav-dd-menu">
+              <div class="nav-product-kicker">Play on Puck Gold</div>
+              ${productLinksHtml(isActive)}
+            </div>
           </div>
-        </a>
-        <nav class="nav-links" aria-label="Primary">
+        </div>
+        <nav class="nav-links nav-links-dk" aria-label="Primary">
+          <a href="index.html" class="${homeActive ? "active" : ""}">Home</a>
+          <a href="profile.html" class="${myPassActive ? "active" : ""}">My Pass</a>
+          <a href="aura-vote.html" class="${liveActive ? "active" : ""}">Live</a>
+          <a href="join.html" class="${rewardsActive ? "active" : ""}">Rewards</a>
           <a href="scores.html" class="${scoresActive ? "active" : ""}">Scores</a>
-          <a href="schedule.html" class="${scheduleActive ? "active" : ""}">Schedule</a>
-          <a href="stats.html" class="${statsActive ? "active" : ""}">Stats</a>
-          <a href="standings.html" class="${standingsActive ? "active" : ""}">Standings</a>
+          <a href="shop.html" class="${shopActive ? "active" : ""}">Shop</a>
           <div class="nav-dd" data-dd>
-            <button type="button" class="${teamsActive ? "active" : ""}" aria-expanded="false" aria-haspopup="true">Teams <span class="chev">▾</span></button>
-            <div class="nav-dd-menu">${ddLinks(teamsLinks, isActive)}</div>
-          </div>
-          <div class="nav-dd" data-dd>
-            <button type="button" class="${newsActive ? "active" : ""}" aria-expanded="false" aria-haspopup="true">News <span class="chev">▾</span></button>
-            <div class="nav-dd-menu">${ddLinks(newsLinks, isActive)}</div>
-          </div>
-          <div class="nav-dd" data-dd>
-            <button type="button" class="${formatActive ? "active" : ""}" aria-expanded="false" aria-haspopup="true">PGB <span class="chev">▾</span></button>
-            <div class="nav-dd-menu">${ddLinks(formatLinks, isActive)}</div>
-          </div>
-          <div class="nav-dd" data-dd>
-            <button type="button" class="${fanActive ? "active" : ""}" aria-expanded="false" aria-haspopup="true">Fan Zone <span class="chev">▾</span></button>
-            <div class="nav-dd-menu">${ddLinks(fanLinks, isActive)}</div>
+            <button type="button" class="${moreActive ? "active" : ""}" aria-expanded="false" aria-haspopup="true">More <span class="chev">▾</span></button>
+            <div class="nav-dd-menu nav-dd-menu-compact">${ddLinks(moreNavLinks, isActive)}</div>
           </div>
         </nav>
         <div class="nav-actions">
-          <a href="join.html" class="nav-pill nav-pill-og" title="$36 OG Offer — Gold Puck + 1-year Premium League Pass">
-            <span class="og-short">$36 OG</span>
-            <span class="og-full">$36 OG Offer</span>
-          </a>
-          <button type="button" class="nav-bag" id="navBagBtn" data-open-cart aria-label="Open bag">
+          <span class="nav-av-slot" id="navAvSlot" aria-hidden="true"></span>
+          <div class="nav-lang-wrap" id="navLangWrap">
+            <button type="button" class="nav-icon-btn nav-lang-btn" id="navLangBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Language" title="Language">
+              <span class="nav-lang-flag" id="navLangFlag" aria-hidden="true">🌐</span>
+              <span class="nav-lang-code" id="navLangCode">EN</span>
+            </button>
+            <div class="nav-lang-menu" id="navLangMenu" aria-hidden="true" role="listbox" aria-label="Language">
+              <div class="nav-lang-list" id="pgbLangList"></div>
+            </div>
+          </div>
+          <button type="button" class="theme-toggle theme-toggle-nav nav-icon-btn" aria-pressed="false" aria-label="Switch to light mode" title="Light mode">
+            <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 0110.5 3 7 7 0 1019 16.5c.7-.6 1.4-1.3 2-2z"/></svg>
+            <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          </button>
+          <button type="button" class="nav-bag nav-icon-btn" id="navBagBtn" data-open-cart aria-label="Open bag">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 016 0"/></svg>
             <span class="bag-count" id="navBagCount" data-count="0"></span>
           </button>
           ${navAuthHtml()}
-          <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileDrawer" aria-label="Open menu">
+          <button class="menu-btn nav-icon-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileDrawer" aria-label="Open menu">
             <span></span><span></span><span></span>
           </button>
         </div>
       </div>
-      <div class="mobile-drawer" id="mobileDrawer">
-        <div class="drawer-ctas" style="margin:0 0 1rem">
-          <a href="checkout.html?offer=og" class="btn btn-founding btn-block" data-claim-og>Become a founding member · $36</a>
+      <div class="drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
+      <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+        <div class="drawer-head">
+          <a class="logo-link logo-link-home" href="index.html" aria-label="PuckGold home">
+            <img class="logo-mark" src="assets/brand/lockup/primary-master.png?v=3" alt="PGB" width="32" height="32">
+            <span class="logo-word">PUCK<span>GOLD</span></span>
+          </a>
+          <button type="button" class="drawer-close nav-icon-btn" id="drawerClose" aria-label="Close menu">×</button>
         </div>
+        <div class="drawer-scroll">
+        <div class="drawer-ctas drawer-ctas-top">
+          ${navAuthDrawerHtml()}
+        </div>
+        <div class="drawer-group">Play on Puck Gold</div>
+        ${productLinks.map((l) => `<a href="${l.href}" class="${isActive(l.href.split("#")[0]) ? "active" : ""}">${productIconHtml(l.ico)} ${l.label}</a>`).join("")}
+        <div class="drawer-group">League</div>
+        <a href="index.html" class="${homeActive ? "active" : ""}">Home</a>
+        <a href="profile.html" class="${myPassActive ? "active" : ""}">My Pass</a>
+        <a href="aura-vote.html" class="${liveActive ? "active" : ""}">Live</a>
+        <a href="join.html" class="${rewardsActive ? "active" : ""}">Rewards</a>
         <a href="scores.html" class="${scoresActive ? "active" : ""}">Scores</a>
+        <a href="shop.html" class="${shopActive ? "active" : ""}">Shop</a>
         <a href="schedule.html" class="${scheduleActive ? "active" : ""}">Schedule</a>
         <a href="standings.html" class="${standingsActive ? "active" : ""}">Standings</a>
         <a href="stats.html" class="${statsActive ? "active" : ""}">Stats</a>
-        <div class="drawer-group">League</div>
-        <a href="teams.html">Teams</a>
-        <a href="rosters.html">Rosters</a>
-        <a href="stadiums.html">Stadiums</a>
-        <a href="lockervision.html">LockerVision</a>
-        <a href="awards.html">Awards</a>
-        <a href="expansion.html">Expansion Weekend</a>
-        <div class="drawer-group">Fans</div>
-        <a href="play.html">Game Zone</a>
-        <a href="fantasy.html">Fan Zone</a>
-        <a href="shop.html">Shop</a>
-        <a href="gifts.html">Gift Cards</a>
-        <a href="gems.html">Gems &amp; Coins</a>
-        <a href="profile.html">My profile</a>
-        <a href="join.html">$36 OG Offer</a>
-        <a href="retro.html">Retro · '94</a>
-        <div class="drawer-group">Watch</div>
-        <a href="news.html">News</a>
-        <a href="video-condensed.html">Condensed Games</a>
-        <a href="video-recaps.html">Game Recaps</a>
-        <a href="media.html">Media Hub</a>
         <div class="drawer-group">More</div>
-        <a href="about.html">About</a>
-        <a href="apply.html">Franchise apply</a>
-        <a href="support.html">Help Center</a>
-        <a href="contact.html">Contact</a>
-        <a href="affiliates.html">Affiliates</a>
-        <a href="brand.html">Brand Kit</a>
-        <a href="brand-factory/studio.html">Brand Factory</a>
+        ${moreNavLinks.map((l) => `<a href="${l.href}" class="${isActive(l.href.split("#")[0]) ? "active" : ""}">${l.label}</a>`).join("")}
         <div class="drawer-ctas">
-          <a href="shop.html" class="btn btn-sapphire btn-block">Shop</a>
-          ${navAuthDrawerHtml()}
-          <button class="theme-toggle theme-toggle-drawer" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch to light mode" title="Light mode">
+          <button class="theme-toggle theme-toggle-drawer" type="button" aria-pressed="false" aria-label="Switch to light mode" title="Light mode">
             <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 0110.5 3 7 7 0 1019 16.5c.7-.6 1.4-1.3 2-2z"/></svg>
             <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
             <span class="theme-toggle-label">Theme</span>
           </button>
         </div>
+        </div>
       </div>
     `;
 
-    const btn = document.getElementById("menuBtn");
+    const drawerBackdrop = document.getElementById("drawerBackdrop");
     const drawer = document.getElementById("mobileDrawer");
+    if (drawerBackdrop?.parentElement === header) document.body.appendChild(drawerBackdrop);
+    if (drawer?.parentElement === header) document.body.appendChild(drawer);
+
+    const btn = document.getElementById("menuBtn");
+    const drawerClose = document.getElementById("drawerClose");
     const setDrawerOpen = (open) => {
       drawer?.classList.toggle("open", open);
+      drawerBackdrop?.classList.toggle("open", open);
+      drawer?.setAttribute("aria-hidden", open ? "false" : "true");
+      drawerBackdrop?.setAttribute("aria-hidden", open ? "false" : "true");
       btn?.setAttribute("aria-expanded", open ? "true" : "false");
       document.body.classList.toggle("drawer-open", !!open);
+      if (open) document.getElementById("navLangWrap")?.classList.remove("is-open");
     };
     btn?.addEventListener("click", (e) => {
       e.stopPropagation();
       setDrawerOpen(!drawer?.classList.contains("open"));
     });
+    drawerClose?.addEventListener("click", () => setDrawerOpen(false));
+    drawerBackdrop?.addEventListener("click", () => setDrawerOpen(false));
     // Founding offer deep-link from drawer / any [data-claim-og]
     header.querySelectorAll("[data-claim-og]").forEach((a) => {
       a.addEventListener("click", (e) => {
@@ -471,10 +631,15 @@
     });
 
     applyTheme(getTheme());
-    document.getElementById("themeToggle")?.addEventListener("click", () => {
-      const next = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
-      applyTheme(next);
+    document.querySelectorAll(".theme-toggle").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const next = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
+        applyTheme(next);
+      });
     });
+
+    initLangPicker();
+    refreshNavLangCode();
 
     initFomoClocks();
 
@@ -496,14 +661,10 @@
           <div class="footer-top">
             <div class="footer-brand">
               <a class="footer-logo" href="index.html" aria-label="PuckGold home">
-                <img src="assets/brand/lockup/primary-master.png?v=3" alt="PGB" width="56" height="80">
+                <img src="assets/brand/lockup/primary-master.png?v=3" alt="PGB" width="40" height="40">
                 <div class="logo-word">PUCK<span>GOLD</span></div>
               </a>
-              <p>PuckGoldBiz (PGB) — the Founding Four era. Premium membership, Fan Zone rewards, and the coldest game on earth.</p>
-              <div class="cta-row">
-                <a href="join.html" class="btn btn-founding btn-sm">Become a founding member</a>
-                <a href="fantasy.html" class="btn btn-sapphire btn-sm">Fan Zone</a>
-              </div>
+              <p>The Founding Four era — Fan Zone, Premium Pass, global ice.</p>
             </div>
             <details class="footer-col"${openAttr}>
               <summary>League</summary>
@@ -511,9 +672,7 @@
                 <a href="schedule.html">Schedule</a>
                 <a href="scores.html">Scores</a>
                 <a href="stats.html">Stats</a>
-                <a href="bracket.html">Leaderboard</a>
                 <a href="teams.html">Teams</a>
-                <a href="rosters.html">Rosters</a>
                 <a href="stadiums.html">Stadiums</a>
                 <a href="format.html">Format</a>
               </div>
@@ -522,32 +681,22 @@
               <summary>Fans</summary>
               <div class="footer-links">
                 <a href="fantasy.html">Fan Zone</a>
-                <a href="lockervision.html">LockerVision</a>
                 <a href="shop.html">Shop</a>
-                <a href="gems.html">Gems &amp; Coins</a>
-                <a href="gifts.html">Gift Cards</a>
-                <a href="gifts.html#send">Send a gift</a>
-                <a href="profile.html">My profile</a>
                 <a href="join.html">$36 OG Pass</a>
-                <a href="promos.html">Promotions</a>
-                <a href="experience.html">Experience</a>
-                <a href="awards.html">Awards</a>
-                <a href="lv-schedule.html">LV schedule</a>
+                <a href="profile.html">My profile</a>
+                <a href="lockervision.html">LockerVision</a>
+                <a href="retro.html">Retro '94</a>
               </div>
             </details>
             <details class="footer-col"${openAttr}>
               <summary>Company</summary>
               <div class="footer-links">
                 <a href="about.html">About</a>
-                <a href="apply.html">Franchise apply</a>
-                <a href="advertise.html">Advertise</a>
-                <a href="talent.html">Talent</a>
-                <a href="developers.html">Developers</a>
-                <a href="partners.html">Partners</a>
-                <a href="brand.html">Brand Kit</a>
-                <a href="brand-factory/studio.html">Brand Factory</a>
-                <a href="retro.html">Retro · '94</a>
                 <a href="media.html">Media Hub</a>
+                <a href="apply.html">Franchise apply</a>
+                <a href="brand.html">Brand Kit</a>
+                <a href="advertise.html">Advertise</a>
+                <a href="developers.html">Developers</a>
               </div>
             </details>
             <details class="footer-col"${openAttr}>
@@ -557,26 +706,27 @@
                 <a href="contact.html" data-i18n="footer.contact">Contact</a>
                 <a href="affiliates-faqs.html" data-i18n="footer.faq">FAQs</a>
                 <a href="support.html?support=chat" data-i18n="support.chat">Chat with us</a>
-                <a href="#" data-i18n="footer.accessibility">Accessibility</a>
-                <a href="ads-affiliate.html" data-i18n="footer.adsAff">Ad Affiliate</a>
-                <a href="affiliates.html" data-i18n="footer.consAff">Fan Affiliates</a>
               </div>
             </details>
           </div>
-          <div class="footer-social-label">Follow PGB</div>
-          <div class="social-grid" aria-label="Social media">${socialHtml}</div>
+          <div class="footer-social-row">
+            <span class="footer-social-label">Follow PGB</span>
+            <div class="social-grid" aria-label="Social media">${socialHtml}</div>
+          </div>
           <div class="footer-bottom">
-            <div class="foot-note">© 2026 PuckGoldBiz (PGB). All rights reserved.</div>
+            <div class="foot-note">© 2026 PuckGoldBiz (PGB)</div>
             <div class="footer-legal">
               <a href="#" data-i18n="footer.privacy">Privacy</a>
               <a href="#" data-i18n="footer.terms">Terms</a>
-              <a href="#">Cookies</a>
-              <a href="#" data-i18n="footer.accessibility">Accessibility</a>
-              <a href="support.html" data-i18n="footer.help">Help Center</a>
+              <a href="support.html" data-i18n="footer.help">Help</a>
+              <button type="button" class="footer-lang-link" id="footerLangBtn" data-i18n="lang.change">Language</button>
             </div>
           </div>
         </div>
       `;
+      document.getElementById("footerLangBtn")?.addEventListener("click", () => {
+        document.getElementById("navLangBtn")?.click();
+      });
 
       // Keep accordion columns open on desktop when resizing up
       const cols = footer.querySelectorAll("details.footer-col");
@@ -674,6 +824,49 @@
   }
 
   // Sound + icon/text scene carousel (no tip labels)
+  const HERO_LAUNCH_CTA = {
+    href: "signin.html?next=checkout.html%3Foffer%3Dog",
+    label: "Sign Up or Log In",
+  };
+
+  const HERO_LAUNCH_PANEL = {
+    kicker: "Launch · Season One",
+    line1: "Puck Gold",
+    line2: "The coldest game on earth",
+    deck: "Become a founding member — OG Limited Edition puck + 1-year Premium League Pass.",
+  };
+
+  const HERO_SLIDES = [
+    {
+      kicker: "Launch · Season One",
+      line1: "Puck Gold",
+      line2: "The coldest game on earth",
+      deck: "Sign in and claim your $36 OG Pass — Limited Edition puck shipped with a handwritten founder note + 1-year Premium League Pass.",
+      ctas: [HERO_LAUNCH_CTA],
+    },
+    {
+      kicker: "Founding Four",
+      line1: "The Ice Is Real",
+      line2: "The Arenas Are Not",
+      deck: "Broadcast spectacles built for pressure and chaos. Back the launch with your founding OG Pass.",
+      ctas: [HERO_LAUNCH_CTA],
+    },
+    {
+      kicker: "Fan Zone",
+      line1: "Fans Decide",
+      line2: "In Real Time",
+      deck: "Vote. Predict. Influence the game as it happens. Create your account and join with $36.",
+      ctas: [HERO_LAUNCH_CTA],
+    },
+    {
+      kicker: "Origin Story",
+      line1: "Pulled the Goalie",
+      line2: "To Be Born",
+      deck: "The league that pulled its goalie to be born. Sign in — OG Limited Edition puck + Premium League Pass.",
+      ctas: [HERO_LAUNCH_CTA],
+    },
+  ];
+
   function initAVExperience() {
     const STORAGE_KEY = "pgb-av-on";
     function abs(path) {
@@ -723,8 +916,11 @@
       <span class="av-label">Turn sound on</span>
     `;
     const heroSlot = document.getElementById("heroAvSlot");
-    if (heroSlot) {
-      heroSlot.appendChild(btn);
+    const navSlot = document.getElementById("navAvSlot");
+    const avParent = navSlot || heroSlot;
+    if (avParent) {
+      avParent.appendChild(btn);
+      avParent.setAttribute("aria-hidden", "false");
     } else {
       btn.classList.add("av-float");
       document.body.appendChild(btn);
@@ -734,9 +930,35 @@
     const scenes = Array.from(document.querySelectorAll(".hero-scene"));
     const label = btn.querySelector(".av-label");
     const dotsRoot = document.getElementById("heroDots");
+    const heroPanel = document.getElementById("heroPanel");
+    const heroKicker = document.getElementById("heroKicker");
+    const heroHeadline = document.getElementById("heroHeadline");
+    const heroTagline = document.getElementById("heroTagline");
+    const heroDeck = document.getElementById("heroDeck");
+    const heroActions = document.getElementById("heroActions");
 
     let sceneTimer = null;
     let sceneIndex = 0;
+
+    function renderHeroCta() {
+      if (!heroActions) return;
+      heroActions.classList.add("hero-actions-solo");
+      heroActions.innerHTML = `<a href="${HERO_LAUNCH_CTA.href}" class="nav-cta-login nav-cta-hero">${HERO_LAUNCH_CTA.label}</a>`;
+    }
+
+    function updateHeroPanel(i) {
+      const slide = HERO_SLIDES[i];
+      if (!slide || !heroPanel) return;
+      if (heroKicker) heroKicker.textContent = slide.kicker;
+      if (heroHeadline) heroHeadline.textContent = slide.line1;
+      if (heroTagline) heroTagline.textContent = slide.line2;
+      else if (heroHeadline) heroHeadline.innerHTML = `${slide.line1}<span>${slide.line2}</span>`;
+      if (heroDeck) heroDeck.textContent = HERO_LAUNCH_PANEL.deck;
+      renderHeroCta();
+      heroPanel.classList.remove("is-changing");
+      void heroPanel.offsetWidth;
+      heroPanel.classList.add("is-changing");
+    }
 
     function sceneDelay(i) {
       const raw = scenes[i]?.dataset.delay;
@@ -764,10 +986,17 @@
         dot.addEventListener("click", () => {
           sceneIndex = idx;
           showScene(sceneIndex);
-          restartScenes();
+          if (enabled) restartScenes();
         });
       });
       syncDots();
+    }
+
+    function pauseAllVideos() {
+      scenes.forEach((scene) => {
+        const video = scene.querySelector(".hero-video");
+        if (video) video.pause();
+      });
     }
 
     function syncVideos() {
@@ -776,8 +1005,15 @@
         if (!video) return;
         video.muted = true;
         video.playsInline = true;
+        if (!enabled) {
+          video.pause();
+          return;
+        }
         if (idx === sceneIndex) {
-          video.play().catch(() => {});
+          const playPromise = video.play();
+          if (playPromise && typeof playPromise.catch === "function") {
+            playPromise.catch(() => {});
+          }
         } else {
           video.pause();
           video.currentTime = 0;
@@ -785,12 +1021,34 @@
       });
     }
 
+    async function startAv() {
+      startScenes();
+      syncVideos();
+      try {
+        if (!audio.src) audio.src = playlist[trackIndex];
+        if (audio.readyState < 2) audio.load();
+        await audio.play();
+      } catch (_) {
+        audio.src = playlist[trackIndex];
+        audio.load();
+        try {
+          await audio.play();
+        } catch (_) {}
+      }
+    }
+
+    function stopAv() {
+      stopScenes();
+      pauseAllVideos();
+      audio.pause();
+    }
+
     function setUi() {
       btn.classList.toggle("on", enabled);
       btn.setAttribute("aria-pressed", enabled ? "true" : "false");
-      btn.setAttribute("aria-label", enabled ? "Turn sound off" : "Turn sound on");
-      btn.title = enabled ? "Sound on — tap to mute" : "Sound off — tap to play";
-      if (label) label.textContent = enabled ? "Turn sound off" : "Turn sound on";
+      btn.setAttribute("aria-label", enabled ? "Turn sound and video off" : "Turn sound and video on");
+      btn.title = enabled ? "Sound & video on — tap to stop" : "Sound & video off — tap to play";
+      if (label) label.textContent = enabled ? "Turn off" : "Turn on";
       stages.forEach((el) => {
         el.classList.toggle("is-av-on", enabled);
         el.classList.toggle("is-av-off", !enabled);
@@ -802,6 +1060,7 @@
     function showScene(i) {
       if (!scenes.length) return;
       scenes.forEach((s, idx) => s.classList.toggle("is-active", idx === i));
+      updateHeroPanel(i);
       syncVideos();
       syncDots();
     }
@@ -823,7 +1082,9 @@
       showScene(sceneIndex);
       if (sceneTimer) return;
       const tick = () => {
+        if (!enabled) return;
         sceneTimer = setTimeout(() => {
+          if (!enabled) return;
           sceneIndex = (sceneIndex + 1) % scenes.length;
           showScene(sceneIndex);
           tick();
@@ -846,35 +1107,24 @@
       localStorage.setItem(STORAGE_KEY, enabled ? "1" : "0");
       setUi();
       if (enabled) {
-        tryPlay();
+        startAv();
       } else {
-        audio.pause();
+        stopAv();
       }
     }
 
     buildDots();
-    startScenes();
+    showScene(sceneIndex);
 
-    // Click is a user gesture — play/pause reliably here
+    // Click is a user gesture — play/pause audio + video reliably here
     btn.addEventListener("click", async () => {
       enabled = !enabled;
       localStorage.setItem(STORAGE_KEY, enabled ? "1" : "0");
       setUi();
       if (enabled) {
-        try {
-          audio.currentTime = Math.min(audio.currentTime || 0, 0.01);
-          if (!audio.src) audio.src = playlist[trackIndex];
-          await audio.play();
-        } catch (err) {
-          // Force reload then retry once
-          audio.src = playlist[trackIndex];
-          audio.load();
-          try {
-            await audio.play();
-          } catch (_) {}
-        }
+        await startAv();
       } else {
-        audio.pause();
+        stopAv();
       }
     });
 
@@ -885,12 +1135,15 @@
       if (ducked) return;
       ducked = true;
       wasEnabled = enabled;
-      if (enabled) audio.pause();
+      if (enabled) {
+        audio.pause();
+        pauseAllVideos();
+      }
     });
     document.addEventListener("pgb:listen-pause", () => {
       if (!ducked) return;
       ducked = false;
-      if (wasEnabled && enabled) tryPlay();
+      if (wasEnabled && enabled) startAv();
     });
 
     apply();
@@ -910,7 +1163,7 @@
     }
     if (!window.PGB_I18N) inject("assets/js/i18n.js?v=1", "data-pgb-i18n");
     if (!window.PGBAuth) inject("assets/js/auth.js?v=2", "data-pgb-auth");
-    inject("assets/js/support-widget.js?v=1", "data-pgb-support");
+    inject("assets/js/support-widget.js?v=13", "data-pgb-support");
     const applyI18n = () => window.PGB_I18N?.apply(document);
     if (window.PGB_I18N) applyI18n();
     else {

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Team — PuckGold</title>
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=64">
+<link rel="stylesheet" href="assets/css/site.css?v=80">
 <link rel="stylesheet" href="assets/css/teams.css?v=4">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <style>
@@ -84,10 +84,11 @@
 <div id="teamRoot"></div>
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=64"></script>
-<script src="assets/js/support-widget.js?v=12"></script>
-<script src="assets/js/cart.js?v=8"></script>
-<script src="assets/js/teams-data.js?v=3"></script>
+<script src="assets/js/site.js?v=80"></script>
+<script src="assets/js/support-widget.js?v=15"></script>
+<script src="assets/js/cart.js?v=9"></script>
+<script src="assets/js/teams-data.js?v=4"></script>
+<script src="assets/js/team-vault.js?v=1"></script>
 <script>
 (async function () {
   let stadiumData = {};
@@ -100,6 +101,15 @@
   const slug = params.get("team") || "miami-mighty-geckz";
   const team = window.PGBTeams.bySlug(slug) || window.PGBTeams.all()[0];
   document.title = team.name + " — Team Vault | PuckGold";
+
+  const vaultLink = (sectionId) =>
+    `team-vault.html?team=${encodeURIComponent(team.slug)}&section=${encodeURIComponent(sectionId)}`;
+
+  const vaultHref = (sectionId) => {
+    const sec = window.PGBTeamVault?.section(sectionId);
+    if (sec?.teamAnchor) return `team.html?team=${encodeURIComponent(team.slug)}#${sec.teamAnchor}`;
+    return vaultLink(sectionId);
+  };
 
   const vault = [
     { title: "Logos & marks", path: "01-Logos-Marks", desc: "Primary, secondary, mono, app icons." },
@@ -127,7 +137,7 @@
         </div>
         <div class="cta-row" style="margin-top:1.2rem">
           <a href="shop.html#best" class="btn btn-og btn-sm">Shop ${team.code}</a>
-          <a href="${team.folder}02-Brand-Kit/" class="btn btn-platinum btn-sm">Brand kit</a>
+          <a href="${vaultLink("02-Brand-Kit")}" class="btn btn-platinum btn-sm">Brand kit</a>
           <a href="#vault" class="btn btn-ghost btn-sm">Download assets →</a>
         </div>
       </div>
@@ -154,7 +164,7 @@
             <div class="tag">Vault</div>
             <h3>${v.title}</h3>
             <p>${v.desc}</p>
-            <a href="${team.folder}${v.path}/">Open folder →</a>
+            <a href="${vaultHref(v.path)}">Open vault →</a>
           </div>`
           )
           .join("")}
@@ -234,8 +244,8 @@
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:.45rem">
         <a class="tp-btn" href="shop.html#best">Team store</a>
-        <a class="tp-btn ghost" href="${team.folder}02-Brand-Kit/">Team brand kit</a>
-        <a class="tp-btn ghost" href="${team.folder}08-Pucks-Collectibles/">Founders puck</a>
+        <a class="tp-btn ghost" href="${vaultLink("02-Brand-Kit")}">Team brand kit</a>
+        <a class="tp-btn ghost" href="${vaultLink("08-Pucks-Collectibles")}">Founders puck</a>
       </div>
     </section>
 

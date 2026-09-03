@@ -22,15 +22,16 @@
   }
 
   /** SVG hockey kit silhouette when photos aren't dropped yet */
-  function kitSilhouette(team, kit) {
+  function kitSilhouette(team, kit, uid) {
     const shell = kit?.shell || team.colorDeep || "#111";
     const accent = kit?.accent || team.color || "#d4af37";
     const sec = kit?.secondary || "#fff";
     const mono = (team.mono || "?").slice(0, 1);
+    const gid = `kit-${team.slug}-${uid != null ? uid : "0"}`;
     return `
 <svg class="lv-sil" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <defs>
-    <linearGradient id="g-${team.slug}" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="${accent}"/>
       <stop offset="55%" stop-color="${shell}"/>
       <stop offset="100%" stop-color="${shell}"/>
@@ -38,7 +39,7 @@
   </defs>
   <!-- jersey -->
   <path d="M40 48 L70 40 L80 70 L100 62 L120 70 L130 40 L160 48 L175 95 L155 105 L150 200 L50 200 L45 105 L25 95 Z"
-        fill="url(#g-${team.slug})" stroke="${sec}" stroke-width="2"/>
+        fill="url(#${gid})" stroke="${sec}" stroke-width="2"/>
   <text x="100" y="140" text-anchor="middle" fill="${sec}" font-family="Arial Black, sans-serif" font-size="48" font-weight="900">${mono}</text>
   <!-- pants -->
   <path d="M55 200 L145 200 L150 250 L125 255 L100 220 L75 255 L50 250 Z" fill="${shell}" stroke="${accent}" stroke-width="2"/>

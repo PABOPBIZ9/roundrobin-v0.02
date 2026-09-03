@@ -86,7 +86,13 @@ html:not([data-theme="light"]) .lx-page:not(.nhl-light) .lx-dl-actions a.primary
   background:#f0d78c;color:#121826;border-color:#f0d78c;
 }
 
-.lx-tracks{display:grid;gap:.4rem}
+.lx-tracks{
+  display:grid;gap:.4rem;
+  max-height:min(52vh, 520px);
+  overflow-y:auto;overscroll-behavior:contain;
+  padding-right:.1rem;
+  scrollbar-width:thin;
+}
 .lx-track-row{display:grid;grid-template-columns:1fr auto;gap:.4rem;align-items:stretch}
 .lx-track-dl{
   display:grid;place-items:center;min-width:44px;min-height:52px;border-radius:12px;

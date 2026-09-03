@@ -6,7 +6,7 @@
 <title>Checkout — PuckGold</title>
 <meta name="description" content="Secure PuckGold checkout — claim the $36 OG Offer or finish your bag before Expansion faceoff.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=58">
+<link rel="stylesheet" href="assets/css/site.css?v=79">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <style>
   .check-wrap{max-width:960px;margin:0 auto;padding:2rem 4vw 4rem}
@@ -95,9 +95,10 @@
       <h2>YOUR BAG</h2>
       <div id="checkItems"></div>
       <div class="check-total"><span>Subtotal</span><span id="checkSub">$0.00</span></div>
+      <button type="button" class="btn btn-ghost btn-block" id="checkEmptyBtn" style="margin-top:.65rem;border-color:var(--line-soft)">Empty bag</button>
       <div class="check-og-hint" id="ogHint" hidden>
-        Tip: add the <strong>$36 OG Offer</strong> for the free shipped gold puck + 1-year Pass.
-        <button type="button" class="btn btn-founding btn-sm btn-block" style="margin-top:.65rem" id="addOgBtn">Add $36 OG Offer</button>
+        Tip: add the <strong>$36 OG Pass</strong> for the Limited Edition puck + handwritten founder note + 1-year Pass.
+        <button type="button" class="btn btn-founding btn-sm btn-block" style="margin-top:.65rem" id="addOgBtn">Add $36 OG Pass</button>
       </div>
     </div>
     <div class="check-panel">
@@ -128,9 +129,9 @@
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
 <script src="assets/js/auth.js?v=3"></script>
-<script src="assets/js/site.js?v=64"></script>
+<script src="assets/js/site.js?v=79"></script>
 <script src="assets/js/support-widget.js?v=12"></script>
-<script src="assets/js/cart.js?v=9"></script>
+<script src="assets/js/cart.js?v=10"></script>
 <script src="assets/js/pucky-config.js?v=1"></script>
 <script src="assets/js/pucky-entitlements.js?v=3"></script>
 <script>
@@ -189,6 +190,7 @@
             <button type="button" data-d="-1" style="width:28px;height:28px;border-radius:6px;border:1px solid var(--line-soft)">−</button>
             <span>${i.qty}</span>
             <button type="button" data-d="1" style="width:28px;height:28px;border-radius:6px;border:1px solid var(--line-soft)">+</button>
+            <button type="button" data-remove style="margin-left:.5rem;font-size:.72rem;font-weight:700;color:#991b1b;border:0;background:none;cursor:pointer">Remove</button>
           </div>
         </div>
         <strong>${money(i.price * i.qty)}</strong>
@@ -210,10 +212,18 @@
           render();
         });
       });
+      row.querySelector("[data-remove]")?.addEventListener("click", () => {
+        window.PGBCart?.removeItem?.(row.getAttribute("data-id"));
+        render();
+      });
     });
   }
   document.getElementById("addOgBtn")?.addEventListener("click", () => {
     window.PGBCart?.addOgOffer({ open: false });
+    render();
+  });
+  document.getElementById("checkEmptyBtn")?.addEventListener("click", () => {
+    window.PGBCart?.clearCart?.();
     render();
   });
   document.getElementById("checkForm")?.addEventListener("submit", (e) => {

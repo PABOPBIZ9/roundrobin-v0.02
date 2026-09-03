@@ -78,8 +78,8 @@
     },
     "mclean-cardinals": {
       home: {
-        name: "Gardens Ruby Home",
-        story: "Ruby home at Cardinal Perch Gardens — precision red, cream trim, garden-glass sheen.",
+        name: "Climate Cardinal Home",
+        story: "Ruby home at Climate Cardinal Gardens — precision red, cream trim, garden-glass sheen.",
         accent: "#ef4444",
         shell: "#991b1b",
         secondary: "#f5e6b3",

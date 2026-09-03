@@ -1,19 +1,18 @@
 /**
- * Founding Expansion Weekend — 16 teams, starts ~24h from first site visit
- * (persisted so the countdown stays locked for sales urgency).
+ * Weekend tourneys — Underdog Adults League (Founding Four) + Global Power Division
+ * (persisted countdown for sales urgency).
  */
 (function () {
   const KEY = "pgb-expansion-start";
   let start = localStorage.getItem(KEY);
   if (!start) {
-    // Default: 24 hours from now — "this weekend" push
     start = String(Date.now() + 24 * 60 * 60 * 1000);
     localStorage.setItem(KEY, start);
   }
   start = Number(start);
 
   const startDate = new Date(start);
-  const endDate = new Date(start + 2.5 * 24 * 60 * 60 * 1000); // ~weekend window
+  const endDate = new Date(start + 2.5 * 24 * 60 * 60 * 1000);
 
   function fmt(d) {
     return d.toLocaleString(undefined, {
@@ -25,41 +24,82 @@
     });
   }
 
+  const foundingFour = [
+    { slug: "miami-mighty-geckz", name: "Miami Mighty Geckz", code: "MMG", founding: true, division: "underdog", color: "#0f766e" },
+    { slug: "mclean-cardinals", name: "McLean Climate Cardinals", code: "MC", founding: true, division: "underdog", color: "#991b1b" },
+    { slug: "washington-whoomp", name: "Washington Whoomp!", code: "WW", founding: true, division: "underdog", color: "#1e3a8a" },
+    { slug: "chattanooga-choo-choo", name: "Chattanooga Choo Choos", code: "CCC", founding: true, division: "underdog", color: "#78350f" },
+  ];
+
+  /** Global Power only — founding teams never appear in these pools */
+  const expansionGlobal = [
+    { slug: "dubai-dragons", name: "Dubai Dragons", code: "DD", pool: "A", founding: false, division: "global", color: "#b45309" },
+    { slug: "nashville-snakes", name: "Nashville Snakes", code: "NS", pool: "A", founding: false, division: "global", color: "#166534" },
+    { slug: "berlin-blackout", name: "Berlin Blackout", code: "BB", pool: "A", founding: false, division: "global", color: "#374151" },
+    { slug: "tokyo-oni", name: "Tokyo Oni FC", code: "TO", pool: "A", founding: false, division: "global", color: "#dc2626" },
+    { slug: "paris-bub-phoenixes", name: "Paris BUB Phoenixes", code: "PB", pool: "B", founding: false, division: "global", color: "#7c3aed" },
+    { slug: "sao-paulo-shadow-punks", name: "São Paulo Shadow Punks", code: "SP", pool: "B", founding: false, division: "global", color: "#0f172a" },
+    { slug: "london-crown", name: "London Crown Royals", code: "LC", pool: "B", founding: false, division: "global", color: "#1d4ed8" },
+    { slug: "lagos-voltage", name: "Lagos Voltage", code: "LV", pool: "B", founding: false, division: "global", color: "#ca8a04" },
+    { slug: "seoul-neon", name: "Seoul Neon Knights", code: "SN", pool: "C", founding: false, division: "global", color: "#0891b2" },
+    { slug: "mumbai-monsoon", name: "Mumbai Monsoon", code: "MM", pool: "C", founding: false, division: "global", color: "#0369a1" },
+    { slug: "mexico-city-solar", name: "Mexico City Solar", code: "MX", pool: "C", founding: false, division: "global", color: "#ea580c" },
+    { slug: "sydney-surge", name: "Sydney Surge", code: "SS", pool: "D", founding: false, division: "global", color: "#059669" },
+    { slug: "la-hibibi-jinni", name: "Los Angeles Hibibi Jinni", code: "HJ", pool: "D", founding: false, division: "global", color: "#7e22ce" },
+  ];
+
+  const underdogLeague = {
+    id: "underdog-adults-league",
+    name: "Underdog Adults League",
+    tagline: "Founding Four · separate bracket",
+    blurb: "The sacred founding underdogs run their own adults league tourney — round robin into Sunday Underdog Cup. Not mixed into Global Power pools.",
+    format: "4-team round robin · Sunday Underdog Cup final · Sudden Death Strobe OT",
+    teams: foundingFour,
+    schedule: [
+      { day: "Fri · Founding faceoff", items: ["Underdog Adults League openers", "Miracle Game lore block", "Fan Zone XP 2× for founding picks"] },
+      { day: "Sat · Underdog heat", items: ["Round robin continues", "Conductor's Crest vote window", "Clip Crown founding cuts"] },
+      { day: "Sun · Underdog Cup", items: ["Semifinals → Underdog Cup final", "Champions Miami defend the lore", "Separate from Global Power knockout"] },
+    ],
+  };
+
+  const globalPower = {
+    id: "global-power-division",
+    name: "Global Power Division",
+    tagline: "Expansion weekend · power markets only",
+    blurb: "Twelve global franchises in four pools — nonstop Banana Hockey all weekend. Founding underdogs stay in their own league.",
+    format: "4 pools · 12 teams (8–16 field) · Nonstop weekend · Expansion Cup knockout",
+    teams: expansionGlobal,
+    schedule: [
+      { day: "Fri · Global faceoff", items: ["Pool openers (A–D)", "Global Power intros — Dubai · Nashville · Berlin lead Pool A", "Shop flash + Fan Zone XP 2×"] },
+      { day: "Sat · Pool heat", items: ["Pool round 2–3 nonstop", "Aura vote windows live", "Clip Crown global submissions"] },
+      { day: "Sun · Expansion Cup", items: ["QF → SF → Expansion Cup", "Sudden Death Strobe OT", "Global champion crowned — separate from Underdog Cup"] },
+    ],
+  };
+
   window.PGB_EXPANSION = {
-    id: "founding-expansion-weekend",
-    name: "Founding Expansion Weekend",
-    tagline: "Founding 4 → First 16 on the ice",
+    id: "expansion-weekend-dual",
+    name: "Expansion Weekend · Dual tourneys",
+    tagline: "Underdog Adults League + Global Power Division",
     blurb:
-      "Eight new invite markets join the Founding Four for a lightning weekend — Banana Hockey format, Clip Crown energy, and founding merch on fire.",
+      "Two brackets this weekend: the Founding Four run their own Underdog Adults League tourney, while twelve global power markets battle in separate Expansion pools — nonstop action, zero crossover.",
     startMs: start,
     endMs: endDate.getTime(),
     startLabel: fmt(startDate),
     endLabel: fmt(endDate),
     venue: "Neon Reef · Multi-rink broadcast",
-    format: "4 pools of 4 · Sunday knockout · Sudden Death Strobe OT",
-    shopPush: "Weekend founding kit · free gold puck with Premium Pass",
-    teams: [
-      { slug: "miami-mighty-geckz", name: "Miami Mighty Geckz", code: "MMG", pool: "A", founding: true, color: "#0f766e" },
-      { slug: "mclean-cardinals", name: "McLean Cardinals", code: "MC", pool: "A", founding: true, color: "#991b1b" },
-      { slug: "brooklyn-breakaways", name: "Brooklyn Breakaways", code: "BB", pool: "A", founding: false, color: "#1e3a8a" },
-      { slug: "austin-hot-sauce", name: "Austin Hot Sauce", code: "AHS", pool: "A", founding: false, color: "#9a3412" },
-      { slug: "washington-whoomp", name: "Washington Whoomp!", code: "WW", pool: "B", founding: true, color: "#1e3a8a" },
-      { slug: "chattanooga-choo-choo", name: "Chattanooga Choo Choo", code: "CCC", pool: "B", founding: true, color: "#78350f" },
-      { slug: "denver-powder-kegs", name: "Denver Powder Kegs", code: "DPK", pool: "B", founding: false, color: "#334155" },
-      { slug: "toronto-night-owls", name: "Toronto Night Owls", code: "TNO", pool: "B", founding: false, color: "#0f172a" },
-      { slug: "vegas-mirage", name: "Vegas Mirage", code: "VM", pool: "C", founding: false, color: "#6b21a8" },
-      { slug: "boston-harbor-howl", name: "Boston Harbor Howl", code: "BHH", pool: "C", founding: false, color: "#1e40af" },
-      { slug: "portland-foghorns", name: "Portland Foghorns", code: "PF", pool: "C", founding: false, color: "#14532d" },
-      { slug: "nashville-neon-rails", name: "Nashville Neon Rails", code: "NNR", pool: "C", founding: false, color: "#831843" },
-      { slug: "chicago-wind-chill", name: "Chicago Wind Chill", code: "CWC", pool: "D", founding: false, color: "#0c4a6e" },
-      { slug: "atlanta-peach-puck", name: "Atlanta Peach Puck", code: "APP", pool: "D", founding: false, color: "#9d174d" },
-      { slug: "seattle-rainmakers", name: "Seattle Rainmakers", code: "SR", pool: "D", founding: false, color: "#134e4a" },
-      { slug: "philly-liberty-ice", name: "Philly Liberty Ice", code: "PLI", pool: "D", founding: false, color: "#7f1d1d" },
-    ],
+    format: "Dual tourneys · Underdog Cup + Expansion Cup",
+    shopPush: "OG Limited Edition puck + 1-yr Premium Pass · handwritten note from the founders",
+    foundingFour,
+    expansionGlobal,
+    underdogLeague,
+    globalPower,
+    /** Global Power pool teams only (legacy pages filter by pool) */
+    teams: expansionGlobal,
+    allTeams: [...foundingFour, ...expansionGlobal],
     schedule: [
-      { day: "Fri · Faceoff", items: ["Pool openers (A–D)", "Media night + Fan Zone XP 2×", "Shop flash: jerseys −15%"] },
-      { day: "Sat · Heat", items: ["Pool round 2–3", "Aura vote windows live", "Clip Crown submissions open"] },
-      { day: "Sun · Knockout", items: ["QF → SF → Expansion Cup", "Sudden Death Strobe OT", "Founding Pass + puck push"] },
+      { day: "Fri · Faceoff", items: ["Underdog Adults League + Global Power both drop puck", "Founding lore block · Global pool intros", "Fan Zone XP 2×"] },
+      { day: "Sat · Heat", items: ["Underdog round robin + Global pools nonstop", "Aura vote · Clip Crown open", "Separate standings per tourney"] },
+      { day: "Sun · Finals", items: ["Underdog Cup final (Founding Four)", "Expansion Cup knockout (Global Power)", "Two champions · one weekend"] },
     ],
   };
 
@@ -78,15 +118,15 @@
       cat: "Breaking",
       date: "2026-08-07",
       title: "Expansion Weekend prize vault unlocked — merch kits, Clip Crown, 5× farm",
-      dek: "Founding 4 → First 16. Major fan prizes all weekend. OG Pass members farm at 5×.",
+      dek: "Underdog Adults League + Global Power Division. Major fan prizes all weekend. OG Pass members farm at 5×.",
       href: "news-article.html?id=expansion-prizes",
     },
     {
       id: "expansion-24h",
       cat: "Preview",
       date: "2026-08-06",
-      title: "Founding Expansion Weekend tips off under the faceoff clock",
-      dek: "Sixteen teams. Four pools. Sunday knockout. Founding merch on a sales clock.",
+      title: "Dual tourneys tip off — Underdog Adults League + Global Power Division",
+      dek: "Founding Four in their own bracket. Twelve global markets in separate pools. Sunday double finals.",
       href: "news-article.html?id=expansion-24h",
     },
     {
@@ -150,7 +190,7 @@
       cat: "Preview",
       date: "2026-08-06",
       title: "How to watch Expansion Weekend — streams, auras, and shop windows",
-      dek: "Pool map, OT rules, and the founding offer clock.",
+      dek: "Dual bracket map, OT rules, and the founding offer clock.",
       href: "news-article.html?id=how-to-watch-weekend",
     },
   ];

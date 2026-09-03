@@ -31,24 +31,24 @@
   const DAD_JOKES = [
     "Why did the puck go to therapy? Too many unresolved issues in the crease.",
     "I told my stick it needed boundaries. It said, 'I'm already taped.'",
-    "Taylor said it's a lucky day. The scoreboard said 'prove it, number 13.'",
+    "Lucky thirteen said it's a good day. The scoreboard said 'prove it, number 13.'",
     "What's a goalie's favorite snack? Save-ory bites.",
-    "Patrick practiced dekes. I practice asking for tips. Different arts. Same greatness.",
+    "I practice dekes in chat. You practice tipping. Different arts. Same greatness.",
     "Why don't pucks ever get lost? They always find the net… eventually… heh heh.",
-    "Hasek said butterfly. I say tip jar. Both catch everything.",
+    "Butterfly saves, tip-jar hustle — both catch everything.",
     "What's sticky, lucky, and slightly menacing? Me. Also maple syrup. But mostly me.",
     "I asked the stars for advice. They said tip the mascot first.",
     "Why was the ice jealous of me? Because I'm well-rounded.",
-    "Datsyuk hands, Swiftie heart, tip-jar hustle. That's the trinity.",
+    "PuckGold heart, oracle hustle, tip-jar trinity. That's the vibe.",
     "A referee walked into a bar. I yelled offsides. Bad joke. Great energy.",
     "Daily affirmation: you are enough… but thirteen bucks would help.",
   ];
 
   const PREMIUM_JOKES = [
-    "Premium tier: Why did Kane bring a ladder to the rink? To reach new heights on the shootout. Tip jar says same.",
-    "Premium tier: Hasek's pads were bigger than my patience for unpaid advice.",
-    "Premium tier: Swift drops eras. I drop invoices. Both chart.",
-    "Premium tier: Datsyuk deked defenders. I deke your wallet — consensually.",
+    "Premium tier: Why did the mascot bring a ladder to the rink? To reach new heights on the shootout. Tip jar says same.",
+    "Premium tier: Goalie pads were bigger than my patience for unpaid advice.",
+    "Premium tier: Stars drop eras. I drop invoices. Both chart.",
+    "Premium tier: I deked your wallet — consensually — for premium dad jokes.",
     "Premium tier: What's a power play? When you tip twice before asking for stars.",
   ];
 
@@ -69,7 +69,7 @@
 
   const BADGERS = [
     "Heeey — tips keep the oracle online… heh heh… lucky thirteen?",
-    "Don't be shy. Tip the puck. Swiftie karma is real.",
+    "Don't be shy. Tip the puck. Lucky thirteen karma is real.",
     "I can advise for free… but I badger better when tipped.",
     "0.035 SOL for daily stars. Or thirteen bucks because I'm thirteen. Math!",
   ];
@@ -299,19 +299,19 @@
       };
     }
 
-    if (/kane|patrick|88|blackhawk|shootout|hasek|dominik|sabre|datsyuk|pavel|13|swift|swiftie|taylor/.test(s)) {
+    if (/why.*13|number 13|why thirteen|lucky 13/.test(s)) {
       return {
-        msg: "I'm #13 — Swiftie lucky number energy + Kane mythology. Kane grew up loving Hasek in Buffalo, worshipped Datsyuk's hands (#13), later wore the Hawk sweater where legends collide. Me? Vigilante oracle with a tip jar and a gold smile.",
+        msg: "I'm #13 — PuckGold's mascot oracle. Lucky fan number, Fan Zone boosts, and I sign the handwritten surprise on founding OG pucks. Chat free, tips appreciated, vigilante energy optional.",
         links: [
           { label: "Read my lore", href: "#lore" },
-          { label: "Tip the myth $13", action: "tip13" },
+          { label: "Tip lucky $13", action: "tip13" },
         ],
       };
     }
 
     if (/og|pass|\$36|36|founding|gold puck/.test(s)) {
       return {
-        msg: "Smart. $36 OG Offer = gold puck + year Pass + 5× XP. I still want a tip though… heh heh.",
+        msg: "Smart. $36 OG Pass = Limited Edition puck + year Pass + 5× XP. I still want a tip though… heh heh.",
         links: [
           { label: "$36 OG Offer", href: "checkout.html?offer=og" },
           { label: "Tip Pucky", action: "tip13" },
@@ -353,7 +353,7 @@
     }
 
     return {
-      msg: `I'm listening${nameBit} — Expansion, OG Pass, jokes, astrology, Kane/Swift lore, or tips. Be specific. Then tip me. Vigilante rules.`,
+      msg: `I'm listening${nameBit} — Expansion, OG Pass, jokes, astrology, or tips. Be specific. Then tip me. Oracle rules.`,
       links: [
         { label: "Free joke", seed: "joke" },
         { label: "Astrology", seed: "astrology" },
@@ -606,11 +606,11 @@
     if (msgs && !msgs.childElementCount) {
       const greet = memory.name
         ? `Heeey ${memory.name} — Pucky 13 back on the ice. Tips, stars, jokes, deep report. What do you need?`
-        : "Heeey bestie — I'm Pucky 13. Swiftie. Kane mythology. Vigilante tip-badger. Ask advice, grab free jokes & star vibes, or unlock premium chaos.";
+        : "Heeey bestie — I'm Pucky 13, PuckGold's mascot oracle. Ask advice, grab free jokes & star vibes, or unlock premium chaos. Tips keep me online.";
       addBubble(msgs, greet, "bot", [
         { label: "Dad joke", seed: "dad joke" },
         { label: "Astrology", seed: "astrology" },
-        { label: "Why 13?", seed: "why number 13 kane swift" },
+        { label: "Why 13?", seed: "why number 13" },
         { label: "Tip SOL/$", href: "#sol" },
       ]);
     }

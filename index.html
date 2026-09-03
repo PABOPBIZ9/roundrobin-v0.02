@@ -6,69 +6,45 @@
 <title>PuckGold — Official Site | Teams, Scores, Shop & Fan Zone</title>
 <meta name="description" content="PuckGold — the coldest game on earth. Ice is real. Arenas are not. Fans decide in real time. The league that had to pull its goalie to be born.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=66">
-<link rel="stylesheet" href="assets/css/nhl-league.css?v=8">
+<link rel="stylesheet" href="assets/css/site.css?v=83">
+<link rel="stylesheet" href="assets/css/nhl-league.css?v=9">
+<link rel="stylesheet" href="assets/css/support-widget.css?v=7">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <link rel="icon" href="assets/brand/favicon/favicon-32.png?v=3" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/app/apple-touch-icon.png?v=3">
 </head>
-<body class="has-ex-sticky">
+<body class="has-ex-sticky has-hero-cine">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
 
 <section class="hero hero-cine" id="hero" data-av-stage>
   <div class="hero-bg" aria-hidden="true">
     <div class="hero-scenes" id="heroScenes">
-      <div class="hero-scene hero-scene-video is-active" data-scene="0" data-delay="9500">
-        <video class="hero-video" muted playsinline loop preload="metadata" src="assets/media/hero/coldest-game-desert.mp4"></video>
-        <div class="hero-slide">
-          <p class="hero-slide-kicker">PuckGold · Season One · 2026</p>
-          <h1 class="hero-slide-title">Puck Gold —<br><span>The Coldest Game on Earth</span></h1>
-          <p class="hero-slide-sub">Ice, intelligence, and the crowd in control — built for cameras, clips, and chaos.</p>
-          <div class="hero-slide-cta">
-            <a href="teams.html" class="btn btn-hero-primary">Explore the League</a>
-            <a href="media.html" class="btn btn-hero-ghost">Play Trailer</a>
-          </div>
-        </div>
+      <div class="hero-scene hero-scene-video is-active" data-scene="0" data-delay="9000">
+        <video class="hero-video" muted playsinline loop preload="metadata" src="assets/teams/miami-mighty-geckz/03-Stadiums/gallery/minimalist-01.mp4"></video>
       </div>
-      <div class="hero-scene hero-scene-video" data-scene="1" data-delay="9500">
-        <video class="hero-video" muted playsinline loop preload="metadata" src="assets/media/hero/ice-real-arenas-not.mp4"></video>
-        <div class="hero-slide">
-          <p class="hero-slide-kicker">Virtual Founding Four</p>
-          <h1 class="hero-slide-title">The Ice Is Real.<br><span>The Arenas Are Not.</span></h1>
-          <p class="hero-slide-sub">Every rink is a broadcast spectacle — engineered for pressure and chaos.</p>
-          <div class="hero-slide-cta">
-            <a href="stadiums.html" class="btn btn-hero-primary">View Arenas</a>
-            <a href="experience.html" class="btn btn-hero-ghost">Inside the League</a>
-          </div>
-        </div>
+      <div class="hero-scene hero-scene-video" data-scene="1" data-delay="9000">
+        <video class="hero-video" muted playsinline loop preload="metadata" src="assets/teams/mclean-cardinals/03-Stadiums/gallery/stratosphere-01.mp4"></video>
       </div>
-      <div class="hero-scene hero-scene-video" data-scene="2" data-delay="9500">
-        <video class="hero-video" muted playsinline loop preload="metadata" src="assets/media/hero/fans-decide-volcano.mp4"></video>
-        <div class="hero-slide">
-          <p class="hero-slide-kicker">Fan Zone · Live windows</p>
-          <h1 class="hero-slide-title">Fans Decide<br><span>in Real Time</span></h1>
-          <p class="hero-slide-sub">Vote. Predict. Influence the game as it happens.</p>
-          <div class="hero-slide-cta">
-            <a href="aura-vote.html" class="btn btn-hero-primary">Join &amp; Vote Live</a>
-            <a href="fantasy.html" class="btn btn-hero-ghost">Fan Zone</a>
-          </div>
-        </div>
+      <div class="hero-scene hero-scene-video" data-scene="2" data-delay="9000">
+        <video class="hero-video" muted playsinline loop preload="metadata" src="assets/teams/chattanooga-choo-choo/03-Stadiums/gallery/iron-terminal-01.mp4"></video>
       </div>
-      <div class="hero-scene hero-scene-video" data-scene="3" data-delay="9500">
-        <video class="hero-video" muted playsinline loop preload="metadata" src="assets/media/hero/coldest-game-desert.mp4"></video>
-        <div class="hero-slide">
-          <p class="hero-slide-kicker">Season One · 2026</p>
-          <h1 class="hero-slide-title">The League That Had<br><span>to Pull Its Goalie to Be Born</span></h1>
-          <p class="hero-slide-sub">Mobile-first. Broadcast-native. Fan-participatory — from small streamers to global partners.</p>
-          <div class="hero-slide-cta">
-            <a href="checkout.html?offer=og" class="btn btn-hero-primary" data-claim-og>Watch Live</a>
-            <a href="format.html" class="btn btn-hero-ghost">PGB Format</a>
-          </div>
-        </div>
+      <div class="hero-scene hero-scene-video" data-scene="3" data-delay="9000">
+        <video class="hero-video" muted playsinline loop preload="metadata" src="assets/teams/washington-whoomp/03-Stadiums/gallery/metro-vault-01.mp4"></video>
       </div>
     </div>
     <div class="hero-scrim hero-scrim-cine"></div>
+  </div>
+  <div class="hero-panel" id="heroPanel" aria-live="polite">
+    <div class="hero-panel-inner">
+      <p class="hero-kicker" id="heroKicker">Launch · Season One</p>
+      <h1 class="hero-headline" id="heroHeadline">Puck Gold</h1>
+      <p class="hero-tagline" id="heroTagline">The coldest game on earth</p>
+      <p class="hero-deck" id="heroDeck">Become a founding member — OG Limited Edition puck + 1-year Premium League Pass.</p>
+      <div class="hero-actions hero-actions-solo" id="heroActions">
+        <a href="signin.html?next=checkout.html%3Foffer%3Dog" class="nav-cta-login nav-cta-hero">Sign Up or Log In</a>
+      </div>
+    </div>
   </div>
   <nav class="hero-dots" id="heroDots" aria-label="Hero slides"></nav>
   <div class="hero-av-slot" id="heroAvSlot" aria-hidden="false"></div>
@@ -79,32 +55,34 @@
     <div class="founding-copy">
       <span class="founding-kicker">Expansion sales window · $36</span>
       <strong>Founding offer ends with the faceoff clock</strong>
-      <p>Free limited-edition gold puck shipped + 1-year <em>Premium League Pass</em> — ride Expansion Weekend.</p>
+      <p>OG Limited Edition gold puck + 1-year <em>Premium League Pass</em> — shipped with a handwritten surprise note from the founding owners, players &amp; Pucky13 ;-) · <a href="signin.html?next=checkout.html%3Foffer%3Dog" style="color:#f0d78c;font-weight:700">Sign up or log in</a></p>
     </div>
-    <a href="checkout.html?offer=og" class="btn btn-founding" data-claim-og>Become a founding member · $36</a>
   </div>
 </div>
 
 <section class="section section-wide section-light">
-  <div class="section-inner" style="padding-top:4.5rem;padding-bottom:4.5rem">
-    <div class="section-head">
-      <span class="kicker">Featured</span>
-      <h2>Jump in like game day.</h2>
-      <p>Shop, compete, and follow the Founding Four — built for phones first, arena loud second.</p>
+  <div class="section-inner">
+    <div class="section-head-row">
+      <div class="section-head">
+        <span class="kicker">Featured</span>
+        <h2>Jump in like game day.</h2>
+        <p>Shop, compete, and follow the Founding Four — built for phones first.</p>
+      </div>
+      <a href="join.html" class="section-see-all">See all</a>
     </div>
-    <div class="grid-4 home-tiles">
-      <a class="tile" href="checkout.html?offer=og" data-claim-og>
+    <div class="dk-shelf home-tiles">
+      <a class="tile" href="signin.html?next=checkout.html%3Foffer%3Dog">
         <span class="eyebrow-link">Founding</span>
-        <h3>$36 OG Offer</h3>
-        <p class="motto">Gold puck shipped + 1-year Premium League Pass.</p>
+        <h3>$36 OG Pass</h3>
+        <p class="motto">Limited Edition puck + 1-year Premium League Pass · founder note included.</p>
       </a>
       <a class="tile" href="clip-crown.html">
-        <span class="eyebrow-link">Weekend</span>
+        <span class="eyebrow-link is-live">Weekend</span>
         <h3>Clip Crown</h3>
         <p class="motto">Submit your Expansion clip Sat–Sun — win the crown.</p>
       </a>
       <a class="tile" href="aura-vote.html">
-        <span class="eyebrow-link">Live</span>
+        <span class="eyebrow-link is-live">Live</span>
         <h3>Aura Vote</h3>
         <p class="motto">Tap teal / pink / gold — swing the building meter.</p>
       </a>
@@ -114,11 +92,11 @@
         <p class="motto">Founding Four Championship Book · Miracle Game.</p>
       </a>
     </div>
-    <a href="retro.html" class="band" style="display:flex;align-items:center;gap:1rem;margin-top:1.75rem;padding:1rem 1.15rem;text-decoration:none;background:#050810;border:2px solid #d4af37;border-radius:10px;color:#eef3fa">
-      <img src="assets/brand/retro/pgb-league-shimmer-still.png" alt="" width="64" height="64" style="image-rendering:pixelated;flex-shrink:0;border-radius:6px">
+    <a href="retro.html" class="retro-band">
+      <img src="assets/brand/retro/pgb-league-shimmer-still.png" alt="">
       <span>
-        <strong style="display:block;font-family:var(--display);letter-spacing:.06em;font-size:1.15rem">PGB RETRO LEAGUE</strong>
-        <span style="color:rgba(255,255,255,.65);font-size:.9rem">PGB Retro League crests + shimmer logo motion</span>
+        <strong>PGB Retro League</strong>
+        <span>Retro crests + shimmer logo motion</span>
       </span>
     </a>
   </div>
@@ -128,22 +106,21 @@
   <div class="og-panel">
     <div>
       <span class="kicker">Become a founding member</span>
-      <h2 class="display" style="font-size:clamp(2.4rem,8vw,3.8rem);margin:.2rem 0 .6rem">FREE GOLD PUCK + PREMIUM LEAGUE PASS</h2>
-      <p style="color:var(--muted);max-width:34rem">$36 locks your founding status: a free limited-edition gold puck shipped to you, plus a full year Premium League Pass — Fan Zone boosts, early drops, and forever Founding Four credit.</p>
+      <h2 class="og-panel-title">OG Limited Edition puck + Premium League Pass</h2>
+      <p class="og-panel-lead">$36 locks your founding status: an OG Limited Edition gold puck shipped to you, plus a full year Premium League Pass — Fan Zone boosts, early drops, and forever Founding Four credit. Every puck ships with a special surprise handwritten note directly from the founding franchise owners, team players, and Pucky13 ;-)</p>
       <ul class="perk-list">
-        <li>Free limited-edition gold puck shipped to your door</li>
+        <li>OG Limited Edition gold puck — shipped to your door with a handwritten founder note</li>
         <li>1-year Premium League Pass (member access + perks)</li>
         <li>Fan Zone point boost + early shop drops</li>
         <li>Founding member status forever</li>
       </ul>
       <div class="cta-row">
-        <a href="checkout.html?offer=og" class="btn btn-founding" data-claim-og>Become a founding member · $36</a>
-        <a href="join.html#monthly" class="btn btn-ghost">Or $12.99 / month</a>
+        <a href="signin.html?next=checkout.html%3Foffer%3Dog" class="btn btn-founding">Sign in · $36 Pass</a>
       </div>
     </div>
     <div style="text-align:center">
-      <div class="price">$36<small>GOLD PUCK + 1-YR PASS</small></div>
-      <div class="hero-puck" style="margin:1.4rem auto 0;width:88px;height:88px"></div>
+      <div class="price">$36<small>OG puck + 1-yr pass</small></div>
+      <div class="hero-puck" style="margin:1rem auto 0;width:72px;height:72px"></div>
       <p class="plan-alt">Prefer flexible? <a href="join.html#monthly">Go monthly at $12.99</a></p>
     </div>
   </div>
@@ -154,40 +131,19 @@
     <span class="kicker">The Franchises</span>
     <h2>Four identities. One ice.</h2>
   </div>
-  <div class="grid-4">
-    <a class="tile t-miami" href="team.html?team=miami-mighty-geckz">
-      <span class="seed">#3 Seed</span>
-      <div class="mono">M</div>
-      <h3>Mighty Geckz</h3>
-      <div class="arena">Neon Reef — Miami</div>
-      <div class="motto">"Small creature. Massive heart."</div>
-      <div class="record">Champions · 6–5 agg.</div>
-    </a>
-    <a class="tile t-mclean" href="team.html?team=mclean-cardinals">
-      <span class="seed">#1 Seed</span>
-      <div class="mono">C</div>
-      <h3>Cardinals</h3>
-      <div class="arena">Cardinal Perch — McLean</div>
-      <div class="motto">"Precision creates champions."</div>
-      <div class="record">Finalist · 3–0 RR</div>
-    </a>
-    <a class="tile t-wash" href="team.html?team=washington-whoomp">
-      <span class="seed">#2 Seed</span>
-      <div class="mono">W</div>
-      <h3>Whoomp!</h3>
-      <div class="arena">District Dome — Wash.</div>
-      <div class="motto">"Make history."</div>
-      <div class="record">Semifinalist</div>
-    </a>
-    <a class="tile t-chatt" href="team.html?team=chattanooga-choo-choo">
-      <span class="seed">#4 Seed</span>
-      <div class="mono">T</div>
-      <h3>Choo Choo</h3>
-      <div class="arena">Terminal Arena — Chatt.</div>
-      <div class="motto">"Every journey starts here."</div>
-      <div class="record">Sportsmanship winners</div>
-    </a>
+  <div class="grid-4" id="foundingGrid"></div>
+</section>
+
+<section class="section section-wide division-weekend" id="expansionPreview">
+  <div class="section-head-row">
+    <div class="section-head">
+      <span class="kicker">This weekend · Two tourneys</span>
+      <h2>Underdog Adults League + Global Power Division</h2>
+      <p>Founding Four run their own underdog bracket. Global power markets battle in separate pools — same weekend, zero crossover.</p>
+    </div>
+    <a href="expansion.html" class="section-see-all">Full bracket →</a>
   </div>
+  <div class="division-split" id="divisionSplit"></div>
 </section>
 
 <div class="ex-sticky" aria-label="Expansion countdown">
@@ -198,15 +154,20 @@
   </div>
   <div class="ex-sticky-actions">
     <a href="aura-vote.html" class="btn btn-platinum btn-sm">Aura</a>
-    <a href="checkout.html?offer=og" class="btn btn-founding btn-sm" data-claim-og>$36</a>
+    <a href="signin.html?next=checkout.html%3Foffer%3Dog" class="btn btn-founding btn-sm">$36</a>
   </div>
 </div>
 
 <footer class="site-footer" id="site-footer"></footer>
-<script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=66"></script>
-<script src="assets/js/support-widget.js?v=12"></script>
-<script src="assets/js/cart.js?v=9"></script>
+<script src="assets/js/i18n.js?v=2"></script>
+<script src="assets/js/site.js?v=81"></script>
+<script src="assets/js/support-widget.js?v=15"></script>
+<script src="assets/js/cart.js?v=10"></script>
+<script src="assets/js/teams-data.js?v=6"></script>
+<script src="assets/js/lockervision-data.js?v=2"></script>
+<script src="assets/js/lockervision.js?v=3"></script>
+<script src="assets/js/franchise-tiles.js?v=2"></script>
+<script src="assets/js/tournament-data.js?v=7"></script>
 <script>
 document.querySelectorAll("[data-claim-og]").forEach((a)=>{
   a.addEventListener("click",(e)=>{
@@ -215,6 +176,35 @@ document.querySelectorAll("[data-claim-og]").forEach((a)=>{
     location.href="checkout.html?offer=og";
   });
 });
+window.PGBFranchiseTiles?.render("foundingGrid");
+(function () {
+  const E = window.PGB_EXPANSION;
+  if (!E || !document.getElementById("divisionSplit")) return;
+  function teamRow(t, tag) {
+    const label = tag || (t.founding ? '<span class="division-tag">Founding</span>' : '<span class="division-tag division-tag-global">Global</span>');
+    return `<div class="division-team"><span class="division-code" style="background:${t.color}">${t.code}</span><span>${t.name}</span>${label}</div>`;
+  }
+  function poolBlock(label, teams) {
+    if (!teams.length) return "";
+    return `<div class="division-pool-label">${label}</div>${teams.map((t) => teamRow(t)).join("")}`;
+  }
+  const founding = E.foundingFour || [];
+  const global = E.expansionGlobal || E.teams || [];
+  document.getElementById("divisionSplit").innerHTML = `
+    <div class="division-col division-underdog">
+      <h3>Underdog Adults League</h3>
+      <p class="division-blurb">Founding Four only — own tourney, own cup. Season One lore, Miracle Game energy, adults league grit.</p>
+      ${founding.map((t) => teamRow(t)).join("")}
+      <p class="division-more"><a href="expansion.html#underdog">Underdog bracket →</a></p>
+    </div>
+    <div class="division-col division-global">
+      <h3>Global Power Division</h3>
+      <p class="division-blurb">Power markets only — nonstop pools this weekend. Founding teams stay out of these brackets.</p>
+      ${poolBlock("Pool A", global.filter((t) => t.pool === "A"))}
+      ${poolBlock("Pool B", global.filter((t) => t.pool === "B"))}
+      ${global.length > 8 ? `<p class="division-more">Pools C–D + ${global.length - 8} more · <a href="expansion.html#pools">full field</a></p>` : ""}
+    </div>`;
+})();
 </script>
 </body>
 </html>

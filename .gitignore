@@ -5,3 +5,6 @@
 node_modules/
 .vscode/
 .idea/
+.vercel
+assets/vault/content/vibe-playlists/_local-only/
+tools/voice-studio/.venv/

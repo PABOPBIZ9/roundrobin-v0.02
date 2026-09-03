@@ -2,7 +2,7 @@
   const KEY = "pgb-cart-v1";
   const OG_OFFER = {
     id: "og-gold-puck-pass",
-    name: "$36 OG Offer — Gold Puck + 1-Yr Pass",
+    name: "$36 OG Pass — Limited Edition Puck + 1-Yr Pass",
     maker: "PuckGoldBiz · Founding",
     price: 36,
     qty: 1,
@@ -40,10 +40,24 @@
     if (!opts || opts.open !== false) open();
   }
 
-  /** Claim the founding $36 OG Offer (idempotent qty bump) */
+  /** Claim the founding $36 OG Pass (one line item — no duplicate qty spam) */
   function addOgOffer(opts) {
+    const items = read();
+    if (items.some((i) => i.id === OG_OFFER.id)) {
+      render();
+      if (!opts || opts.open !== false) open();
+      return OG_OFFER;
+    }
     addItem({ ...OG_OFFER }, opts);
     return OG_OFFER;
+  }
+
+  function removeItem(id) {
+    write(read().filter((i) => i.id !== id));
+  }
+
+  function clearCart() {
+    write([]);
   }
 
   function setQty(id, qty) {
@@ -70,13 +84,15 @@
         <div class="cart-foot">
           <div class="cart-total"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
           <a class="btn btn-signin btn-block" href="checkout.html">Checkout</a>
-          <a class="btn btn-ghost btn-block" href="shop.html" style="margin-top:.5rem;border-color:rgba(18,24,38,.15);color:#121826">Continue shopping</a>
+          <button type="button" class="btn btn-ghost btn-block cart-empty-btn" id="cartEmptyBtn" style="margin-top:.5rem;border-color:rgba(18,24,38,.15);color:#121826">Empty bag</button>
+          <a class="btn btn-ghost btn-block" href="shop.html" style="margin-top:.35rem;border-color:rgba(18,24,38,.15);color:#121826">Continue shopping</a>
         </div>
       </aside>
     `;
     document.body.appendChild(el);
     el.addEventListener("click", (e) => {
       if (e.target.closest("[data-cart-close]")) close();
+      if (e.target.closest("#cartEmptyBtn")) clearCart();
     });
   }
 
@@ -120,6 +136,7 @@
               <span>${i.qty}</span>
               <button type="button" data-qty="1" aria-label="Increase">+</button>
             </div>
+            <button type="button" class="cart-remove" data-remove aria-label="Remove item">Remove</button>
           </div>
           <div class="price">${money(i.price * i.qty)}</div>
         </div>`;
@@ -136,6 +153,9 @@
           if (!item) return;
           setQty(id, item.qty + delta);
         });
+      });
+      row.querySelector("[data-remove]")?.addEventListener("click", () => {
+        removeItem(row.getAttribute("data-id"));
       });
     });
   }
@@ -208,5 +228,5 @@
     });
   });
 
-  window.PGBCart = { addItem, addOgOffer, open, close, read, render, OG_OFFER };
+  window.PGBCart = { addItem, addOgOffer, open, close, read, render, clearCart, removeItem, OG_OFFER };
 })();

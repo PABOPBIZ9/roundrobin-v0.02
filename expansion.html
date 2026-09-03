@@ -6,7 +6,7 @@
 <title>Founding Expansion Weekend — 24h Countdown | PuckGold</title>
 <meta name="description" content="Founding 16 tip off this weekend — 24-hour countdown. Premium League Pass, gold puck, and founding merch on sale.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=58">
+<link rel="stylesheet" href="assets/css/site.css?v=81">
 <link rel="stylesheet" href="assets/css/nhl-league.css?v=7">
 <link rel="stylesheet" href="assets/css/media-guide.css?v=1">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
@@ -16,9 +16,9 @@
 <header class="site-header" id="site-header"></header>
 
 <section class="nhl-hero">
-  <span class="kicker">This weekend · Founding 4 → First 16</span>
+  <span class="kicker">This weekend · Dual tourneys</span>
   <h1>EXPANSION WEEKEND</h1>
-  <p id="exBlurb">Sixteen teams. Banana Hockey. Clip Crown energy. Faceoff locks in ~24 hours — claim the $36 OG Offer before the horn.</p>
+  <p id="exBlurb">Underdog Adults League for the Founding Four — plus Global Power Division pools running in parallel. Nonstop all weekend.</p>
   <div class="ex-hero-count">
     <div>
       <div style="font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#f0d78c">Faceoff in</div>
@@ -34,7 +34,8 @@
 
 <nav class="nhl-sub">
   <a href="expansion.html" class="is-active">Weekend</a>
-  <a href="#pools">Pools</a>
+  <a href="#underdog">Underdog</a>
+  <a href="#pools">Global pools</a>
   <a href="#sked">Schedule</a>
   <a href="media-guide.html">Media Guide</a>
   <a href="#prizes">Prizes</a>
@@ -50,8 +51,8 @@
   <div class="ex-sale">
     <div>
       <h2>SALES WINDOW · LIVE</h2>
-      <p>Free limited-edition gold puck shipped + 1-year Premium League Pass. Weekend jersey flash on the shop. Gift cards for the group chat.</p>
-      <p style="margin-top:.5rem;font-size:.85rem;color:#f0d78c" id="exSaleNote">Faceoff clock synced sitewide · $36 OG Offer still open · 5× XP for members.</p>
+      <p>OG Limited Edition gold puck + 1-year Premium League Pass — shipped with a handwritten surprise note from the founding owners, players &amp; Pucky13 ;-). Weekend jersey flash on the shop.</p>
+      <p style="margin-top:.5rem;font-size:.85rem;color:#f0d78c" id="exSaleNote">Faceoff clock synced sitewide · $36 OG Pass still open · 5× XP for members.</p>
     </div>
     <div style="display:flex;flex-direction:column;gap:.45rem;min-width:200px">
       <a href="checkout.html?offer=og" class="btn btn-founding" data-claim-og>Become a founding member · $36</a>
@@ -63,7 +64,7 @@
     <div>
       <h2>WEEKEND PRIZE VAULT</h2>
       <p>Merch kits · <a href="clip-crown.html" style="color:#f0d78c">Clip Crown</a> · Neon Reef Party Pack · OG flash raffle · <a href="conductor-crest.html" style="color:#f0d78c">Conductor's Crest vote</a>. Farm likes, votes, comments &amp; quests — <strong style="color:#f0d78c">OG = 5×</strong>.</p>
-      <p style="margin-top:.5rem;font-size:.85rem;color:#f0d78c">Champions Miami defend the lore. McLean hunts redemption. Twelve invite markets crash the party.</p>
+      <p style="margin-top:.5rem;font-size:.85rem;color:#f0d78c">Champions Miami defend Underdog Cup lore. Global Power pools led by Dubai · Nashville · Berlin.</p>
     </div>
     <div style="display:flex;flex-direction:column;gap:.45rem;min-width:200px">
       <a href="aura-vote.html" class="btn btn-founding">Open Aura Vote</a>
@@ -72,7 +73,12 @@
     </div>
   </div>
 
-  <h2 style="font-family:var(--display);font-size:2rem;letter-spacing:.04em;margin:1.5rem 0 .75rem" id="pools">Four pools · 16 teams</h2>
+  <h2 style="font-family:var(--display);font-size:2rem;letter-spacing:.04em;margin:1.5rem 0 .35rem" id="underdog">Underdog Adults League · Founding Four</h2>
+  <p style="color:#5c6473;font-size:.92rem;margin:0 0 .75rem;max-width:42rem">Separate tourney — founding underdogs only. Not mixed into Global Power pools.</p>
+  <div class="ex-pools ex-pools-underdog" id="exUnderdog"></div>
+
+  <h2 style="font-family:var(--display);font-size:2rem;letter-spacing:.04em;margin:2rem 0 .35rem" id="pools">Global Power Division · Four pools</h2>
+  <p style="color:#5c6473;font-size:.92rem;margin:0 0 .75rem;max-width:42rem">Power markets only — Pool A led by Dubai Dragons, Nashville Snakes, Berlin Blackout.</p>
   <div class="ex-pools" id="exPools"></div>
 
   <h2 style="font-family:var(--display);font-size:2rem;letter-spacing:.04em;margin:2rem 0 .75rem" id="sked">Weekend schedule</h2>
@@ -101,28 +107,36 @@
 
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=64"></script>
+<script src="assets/js/site.js?v=81"></script>
 <script src="assets/js/support-widget.js?v=12"></script>
-<script src="assets/js/cart.js?v=9"></script>
-<script src="assets/js/tournament-data.js?v=4"></script>
+<script src="assets/js/cart.js?v=10"></script>
+<script src="assets/js/tournament-data.js?v=7"></script>
 <script>
 (function () {
   const E = window.PGB_EXPANSION;
   document.getElementById("exBlurb").textContent = E.blurb;
   document.getElementById("exWhen").textContent = "Faceoff " + E.startLabel + " · wraps " + E.endLabel + " · " + E.venue;
 
+  function teamLine(t) {
+    return `<div class="ex-team"><span class="ex-dot" style="background:${t.color}"></span>${t.name}${
+      t.founding ? '<span class="ex-founding">Founding</span>' : '<span class="ex-global">Global</span>'
+    }</div>`;
+  }
+
+  const founding = E.foundingFour || E.underdogLeague?.teams || [];
+  document.getElementById("exUnderdog").innerHTML = `
+    <div class="ex-pool ex-pool-solo">
+      <h3>Founding bracket</h3>
+      ${founding.map(teamLine).join("")}
+    </div>`;
+
   const pools = ["A", "B", "C", "D"];
+  const globalTeams = E.expansionGlobal || E.teams || [];
   document.getElementById("exPools").innerHTML = pools
     .map((p) => {
-      const teams = E.teams.filter((t) => t.pool === p);
-      return `<div class="ex-pool"><h3>Pool ${p}</h3>${teams
-        .map(
-          (t) =>
-            `<div class="ex-team"><span class="ex-dot" style="background:${t.color}"></span>${t.name}${
-              t.founding ? '<span class="ex-founding">Founding</span>' : ""
-            }</div>`
-        )
-        .join("")}</div>`;
+      const teams = globalTeams.filter((t) => t.pool === p);
+      if (!teams.length) return "";
+      return `<div class="ex-pool"><h3>Pool ${p}</h3>${teams.map(teamLine).join("")}</div>`;
     })
     .join("");
 

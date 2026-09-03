@@ -6,7 +6,7 @@
 <title>PuckGold Teams — Founding Four Rosters &amp; Players</title>
 <meta name="description" content="Meet the Founding Four — Mighty Geckz, Cardinals, Whoomp!, and Choo Choo. Teams, players, standings, and team sites.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=58">
+<link rel="stylesheet" href="assets/css/site.css?v=79">
 <link rel="stylesheet" href="assets/css/teams.css?v=2">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 </head>
@@ -17,57 +17,66 @@
 <section class="tp-hero">
   <span class="kicker" style="color:#f0d78c">Season One</span>
   <h1>4 TEAMS. ONE PUCKGOLD.</h1>
-  <p>Meet the franchises and players competing in the Founding Four era — standings, mottos, and full team sites.</p>
+  <p>Meet the Founding Four — plus Global Power expansion franchises joining the weekend bracket.</p>
 </section>
 
 <div class="tp-wrap">
   <nav class="tp-rail" aria-label="Jump to team" id="tpRail"></nav>
+  <h2 class="tp-section-label" style="font-family:var(--display);font-size:1.35rem;margin:0 0 1rem;letter-spacing:.04em">Founding Four</h2>
   <div class="tp-grid" id="tpGrid"></div>
+  <h2 class="tp-section-label" style="font-family:var(--display);font-size:1.35rem;margin:2rem 0 1rem;letter-spacing:.04em">Global Power · Expansion</h2>
+  <div class="tp-grid" id="tpExpansion"></div>
 </div>
 
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=64"></script>
+<script src="assets/js/site.js?v=79"></script>
 <script src="assets/js/support-widget.js?v=12"></script>
 <script src="assets/js/cart.js?v=8"></script>
-<script src="assets/js/teams-data.js?v=2"></script>
+<script src="assets/js/teams-data.js?v=5"></script>
 <script>
 (function () {
-  const teams = window.PGBTeams.all();
-  document.getElementById("tpRail").innerHTML = teams
+  const all = window.PGBTeams.all();
+  const founding = all.filter((t) => !t.expansion);
+  const expansion = all.filter((t) => t.expansion);
+  document.getElementById("tpRail").innerHTML = all
     .map((t) => `<a href="team.html?team=${t.slug}">${t.short}</a>`)
     .join("");
-  document.getElementById("tpGrid").innerHTML = teams
-    .map((t) => {
-      const caps = t.players.filter((p) => p.role === "Captain")[0];
-      const chips = t.players
-        .slice(0, 4)
-        .map((p) => `<span class="tp-chip">${p.name.split(" ").pop()}</span>`)
-        .join("");
-      return `
+  function cardHtml(t) {
+    const caps = t.players.filter((p) => p.role === "Captain")[0];
+    const chips = t.players
+      .slice(0, 4)
+      .map((p) => `<span class="tp-chip">${p.name.split(" ").pop()}</span>`)
+      .join("");
+    const seedLine = t.seed ? `#${t.seed} Seed · ${t.record}` : t.record;
+    return `
       <article class="tp-card" id="${t.slug}">
         <div class="tp-card-top" style="background:linear-gradient(145deg,${t.color},${t.colorDeep})">
           <span class="mono">${t.mono}</span>
-          <div class="seed">#${t.seed} Seed · ${t.record}</div>
+          <div class="seed">${seedLine}</div>
           <h2>${t.name}</h2>
         </div>
         <div class="tp-card-body">
-          <div class="motto">“${t.motto}”</div>
+          <div class="motto">"${t.motto}"</div>
           <p class="blurb">${t.blurb}</p>
           <div class="tp-stats">
             <div><span>Season position</span><strong>${t.position}</strong></div>
-            <div><span>Points</span><strong>${t.points}</strong></div>
+            <div><span>Points</span><strong>${t.points || "—"}</strong></div>
           </div>
           <div class="tp-players">${chips}${caps ? `<span class="tp-chip">C · ${caps.name}</span>` : ""}</div>
           <div class="tp-actions">
             <a class="tp-btn" href="team.html?team=${t.slug}">Team site</a>
             <a class="tp-btn ghost" href="team.html?team=${t.slug}#roster">Roster</a>
+            <a class="tp-btn ghost" href="team-vault.html?team=${encodeURIComponent(t.slug)}&section=02-Brand-Kit">Brand kit</a>
             <a class="tp-btn ghost" href="shop.html#best">Shop</a>
           </div>
         </div>
       </article>`;
-    })
-    .join("");
+  }
+  document.getElementById("tpGrid").innerHTML = founding.map(cardHtml).join("");
+  document.getElementById("tpExpansion").innerHTML = expansion.length
+    ? expansion.map(cardHtml).join("")
+    : `<p style="color:#5c6473;font-size:.9rem">Expansion franchises drop on the faceoff clock — <a href="expansion.html">see Global Power pools →</a></p>`;
 })();
 </script>
 </body>
