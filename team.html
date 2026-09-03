@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Team — PuckGold</title>
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=62">
-<link rel="stylesheet" href="assets/css/teams.css?v=3">
+<link rel="stylesheet" href="assets/css/site.css?v=64">
+<link rel="stylesheet" href="assets/css/teams.css?v=4">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <style>
   .vault-grid{display:grid;gap:.75rem;grid-template-columns:1fr}
@@ -49,6 +49,33 @@
     font-size:.9rem;color:#5c6473;
   }
   .map-note code{color:#163a74;font-size:.82rem}
+  .stadium-vid-grid{display:grid;gap:1rem}
+  @media(min-width:900px){.stadium-vid-grid{grid-template-columns:repeat(3,1fr)}}
+  .stadium-vid{
+    background:#0b1220;border-radius:16px;overflow:hidden;border:1px solid rgba(18,24,38,.12);
+    display:flex;flex-direction:column;
+  }
+  .stadium-vid video{
+    width:100%;aspect-ratio:16/9;object-fit:cover;background:#000;display:block;
+  }
+  .stadium-vid .body{padding:1rem 1.05rem 1.15rem;color:#fff;flex:1}
+  .stadium-vid .tag{font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#f0d78c}
+  .stadium-vid h3{font-family:var(--display);font-size:1.15rem;letter-spacing:.03em;margin:.35rem 0 .4rem}
+  .stadium-vid p{font-size:.84rem;line-height:1.45;color:rgba(238,243,250,.72);margin:0}
+  .stadium-vid .miss{
+    aspect-ratio:16/9;display:grid;place-items:center;padding:1rem;text-align:center;
+    background:linear-gradient(145deg,#163a74,#0b1220);color:rgba(255,255,255,.65);font-size:.82rem;
+  }
+  .arena-gallery{margin-top:1.25rem}
+  .arena-gallery h3{font-family:var(--display);font-size:1.35rem;letter-spacing:.03em;margin-bottom:.65rem}
+  .arena-gallery-grid{display:grid;gap:.65rem;grid-template-columns:1fr}
+  @media(min-width:640px){.arena-gallery-grid{grid-template-columns:1fr 1fr}}
+  @media(min-width:1000px){.arena-gallery-grid{grid-template-columns:repeat(3,1fr)}}
+  .arena-gallery-item{
+    border-radius:12px;overflow:hidden;background:#0b1220;border:1px solid rgba(18,24,38,.1);
+  }
+  .arena-gallery-item video{width:100%;aspect-ratio:16/9;object-fit:cover;background:#000;display:block}
+  .arena-gallery-item span{display:block;padding:.45rem .65rem;font-size:.68rem;font-weight:700;color:#5c6473;letter-spacing:.04em}
 </style>
 </head>
 <body class="tp-page">
@@ -60,9 +87,15 @@
 <script src="assets/js/site.js?v=64"></script>
 <script src="assets/js/support-widget.js?v=12"></script>
 <script src="assets/js/cart.js?v=8"></script>
-<script src="assets/js/teams-data.js?v=2"></script>
+<script src="assets/js/teams-data.js?v=3"></script>
 <script>
-(function () {
+(async function () {
+  let stadiumData = {};
+  try {
+    const res = await fetch("assets/js/stadium-videos.json?v=1");
+    if (res.ok) stadiumData = await res.json();
+  } catch (_) {}
+
   const params = new URLSearchParams(location.search);
   const slug = params.get("team") || "miami-mighty-geckz";
   const team = window.PGBTeams.bySlug(slug) || window.PGBTeams.all()[0];
@@ -103,7 +136,7 @@
     <nav class="team-tabs" aria-label="Team sections">
       <div class="team-tabs-inner">
         <a href="#vault" class="active">Vault</a>
-        <a href="#stadiums">3 Stadiums</a>
+        <a href="#stadiums">Stadiums · live</a>
         <a href="#roster">9 Players</a>
         <a href="#audio">Stadium sound</a>
         <a href="#shop">Merch + vibes</a>
@@ -158,20 +191,12 @@
     </section>
 
     <section class="team-section" id="stadiums">
-      <h2>3 Stadiums</h2>
-      <p style="color:#5c6473;margin:-.3rem 0 1rem">Drop stadium renders, hero shots, and arena lore into <code>${team.folder}03-Stadiums</code>.</p>
-      <div class="vault-grid cols-3">
-        ${team.stadiums
-          .map(
-            (s) => `
-          <div class="vault-card">
-            <div class="tag">${s.id}</div>
-            <h3>${s.name}</h3>
-            <p>${s.lore}</p>
-            <a href="${team.folder}03-Stadiums/${s.id}/">Open stadium folder →</a>
-          </div>`
-          )
-          .join("")}
+      <h2>Stadiums · live arena video</h2>
+      <p style="color:#5c6473;margin:-.3rem 0 1rem">Three home sheets per club — primary bowl, practice/terrace, and pop-up/outdoor. Extra angles in the gallery below.</p>
+      <div class="stadium-vid-grid" id="stadiumVideos"></div>
+      <div class="arena-gallery" id="arenaGallery" hidden>
+        <h3>More arena angles</h3>
+        <div class="arena-gallery-grid" id="arenaGalleryGrid"></div>
       </div>
     </section>
 
@@ -278,6 +303,42 @@
     playHorn();
   });
   if (hornNote) hornNote.textContent = "Tap for PA goal blast · real horn WAV optional";
+
+  const pack = stadiumData[team.slug] || { stadiums: {}, gallery: [] };
+  const vidRoot = document.getElementById("stadiumVideos");
+  if (vidRoot) {
+    vidRoot.innerHTML = team.stadiums
+      .map((s) => {
+        const src = pack.stadiums[s.id] || `${team.folder}03-Stadiums/${s.id}/film.mp4`;
+        return `
+        <article class="stadium-vid">
+          <video controls playsinline preload="metadata" poster="" src="${src}"></video>
+          <div class="body">
+            <div class="tag">${s.id} · live</div>
+            <h3>${s.name}</h3>
+            <p>${s.lore}</p>
+          </div>
+        </article>`;
+      })
+      .join("");
+  }
+
+  const gal = pack.gallery || [];
+  const galWrap = document.getElementById("arenaGallery");
+  const galGrid = document.getElementById("arenaGalleryGrid");
+  if (galWrap && galGrid && gal.length) {
+    galWrap.hidden = false;
+    galGrid.innerHTML = gal
+      .map((src) => {
+        const label = src.split("/").pop().replace(/\.mp4$/i, "").replace(/-/g, " ");
+        return `
+        <div class="arena-gallery-item">
+          <video controls playsinline preload="metadata" src="${src}"></video>
+          <span>${label}</span>
+        </div>`;
+      })
+      .join("");
+  }
 })();
 </script>
 </body>

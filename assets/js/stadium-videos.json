@@ -1,0 +1,84 @@
+{
+  "chattanooga-choo-choo": {
+    "stadiums": {
+      "stadium-01": "assets/teams/chattanooga-choo-choo/03-Stadiums/stadium-01/film.mp4",
+      "stadium-02": "assets/teams/chattanooga-choo-choo/03-Stadiums/stadium-02/film.mp4",
+      "stadium-03": "assets/teams/chattanooga-choo-choo/03-Stadiums/stadium-03/film.mp4"
+    },
+    "gallery": [
+      "assets/teams/chattanooga-choo-choo/03-Stadiums/gallery/iron-terminal-01.mp4",
+      "assets/teams/chattanooga-choo-choo/03-Stadiums/gallery/iron-terminal-02.mp4",
+      "assets/teams/chattanooga-choo-choo/03-Stadiums/gallery/iron-terminal-03.mp4",
+      "assets/teams/chattanooga-choo-choo/03-Stadiums/gallery/iron-terminal-04.mp4",
+      "assets/teams/chattanooga-choo-choo/03-Stadiums/gallery/rock-quarry-02.mp4"
+    ]
+  },
+  "mclean-cardinals": {
+    "stadiums": {
+      "stadium-01": "assets/teams/mclean-cardinals/03-Stadiums/stadium-01/film.mp4",
+      "stadium-02": "assets/teams/mclean-cardinals/03-Stadiums/stadium-02/film.mp4",
+      "stadium-03": "assets/teams/mclean-cardinals/03-Stadiums/stadium-03/film.mp4"
+    },
+    "gallery": [
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/blue-ice-01.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/blue-ice-02.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/blue-ice-03.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/forest-01.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/forest-02.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/forest-03.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/forest-04.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/forest-05.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/forest-06.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/forest-07.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/forest-08.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/forest-09.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/foundry-pro-01.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/foundry-steel-01.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/foundry-steel-02.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/foundry-steel-03.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/luxury-01.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/luxury-02.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/stratosphere-01.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/stratosphere-02.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/stratosphere-03.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/stratosphere-04.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/gallery/stratosphere-05.mp4"
+    ]
+  },
+  "miami-mighty-geckz": {
+    "stadiums": {
+      "stadium-01": "assets/teams/miami-mighty-geckz/03-Stadiums/stadium-01/film.mp4",
+      "stadium-02": "assets/teams/miami-mighty-geckz/03-Stadiums/stadium-02/film.mp4",
+      "stadium-03": "assets/teams/miami-mighty-geckz/03-Stadiums/stadium-03/film.mp4"
+    },
+    "gallery": [
+      "assets/teams/miami-mighty-geckz/03-Stadiums/gallery/geckz-arena-04.mp4",
+      "assets/teams/miami-mighty-geckz/03-Stadiums/gallery/geckz-arena-05.mp4",
+      "assets/teams/miami-mighty-geckz/03-Stadiums/gallery/minimalist-01.mp4",
+      "assets/teams/miami-mighty-geckz/03-Stadiums/gallery/minimalist-02.mp4",
+      "assets/teams/miami-mighty-geckz/03-Stadiums/gallery/minimalist-03.mp4",
+      "assets/teams/miami-mighty-geckz/03-Stadiums/gallery/minimalist-04.mp4",
+      "assets/teams/miami-mighty-geckz/03-Stadiums/gallery/neon-reef-01.mp4",
+      "assets/teams/miami-mighty-geckz/03-Stadiums/gallery/neon-reef-02.mp4",
+      "assets/teams/miami-mighty-geckz/03-Stadiums/gallery/neon-reef-03.mp4",
+      "assets/teams/miami-mighty-geckz/03-Stadiums/gallery/neon-reef-04.mp4",
+      "assets/teams/miami-mighty-geckz/03-Stadiums/gallery/neon-reef-05.mp4"
+    ]
+  },
+  "washington-whoomp": {
+    "stadiums": {
+      "stadium-01": "assets/teams/washington-whoomp/03-Stadiums/stadium-01/film.mp4",
+      "stadium-02": "assets/teams/washington-whoomp/03-Stadiums/stadium-02/film.mp4",
+      "stadium-03": "assets/teams/washington-whoomp/03-Stadiums/stadium-03/film.mp4"
+    },
+    "gallery": [
+      "assets/teams/washington-whoomp/03-Stadiums/gallery/metro-vault-01.mp4",
+      "assets/teams/washington-whoomp/03-Stadiums/gallery/metro-vault-02.mp4",
+      "assets/teams/washington-whoomp/03-Stadiums/gallery/outdoor-wash-823-1.mp4",
+      "assets/teams/washington-whoomp/03-Stadiums/gallery/outdoor-wash-823-2.mp4",
+      "assets/teams/washington-whoomp/03-Stadiums/gallery/outdoor-wash-825-1.mp4",
+      "assets/teams/washington-whoomp/03-Stadiums/gallery/outdoor-wash-825-2.mp4",
+      "assets/teams/washington-whoomp/03-Stadiums/gallery/outdoor-wash-826-1.mp4"
+    ]
+  }
+}
