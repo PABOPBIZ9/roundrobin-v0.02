@@ -733,9 +733,42 @@
     const stages = document.querySelectorAll("[data-av-stage]");
     const scenes = Array.from(document.querySelectorAll(".hero-scene"));
     const label = btn.querySelector(".av-label");
+    const dotsRoot = document.getElementById("heroDots");
 
     let sceneTimer = null;
     let sceneIndex = 0;
+
+    function sceneDelay(i) {
+      const raw = scenes[i]?.dataset.delay;
+      const n = raw ? parseInt(raw, 10) : 9000;
+      return Number.isFinite(n) ? n : 9000;
+    }
+
+    function syncDots() {
+      if (!dotsRoot) return;
+      dotsRoot.querySelectorAll("button").forEach((dot, idx) => {
+        dot.classList.toggle("is-active", idx === sceneIndex);
+        dot.setAttribute("aria-current", idx === sceneIndex ? "true" : "false");
+      });
+    }
+
+    function buildDots() {
+      if (!dotsRoot || !scenes.length) return;
+      dotsRoot.innerHTML = scenes
+        .map(
+          (_, idx) =>
+            `<button type="button" aria-label="Hero slide ${idx + 1}" aria-current="${idx === 0 ? "true" : "false"}"></button>`
+        )
+        .join("");
+      dotsRoot.querySelectorAll("button").forEach((dot, idx) => {
+        dot.addEventListener("click", () => {
+          sceneIndex = idx;
+          showScene(sceneIndex);
+          restartScenes();
+        });
+      });
+      syncDots();
+    }
 
     function syncVideos() {
       scenes.forEach((scene, idx) => {
@@ -743,10 +776,11 @@
         if (!video) return;
         video.muted = true;
         video.playsInline = true;
-        if (enabled && idx === sceneIndex) {
+        if (idx === sceneIndex) {
           video.play().catch(() => {});
         } else {
           video.pause();
+          video.currentTime = 0;
         }
       });
     }
@@ -769,22 +803,7 @@
       if (!scenes.length) return;
       scenes.forEach((s, idx) => s.classList.toggle("is-active", idx === i));
       syncVideos();
-    }
-
-    function startScenes() {
-      if (!scenes.length) return;
-      showScene(sceneIndex);
-      if (sceneTimer) return;
-      const tick = () => {
-        if (!enabled) return;
-        const delay = scenes[sceneIndex]?.classList.contains("hero-scene-video") ? 9000 : 5200;
-        sceneTimer = setTimeout(() => {
-          sceneIndex = (sceneIndex + 1) % scenes.length;
-          showScene(sceneIndex);
-          tick();
-        }, delay);
-      };
-      tick();
+      syncDots();
     }
 
     function stopScenes() {
@@ -792,7 +811,25 @@
         clearTimeout(sceneTimer);
         sceneTimer = null;
       }
-      syncVideos();
+    }
+
+    function restartScenes() {
+      stopScenes();
+      startScenes();
+    }
+
+    function startScenes() {
+      if (!scenes.length) return;
+      showScene(sceneIndex);
+      if (sceneTimer) return;
+      const tick = () => {
+        sceneTimer = setTimeout(() => {
+          sceneIndex = (sceneIndex + 1) % scenes.length;
+          showScene(sceneIndex);
+          tick();
+        }, sceneDelay(sceneIndex));
+      };
+      tick();
     }
 
     async function tryPlay() {
@@ -809,13 +846,14 @@
       localStorage.setItem(STORAGE_KEY, enabled ? "1" : "0");
       setUi();
       if (enabled) {
-        startScenes();
         tryPlay();
       } else {
         audio.pause();
-        stopScenes();
       }
     }
+
+    buildDots();
+    startScenes();
 
     // Click is a user gesture — play/pause reliably here
     btn.addEventListener("click", async () => {
@@ -823,7 +861,6 @@
       localStorage.setItem(STORAGE_KEY, enabled ? "1" : "0");
       setUi();
       if (enabled) {
-        startScenes();
         try {
           audio.currentTime = Math.min(audio.currentTime || 0, 0.01);
           if (!audio.src) audio.src = playlist[trackIndex];
@@ -838,7 +875,6 @@
         }
       } else {
         audio.pause();
-        stopScenes();
       }
     });
 
@@ -849,10 +885,7 @@
       if (ducked) return;
       ducked = true;
       wasEnabled = enabled;
-      if (enabled) {
-        audio.pause();
-        stopScenes();
-      }
+      if (enabled) audio.pause();
     });
     document.addEventListener("pgb:listen-pause", () => {
       if (!ducked) return;

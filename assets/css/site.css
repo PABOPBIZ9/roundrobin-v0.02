@@ -342,8 +342,17 @@ html[data-theme="light"] .btn-ghost{background:rgba(22,58,116,.04)}
   padding:0;
   overflow:hidden;
 }
+.hero-cine{
+  min-height:min(88vh, 920px);
+  min-height:min(88svh, 920px);
+  align-items:stretch;
+}
 @media (min-width:900px){
   .hero{min-height:min(62vh, 640px);min-height:min(62svh, 640px)}
+  .hero-cine{min-height:min(92vh, 980px);min-height:min(92svh, 980px)}
+}
+@media (max-width:640px){
+  .hero-cine{min-height:min(84svh, 780px)}
 }
 .hero-bg{
   position:absolute;inset:0;
@@ -369,7 +378,87 @@ html[data-theme="light"] .btn-ghost{background:rgba(22,58,116,.04)}
   transform:scale(1.04);
 }
 .hero.is-av-on .hero-scene-video.is-active .hero-video{animation:sceneKen 12s ease-in-out infinite alternate}
-.hero.is-av-off .hero-video{filter:saturate(.72) brightness(.78)}
+.hero.is-av-off .hero-video{filter:saturate(.78) brightness(.82)}
+.hero-scrim-cine{
+  background:
+    linear-gradient(180deg, rgba(5,9,16,.35) 0%, rgba(5,9,16,.25) 38%, rgba(5,9,16,.72) 100%),
+    radial-gradient(circle at 50% 40%, transparent 30%, rgba(5,9,16,.45) 100%);
+}
+.hero-scrim-cine::after{opacity:.12}
+.hero-slide{
+  position:absolute;inset:0;z-index:2;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:5.5rem var(--pad-x) 5rem;
+  pointer-events:none;
+}
+.hero-slide > *{pointer-events:auto;max-width:42rem;width:100%}
+.hero-slide-kicker{
+  font-size:.62rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.72);margin-bottom:.85rem;
+}
+.hero-slide-title{
+  font-family:var(--font);
+  font-size:clamp(1.65rem, 5.8vw, 3.35rem);
+  font-weight:800;line-height:1.05;letter-spacing:-.02em;
+  color:#fff;text-shadow:0 4px 28px rgba(0,0,0,.45);
+  text-wrap:balance;
+}
+.hero-slide-title span{display:block}
+.hero-slide-sub{
+  margin-top:1rem;font-size:clamp(.92rem, 2.2vw, 1.05rem);
+  line-height:1.55;color:rgba(255,255,255,.82);text-wrap:balance;
+  text-shadow:0 2px 16px rgba(0,0,0,.35);
+}
+.hero-slide-cta{
+  margin-top:1.65rem;display:flex;flex-wrap:wrap;gap:.65rem;
+  justify-content:center;align-items:center;
+}
+.btn-hero-primary{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:var(--touch);padding:.75em 1.5em;
+  background:#fff;color:#0a0a0a;border-radius:4px;
+  font-size:.82rem;font-weight:800;letter-spacing:.04em;
+  border:1px solid #fff;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.btn-hero-primary:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.btn-hero-ghost{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:var(--touch);padding:.75em 1.35em;
+  background:transparent;color:#fff;border-radius:4px;
+  font-size:.82rem;font-weight:700;letter-spacing:.03em;
+  border:1px solid rgba(255,255,255,.55);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+}
+.btn-hero-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.hero-scene.is-active .hero-slide{
+  animation:heroSlideIn .85s ease both;
+}
+@keyframes heroSlideIn{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:none}
+}
+.hero-dots{
+  position:absolute;z-index:5;left:50%;bottom:max(1.1rem, env(safe-area-inset-bottom));
+  transform:translateX(-50%);
+  display:flex;align-items:center;gap:.45rem;
+}
+.hero-dots button{
+  width:6px;height:6px;padding:0;border:0;border-radius:999px;
+  background:rgba(255,255,255,.38);cursor:pointer;
+  transition:width .25s ease, background .25s ease;
+}
+.hero-dots button.is-active{width:20px;background:#fff}
+.hero-dots button:hover{background:rgba(255,255,255,.7)}
+.hero-cine .hero-av-slot{
+  bottom:max(2.6rem, calc(env(safe-area-inset-bottom) + 1.4rem));
+}
+@media (max-width:640px){
+  .hero-slide{padding:4.8rem var(--pad-x) 4.5rem}
+  .hero-slide-cta{flex-direction:column;width:100%;max-width:18rem;margin-left:auto;margin-right:auto}
+  .btn-hero-primary,.btn-hero-ghost{width:100%}
+  .hero-cine .hero-av-slot{right:14px;bottom:max(3.4rem, calc(env(safe-area-inset-bottom) + 2rem))}
+}
 @keyframes sceneKen{
   from{transform:scale(1.04) translate3d(0,0,0)}
   to{transform:scale(1.1) translate3d(-1.5%, -1%, 0)}
