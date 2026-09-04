@@ -1195,9 +1195,10 @@ html[data-theme="light"] .theme-toggle-nav.theme-toggle:hover{color:#163a74;back
   max-width:22ch;margin:.25rem 0 0;
 }
 .page-hero h1.display{font-family:var(--display);font-size:var(--uf-page-display);letter-spacing:.02em;line-height:.98;text-transform:uppercase;max-width:none}
-.page-hero-lead{
+.page-hero-lead,
+.page-hero > p{
   color:rgba(238,243,250,.85);max-width:var(--uf-lead-max);
-  font-size:var(--uf-sm);line-height:1.5;margin:.55rem 0 .85rem;
+  font-size:var(--uf-base);line-height:1.55;margin:.55rem 0 0;
 }
 .page-hero-note{
   margin-top:.75rem;font-size:var(--uf-xs);font-weight:800;letter-spacing:.08em;
@@ -1441,11 +1442,7 @@ html[data-theme="light"] .franchise-player{background:#eef3fa}
 .t-wash .arena{color:var(--wash)}.t-wash .mono{background:var(--wash)}
 .t-chatt .arena{color:var(--chatt)}.t-chatt .mono{background:var(--chatt)}
 
-.page-hero{
-  position:relative;z-index:1;padding:3.5rem 4vw 2rem;max-width:1400px;margin:0 auto;
-}
-.page-hero h1{font-family:var(--display);font-size:clamp(2.8rem,10vw,5rem);letter-spacing:.03em}
-.page-hero p{color:var(--muted);max-width:36rem;margin-top:.7rem}
+/* Removed duplicate .page-hero block — use unified tokens at ~line 1183 */
 
 table.data{width:100%;border-collapse:collapse;font-size:.86rem}
 table.data th,table.data td{padding:.7rem .4rem;border-bottom:1px solid var(--line-soft);text-align:left}

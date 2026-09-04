@@ -1,0 +1,115 @@
+/* Stadiums — virtual venue tours (readable type, brand-forward) */
+
+.stadiums-page{background:var(--bg);color:var(--text)}
+.stadiums-page .ice-lines{opacity:.06}
+
+.stadiums-hero{
+  padding:clamp(1.35rem, 4vw, 2.4rem) var(--pad-x) clamp(1.15rem, 3vw, 1.75rem);
+  background:
+    radial-gradient(circle at 82% 12%, rgba(240,215,140,.22), transparent 42%),
+    radial-gradient(circle at 8% 88%, rgba(61,111,191,.28), transparent 45%),
+    linear-gradient(155deg, #0a162c 0%, #10203a 48%, #163a74 100%);
+  color:#fff;
+  border-bottom:1px solid rgba(240,215,140,.2);
+}
+.stadiums-hero-inner{max-width:720px}
+.stadiums-hero .kicker{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-size:var(--uf-xs);font-weight:700;letter-spacing:.04em;
+  text-transform:none;color:#f0d78c;
+}
+.stadiums-hero .kicker i{
+  width:6px;height:6px;border-radius:50%;background:#ff4d4d;
+  animation:pgLivePing 1.4s ease infinite;
+}
+.stadiums-hero h1{
+  font-family:var(--font);font-weight:800;
+  font-size:clamp(1.75rem, 5vw, 2.35rem);
+  letter-spacing:-.03em;line-height:1.08;margin:.35rem 0 .45rem;
+}
+.stadiums-hero p{
+  font-size:var(--uf-base);line-height:1.55;
+  color:rgba(238,243,250,.88);max-width:38rem;margin:0;
+}
+
+.stadiums-wrap{
+  max-width:1100px;margin:0 auto;
+  padding:clamp(1.15rem, 3vw, 1.75rem) var(--pad-x) clamp(2rem, 5vw, 3.5rem);
+}
+
+.st-list{display:grid;gap:clamp(1.25rem, 3vw, 1.75rem)}
+
+.st-card{
+  background:var(--panel);border:1px solid var(--line-soft);
+  border-radius:18px;overflow:hidden;
+  box-shadow:0 8px 28px rgba(0,0,0,.12);
+}
+.st-card-head{
+  display:flex;align-items:center;gap:.75rem;
+  padding:.85rem 1rem;border-bottom:1px solid var(--line-soft);
+}
+.st-card-logo{
+  width:52px;height:52px;border-radius:12px;object-fit:contain;
+  background:#fff;padding:.25rem;flex-shrink:0;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+.st-card-brand{min-width:0;flex:1}
+.st-card-brand h2{
+  font-family:var(--font);font-weight:800;
+  font-size:var(--uf-lg);letter-spacing:-.02em;line-height:1.15;margin:0;
+}
+.st-card-brand .team-line{
+  font-size:var(--uf-xs);font-weight:700;color:var(--muted);margin-top:.15rem;line-height:1.35;
+}
+.st-card-brand .team-line em{font-style:normal;font-weight:800}
+
+.st-card-player{position:relative;background:#000}
+.st-card-player video{
+  width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#000;
+}
+.st-card-player .st-poster{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  pointer-events:none;transition:opacity .25s ease;
+}
+.st-card-player.is-playing .st-poster{opacity:0}
+.st-tour-meta{
+  display:flex;flex-wrap:wrap;align-items:center;gap:.45rem;
+  padding:.55rem .85rem;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);
+  position:absolute;left:.65rem;bottom:.65rem;right:.65rem;border-radius:10px;
+}
+.st-tour-meta span{
+  font-size:var(--uf-micro);font-weight:700;letter-spacing:.02em;
+  color:rgba(255,255,255,.92);
+}
+.st-tour-meta .st-tour-badge{
+  padding:.2rem .5rem;border-radius:999px;
+  background:rgba(240,215,140,.18);color:#f0d78c;
+}
+
+.st-card-body{padding:1rem 1.05rem 1.15rem}
+.st-card-body p{
+  font-size:var(--uf-sm);line-height:1.5;color:var(--muted);margin:0 0 .85rem;
+}
+.st-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.85rem}
+.st-tags span{
+  font-size:var(--uf-micro);font-weight:700;letter-spacing:0;
+  padding:.28rem .55rem;border-radius:999px;
+  background:rgba(22,58,116,.1);color:var(--muted);
+}
+.st-playlist{display:flex;gap:.4rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-bottom:.85rem;padding-bottom:.1rem}
+.st-playlist::-webkit-scrollbar{display:none}
+.st-play-btn{
+  flex:0 0 auto;display:inline-flex;align-items:center;gap:.35rem;
+  height:var(--uf-chip-h);padding:0 .65rem;border-radius:999px;border:0;
+  font-size:var(--uf-micro);font-weight:700;color:rgba(255,255,255,.85);
+  background:rgba(255,255,255,.08);cursor:pointer;
+  transition:background .12s ease, transform .1s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.st-play-btn.is-active{background:rgba(240,215,140,.22);color:#f0d78c}
+.st-play-btn:active{transform:scale(.96)}
+.st-card-actions{display:flex;flex-wrap:wrap;gap:.45rem}
+
+html[data-theme="light"] .st-card{background:#fff;border-color:rgba(18,24,38,.08)}
+html[data-theme="light"] .st-card-head{border-bottom-color:rgba(18,24,38,.08)}
+html[data-theme="light"] .st-tags span{background:#eef4ff;color:#5c6473}

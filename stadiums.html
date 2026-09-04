@@ -4,78 +4,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Stadiums — PuckGold</title>
+<meta name="description" content="Founding Four virtual venues — full broadcast stadium tours, practice sheets, and pop-up ice.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=88">
+<link rel="stylesheet" href="assets/css/site.css?v=89">
+<link rel="stylesheet" href="assets/css/stadiums.css?v=1">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
-<style>
-  .st-list{display:grid;gap:1.25rem}
-  .st-card{
-    display:grid;gap:1rem;background:var(--panel);border:1px solid var(--line-soft);
-    border-radius:16px;overflow:hidden;
-  }
-  @media(min-width:800px){.st-card{grid-template-columns:1.2fr 1fr;align-items:stretch}}
-  .st-card video{width:100%;aspect-ratio:16/9;object-fit:cover;background:#000;display:block}
-  .st-card .copy{padding:1.1rem 1.15rem 1.25rem}
-  .st-card h3{font-family:var(--display);font-size:clamp(1.5rem,4vw,2rem);letter-spacing:.03em}
-  .st-card .team{font-weight:800;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin:.35rem 0 .55rem}
-  .st-card p{color:var(--muted);line-height:1.45;margin-bottom:.75rem}
-  .st-card .tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.85rem}
-  .st-card .tags span{font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .6rem;border-radius:999px;background:rgba(22,58,116,.08);color:var(--muted)}
-  .st-card .cta{display:flex;flex-wrap:wrap;gap:.45rem}
-</style>
 </head>
-<body>
+<body class="stadiums-page has-ex-sticky">
 <div class="ice-lines"></div>
 <header class="site-header" id="site-header"></header>
-<div class="page-hero">
-  <span class="kicker">Virtual Venues · Live</span>
-  <h1>STADIUMS</h1>
-  <p>Founding Four arenas — primary bowl flythroughs, practice sheets, and pop-up ice. Tap through to full galleries on each team vault.</p>
-</div>
-<section class="section section-wide">
-  <div class="st-list" id="stadiumList"></div>
-</section>
-<footer class="site-footer" id="site-footer"></footer>
-<script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=88"></script>
-<script src="assets/js/support-widget.js?v=12"></script>
-<script src="assets/js/cart.js?v=11"></script>
-<script src="assets/js/teams-data.js?v=3"></script>
-<script>
-(async function () {
-  const meta = {
-    "miami-mighty-geckz": { tags: ["Oceanfront ice", "Neon boards", "Night games"], color: "var(--miami)" },
-    "mclean-cardinals": { tags: ["Climate cardinal ice", "Garden glass", "Championship plaza"], color: "var(--mclean)" },
-    "washington-whoomp": { tags: ["Domed roof", "360° scoreboard", "Reflecting pool"], color: "var(--wash)" },
-    "chattanooga-choo-choo": { tags: ["Train station", "Steam-whistle horn", "Clock tower"], color: "var(--chatt)" },
-  };
-  let vids = {};
-  try {
-    const res = await fetch("assets/js/stadium-videos.json?v=1");
-    if (res.ok) vids = await res.json();
-  } catch (_) {}
 
-  const list = document.getElementById("stadiumList");
-  list.innerHTML = window.PGBTeams.all().map((t) => {
-    const m = meta[t.slug] || { tags: [], color: "var(--gold-bright)" };
-    const src = vids[t.slug]?.stadiums?.["stadium-01"] || `${t.folder}03-Stadiums/stadium-01/film.mp4`;
-    const extra = (vids[t.slug]?.gallery || []).length;
-    return `
-    <article class="st-card">
-      <video controls playsinline preload="metadata" src="${src}"></video>
-      <div class="copy">
-        <h3>${t.arena}</h3>
-        <div class="team" style="color:${m.color}">Home of the ${t.name}</div>
-        <p>${t.blurb}</p>
-        <div class="tags">${m.tags.map((x) => `<span>${x}</span>`).join("")}${extra ? `<span>+${extra} bonus clips</span>` : ""}</div>
-        <div class="cta">
-          <a class="btn btn-og btn-sm" href="team.html?team=${t.slug}#stadiums">All stadium video</a>
-          <a class="btn btn-ghost btn-sm" href="listen.html?show=founding-four-arena-pack">Arena audio</a>
-        </div>
-      </div>
-    </article>`;
-  }).join("");
-})();
-</script>
+<section class="stadiums-hero">
+  <div class="stadiums-hero-inner">
+    <span class="kicker"><i aria-hidden="true"></i> Virtual venues · live tours</span>
+    <h1>Stadiums</h1>
+    <p>Founding Four arenas — full bowl flythroughs, practice sheets, and pop-up ice. Tap a tour clip or open each team vault for the complete gallery.</p>
+  </div>
+</section>
+
+<main class="stadiums-wrap">
+  <div class="st-list" id="stadiumList" aria-live="polite"></div>
+</main>
+
+<div class="ex-sticky" aria-label="Expansion countdown" hidden></div>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/i18n.js?v=2"></script>
+<script src="assets/js/team-brand.js?v=1"></script>
+<script src="assets/js/teams-data.js?v=8"></script>
+<script src="assets/js/site.js?v=89"></script>
+<script src="assets/js/support-widget.js?v=15"></script>
+<script src="assets/js/cart.js?v=11"></script>
+<script src="assets/js/stadiums-page.js?v=1"></script>
 </body>
 </html>

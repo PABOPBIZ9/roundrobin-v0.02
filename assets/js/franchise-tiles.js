@@ -37,7 +37,7 @@
   async function loadStadiumCatalog() {
     if (stadiumCatalog) return stadiumCatalog;
     try {
-      const res = await fetch("assets/js/stadium-videos.json?v=2");
+      const res = await fetch("assets/js/stadium-videos.json?v=3");
       if (res.ok) stadiumCatalog = await res.json();
     } catch (_) {}
     stadiumCatalog = stadiumCatalog || {};
@@ -52,9 +52,10 @@
   }
 
   function logoSources(slug) {
+    if (window.PGBTeamBrand?.logoSources) return window.PGBTeamBrand.logoSources(slug);
     if (window.PGBCharacterArt?.logoSources) return window.PGBCharacterArt.logoSources(slug);
     const base = `assets/teams/${slug}/01-Logos-Marks`;
-    return [`${base}/primary.png`, `${base}/secondary.png`, `${base}/app-icon.png`, `${base}/mono.png`];
+    return [`${base}/primary.png`, `${base}/primary.svg`, `${base}/app-icon.png`, `${base}/secondary.png`, `${base}/mono.png`];
   }
 
   function crestSvg(slug, team, uid) {

@@ -222,4 +222,9 @@ window.PGBTeams = {
     }
     return null;
   },
+  logoUrl(slug) {
+    if (window.PGBTeamBrand?.logoUrl) return window.PGBTeamBrand.logoUrl(slug);
+    const t = this.bySlug(slug);
+    return t ? `${t.folder}01-Logos-Marks/primary.png` : "";
+  },
 };

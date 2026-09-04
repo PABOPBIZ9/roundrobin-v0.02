@@ -5,6 +5,14 @@
       "stadium-02": "assets/teams/chattanooga-choo-choo/03-Stadiums/stadium-02/film.mp4",
       "stadium-03": "assets/teams/chattanooga-choo-choo/03-Stadiums/stadium-03/film.mp4"
     },
+    "tours": [
+      "assets/teams/chattanooga-choo-choo/03-Stadiums/stadium-01/film.mp4",
+      "assets/teams/chattanooga-choo-choo/03-Stadiums/tours/tour-02.mp4",
+      "assets/teams/chattanooga-choo-choo/03-Stadiums/tours/tour-03.mp4",
+      "assets/teams/chattanooga-choo-choo/03-Stadiums/tours/tour-04.mp4",
+      "assets/teams/chattanooga-choo-choo/03-Stadiums/tours/tour-05.mp4",
+      "assets/teams/chattanooga-choo-choo/03-Stadiums/tours/tour-06.mp4"
+    ],
     "gallery": [
       "assets/teams/chattanooga-choo-choo/03-Stadiums/gallery/iron-terminal-01.mp4",
       "assets/teams/chattanooga-choo-choo/03-Stadiums/gallery/iron-terminal-02.mp4",
@@ -19,6 +27,16 @@
       "stadium-02": "assets/teams/mclean-cardinals/03-Stadiums/stadium-02/film.mp4",
       "stadium-03": "assets/teams/mclean-cardinals/03-Stadiums/stadium-03/film.mp4"
     },
+    "tours": [
+      "assets/teams/mclean-cardinals/03-Stadiums/stadium-01/film.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/tours/tour-02.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/tours/tour-03.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/tours/tour-04.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/tours/tour-05.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/tours/tour-06.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/tours/tour-07.mp4",
+      "assets/teams/mclean-cardinals/03-Stadiums/tours/tour-08.mp4"
+    ],
     "gallery": [
       "assets/teams/mclean-cardinals/03-Stadiums/gallery/blue-ice-01.mp4",
       "assets/teams/mclean-cardinals/03-Stadiums/gallery/blue-ice-02.mp4",
@@ -51,6 +69,14 @@
       "stadium-02": "assets/teams/miami-mighty-geckz/03-Stadiums/stadium-02/film.mp4",
       "stadium-03": "assets/teams/miami-mighty-geckz/03-Stadiums/stadium-03/film.mp4"
     },
+    "tours": [
+      "assets/teams/miami-mighty-geckz/03-Stadiums/stadium-01/film.mp4",
+      "assets/teams/miami-mighty-geckz/03-Stadiums/tours/tour-02.mp4",
+      "assets/teams/miami-mighty-geckz/03-Stadiums/tours/tour-03.mp4",
+      "assets/teams/miami-mighty-geckz/03-Stadiums/tours/tour-04.mp4",
+      "assets/teams/miami-mighty-geckz/03-Stadiums/tours/tour-05.mp4",
+      "assets/teams/miami-mighty-geckz/03-Stadiums/tours/tour-06.mp4"
+    ],
     "gallery": [
       "assets/teams/miami-mighty-geckz/03-Stadiums/gallery/geckz-arena-04.mp4",
       "assets/teams/miami-mighty-geckz/03-Stadiums/gallery/geckz-arena-05.mp4",
@@ -71,6 +97,15 @@
       "stadium-02": "assets/teams/washington-whoomp/03-Stadiums/stadium-02/film.mp4",
       "stadium-03": "assets/teams/washington-whoomp/03-Stadiums/stadium-03/film.mp4"
     },
+    "tours": [
+      "assets/teams/washington-whoomp/03-Stadiums/stadium-01/film.mp4",
+      "assets/teams/washington-whoomp/03-Stadiums/tours/tour-02.mp4",
+      "assets/teams/washington-whoomp/03-Stadiums/tours/tour-03.mp4",
+      "assets/teams/washington-whoomp/03-Stadiums/tours/tour-04.mp4",
+      "assets/teams/washington-whoomp/03-Stadiums/tours/tour-05.mp4",
+      "assets/teams/washington-whoomp/03-Stadiums/tours/tour-06.mp4",
+      "assets/teams/washington-whoomp/03-Stadiums/tours/tour-07.mp4"
+    ],
     "gallery": [
       "assets/teams/washington-whoomp/03-Stadiums/gallery/metro-vault-01.mp4",
       "assets/teams/washington-whoomp/03-Stadiums/gallery/metro-vault-02.mp4",

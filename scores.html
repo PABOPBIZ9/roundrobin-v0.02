@@ -114,7 +114,8 @@
 <script src="assets/js/site.js?v=88"></script>
 <script src="assets/js/support-widget.js?v=12"></script>
 <script src="assets/js/cart.js?v=11"></script>
-<script src="assets/js/teams-data.js?v=2"></script>
+<script src="assets/js/team-brand.js?v=1"></script>
+<script src="assets/js/teams-data.js?v=8"></script>
 <script src="assets/js/standings-data.js?v=2"></script>
 <script src="assets/js/tournament-data.js?v=4"></script>
 <script src="assets/js/live-demo.js?v=1"></script>
@@ -123,6 +124,12 @@
   const bySlug = Object.fromEntries(window.PGBTeams.all().map((t) => [t.slug, t]));
   const E = window.PGB_EXPANSION;
   const games = [...window.PGB_GAMES].sort((a, b) => (a.date < b.date ? 1 : -1));
+
+  function teamLogo(team) {
+    if (!team?.slug) return `<span class="sc-mono">${team?.code?.slice(0, 1) || "?"}</span>`;
+    const src = window.PGBTeams.logoUrl(team.slug);
+    return `<span class="sc-mono"><img src="${src}" alt="${team.short || ""} logo" loading="lazy"></span>`;
+  }
 
   document.getElementById("scPulseBlurb").textContent =
     E.format + " · " + E.venue;
@@ -161,14 +168,14 @@
         </div>
         <div class="sc-row">
           <div class="sc-team">
-            <span class="sc-mono" style="background:${g.away.color}">${g.away.code.slice(0, 1)}</span>
+            ${teamLogo(g.away)}
             <span>${g.away.name.replace(/^[^ ]+ /, "")}</span>
           </div>
           <div class="sc-score">${g.live ? "1" : "—"}</div>
         </div>
         <div class="sc-row">
           <div class="sc-team">
-            <span class="sc-mono" style="background:${g.home.color}">${g.home.code.slice(0, 1)}</span>
+            ${teamLogo(g.home)}
             <span>${g.home.name.replace(/^[^ ]+ /, "")}</span>
           </div>
           <div class="sc-score">${g.live ? "1" : "—"}</div>
@@ -190,7 +197,7 @@
     return `
       <div class="sc-row">
         <div class="sc-team">
-          <span class="sc-mono" style="background:${team.colorDeep}">${team.mono}</span>
+          ${teamLogo(team)}
           <a href="team.html?team=${team.slug}">${team.short}</a>
         </div>
         <div class="sc-score ${win ? "win" : ""} ${lose ? "lose" : ""}">${score == null ? "—" : score}</div>

@@ -228,8 +228,9 @@
   }
 
   function logoSources(slug) {
+    if (window.PGBTeamBrand?.logoSources) return window.PGBTeamBrand.logoSources(slug);
     const base = `assets/teams/${slug}/01-Logos-Marks`;
-    return [`${base}/primary.png`, `${base}/primary.svg`, `${base}/secondary.png`, `${base}/app-icon.png`, `${base}/mono.png`];
+    return [`${base}/primary.png`, `${base}/primary.svg`, `${base}/app-icon.png`, `${base}/secondary.png`, `${base}/mono.png`];
   }
 
   function playerSources(team, slot) {
