@@ -4,6 +4,7 @@ Season One origin story — LIV Media Guide energy, NHL/NBA newsroom depth.
 
 | File | What |
 |------|------|
+| `PuckGold_Founding_Four_Recap_and_Lore_Expansion.pdf` | Lore expansion + recap companion |
 | `Founding-Four-Recap-How-Miami-Stole-The-Cup.pdf` | Source tournament recap PDF |
 | `PuckGold_Founding_Four_Championship_Book.md` | Full championship book (commissioner letter → Season Two) |
 | `THE-FOUNDING-FOUR-RECAP.md` | Web-ready longform: how Miami stole the Cup |
@@ -12,6 +13,7 @@ Season One origin story — LIV Media Guide energy, NHL/NBA newsroom depth.
 
 **Site pages**
 - `founding-four.html` — championship book hub
+- `puckgold-founding-four.html` — cinematic broadcast recap (bracket, Miracle Game, booth)
 - `news.html` / `news-article.html?id=…` — newsroom articles
 - `awards.html` — hardware case
 - `expansion.html` — weekend countdown + prizes
