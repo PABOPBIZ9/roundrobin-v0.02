@@ -21,6 +21,9 @@
       mono: `${base("mclean-cardinals")}/mono.png`,
       crest: `${base("mclean-cardinals")}/crest.svg`,
       appIcon: `${base("mclean-cardinals")}/app-icon.png`,
+      keyart: `${base("mclean-cardinals")}/02-Brand-Kit/keyart.png`,
+      swag: `${base("mclean-cardinals")}/07-Swag-Kits/swag-kit/hero.png`,
+      poster: `${base("mclean-cardinals")}/03-Stadiums/stadium-01/poster.jpg`,
     },
     "washington-whoomp": {
       logo: `${base("washington-whoomp")}/primary.png`,
@@ -28,6 +31,9 @@
       mono: `${base("washington-whoomp")}/mono.png`,
       crest: `${base("washington-whoomp")}/crest.svg`,
       appIcon: `${base("washington-whoomp")}/app-icon.png`,
+      keyart: `${base("washington-whoomp")}/02-Brand-Kit/keyart.png`,
+      swag: `${base("washington-whoomp")}/07-Swag-Kits/swag-kit/hero.png`,
+      poster: `${base("washington-whoomp")}/03-Stadiums/stadium-01/poster.jpg`,
     },
     "chattanooga-choo-choo": {
       logo: `${base("chattanooga-choo-choo")}/primary.png`,
