@@ -11,6 +11,9 @@
       mono: `${base("miami-mighty-geckz")}/mono.png`,
       crest: `${base("miami-mighty-geckz")}/crest.svg`,
       appIcon: `${base("miami-mighty-geckz")}/app-icon.png`,
+      keyart: `${base("miami-mighty-geckz")}/02-Brand-Kit/keyart.png`,
+      swag: `${base("miami-mighty-geckz")}/07-Swag-Kits/swag-kit/hero.png`,
+      poster: `${base("miami-mighty-geckz")}/03-Stadiums/stadium-01/poster.jpg`,
     },
     "mclean-cardinals": {
       logo: `${base("mclean-cardinals")}/primary.png`,
