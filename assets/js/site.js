@@ -56,7 +56,7 @@
     { href: "video-recaps.html", label: "Game Recaps" },
     { href: "puck-personality.html", label: "Puck Personality" },
     { href: "podcasts.html", label: "Podcasts" },
-    { href: "listen.html", label: "Listen · Season One" },
+    { href: "listen.html?show=founder-vibe-vault", label: "Listen · Vibe Vault" },
     { href: "pucky13.html", label: "Pucky 13 · Oracle" },
     { href: "clip-crown.html", label: "Clip Crown submit" },
     { href: "conductor-crest.html", label: "Conductor’s Crest vote" },
@@ -838,31 +838,45 @@
 
   const HERO_SLIDES = [
     {
-      kicker: "Launch · Season One",
-      line1: "Puck Gold",
+      kicker: "Stadium Demo · Season One",
+      line1: "PuckGold Stadium",
+      line2: "The ice is real. The arenas are not.",
+      deck: "Full broadcast-scale demo — global spectacle ice built for LIV-sized ambition. Claim your $36 OG Pass.",
+      ctas: [HERO_LAUNCH_CTA],
+    },
+    {
+      kicker: "Global Spectacle · $5B ice",
+      line1: "Antarctic Volcano Rink",
       line2: "The coldest game on earth",
-      deck: "Sign in and claim your $36 OG Pass — Limited Edition puck shipped with a handwritten founder note + 1-year Premium League Pass.",
+      deck: "Fire under the frost — broadcast-scale ice where nobody else would build. Claim your $36 OG Pass.",
       ctas: [HERO_LAUNCH_CTA],
     },
     {
-      kicker: "Founding Four",
-      line1: "The Ice Is Real",
-      line2: "The Arenas Are Not",
-      deck: "Broadcast spectacles built for pressure and chaos. Back the launch with your founding OG Pass.",
+      kicker: "UAE · Ras Al Khaimah",
+      line1: "Emirates Ice Bowl",
+      line2: "Going huge",
+      deck: "LIV-scale luxury meets desert edge — global power markets on impossible ice. Founding OG Pass ships now.",
       ctas: [HERO_LAUNCH_CTA],
     },
     {
-      kicker: "Fan Zone",
-      line1: "Fans Decide",
-      line2: "In Real Time",
-      deck: "Vote. Predict. Influence the game as it happens. Create your account and join with $36.",
+      kicker: "Saudi · Rub' al Khali",
+      line1: "Desert Ice Caravan",
+      line2: "Camels meet the crease",
+      deck: "Empty Quarter spectacle — sand, heat, and a sheet that shouldn't exist. Expansion weekend energy.",
       ctas: [HERO_LAUNCH_CTA],
     },
     {
-      kicker: "Origin Story",
-      line1: "Pulled the Goalie",
-      line2: "To Be Born",
-      deck: "The league that pulled its goalie to be born. Sign in — OG Limited Edition puck + Premium League Pass.",
+      kicker: "Giza · Global Power",
+      line1: "Great Pyramid Ice",
+      line2: "Ancient scale. Modern game.",
+      deck: "Monument ice under the pyramids — the kind of arena only PuckGold would put on air.",
+      ctas: [HERO_LAUNCH_CTA],
+    },
+    {
+      kicker: "Rome · Championship",
+      line1: "Colosseum on Ice",
+      line2: "Gladiator broadcast",
+      deck: "Colosseum-scale drama — Founding Four lore meets global expansion. Sign in · $36 OG Pass.",
       ctas: [HERO_LAUNCH_CTA],
     },
   ];
@@ -881,13 +895,14 @@
       abs("assets/media/sport-action.mp3"),
     ];
     const saved = localStorage.getItem(STORAGE_KEY);
-    // Default OFF so the VeeFriends pulse rings invite the first tap
-    let enabled = saved === "1";
+    // Default ON — only stay off if user explicitly muted (saved === "0")
+    let enabled = saved !== "0";
     let trackIndex = 0;
+    let unlockBound = false;
 
     const audio = new Audio();
     audio.preload = "auto";
-    audio.volume = 0.8;
+    audio.volume = 0.55;
     audio.loop = false;
     audio.src = playlist[trackIndex];
     audio.addEventListener("ended", () => {
@@ -913,7 +928,7 @@
     // VeeFriends-style: pulsing rings when off, dancing EQ when on (same on every page)
     btn.innerHTML = `
       <span class="av-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-      <span class="av-label">Turn sound on</span>
+      <span class="av-label">${enabled ? "Music on" : "Music off"}</span>
     `;
     const heroSlot = document.getElementById("heroAvSlot");
     const navSlot = document.getElementById("navAvSlot");
@@ -1005,10 +1020,6 @@
         if (!video) return;
         video.muted = true;
         video.playsInline = true;
-        if (!enabled) {
-          video.pause();
-          return;
-        }
         if (idx === sceneIndex) {
           const playPromise = video.play();
           if (playPromise && typeof playPromise.catch === "function") {
@@ -1021,34 +1032,44 @@
       });
     }
 
-    async function startAv() {
-      startScenes();
-      syncVideos();
+    async function tryPlay() {
+      if (!enabled) return;
       try {
         if (!audio.src) audio.src = playlist[trackIndex];
         if (audio.readyState < 2) audio.load();
         await audio.play();
       } catch (_) {
-        audio.src = playlist[trackIndex];
-        audio.load();
-        try {
-          await audio.play();
-        } catch (_) {}
+        if (!unlockBound) {
+          unlockBound = true;
+          const unlock = async () => {
+            if (!enabled) return;
+            try {
+              await audio.play();
+            } catch (_) {}
+            window.removeEventListener("pointerdown", unlock);
+            window.removeEventListener("keydown", unlock);
+          };
+          window.addEventListener("pointerdown", unlock, { once: true });
+          window.addEventListener("keydown", unlock, { once: true });
+        }
       }
     }
 
+    async function startAv() {
+      syncVideos();
+      await tryPlay();
+    }
+
     function stopAv() {
-      stopScenes();
-      pauseAllVideos();
       audio.pause();
     }
 
     function setUi() {
       btn.classList.toggle("on", enabled);
       btn.setAttribute("aria-pressed", enabled ? "true" : "false");
-      btn.setAttribute("aria-label", enabled ? "Turn sound and video off" : "Turn sound and video on");
-      btn.title = enabled ? "Sound & video on — tap to stop" : "Sound & video off — tap to play";
-      if (label) label.textContent = enabled ? "Turn off" : "Turn on";
+      btn.setAttribute("aria-label", enabled ? "Turn homepage music off" : "Turn homepage music on");
+      btn.title = enabled ? "Launch anthem playing — tap to stop" : "Tap for launch anthem + vibe mix";
+      if (label) label.textContent = enabled ? "Music on" : "Music off";
       stages.forEach((el) => {
         el.classList.toggle("is-av-on", enabled);
         el.classList.toggle("is-av-off", !enabled);
@@ -1080,27 +1101,15 @@
     function startScenes() {
       if (!scenes.length) return;
       showScene(sceneIndex);
-      if (sceneTimer) return;
+      stopScenes();
       const tick = () => {
-        if (!enabled) return;
         sceneTimer = setTimeout(() => {
-          if (!enabled) return;
           sceneIndex = (sceneIndex + 1) % scenes.length;
           showScene(sceneIndex);
           tick();
         }, sceneDelay(sceneIndex));
       };
       tick();
-    }
-
-    async function tryPlay() {
-      if (!enabled) return;
-      try {
-        if (audio.readyState < 2) audio.load();
-        await audio.play();
-      } catch (_) {
-        // Browser blocked autoplay — next user gesture on the sapphire button will play
-      }
     }
 
     function apply() {
@@ -1114,9 +1123,9 @@
     }
 
     buildDots();
-    showScene(sceneIndex);
+    startScenes();
 
-    // Click is a user gesture — play/pause audio + video reliably here
+    // Click toggles vibe playlist — hero video keeps rotating muted
     btn.addEventListener("click", async () => {
       enabled = !enabled;
       localStorage.setItem(STORAGE_KEY, enabled ? "1" : "0");
@@ -1128,17 +1137,14 @@
       }
     });
 
-    // Listen page / podcasts duck ambient so booth audio stays clear
+    // Listen page ducks ambient music (hero video keeps playing on home)
     let ducked = false;
     let wasEnabled = false;
     document.addEventListener("pgb:listen-play", () => {
       if (ducked) return;
       ducked = true;
       wasEnabled = enabled;
-      if (enabled) {
-        audio.pause();
-        pauseAllVideos();
-      }
+      if (enabled) audio.pause();
     });
     document.addEventListener("pgb:listen-pause", () => {
       if (!ducked) return;

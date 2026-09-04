@@ -1,0 +1,11 @@
+<svg class="pgb-char-avatar" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-label="Branch Kane">
+      <defs><linearGradient id="av-sebastian-kane-sebastian-kane" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ef4444"/><stop offset="100%" stop-color="#991b1b"/></linearGradient></defs>
+      <rect width="80" height="80" rx="12" fill="url(#av-sebastian-kane-sebastian-kane)"/>
+      <path d="M40 24 C24 38 26 56 40 60 C54 56 56 38 40 24Z" fill="#ef4444"/>
+        <circle cx="32" cy="38" r="6" fill="#fff"/><circle cx="32" cy="38" r="3" fill="#111"/>
+        <circle cx="48" cy="38" r="6" fill="#fff"/><circle cx="48" cy="38" r="3" fill="#111"/>
+        <path d="M34 48 Q40 52 46 48" stroke="#f5e6b3" stroke-width="1.5" fill="none"/>
+      <circle cx="60" cy="26" r="5" fill="#fbbf24" opacity=".75"/>
+      <rect x="24" y="58" width="32" height="14" rx="4" fill="#991b1b" stroke="#fff" stroke-width="1"/>
+      <text x="40" y="69" text-anchor="middle" fill="#fff" font-family="Arial Black,sans-serif" font-size="11" font-weight="900">#5</text>
+    </svg>

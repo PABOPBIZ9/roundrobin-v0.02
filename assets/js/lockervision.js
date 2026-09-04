@@ -21,8 +21,13 @@
     next();
   }
 
-  /** SVG hockey kit silhouette when photos aren't dropped yet */
-  function kitSilhouette(team, kit, uid) {
+  /** SVG hockey kit + digital character when photos aren't dropped yet */
+  function kitSilhouette(team, kit, uid, player) {
+    const captain = player || team.players?.find((p) => p.role === "Captain") || team.players?.[0];
+    const char = captain && window.PGBCharacters ? window.PGBCharacters.forPlayer(captain, team) : null;
+    if (window.PGBCharacterArt?.kitCharacterSvg && captain) {
+      return window.PGBCharacterArt.kitCharacterSvg(team, kit, captain, char, uid);
+    }
     const shell = kit?.shell || team.colorDeep || "#111";
     const accent = kit?.accent || team.color || "#d4af37";
     const sec = kit?.secondary || "#fff";

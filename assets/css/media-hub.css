@@ -63,13 +63,13 @@
 }
 .mh-strip strong{color:#163a74}
 
-.mh-wrap{max-width:1200px;margin:0 auto;padding:2.4rem 4vw 3.5rem}
+.mh-wrap{max-width:1200px;margin:0 auto;padding:clamp(1.35rem, 4vw, 2.4rem) var(--pad-x, 4vw) clamp(2rem, 5vw, 3.5rem)}
 .mh-section-head{
   display:flex;flex-wrap:wrap;gap:.7rem 1rem;align-items:center;justify-content:space-between;
   margin-bottom:1.25rem;
 }
 .mh-section-head h2{
-  font-family:var(--display);font-size:clamp(1.8rem,4vw,2.4rem);letter-spacing:.04em;color:#0b1220;
+  font-family:var(--font);font-weight:800;font-size:var(--uf-xl, clamp(1.125rem, 2.8vw, 1.5rem));letter-spacing:-.02em;color:#0b1220;line-height:1.15;
 }
 .mh-viewall{
   border-radius:999px;padding:.55em 1em;border:1px solid rgba(18,24,38,.15);

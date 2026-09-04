@@ -1,0 +1,86 @@
+/* NHL-style hardware page — Underdog Division */
+
+.hw-hero{
+  padding:2.6rem 4vw 2rem;text-align:center;color:#fff;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(240,215,140,.18), transparent),
+    linear-gradient(165deg,#040810 0%,#0b1220 35%,#163a74 100%);
+  border-bottom:1px solid rgba(240,215,140,.2);
+}
+.hw-hero .badge{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font-size:.62rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:#f0d78c;padding:.35rem .75rem;border-radius:999px;
+  border:1px solid rgba(240,215,140,.35);background:rgba(240,215,140,.08);
+  margin-bottom:.85rem;
+}
+.hw-hero h1{
+  font-family:var(--display);font-size:clamp(2.4rem,8vw,4.2rem);
+  letter-spacing:.06em;margin:0;line-height:.95;
+}
+.hw-hero .sub{
+  max-width:36rem;margin:.75rem auto 0;color:rgba(238,243,250,.75);
+  font-size:.95rem;line-height:1.55;
+}
+.hw-hero .cta-row{justify-content:center;margin-top:1.15rem}
+
+.hw-strip-wrap{
+  max-width:1200px;margin:-1.25rem auto 0;padding:0 4vw 1.5rem;
+  position:relative;z-index:2;
+}
+.hw-strip{
+  display:flex;gap:.65rem;overflow-x:auto;padding:.35rem .15rem 1rem;
+  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+}
+.hw-strip a{
+  flex:0 0 auto;scroll-snap-align:start;
+  width:min(140px,38vw);text-decoration:none;color:#121826;
+  background:#fff;border:1px solid rgba(18,24,38,.08);border-radius:12px;
+  padding:.65rem .55rem .75rem;text-align:center;
+  box-shadow:0 8px 24px rgba(18,24,38,.08);
+  transition:border-color .2s,transform .2s;
+}
+.hw-strip a:hover,.hw-strip a:focus-visible{
+  border-color:#163a74;transform:translateY(-2px);outline:none;
+}
+.hw-strip img{
+  width:100%;height:72px;object-fit:contain;
+  filter:drop-shadow(0 6px 12px rgba(0,0,0,.25));
+}
+.hw-strip span{
+  display:block;font-size:.58rem;font-weight:800;letter-spacing:.08em;
+  text-transform:uppercase;color:#8a93a3;margin-top:.45rem;line-height:1.25;
+}
+
+.hw-sticky{
+  position:sticky;top:var(--header-h,56px);z-index:40;
+  background:rgba(244,246,250,.94);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(18,24,38,.08);
+  margin:0 -4vw 1.5rem;padding:.55rem 4vw;
+}
+.hw-sticky .pz-tabs{margin:0;flex-wrap:nowrap;overflow-x:auto}
+.hw-sticky .pz-tabs a{white-space:nowrap;font-size:.72rem}
+
+.aw-card.has-render .aw-viz{
+  background:
+    radial-gradient(circle at 50% 35%, rgba(240,215,140,.22), transparent 58%),
+    linear-gradient(165deg,#050a14,#0f1f3d 55%,#1a0a12);
+}
+.aw-card.has-render{border-color:rgba(240,215,140,.22)}
+.aw-viz img{width:auto;height:auto;max-width:82%;max-height:82%}
+.aw-featured-main .viz img{max-height:min(280px,42vw);width:auto;filter:drop-shadow(0 20px 40px rgba(0,0,0,.5))}
+.aw-featured-main .viz .ph{display:none}
+
+.hw-mini-grid{
+  display:grid;gap:.65rem;grid-template-columns:repeat(2,1fr);
+}
+@media(min-width:720px){.hw-mini-grid{grid-template-columns:repeat(4,1fr)}}
+.hw-mini-trophy{
+  background:#fff;border:1px solid rgba(18,24,38,.08);border-radius:12px;
+  padding:.75rem .65rem;text-align:center;text-decoration:none;color:inherit;
+}
+.hw-mini-trophy img{height:64px;width:100%;object-fit:contain;margin-bottom:.35rem}
+.hw-mini-trophy strong{display:block;font-size:.72rem;line-height:1.25}
+
+.aw-live{margin-top:0}

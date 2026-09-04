@@ -52,11 +52,13 @@
   }
 
   function logoSources(slug) {
+    if (window.PGBCharacterArt?.logoSources) return window.PGBCharacterArt.logoSources(slug);
     const base = `assets/teams/${slug}/01-Logos-Marks`;
     return [`${base}/primary.png`, `${base}/secondary.png`, `${base}/app-icon.png`, `${base}/mono.png`];
   }
 
   function crestSvg(slug, team, uid) {
+    if (window.PGBCharacterArt?.logoSvg) return window.PGBCharacterArt.logoSvg(slug, team, uid);
     const c = team.color || "#163a74";
     const d = team.colorDeep || "#0b1220";
     const gid = `crest-${slug}-${uid}`;
@@ -114,6 +116,10 @@
   }
 
   function miniGearSvg(slotId, team, kit) {
+    if (window.PGBCharacterArt?.gearSvg) {
+      const svg = window.PGBCharacterArt.gearSvg(slotId, team, kit);
+      if (svg) return svg;
+    }
     const shell = kit?.shell || team.colorDeep;
     const accent = kit?.accent || team.color;
     if (slotId === "helmet") {
@@ -147,11 +153,28 @@
     );
   }
 
+  function playerChipHtml(p, team, captain) {
+    const char = window.PGBCharacters?.forPlayer(p, team);
+    const avatar =
+      window.PGBCharacterArt?.playerAvatarSvg(p, team, char, p.id) ||
+      `<span class="franchise-player-fb">${p.num}</span>`;
+    const power = char?.powerDef
+      ? `<span class="franchise-power" title="${char.powerDef.desc}">${char.powerDef.icon}</span>`
+      : "";
+    return `<span class="franchise-player${captain ? " is-captain" : ""}" title="${char?.displayName || p.name} · ${char?.powerDef?.name || ""}">
+      <img class="franchise-player-img" alt="" hidden data-player="${p.slot}">
+      <span class="franchise-player-viz">${avatar}</span>
+      ${power}
+      <em>${captain ? "C · " : ""}${char?.codename || p.name.split(" ").pop()}</em>
+    </span>`;
+  }
+
   function tileHtml(team, uid) {
     const cls = TILE_CLASS[team.slug] || "";
     const kit = window.PGBLockerVision?.kitFor(team.slug, "home");
     const captain = team.players.find((p) => p.role === "Captain") || team.players[0];
-    const roster = team.players.filter((p) => p !== captain).slice(0, 3);
+    const roster = team.players.filter((p) => p !== captain);
+    const mascot = window.PGBCharacters?.teamMeta(team.slug)?.mascot;
     const gearSlots = window.PGBLockerVision?.gearSlots?.slice(0, 3) || [
       { id: "jersey", label: "Jersey", file: "jersey.png" },
       { id: "helmet", label: "Helmet", file: "helmet.png" },
@@ -187,28 +210,12 @@
           .join("")}
       </div>
       <h3>${DISPLAY_NAME[team.slug] || team.short}</h3>
+      ${mascot ? `<div class="franchise-mascot">${mascot.name} · ${mascot.trait}</div>` : ""}
       <div class="arena">${ARENA_SHORT[team.slug] || team.city}</div>
       <div class="motto">"${team.motto}"</div>
-      <div class="franchise-players">
-        ${
-          captain
-            ? `<span class="franchise-player is-captain" title="${captain.name}">
-            <img class="franchise-player-img" alt="" hidden data-player="${captain.slot}">
-            <span class="franchise-player-fb">${captain.num}</span>
-            <em>C · ${captain.name.split(" ").pop()}</em>
-          </span>`
-            : ""
-        }
-        ${roster
-          .map(
-            (p) => `
-          <span class="franchise-player" title="${p.name}">
-            <img class="franchise-player-img" alt="" hidden data-player="${p.slot}">
-            <span class="franchise-player-fb">${p.num}</span>
-            <em>${p.name.split(" ").pop()}</em>
-          </span>`
-          )
-          .join("")}
+      <div class="franchise-players" aria-label="9 digital characters">
+        ${captain ? playerChipHtml(captain, team, true) : ""}
+        ${roster.map((p) => playerChipHtml(p, team, false)).join("")}
       </div>
       <div class="record">${team.record}</div>
       <span class="franchise-lv-link">LockerVision kit →</span>
@@ -258,13 +265,15 @@
       if (slot) hydrateGearSlot(slotEl, team, slot, kit);
     });
 
-    tile.querySelectorAll(".franchise-player-img[data-player]").forEach((img) => {
+    tile.querySelectorAll(".franchise-player").forEach((chip) => {
+      const img = chip.querySelector(".franchise-player-img");
+      if (!img) return;
       const slot = img.dataset.player;
-      const fb = img.parentElement.querySelector(".franchise-player-fb");
-      const sources = [
-        `${team.folder}04-Players/${slot}/headshot.png`,
-        `${team.folder}04-Players/${slot}/photo.png`,
-      ];
+      const fb = chip.querySelector(".franchise-player-viz");
+      const player = team.players.find((p) => p.slot === slot);
+      const sources = window.PGBCharacterArt?.playerSources
+        ? window.PGBCharacterArt.playerSources(team, slot)
+        : [`${team.folder}04-Players/${slot}/headshot.png`, `${team.folder}04-Players/${slot}/photo.png`];
       tryImages(
         sources,
         (src) => {

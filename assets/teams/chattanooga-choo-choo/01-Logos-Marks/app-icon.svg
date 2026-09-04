@@ -1,0 +1,11 @@
+<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="60" cy="60" r="56" fill="#78350f" stroke="#c07a3e" stroke-width="3"/>
+        <rect x="32" y="44" width="56" height="36" rx="8" fill="#c07a3e"/>
+        <circle cx="48" cy="58" r="10" fill="#fff" opacity=".95"/><circle cx="48" cy="58" r="5" fill="#111"/>
+        <circle cx="72" cy="58" r="10" fill="#fff" opacity=".95"/><circle cx="72" cy="58" r="5" fill="#111"/>
+        <rect x="44" y="34" width="32" height="14" rx="4" fill="#f5e6b3"/>
+        <circle cx="60" cy="41" r="6" fill="#fff"/><circle cx="60" cy="41" r="3" fill="#fbbf24"/>
+        <rect x="38" y="80" width="44" height="8" rx="2" fill="#64748b"/>
+        <ellipse cx="60" cy="32" rx="8" ry="6" fill="#94a3b8" opacity=".6"/>
+        <text x="60" y="108" text-anchor="middle" fill="#f5e6b3" font-family="Arial Black,sans-serif" font-size="10" font-weight="900">CHOO CHOO</text>
+      </svg>

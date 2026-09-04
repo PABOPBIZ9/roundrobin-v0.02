@@ -1,0 +1,12 @@
+<svg class="pgb-char-avatar" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-label="Tide Marsh">
+      <defs><linearGradient id="av-tobias-marsh-tobias-marsh" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2dd4bf"/><stop offset="100%" stop-color="#0f766e"/></linearGradient></defs>
+      <rect width="80" height="80" rx="12" fill="url(#av-tobias-marsh-tobias-marsh)"/>
+      <ellipse cx="40" cy="44" rx="22" ry="20" fill="#2dd4bf"/>
+        <circle cx="30" cy="36" r="7" fill="#fff"/><circle cx="30" cy="36" r="3.5" fill="#111"/>
+        <circle cx="50" cy="36" r="7" fill="#fff"/><circle cx="50" cy="36" r="3.5" fill="#111"/>
+        <path d="M36 48 Q40 52 44 48" stroke="#111" stroke-width="1.5" fill="none"/>
+        <path d="M58 42 L68 46 L64 52 Z" fill="#0f766e"/>
+      <circle cx="60" cy="26" r="5" fill="#fbbf24" opacity=".75"/>
+      <rect x="24" y="58" width="32" height="14" rx="4" fill="#0f766e" stroke="#fff" stroke-width="1"/>
+      <text x="40" y="69" text-anchor="middle" fill="#fff" font-family="Arial Black,sans-serif" font-size="11" font-weight="900">#4</text>
+    </svg>

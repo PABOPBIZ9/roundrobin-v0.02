@@ -187,6 +187,43 @@
         secondary: "#f5e6b3",
       },
     },
+    "la-hibibi-jinni": {
+      home: {
+        name: "Sunset Genie Home",
+        story: "Purple dusk shell with gold lamp trim — LA magic-hour primary kit.",
+        accent: "#c084fc",
+        shell: "#7e22ce",
+        secondary: "#fde68a",
+      },
+      away: {
+        name: "Wish Road White",
+        story: "White road shell with purple smoke shoulders — Hollywood travel kit.",
+        accent: "#c084fc",
+        shell: "#faf5ff",
+        secondary: "#7e22ce",
+      },
+      alternate: {
+        name: "Lamp Night",
+        story: "Blackout genie kit — gold lamp glow and smoke-release piping.",
+        accent: "#fde68a",
+        shell: "#1e1033",
+        secondary: "#c084fc",
+      },
+      classic: {
+        name: "Classic Jinni '94",
+        story: "Throwback sunset block — vintage purple and gold shimmer.",
+        accent: "#fde68a",
+        shell: "#6b21a8",
+        secondary: "#fff",
+      },
+      goalie: {
+        name: "Genie Wall",
+        story: "Sage Lumen crease set — lamp-light mask, purple pads, gold trapper.",
+        accent: "#c084fc",
+        shell: "#7e22ce",
+        secondary: "#fde68a",
+      },
+    },
   };
 
   /** Map outfit display names from PGB_GAMES → kit edition ids */

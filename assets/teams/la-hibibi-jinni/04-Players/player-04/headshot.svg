@@ -1,0 +1,11 @@
+<svg class="pgb-char-avatar" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-label="Genie Dante">
+      <defs><linearGradient id="av-dante-mir-dante-mir" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#7e22ce"/></linearGradient></defs>
+      <rect width="80" height="80" rx="12" fill="url(#av-dante-mir-dante-mir)"/>
+      <path d="M24 58 Q40 28 56 58 Q40 46 24 58Z" fill="#c084fc"/>
+        <circle cx="32" cy="40" r="6" fill="#fff"/><circle cx="32" cy="40" r="3" fill="#111"/>
+        <circle cx="48" cy="40" r="6" fill="#fff"/><circle cx="48" cy="40" r="3" fill="#111"/>
+        <ellipse cx="40" cy="26" rx="8" ry="5" fill="#fde68a"/>
+      <circle cx="60" cy="26" r="5" fill="#fbbf24" opacity=".75"/>
+      <rect x="24" y="58" width="32" height="14" rx="4" fill="#7e22ce" stroke="#fff" stroke-width="1"/>
+      <text x="40" y="69" text-anchor="middle" fill="#fff" font-family="Arial Black,sans-serif" font-size="11" font-weight="900">#4</text>
+    </svg>

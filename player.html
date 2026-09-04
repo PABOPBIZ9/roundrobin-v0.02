@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Player — PuckGold</title>
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=79">
-<link rel="stylesheet" href="assets/css/teams.css?v=3">
+<link rel="stylesheet" href="assets/css/site.css?v=86">
+<link rel="stylesheet" href="assets/css/teams.css?v=6">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 </head>
 <body class="tp-page">
@@ -15,10 +15,12 @@
 <div id="playerRoot"></div>
 <footer class="site-footer" id="site-footer"></footer>
 <script src="assets/js/i18n.js?v=1"></script>
-<script src="assets/js/site.js?v=79"></script>
-<script src="assets/js/support-widget.js?v=12"></script>
-<script src="assets/js/cart.js?v=8"></script>
-<script src="assets/js/teams-data.js?v=2"></script>
+<script src="assets/js/site.js?v=84"></script>
+<script src="assets/js/support-widget.js?v=15"></script>
+<script src="assets/js/cart.js?v=11"></script>
+<script src="assets/js/teams-data.js?v=7"></script>
+<script src="assets/js/player-characters.js?v=1"></script>
+<script src="assets/js/character-art.js?v=1"></script>
 <script src="assets/js/player-bites.js?v=1"></script>
 <script>
 (function () {
@@ -26,31 +28,46 @@
   const hit = window.PGBTeams.player(id);
   if (!hit) {
     document.getElementById("playerRoot").innerHTML =
-      `<div class="tp-wrap"><p>Player not found. <a href="teams.html" style="color:#163a74;text-decoration:underline">Back to teams</a></p></div>`;
+      `<div class="tp-wrap"><p>Character not found. <a href="teams.html" style="color:#163a74;text-decoration:underline">Back to teams</a></p></div>`;
     return;
   }
   const { player: p, team: t } = hit;
-  document.title = p.name + " | " + t.short + " | PuckGold";
+  const char = window.PGBCharacters.forPlayer(p, t);
+  const avatarSvg = window.PGBCharacterArt.playerAvatarSvg(p, t, char, p.id);
+  document.title = (char.codename || p.name) + " | " + t.short + " | PuckGold";
   const biteSrc = (window.PGB_PLAYER_BITES && window.PGB_PLAYER_BITES[p.id]) || "";
+  const mascot = char.teamMeta?.mascot;
 
   const mates = t.players
     .filter((x) => x.id !== p.id)
-    .map(
-      (x) =>
-        `<a href="player.html?id=${x.id}"><span>#${x.num} ${x.name}</span><span>${x.pos}</span></a>`
-    )
+    .map((x) => {
+      const xc = window.PGBCharacters.forPlayer(x, t);
+      return `<a href="player.html?id=${x.id}"><span>#${x.num} ${xc.codename}</span><span>${xc.powerDef?.icon || ""} ${x.pos}</span></a>`;
+    })
     .join("");
+
+  const stats = char.stats
+    ? `<div class="char-stats">
+        <div><span>Speed</span><strong>${char.stats.speed}</strong></div>
+        <div><span>Vibe</span><strong>${char.stats.vibe}</strong></div>
+        <div><span>Power</span><strong>${char.stats.power}</strong></div>
+        <div><span>Ice IQ</span><strong>${char.stats.ice}</strong></div>
+      </div>`
+    : "";
 
   document.getElementById("playerRoot").innerHTML = `
     <section class="player-hero">
       <div style="position:absolute;inset:0;background:linear-gradient(120deg,${t.colorDeep},${t.color} 50%,#0b1220)"></div>
       <div class="player-hero-inner">
-        <div class="player-avatar" aria-hidden="true">${p.name.split(" ").map((n) => n[0]).join("")}</div>
+        <div class="player-avatar" id="playerAvatar">${avatarSvg}</div>
         <div>
-          <a class="team-link" href="team.html?team=${t.slug}">${t.name}</a>
-          <h1>${p.name}</h1>
-          <p style="margin-top:.4rem;opacity:.9">${p.role} · #${p.num} · ${p.pos} · ${t.city}</p>
-          <div class="player-stats">
+          <a class="team-link" href="team.html?team=${t.slug}">${t.name}${mascot ? ` · ${mascot.name}` : ""}</a>
+          <h1>${char.codename}</h1>
+          <p style="margin-top:.4rem;opacity:.9">${char.teamMeta?.species || "Digital Skater"} · #${p.num} · ${p.pos} · ${p.role}</p>
+          <p style="opacity:.75;font-size:.85rem;margin-top:.25rem">Real name: ${p.name}</p>
+          <span class="pgb-power-badge">${char.powerDef.icon} ${char.powerDef.name} · ${char.powerDef.type}</span>
+          ${stats}
+          <div class="player-stats" style="margin-top:1rem">
             <div><span>Season pos</span><strong>${p.rank}</strong></div>
             <div><span>Points</span><strong>${p.pts}</strong></div>
             <div><span>Number</span><strong>${p.num}</strong></div>
@@ -63,9 +80,15 @@
     <div class="player-body">
       <div>
         <div class="player-panel">
-          <h2>Biography</h2>
+          <h2>Character bio</h2>
           <p>${p.bio}</p>
-          <p style="margin-top:.9rem">${p.name} represents ${t.name} at ${t.arena}. Drop a full profile photo and extended bio in <code>${t.folder}players/</code> and <code>profiles/</code>.</p>
+          <p style="margin-top:.9rem"><strong>Special power:</strong> ${char.powerDef.desc}</p>
+          <p style="margin-top:.65rem;color:#8a93a3;font-size:.86rem">Drop full character art + power card PNGs in <code>${t.folder}04-Players/${p.slot}/</code> — headshot.png, character.png, power.png.</p>
+        </div>
+        <div class="player-panel pgb-power-panel" style="margin-top:1rem">
+          <h2>Power card</h2>
+          <p>${char.powerDef.icon} <strong>${char.powerDef.name}</strong> — ${char.powerDef.type} type</p>
+          <p style="margin-top:.5rem">${char.powerDef.desc}</p>
         </div>
         <div class="player-panel player-voice" style="margin-top:1rem">
           <h2>Voice bite</h2>
@@ -87,14 +110,30 @@
       </div>
       <aside>
         <div class="player-panel">
-          <h2>${t.short}</h2>
-          <p style="margin-bottom:.8rem">Explore all things ${t.short} — roster, shop, and team site.</p>
-          <a class="tp-btn" href="team.html?team=${t.slug}" style="display:inline-flex;margin-bottom:.8rem">Team site</a>
+          <h2>${t.short} roster</h2>
+          <p style="margin-bottom:.8rem">9 digital characters — explore the full collectible roster.</p>
+          <a class="tp-btn" href="team.html?team=${t.slug}#roster" style="display:inline-flex;margin-bottom:.8rem">Full roster</a>
+          <a class="tp-btn ghost" href="lockervision.html?team=${encodeURIComponent(t.slug)}" style="display:inline-flex;margin-bottom:.8rem">LockerVision kit</a>
           <div class="mate-list">${mates}</div>
         </div>
       </aside>
     </div>
   `;
+
+  const avatarEl = document.getElementById("playerAvatar");
+  const sources = window.PGBCharacterArt.playerSources(t, p.slot);
+  let i = 0;
+  const tryNext = () => {
+    if (i >= sources.length) return;
+    const src = sources[i++];
+    const img = new Image();
+    img.onload = () => {
+      avatarEl.innerHTML = `<img src="${src}" alt="${char.codename}">`;
+    };
+    img.onerror = tryNext;
+    img.src = src;
+  };
+  tryNext();
 })();
 </script>
 </body>

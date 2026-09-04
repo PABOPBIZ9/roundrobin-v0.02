@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Team — PuckGold</title>
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=80">
-<link rel="stylesheet" href="assets/css/teams.css?v=4">
+<link rel="stylesheet" href="assets/css/site.css?v=86">
+<link rel="stylesheet" href="assets/css/teams.css?v=6">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 <style>
   .vault-grid{display:grid;gap:.75rem;grid-template-columns:1fr}
@@ -86,8 +86,10 @@
 <script src="assets/js/i18n.js?v=1"></script>
 <script src="assets/js/site.js?v=80"></script>
 <script src="assets/js/support-widget.js?v=15"></script>
-<script src="assets/js/cart.js?v=9"></script>
-<script src="assets/js/teams-data.js?v=4"></script>
+<script src="assets/js/cart.js?v=11"></script>
+<script src="assets/js/teams-data.js?v=7"></script>
+<script src="assets/js/player-characters.js?v=1"></script>
+<script src="assets/js/character-art.js?v=1"></script>
 <script src="assets/js/team-vault.js?v=1"></script>
 <script>
 (async function () {
@@ -122,12 +124,16 @@
     { title: "Pucks & collectibles", path: "08-Pucks-Collectibles", desc: "Founders puck, badges, limited drops." },
   ];
 
+  const mascot = window.PGBCharacters?.teamMeta(team.slug)?.mascot;
+  const logoSvg = window.PGBCharacterArt?.logoSvg(team.slug, team, "hero") || "";
+
   const root = document.getElementById("teamRoot");
   root.innerHTML = `
     <section class="team-hero">
       <div class="team-hero-bg" style="background:linear-gradient(120deg,${team.colorDeep} 0%, ${team.color} 45%, #0b1220 100%)"></div>
       <div class="team-hero-inner">
-        <span class="kicker">Underdog Division · Founding Four · ${team.code}</span>
+        ${logoSvg ? `<div class="tp-card-logo" style="width:88px;height:88px;margin-bottom:.75rem">${logoSvg}</div>` : ""}
+        <span class="kicker">${team.expansion ? "Global Power Division" : "Underdog Division · Founding Four"} · ${team.code}${mascot ? ` · Mascot: ${mascot.name}` : ""}</span>
         <h1>${team.name.toUpperCase()}</h1>
         <p class="motto">${team.tagline}</p>
         <div class="meta">
@@ -211,28 +217,34 @@
     </section>
 
     <section class="team-section" id="roster">
-      <h2>9 Players</h2>
-      <p style="color:#5c6473;margin:-.3rem 0 1rem">Drop portraits, stats, clips, and socials into <code>${team.folder}04-Players</code>.</p>
+      <h2>9 Digital Characters</h2>
+      <p style="color:#5c6473;margin:-.3rem 0 1rem">Collectible mascot-class skaters with special powers — Space Jam / VeeFriends energy. Drop PNG headshots into <code>${team.folder}04-Players</code>.</p>
       <div class="roster-grid">
         ${team.players
-          .map(
-            (p) => `
+          .map((p) => {
+            const char = window.PGBCharacters?.forPlayer(p, team);
+            const avatarSvg = window.PGBCharacterArt?.playerAvatarSvg(p, team, char, p.id) || "";
+            return `
           <article class="roster-card">
             <div class="roster-viz" style="background:linear-gradient(160deg,${team.color},${team.colorDeep})">
               <span class="num">#${p.num}</span>
-              <div class="avatar">${p.name.split(" ").map((n) => n[0]).join("")}</div>
+              <div class="avatar" data-player-slot="${p.slot}">${avatarSvg}</div>
+              ${char?.powerDef ? `<span class="roster-power">${char.powerDef.icon} ${char.powerDef.name}</span>` : ""}
             </div>
             <div class="roster-body">
-              <div class="pos">${p.slot} · ${p.pos} · ${p.role}</div>
-              <h3>${p.name}</h3>
+              <div class="pos">${p.slot} · ${p.pos} · ${p.role} · ${char?.teamMeta?.species || "Digital Skater"}</div>
+              <h3>${char?.codename || p.name}</h3>
+              <div class="roster-codename">${p.name}</div>
+              <p style="font-size:.84rem;color:#5c6473;margin-top:.35rem;line-height:1.45">${char?.powerDef?.desc || p.bio}</p>
               <div class="roster-meta">
                 <div><span>Rank</span><strong>${p.rank}</strong></div>
                 <div><span>Pts</span><strong>${p.pts}</strong></div>
+                ${char?.stats ? `<div><span>Speed</span><strong>${char.stats.speed}</strong></div>` : ""}
               </div>
-              <a class="link" href="player.html?id=${p.id}">Player profile ›</a>
+              <a class="link" href="player.html?id=${p.id}">Character card ›</a>
             </div>
-          </article>`
-          )
+          </article>`;
+          })
           .join("")}
       </div>
     </section>

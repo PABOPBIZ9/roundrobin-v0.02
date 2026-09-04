@@ -1,0 +1,162 @@
+/* NHL-style playoff bracket — dark symmetrical tree */
+
+.bracket-page{background:#0d1117;color:#eef3fa;min-height:100vh}
+.bracket-page .site-header{border-bottom-color:rgba(255,255,255,.08)}
+
+.bracket-banner{
+  padding:1.75rem 4vw 1.25rem;text-align:center;
+  background:
+    radial-gradient(ellipse 70% 80% at 50% -20%, rgba(240,215,140,.12), transparent),
+    linear-gradient(180deg,#121820 0%,#0d1117 100%);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.bracket-banner .brand-row{
+  display:flex;align-items:center;justify-content:center;gap:.75rem;margin-bottom:.65rem;
+}
+.bracket-banner .brand-mark{
+  width:48px;height:48px;border-radius:50%;
+  background:linear-gradient(145deg,#f0d78c,#163a74);
+  display:grid;place-items:center;font-family:var(--display);font-size:1rem;color:#0d1117;
+}
+.bracket-banner h1{
+  font-family:var(--display);font-size:clamp(1.6rem,5vw,2.8rem);
+  letter-spacing:.08em;margin:0;line-height:1;
+}
+.bracket-banner .season{
+  font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+  color:#f0d78c;margin-top:.45rem;
+}
+.bracket-banner p{
+  max-width:34rem;margin:.65rem auto 0;color:rgba(238,243,250,.62);font-size:.88rem;line-height:1.45;
+}
+
+.bracket-sub{
+  display:flex;gap:.25rem;justify-content:center;flex-wrap:wrap;
+  padding:.65rem 4vw;border-bottom:1px solid rgba(255,255,255,.06);
+  background:rgba(0,0,0,.25);
+}
+.bracket-sub a{
+  font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(238,243,250,.55);text-decoration:none;padding:.45rem .75rem;border-radius:999px;
+}
+.bracket-sub a:hover,.bracket-sub a.is-active{color:#fff;background:rgba(255,255,255,.08)}
+
+.bracket-toolbar{
+  max-width:1280px;margin:0 auto;padding:1rem 4vw .5rem;
+  display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;justify-content:space-between;
+}
+.bracket-tabs{display:flex;gap:.35rem;overflow-x:auto;scrollbar-width:none}
+.bracket-tabs::-webkit-scrollbar{display:none}
+.bracket-tabs button{
+  flex:0 0 auto;min-height:40px;border:1px solid rgba(255,255,255,.12);border-radius:999px;
+  padding:.5rem .9rem;font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  background:transparent;color:rgba(238,243,250,.65);cursor:pointer;
+}
+.bracket-tabs button.is-on{background:#f0d78c;color:#0d1117;border-color:#f0d78c}
+.bracket-countdown .lbl{font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#f0d78c}
+.bracket-countdown .clock{font-family:var(--display);font-size:1.25rem;letter-spacing:.06em}
+
+.bracket-shell{
+  max-width:1280px;margin:0 auto;padding:1rem 4vw 6rem;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+}
+.bracket-tree{
+  display:grid;grid-template-columns:minmax(150px,1fr) minmax(150px,1fr) minmax(200px,1.15fr) minmax(150px,1fr) minmax(150px,1fr);
+  gap:1rem 1.25rem;min-width:min(100%,860px);align-items:stretch;
+}
+.bracket-tree.is-compact{
+  grid-template-columns:minmax(150px,1fr) minmax(220px,1.2fr) minmax(150px,1fr);
+  min-width:min(100%,560px);
+}
+
+.bracket-col{display:flex;flex-direction:column;gap:1rem;justify-content:space-around}
+.bracket-col .round-lbl{
+  font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(238,243,250,.45);text-align:center;margin-bottom:-.35rem;
+}
+
+.bracket-series{
+  background:#1a212b;border:1px solid rgba(255,255,255,.08);border-radius:8px;
+  overflow:hidden;min-width:140px;
+}
+.bracket-series.is-live{
+  border-color:rgba(240,215,140,.45);
+  box-shadow:0 0 0 1px rgba(240,215,140,.15),0 8px 24px rgba(0,0,0,.35);
+}
+.bracket-series .meta{
+  font-size:.52rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(238,243,250,.4);padding:.35rem .55rem .15rem;
+}
+.bracket-series .meta .live{color:#ff6b8a;margin-left:.25rem}
+
+.bracket-team{
+  display:grid;grid-template-columns:28px 1fr auto auto;gap:.35rem;align-items:center;
+  padding:.55rem .6rem;border-top:1px solid rgba(255,255,255,.06);
+  font-size:.78rem;font-weight:700;color:#fff;
+}
+.bracket-team:first-of-type{border-top:0}
+.bracket-team.is-loser{opacity:.38}
+.bracket-team.is-winner .bk-score{color:#f0d78c}
+
+.bk-logo{
+  width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+  font-size:.58rem;font-weight:900;letter-spacing:-.02em;
+  background:var(--c,#163a74);color:#fff;border:1px solid rgba(255,255,255,.15);
+}
+.bk-abbr{font-weight:800;letter-spacing:.04em}
+.bk-seed{font-size:.58rem;font-weight:800;color:rgba(238,243,250,.45);letter-spacing:.06em}
+.bk-score{font-family:var(--display);font-size:1rem;min-width:1.1rem;text-align:right}
+
+.bracket-series .foot{
+  font-size:.58rem;color:rgba(238,243,250,.45);padding:.35rem .55rem .5rem;line-height:1.35;
+  border-top:1px solid rgba(255,255,255,.04);
+}
+
+.bracket-final-col{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.65rem}
+.bracket-final{
+  width:100%;text-align:center;padding:1.25rem 1rem;border-radius:12px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(240,215,140,.22), transparent 55%),
+    linear-gradient(165deg,#1a212b,#0b1220);
+  border:1px solid rgba(240,215,140,.28);
+}
+.bracket-final .cup-icon{
+  width:72px;height:72px;margin:0 auto .5rem;border-radius:50%;
+  background:radial-gradient(circle at 40% 30%,#fff8e7,#f0d78c 45%,#8a6a1e);
+  display:grid;place-items:center;font-size:1.6rem;box-shadow:0 12px 32px rgba(0,0,0,.45);
+}
+.bracket-final .round-lbl{color:#f0d78c;margin-bottom:.25rem}
+.bracket-final .agg{
+  font-family:var(--display);font-size:clamp(1.4rem,3vw,1.9rem);
+  color:#f0d78c;letter-spacing:.04em;margin:.5rem 0;
+}
+.bracket-final .games{font-size:.72rem;color:rgba(238,243,250,.55);line-height:1.5;margin:.5rem 0 0}
+.bracket-final .bracket-series{margin-top:.75rem;text-align:left}
+.bracket-final .champion{
+  margin-top:.65rem;font-size:.78rem;font-weight:800;color:#f0d78c;
+}
+
+.bracket-seedboard{
+  max-width:1280px;margin:0 auto 1.5rem;padding:0 4vw;
+  display:flex;flex-wrap:wrap;gap:.4rem;
+}
+.bracket-seedboard span{
+  font-size:.65rem;font-weight:800;padding:.35rem .6rem;border-radius:999px;
+  background:#1a212b;border:1px solid rgba(255,255,255,.08);color:rgba(238,243,250,.75);
+}
+
+.bracket-farm{
+  display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-top:1rem;
+}
+.bracket-farm a{
+  font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  text-decoration:none;color:#f0d78c;border:1px solid rgba(240,215,140,.35);
+  padding:.4rem .7rem;border-radius:999px;background:rgba(240,215,140,.06);
+}
+
+@media(max-width:720px){
+  .bracket-tree,.bracket-tree.is-compact{
+    grid-template-columns:repeat(5,minmax(148px,1fr));
+    min-width:740px;
+  }
+}

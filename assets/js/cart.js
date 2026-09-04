@@ -11,15 +11,31 @@
 
   function read() {
     try {
-      return JSON.parse(localStorage.getItem(KEY) || "[]");
+      const raw = JSON.parse(localStorage.getItem(KEY) || "[]");
+      return sanitize(Array.isArray(raw) ? raw : []);
     } catch (_) {
       return [];
     }
   }
 
+  /** Collapse duplicate lines, cap OG at 1, prevent runaway qty spam */
+  function sanitize(items) {
+    const map = new Map();
+    items.forEach((i) => {
+      if (!i || !i.id) return;
+      const qty = Math.max(1, Math.min(Number(i.qty) || 1, i.id === OG_OFFER.id ? 1 : 12));
+      const prev = map.get(i.id);
+      if (prev) prev.qty = Math.min(prev.qty + qty, i.id === OG_OFFER.id ? 1 : 12);
+      else map.set(i.id, { ...i, qty });
+    });
+    if (map.has(OG_OFFER.id)) map.set(OG_OFFER.id, { ...OG_OFFER, qty: 1 });
+    return Array.from(map.values());
+  }
+
   function write(items) {
-    localStorage.setItem(KEY, JSON.stringify(items));
-    window.dispatchEvent(new CustomEvent("pgb-cart", { detail: items }));
+    const clean = sanitize(items);
+    localStorage.setItem(KEY, JSON.stringify(clean));
+    window.dispatchEvent(new CustomEvent("pgb-cart", { detail: clean }));
     render();
   }
 
@@ -34,8 +50,12 @@
   function addItem(item, opts) {
     const items = read();
     const found = items.find((i) => i.id === item.id);
-    if (found) found.qty += item.qty || 1;
-    else items.push({ ...item, qty: item.qty || 1 });
+    if (item.id === OG_OFFER.id) {
+      addOgOffer(opts);
+      return;
+    }
+    if (found) found.qty = Math.min((found.qty || 1) + (item.qty || 1), 12);
+    else items.push({ ...item, qty: Math.min(item.qty || 1, 12) });
     write(items);
     if (!opts || opts.open !== false) open();
   }
@@ -192,7 +212,7 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     ensureDrawer();
-    render();
+    write(read()); /* migrate / sanitize persisted bag on every page load */
     bindAddButtons();
     document.querySelectorAll("[data-open-cart], #navBagBtn").forEach((el) => {
       if (el.dataset.cartOpenBound) return;
