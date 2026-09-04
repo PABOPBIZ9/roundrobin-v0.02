@@ -641,6 +641,7 @@
     initLangPicker();
     refreshNavLangCode();
 
+    initAppShell();
     initFomoClocks();
 
     if (footer) {
@@ -766,6 +767,137 @@
     return `${p(d)} : ${p(h)} : ${p(m)} : ${p(s)}`;
   }
 
+  function stickyClock(ms) {
+    if (ms <= 0) return "LIVE";
+    const { d, h, m, s } = parts(ms);
+    const p = (n) => String(n).padStart(2, "0");
+    if (d > 0) return `${d}d ${p(h)}h`;
+    return `${p(h)}:${p(m)}:${p(s)}`;
+  }
+
+  const EX_STICKY_CHIPS = [
+    { href: "aura-vote.html", label: "Aura" },
+    { href: "conductor-crest.html", label: "Crest" },
+    { href: "clip-crown.html", label: "Clip" },
+  ];
+  const EX_STICKY_CTA = {
+    href: "signin.html?next=checkout.html%3Foffer%3Dog",
+    label: "$36",
+  };
+
+  const APP_TABS = [
+    {
+      href: "index.html",
+      label: "League",
+      match: /^(index\.html)?$/,
+      icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5z"/></svg>',
+    },
+    {
+      href: "scores.html",
+      label: "Scores",
+      match: /^(scores|schedule|standings|stats|bracket)\.html$/,
+      icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 4h12a2 2 0 0 1 2 2v3H4V6a2 2 0 0 1 2-2zm-2 7h16v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7z"/></svg>',
+    },
+    {
+      href: "fantasy.html",
+      label: "Fan",
+      match: /^(fantasy|play|gems|gifts|aura-vote|clip-crown|conductor-crest)\.html$/,
+      icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5 14.8 9l6.7.6-5.1 4.4 1.5 6.5L12 17.8 5.1 20.5l1.5-6.5L1.5 9.6 8.2 9 12 2.5z"/></svg>',
+    },
+    {
+      href: "shop.html",
+      label: "Shop",
+      match: /^shop\.html$/,
+      icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4h10l1 4H6l1-4zm-2 6h14l-1.2 9H6.2L5 10zm4 2v5h2v-5H9zm4 0v5h2v-5h-2z"/></svg>',
+    },
+    {
+      href: "profile.html",
+      label: "You",
+      match: /^(profile|signin|checkout|join)\.html$/,
+      icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zm-7 9a7 7 0 0 1 14 0H5z"/></svg>',
+    },
+  ];
+
+  function exStickyTrackHtml() {
+    const chips = EX_STICKY_CHIPS.map(
+      (c) => `<a href="${c.href}" class="pg-chip">${c.label}</a>`
+    ).join("");
+    return `
+      <div class="ex-sticky-track">
+        <div class="ex-sticky-leading">
+          <span class="pg-live-badge" id="exLiveBadge" hidden><i></i><span>LIVE</span></span>
+          <time class="ex-sticky-clock" id="exStickyClock">00:00:00</time>
+        </div>
+        <div class="ex-sticky-chips" role="group" aria-label="Farm XP">${chips}</div>
+        <a href="${EX_STICKY_CTA.href}" class="pg-cta-pill">${EX_STICKY_CTA.label}</a>
+      </div>`;
+  }
+
+  function initAppShell() {
+    const page = (location.pathname.split("/").pop() || "index.html").toLowerCase().replace(/^\/?$/, "index.html");
+    const hasTicker = document.body.classList.contains("has-ex-sticky");
+    const mobile = window.matchMedia("(max-width: 899px)").matches;
+
+    document.querySelectorAll(".ex-sticky:not(.ex-sticky-v2)").forEach((el) => {
+      el.classList.add("pg-legacy-sticky");
+      el.setAttribute("hidden", "");
+    });
+
+    if (mobile) {
+      if (document.getElementById("pgBottomShell")) return;
+      const tabHtml = APP_TABS.map((t) => {
+        const on = t.match.test(page) ? " is-active" : "";
+        return `<a class="pg-tab${on}" href="${t.href}">${t.icon}<span>${t.label}</span></a>`;
+      }).join("");
+      const tickerHtml = hasTicker
+        ? `<div class="pg-ticker" aria-label="Faceoff countdown">
+            <span class="pg-live-badge" id="exLiveBadgeMob" hidden><i></i><span>LIVE</span></span>
+            <time class="pg-ticker-clock" id="exStickyClockMob">00:00:00</time>
+            <span class="pg-ticker-sep">·</span>
+            ${EX_STICKY_CHIPS.map((c) => `<a href="${c.href}">${c.label}</a>`).join('<span class="pg-ticker-sep">·</span>')}
+            <span class="pg-ticker-sep">·</span>
+            <a href="${EX_STICKY_CTA.href}" class="pg-cta-pill">${EX_STICKY_CTA.label}</a>
+          </div>`
+        : "";
+      const shell = document.createElement("nav");
+      shell.id = "pgBottomShell";
+      shell.className = "pg-bottom-shell";
+      shell.setAttribute("aria-label", "App navigation");
+      shell.innerHTML = `${tickerHtml}<div class="pg-tabbar">${tabHtml}</div>`;
+      document.body.appendChild(shell);
+      document.body.classList.add("has-app-shell");
+      if (hasTicker) document.body.classList.add("has-ex-ticker");
+      return;
+    }
+
+    if (!hasTicker || document.querySelector(".ex-sticky-v2")) return;
+    const bar = document.createElement("div");
+    bar.className = "ex-sticky ex-sticky-v2";
+    bar.setAttribute("aria-label", "Faceoff countdown");
+    bar.dataset.pgbShell = "1";
+    bar.innerHTML = exStickyTrackHtml();
+    document.body.appendChild(bar);
+    document.body.classList.add("has-ex-sticky-v2");
+  }
+
+  function syncStickyClocks(left) {
+    const face = stickyClock(left);
+    const isLive = left <= 0;
+    document.querySelectorAll("#exStickyClock, #exStickyClockMob, .ex-sticky-clock, .pg-ticker-clock").forEach((el) => {
+      el.textContent = face;
+      el.classList.toggle("is-live", isLive);
+    });
+    const join = document.getElementById("exJoinClock");
+    if (join) {
+      join.textContent = face;
+      join.classList.toggle("is-live", isLive);
+    }
+    document.querySelectorAll("#exLiveBadge, #exLiveBadgeMob, .pg-live-badge").forEach((el) => {
+      if (isLive) el.removeAttribute("hidden");
+      else el.setAttribute("hidden", "");
+    });
+  }
+
   /** Nav + hero countdowns — Expansion Weekend (~24h from first visit) */
   function initFomoClocks() {
     const expKey = "pgb-expansion-start";
@@ -789,7 +921,6 @@
     const ogEl = document.getElementById("ogCountdown");
     const eventEl = document.getElementById("eventCountdown");
     const exEl = document.getElementById("exCountdown");
-    const exSticky = document.getElementById("exStickyClock");
 
     const tick = () => {
       const left = EVENT_END - Date.now();
@@ -798,7 +929,7 @@
       if (heroBoxes) heroBoxes.innerHTML = clockHtml(left);
       if (eventEl) eventEl.innerHTML = clockHtml(left);
       if (exEl) exEl.textContent = face;
-      if (exSticky) exSticky.textContent = face;
+      syncStickyClocks(left);
       if (ogEl) ogEl.innerHTML = clockHtml(ogEnd - Date.now());
     };
     tick();
