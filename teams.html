@@ -58,11 +58,11 @@
       .join("");
     const seedLine = t.seed ? `#${t.seed} Seed · ${t.record}` : t.record;
     const mascot = window.PGBCharacters?.teamMeta(t.slug)?.mascot;
-    const logoWrap = window.PGBDivisionLogos?.logoHtml(t.slug, t, 72) || `<div class="tp-card-logo">${logoSvg}</div>`;
+    const logoWrap = window.PGBDivisionLogos?.logoHtml(t.slug, t, 64) || "";
     return `
       <article class="tp-card" id="${t.slug}">
         <div class="tp-card-top" style="background:linear-gradient(145deg,${t.color},${t.colorDeep})">
-          <div class="tp-card-logo">${logoWrap.replace('class="division-logo"', 'class="division-logo tp-card-logo-mark"')}</div>
+          <div class="tp-card-logo">${logoWrap}</div>
           ${mascot ? `<div class="tp-card-mascot">${mascot.name} · ${mascot.trait}</div>` : ""}
           <div class="seed">${seedLine}</div>
           <h2>${t.name}</h2>
