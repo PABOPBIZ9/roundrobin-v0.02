@@ -7,7 +7,7 @@
 <meta name="description" content="Global media destination for PuckGoldBiz tournaments, event info, video, guidelines, and accreditation.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
 <link rel="stylesheet" href="assets/css/site.css?v=88">
-<link rel="stylesheet" href="assets/css/media-hub.css?v=3">
+<link rel="stylesheet" href="assets/css/media-hub.css?v=4">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
 </head>
 <body class="mh-page" data-mh="home">
@@ -16,7 +16,9 @@
 <div class="mh-subnav" id="mhSubnav"></div>
 
 <section class="mh-hero">
-  <div class="mh-hero-bg" aria-hidden="true"></div>
+  <div class="mh-hero-bg" data-mh-hero aria-hidden="true">
+    <img alt="" class="mh-hero-photo" hidden data-hero-img>
+  </div>
   <div class="mh-hero-inner">
     <span class="kicker" style="color:#f0d78c">Season One · Founding Four</span>
     <h1>THE COLDEST GAME ON EARTH.</h1>
@@ -36,7 +38,8 @@
   <div class="mh-events" id="mhUpcoming"></div>
 
   <div class="mh-promo">
-    <div class="mh-subscribe">
+    <div class="mh-subscribe" data-mh-subscribe-bg>
+      <img alt="" class="mh-subscribe-photo" hidden data-subscribe-img aria-hidden="true">
       <h3>SUBSCRIBE FOR<br>MEDIA ALERTS</h3>
       <p>Tournament updates, schedules, prize drops, and player news — straight to your inbox.</p>
       <form id="mhSubscribe">
@@ -46,6 +49,8 @@
       <p id="mhSubNote" hidden style="margin-top:.7rem;color:#f0d78c;font-weight:700"></p>
     </div>
     <div class="mh-alert-card">
+      <img alt="" class="mh-alert-art" hidden data-mh-alert-art>
+      <div class="mh-alert-body">
       <div class="tag">This weekend · 24h countdown</div>
       <h3>Founding Expansion Weekend — 16 teams + sales clock</h3>
       <p>Media Guide booklet is live. Cover the First 16 pools, push founding Pass + gold puck, and grab accreditation before faceoff.</p>
@@ -53,6 +58,7 @@
       <div class="cta-row" style="margin-top:.4rem">
         <a href="expansion.html" class="mh-viewall">Countdown &amp; pools</a>
         <a href="media-guide.html" class="mh-acred" style="display:inline-flex">Media Guide</a>
+      </div>
       </div>
     </div>
   </div>
@@ -63,35 +69,35 @@
   </div>
   <div class="mh-videos">
     <a class="mh-video" href="listen.html?show=founder-vibe-vault">
-      <div class="mh-thumb" style="background:linear-gradient(145deg,#f0d78c,#163a74)"><div class="play"></div></div>
+      <div class="mh-thumb" data-mh-thumb="audio-founder-vibe"><img alt="" class="mh-thumb-img" hidden><div class="play"></div></div>
       <div class="cap"><div class="eyebrow">Live</div><h3>Founder Vibe Vault — 39 tracks</h3></div>
     </a>
     <a class="mh-video" href="listen.html?show=maxxer-promo-pack">
-      <div class="mh-thumb" style="background:linear-gradient(145deg,#ff2d6a,#0b1220)"><div class="play"></div></div>
+      <div class="mh-thumb" data-mh-thumb="audio-maxxer"><img alt="" class="mh-thumb-img" hidden><div class="play"></div></div>
       <div class="cap"><div class="eyebrow">New</div><h3>MAXXER — Founding Four hype clone</h3></div>
     </a>
     <a class="mh-video" href="listen.html?show=founding-four-arena-pack">
-      <div class="mh-thumb" style="background:linear-gradient(145deg,#0b1220,#163a74)"><div class="play"></div></div>
+      <div class="mh-thumb" data-mh-thumb="audio-arena-pack"><img alt="" class="mh-thumb-img" hidden><div class="play"></div></div>
       <div class="cap"><div class="eyebrow">New</div><h3>Arena Pack — walkouts, goals, win outros</h3></div>
     </a>
     <a class="mh-video" href="listen.html?show=founding-four-player-bites">
-      <div class="mh-thumb" style="background:linear-gradient(145deg,#163a74,#0f766e)"><div class="play"></div></div>
+      <div class="mh-thumb" data-mh-thumb="audio-player-bites"><img alt="" class="mh-thumb-img" hidden><div class="play"></div></div>
       <div class="cap"><div class="eyebrow">New</div><h3>Founding Four — all 36 player voice bites</h3></div>
     </a>
     <a class="mh-video" href="listen.html?show=voice-roster-showcase">
-      <div class="mh-thumb" style="background:linear-gradient(145deg,#8a6a1e,#163a74)"><div class="play"></div></div>
+      <div class="mh-thumb" data-mh-thumb="audio-voice-roster"><img alt="" class="mh-thumb-img" hidden><div class="play"></div></div>
       <div class="cap"><div class="eyebrow">New</div><h3>Voice Roster — Pucky, Lexi, Nova, captains</h3></div>
     </a>
     <a class="mh-video" href="listen.html?show=booth-sample-pack">
-      <div class="mh-thumb" style="background:linear-gradient(145deg,#163a74,#0b1220)"><div class="play"></div></div>
+      <div class="mh-thumb" data-mh-thumb="audio-booth-miracle"><img alt="" class="mh-thumb-img" hidden><div class="play"></div></div>
       <div class="cap"><div class="eyebrow">Booth</div><h3>Miracle Game sample pack — Jet, Chippy, PA</h3></div>
     </a>
     <a class="mh-video" href="listen.html?show=backstory-pregame-miracle">
-      <div class="mh-thumb" style="background:linear-gradient(145deg,#163a74,#8a6a1e)"><div class="play"></div></div>
+      <div class="mh-thumb" data-mh-thumb="audio-backstory"><img alt="" class="mh-thumb-img" hidden><div class="play"></div></div>
       <div class="cap"><div class="eyebrow">Backstory</div><h3>Pre-Game Special · Expansion tease</h3></div>
     </a>
     <a class="mh-video" href="listen.html?show=great-one-on-one-postgame-cup">
-      <div class="mh-thumb" style="background:linear-gradient(145deg,#d4af37,#8a6a1e)"><div class="play"></div></div>
+      <div class="mh-thumb" data-mh-thumb="audio-post-cup"><img alt="" class="mh-thumb-img" hidden><div class="play"></div></div>
       <div class="cap"><div class="eyebrow">Gold on 1</div><h3>Post-Cup with Kai, Cross, Combs &amp; Doyle</h3></div>
     </a>
   </div>
@@ -103,19 +109,19 @@
   <p class="mh-legal">For editorial and social use only. Commercial use prohibited unless licensed. Non-rights holders may use an aggregate of up to two (2) minutes of footage per day. Credit: PuckGoldBiz / PGB League.</p>
   <div class="mh-videos">
     <a class="mh-video" href="stadiums.html">
-      <div class="mh-thumb" style="background:linear-gradient(145deg,#2dd4bf,#0b1220)"><div class="play"></div></div>
+      <div class="mh-thumb" data-mh-thumb="video-stadiums"><img alt="" class="mh-thumb-img" hidden><div class="play"></div></div>
       <div class="cap"><div class="eyebrow">New · Live</div><h3>Founding Four stadium flythroughs</h3></div>
     </a>
     <a class="mh-video" href="team.html?team=miami-mighty-geckz#stadiums">
-      <div class="mh-thumb" style="background:linear-gradient(145deg,#1a1408,#163a74)"><div class="play"></div></div>
+      <div class="mh-thumb" data-mh-thumb="video-golden-age"><img alt="" class="mh-thumb-img" hidden><div class="play"></div></div>
       <div class="cap"><div class="eyebrow">Trailer</div><h3>The Golden Age Begins — Season One hype</h3></div>
     </a>
     <a class="mh-video" href="media-videos.html">
-      <div class="mh-thumb b-miami"><div class="play"></div></div>
+      <div class="mh-thumb" data-mh-thumb="video-opening-faceoff"><img alt="" class="mh-thumb-img" hidden><div class="play"></div></div>
       <div class="cap"><div class="eyebrow">Miami 2026</div><h3>Opening Faceoff preview · Neon Reef</h3></div>
     </a>
     <a class="mh-video" href="media-videos.html">
-      <div class="mh-thumb b-finals"><div class="play"></div></div>
+      <div class="mh-thumb" data-mh-thumb="video-gold-puck"><img alt="" class="mh-thumb-img" hidden><div class="play"></div></div>
       <div class="cap"><div class="eyebrow">Founding</div><h3>OG Gold Puck + Premium League Pass spot</h3></div>
     </a>
   </div>
@@ -124,10 +130,10 @@
     <h2>Quick Links</h2>
   </div>
   <div class="mh-res-grid">
-    <div class="mh-res"><div class="ico">L</div><div><h3>Listen</h3><a href="listen.html">Play</a><p>Season One booth + podcast drops</p></div></div>
-    <div class="mh-res"><div class="ico">R</div><div><h3>Media Resources</h3><a href="media-resources.html">View</a><p>Guides, rosters, logos, photo drops</p></div></div>
-    <div class="mh-res"><div class="ico">G</div><div><h3>Media Guidelines</h3><a href="media-guidelines.html">View</a><p>Credentials, access, content rules</p></div></div>
-    <div class="mh-res"><div class="ico">A</div><div><h3>Accreditation</h3><a href="media-accreditation.html">Apply</a><p>Get on-site access to cover PGB</p></div></div>
+    <div class="mh-res"><div class="ico" data-mh-res="listen"><img alt="" hidden><span class="ico-fb">L</span></div><div><h3>Listen</h3><a href="listen.html">Play</a><p>Season One booth + podcast drops</p></div></div>
+    <div class="mh-res"><div class="ico" data-mh-res="resources"><img alt="" hidden><span class="ico-fb">R</span></div><div><h3>Media Resources</h3><a href="media-resources.html">View</a><p>Guides, rosters, logos, photo drops</p></div></div>
+    <div class="mh-res"><div class="ico" data-mh-res="guidelines"><img alt="" hidden><span class="ico-fb">G</span></div><div><h3>Media Guidelines</h3><a href="media-guidelines.html">View</a><p>Credentials, access, content rules</p></div></div>
+    <div class="mh-res"><div class="ico" data-mh-res="accreditation"><img alt="" hidden><span class="ico-fb">A</span></div><div><h3>Accreditation</h3><a href="media-accreditation.html">Apply</a><p>Get on-site access to cover PGB</p></div></div>
   </div>
 </div>
 
@@ -136,6 +142,7 @@
 <script src="assets/js/site.js?v=88"></script>
 <script src="assets/js/support-widget.js?v=12"></script>
 <script src="assets/js/cart.js?v=11"></script>
-<script src="assets/js/media-hub.js?v=5"></script>
+<script src="assets/js/media-catalog.js?v=1"></script>
+<script src="assets/js/media-hub.js?v=6"></script>
 </body>
 </html>

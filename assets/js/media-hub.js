@@ -119,7 +119,10 @@
       .map(
         (e) => `
       <article class="mh-event">
-        <div class="mh-badge ${e.badgeClass}" aria-hidden="true">${e.badge}<small>${e.short}</small></div>
+        <div class="mh-event-cover" data-event-cover="${e.id}">
+          <img alt="" class="mh-event-img" hidden data-event-img>
+          <div class="mh-badge ${e.badgeClass}" aria-hidden="true">${e.badge}<small>${e.short}</small></div>
+        </div>
         <hr>
         <div class="meta">
           <b>${e.dates}</b>
@@ -171,6 +174,8 @@
         note.textContent = "You're on the list — media alerts locked in.";
       }
     });
+
+    window.PGBMediaCatalog?.hydrate(document);
   });
 
   window.PGBMediaHub = { EVENTS, eventCards, scheduleRows };
