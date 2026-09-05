@@ -964,7 +964,7 @@
     kicker: "Launch · Season One",
     line1: "Puck Gold",
     line2: "The coldest game on earth",
-    deck: "Become a founding member — OG Limited Edition puck + 1-year Premium League Pass.",
+    deck: "Expansion sales window · $36 — OG Limited Edition puck + 1-year Premium League Pass. Sign up or log in.",
   };
 
   const HERO_SLIDES = [

@@ -88,7 +88,7 @@
     endLabel: fmt(endDate),
     venue: "Neon Reef · Multi-rink broadcast",
     format: "Dual tourneys · Underdog Cup + Expansion Cup",
-    shopPush: "OG Limited Edition puck + 1-yr Premium Pass · handwritten note from the founders",
+    shopPush: "OG Limited Edition puck + 1-yr Premium Pass · handwritten note from the core founding team, founding vibe coding devs & Pucky13 ;-)",
     foundingFour,
     expansionGlobal,
     underdogLeague,

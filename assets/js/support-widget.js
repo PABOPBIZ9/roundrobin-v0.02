@@ -66,7 +66,7 @@
     {
       id: "pass",
       re: /pass|membership|ticket|sign ?up|join|founding|\$36|league pass|og offer|gold puck|assinatura|abonnement|会員/,
-      msg: "Founding membership locks a free limited gold puck plus a year of Premium League Pass for thirty-six dollars — and five-times XP on Fan Zone farms.",
+      msg: "Expansion sales window · $36. Founding offer ends with the faceoff clock — OG Limited Edition gold puck plus a year of Premium League Pass, shipped with a handwritten surprise note from the core founding team, founding vibe coding devs, players & Pucky13 ;-) and 5× XP on Fan Zone farms.",
       links: [
         { href: "checkout.html?offer=og", label: "$36 OG Offer" },
         { href: "join.html", label: "Pass details" },
