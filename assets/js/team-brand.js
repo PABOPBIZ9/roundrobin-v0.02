@@ -14,6 +14,7 @@
       keyart: `${base("miami-mighty-geckz")}/02-Brand-Kit/keyart.png`,
       swag: `${base("miami-mighty-geckz")}/07-Swag-Kits/swag-kit/hero.png`,
       poster: `${base("miami-mighty-geckz")}/03-Stadiums/stadium-01/poster.jpg`,
+      jersey: `${base("miami-mighty-geckz")}/05-Jerseys-Uniforms/home/jersey.png`,
     },
     "mclean-cardinals": {
       logo: `${base("mclean-cardinals")}/primary.png`,
@@ -24,6 +25,7 @@
       keyart: `${base("mclean-cardinals")}/02-Brand-Kit/keyart.png`,
       swag: `${base("mclean-cardinals")}/07-Swag-Kits/swag-kit/hero.png`,
       poster: `${base("mclean-cardinals")}/03-Stadiums/stadium-01/poster.jpg`,
+      jersey: `${base("mclean-cardinals")}/05-Jerseys-Uniforms/home/jersey.png`,
     },
     "washington-whoomp": {
       logo: `${base("washington-whoomp")}/primary.png`,
@@ -34,6 +36,7 @@
       keyart: `${base("washington-whoomp")}/02-Brand-Kit/keyart.png`,
       swag: `${base("washington-whoomp")}/07-Swag-Kits/swag-kit/hero.png`,
       poster: `${base("washington-whoomp")}/03-Stadiums/stadium-01/poster.jpg`,
+      jersey: `${base("washington-whoomp")}/05-Jerseys-Uniforms/home/jersey.png`,
     },
     "chattanooga-choo-choo": {
       logo: `${base("chattanooga-choo-choo")}/primary.png`,
@@ -41,6 +44,9 @@
       mono: `${base("chattanooga-choo-choo")}/mono.png`,
       crest: `${base("chattanooga-choo-choo")}/crest.svg`,
       appIcon: `${base("chattanooga-choo-choo")}/app-icon.png`,
+      keyart: `${base("chattanooga-choo-choo")}/02-Brand-Kit/keyart.png`,
+      swag: `${base("chattanooga-choo-choo")}/07-Swag-Kits/swag-kit/hero.png`,
+      jersey: `${base("chattanooga-choo-choo")}/05-Jerseys-Uniforms/home/jersey.png`,
     },
     "la-hibibi-jinni": {
       logo: `${base("la-hibibi-jinni")}/primary.png`,

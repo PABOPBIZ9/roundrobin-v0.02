@@ -110,10 +110,18 @@
 
   function gearSources(team, slot) {
     const LV = window.PGBLockerVision;
-    if (!LV) return [];
+    const base = `assets/teams/${team.slug}/`;
+    const fallbacks = [
+      `${base}05-Jerseys-Uniforms/home/jersey.png`,
+      `${base}02-Brand-Kit/keyart.png`,
+      `${base}01-Logos-Marks/primary.png`,
+      `${base}07-Swag-Kits/swag-kit/hero.png`,
+    ];
+    if (!LV) return fallbacks;
     const p = LV.paths(team.slug, "home");
     const file = slot.file;
-    return [`${p.hero.replace(/hero\.png$/, file)}`, p[ slot.id ] || `${p.jersey.replace(/jersey\.png$/, file)}`].filter(Boolean);
+    const primary = [`${p.hero.replace(/hero\.png$/, file)}`, p[slot.id] || `${p.jersey.replace(/jersey\.png$/, file)}`].filter(Boolean);
+    return [...primary, ...fallbacks];
   }
 
   function miniGearSvg(slotId, team, kit) {
