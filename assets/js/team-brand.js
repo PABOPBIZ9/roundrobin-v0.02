@@ -57,6 +57,27 @@
     },
   };
 
+  [
+    "dubai-dragons",
+    "nashville-snakes",
+    "berlin-blackout",
+    "tokyo-oni",
+    "paris-bub-phoenixes",
+    "sao-paulo-shadow-punks",
+    "london-crown",
+    "lagos-voltage",
+    "seoul-neon",
+    "mumbai-monsoon",
+    "mexico-city-solar",
+    "sydney-surge",
+  ].forEach((slug) => {
+    BRAND[slug] = {
+      logo: `${base(slug)}/primary.svg`,
+      appIcon: `${base(slug)}/app-icon.svg`,
+      crest: `${base(slug)}/primary.svg`,
+    };
+  });
+
   function logoUrl(slug) {
     return BRAND[slug]?.logo || `${base(slug)}/primary.png`;
   }

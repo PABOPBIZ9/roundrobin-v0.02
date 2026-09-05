@@ -110,7 +110,9 @@
 <script src="assets/js/site.js?v=81"></script>
 <script src="assets/js/support-widget.js?v=12"></script>
 <script src="assets/js/cart.js?v=11"></script>
-<script src="assets/js/tournament-data.js?v=7"></script>
+<script src="assets/js/tournament-data.js?v=8"></script>
+<script src="assets/js/team-brand.js?v=6"></script>
+<script src="assets/js/division-logos.js?v=1"></script>
 <script>
 (function () {
   const E = window.PGB_EXPANSION;
@@ -118,9 +120,7 @@
   document.getElementById("exWhen").textContent = "Faceoff " + E.startLabel + " · wraps " + E.endLabel + " · " + E.venue;
 
   function teamLine(t) {
-    return `<div class="ex-team"><span class="ex-dot" style="background:${t.color}"></span>${t.name}${
-      t.founding ? '<span class="ex-founding">Founding</span>' : '<span class="ex-global">Global</span>'
-    }</div>`;
+    return window.PGBDivisionLogos?.exTeamHtml(t) || "";
   }
 
   const founding = E.foundingFour || E.underdogLeague?.teams || [];
@@ -160,6 +160,7 @@
       location.href = "checkout.html?offer=og";
     });
   });
+  window.PGBDivisionLogos?.hydrate(document);
 })();
 </script>
 <style>

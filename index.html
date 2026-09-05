@@ -6,7 +6,7 @@
 <title>PuckGold — Official Site | Teams, Scores, Shop & Fan Zone</title>
 <meta name="description" content="PuckGold — the coldest game on earth. Ice is real. Arenas are not. Fans decide in real time. The league that had to pull its goalie to be born.">
 <script>(function(){try{var t=localStorage.getItem("pgb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);else if(window.matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/site.css?v=89">
+<link rel="stylesheet" href="assets/css/site.css?v=91">
 <link rel="stylesheet" href="assets/css/nhl-league.css?v=11">
 <link rel="stylesheet" href="assets/css/support-widget.css?v=7">
 <link rel="icon" href="assets/brand/favicon/favicon.ico?v=3" type="image/x-icon">
@@ -177,7 +177,9 @@
 <script src="assets/js/lockervision-data.js?v=2"></script>
 <script src="assets/js/lockervision.js?v=4"></script>
 <script src="assets/js/franchise-tiles.js?v=4"></script>
-<script src="assets/js/tournament-data.js?v=7"></script>
+<script src="assets/js/tournament-data.js?v=8"></script>
+<script src="assets/js/team-brand.js?v=6"></script>
+<script src="assets/js/division-logos.js?v=1"></script>
 <script>
 document.querySelectorAll("[data-claim-og]").forEach((a)=>{
   a.addEventListener("click",(e)=>{
@@ -191,8 +193,7 @@ window.PGBFranchiseTiles?.render("foundingGrid");
   const E = window.PGB_EXPANSION;
   if (!E || !document.getElementById("divisionSplit")) return;
   function teamRow(t, tag) {
-    const label = tag || (t.founding ? '<span class="division-tag">Founding</span>' : '<span class="division-tag division-tag-global">Global</span>');
-    return `<div class="division-team"><span class="division-code" style="background:${t.color}">${t.code}</span><span>${t.name}</span>${label}</div>`;
+    return window.PGBDivisionLogos?.teamRowHtml(t, tag) || "";
   }
   function poolBlock(label, teams) {
     if (!teams.length) return "";
@@ -214,6 +215,7 @@ window.PGBFranchiseTiles?.render("foundingGrid");
       ${poolBlock("Pool B", global.filter((t) => t.pool === "B"))}
       ${global.length > 8 ? `<p class="division-more">Pools C–D + ${global.length - 8} more · <a href="expansion.html#pools">full field</a></p>` : ""}
     </div>`;
+  window.PGBDivisionLogos?.hydrate(document.getElementById("divisionSplit"));
 })();
 </script>
 </body>

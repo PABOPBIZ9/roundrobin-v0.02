@@ -33,7 +33,8 @@
 <script src="assets/js/site.js?v=88"></script>
 <script src="assets/js/support-widget.js?v=12"></script>
 <script src="assets/js/cart.js?v=11"></script>
-<script src="assets/js/team-brand.js?v=4"></script>
+<script src="assets/js/team-brand.js?v=6"></script>
+<script src="assets/js/division-logos.js?v=1"></script>
 <script src="assets/js/teams-data.js?v=8"></script>
 <script src="assets/js/player-characters.js?v=1"></script>
 <script src="assets/js/character-art.js?v=1"></script>
@@ -57,11 +58,11 @@
       .join("");
     const seedLine = t.seed ? `#${t.seed} Seed · ${t.record}` : t.record;
     const mascot = window.PGBCharacters?.teamMeta(t.slug)?.mascot;
-    const logoSvg = window.PGBCharacterArt?.logoSvg(t.slug, t, t.slug) || "";
+    const logoWrap = window.PGBDivisionLogos?.logoHtml(t.slug, t, 72) || `<div class="tp-card-logo">${logoSvg}</div>`;
     return `
       <article class="tp-card" id="${t.slug}">
         <div class="tp-card-top" style="background:linear-gradient(145deg,${t.color},${t.colorDeep})">
-          <div class="tp-card-logo">${logoSvg}</div>
+          <div class="tp-card-logo">${logoWrap.replace('class="division-logo"', 'class="division-logo tp-card-logo-mark"')}</div>
           ${mascot ? `<div class="tp-card-mascot">${mascot.name} · ${mascot.trait}</div>` : ""}
           <div class="seed">${seedLine}</div>
           <h2>${t.name}</h2>
@@ -87,6 +88,7 @@
   document.getElementById("tpExpansion").innerHTML = expansion.length
     ? expansion.map(cardHtml).join("")
     : `<p style="color:#5c6473;font-size:.9rem">Expansion franchises drop on the faceoff clock — <a href="expansion.html">see Global Power pools →</a></p>`;
+  window.PGBDivisionLogos?.hydrate(document);
 })();
 </script>
 </body>

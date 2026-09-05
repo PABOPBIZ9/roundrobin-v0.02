@@ -28,7 +28,7 @@
     { slug: "miami-mighty-geckz", name: "Miami Mighty Geckz", code: "MMG", founding: true, division: "underdog", color: "#0f766e" },
     { slug: "mclean-cardinals", name: "McLean Climate Cardinals", code: "MC", founding: true, division: "underdog", color: "#991b1b" },
     { slug: "washington-whoomp", name: "Washington Whoomp!", code: "WW", founding: true, division: "underdog", color: "#1e3a8a" },
-    { slug: "chattanooga-choo-choo", name: "Chattanooga Choo Choos", code: "CCC", founding: true, division: "underdog", color: "#78350f" },
+    { slug: "chattanooga-choo-choo", name: "Chattanooga Choo Choo", code: "CCC", founding: true, division: "underdog", color: "#78350f" },
   ];
 
   /** Global Power only — founding teams never appear in these pools */
