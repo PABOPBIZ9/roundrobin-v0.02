@@ -8,3 +8,4 @@ node_modules/
 .vercel
 assets/vault/content/vibe-playlists/_local-only/
 tools/voice-studio/.venv/
+.env*
