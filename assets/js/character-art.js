@@ -11,6 +11,9 @@
 
   /** Team logo / app icon — mascot badge */
   function logoSvg(slug, team, uid) {
+    if (window.PGBDivisionLogos?.MARKS?.[slug]) {
+      return window.PGBDivisionLogos.markSvg(slug, team);
+    }
     const c = team.color || "#163a74";
     const d = team.colorDeep || "#0b1220";
     const gid = `lg-${slug}-${uid || UID()}`;

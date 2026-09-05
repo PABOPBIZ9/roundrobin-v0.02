@@ -268,8 +268,17 @@
 
   function kitFor(teamSlug, kitId) {
     const kits = TEAM_KITS[teamSlug];
-    if (!kits) return null;
-    return kits[kitId] || null;
+    if (kits) return kits[kitId] || null;
+    const t = teamBySlug(teamSlug);
+    if (!t || !kitId) return null;
+    const label = EDITIONS.find((e) => e.id === kitId)?.name || kitId;
+    return {
+      name: `${t.short} ${label}`,
+      story: `${t.name} ${label.toLowerCase()} kit — Global Power Division. Drop art into 05-Jerseys-Uniforms/${kitId}/.`,
+      accent: t.color,
+      shell: t.colorDeep,
+      secondary: "#f4f6fa",
+    };
   }
 
   function kitIdFromOutfitName(name) {

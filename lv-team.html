@@ -22,7 +22,8 @@
 <script src="assets/js/site.js?v=88"></script>
 <script src="assets/js/support-widget.js?v=12"></script>
 <script src="assets/js/cart.js?v=11"></script>
-<script src="assets/js/teams-data.js?v=2"></script>
+<script src="assets/js/teams-data.js?v=9"></script>
+<script src="assets/js/expansion-teams-data.js?v=1"></script>
 <script src="assets/js/standings-data.js?v=2"></script>
 <script src="assets/js/lockervision-data.js?v=2"></script>
 <script src="assets/js/lockervision.js?v=3"></script>
@@ -30,8 +31,12 @@
 (function () {
   const UI = window.PGBLVUI;
   const LV = window.PGBLockerVision;
-  const slug = new URLSearchParams(location.search).get("team") || "miami-mighty-geckz";
-  const team = LV.teamBySlug(slug) || window.PGBTeams.all()[0];
+  const slug = new URLSearchParams(location.search).get("team");
+  const team = slug ? LV.teamBySlug(slug) : null;
+  if (!team) {
+    document.getElementById("lvRoot").innerHTML = `<p style="padding:2rem;color:#5c6473">Team not found. <a href="lockervision.html">Back to LockerVision</a></p>`;
+    return;
+  }
   document.title = `${team.name} — LockerVision | PuckGold`;
   document.getElementById("lvSubnav").innerHTML = UI.subnav("teams");
   document.getElementById("lvTeamBar").innerHTML = UI.teamFilterBar(team.slug);

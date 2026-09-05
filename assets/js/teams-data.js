@@ -204,19 +204,22 @@ window.PGB_TEAMS = [
 ];
 
 window.PGBTeams = {
+  registry() {
+    return window.PGB_TEAMS.concat(window.PGB_EXPANSION_TEAMS || []);
+  },
   all() {
-    return window.PGB_TEAMS;
+    return this.registry();
   },
   bySlug(slug) {
     const key = (slug || "").toLowerCase();
     return (
-      window.PGB_TEAMS.find(
+      this.registry().find(
         (t) => t.slug === key || (t.aliases || []).includes(key)
       ) || null
     );
   },
   player(id) {
-    for (const t of window.PGB_TEAMS) {
+    for (const t of this.registry()) {
       const p = t.players.find((x) => x.id === id);
       if (p) return { player: p, team: t };
     }

@@ -87,7 +87,10 @@
 <script src="assets/js/site.js?v=80"></script>
 <script src="assets/js/support-widget.js?v=15"></script>
 <script src="assets/js/cart.js?v=11"></script>
-<script src="assets/js/teams-data.js?v=7"></script>
+<script src="assets/js/teams-data.js?v=9"></script>
+<script src="assets/js/expansion-teams-data.js?v=1"></script>
+<script src="assets/js/team-brand.js?v=6"></script>
+<script src="assets/js/division-logos.js?v=1"></script>
 <script src="assets/js/player-characters.js?v=1"></script>
 <script src="assets/js/character-art.js?v=1"></script>
 <script src="assets/js/team-vault.js?v=1"></script>
@@ -100,8 +103,19 @@
   } catch (_) {}
 
   const params = new URLSearchParams(location.search);
-  const slug = params.get("team") || "miami-mighty-geckz";
-  const team = window.PGBTeams.bySlug(slug) || window.PGBTeams.all()[0];
+  const slug = params.get("team");
+  const team = slug ? window.PGBTeams.bySlug(slug) : null;
+  if (!team) {
+    document.getElementById("teamRoot").innerHTML = `
+      <section class="team-section" style="padding:3rem 4vw;text-align:center">
+        <h2>Team not found</h2>
+        <p style="color:#5c6473;margin:1rem 0">No franchise matched <code>${slug || ""}</code>.</p>
+        <a class="btn btn-platinum btn-sm" href="teams.html">Browse all teams</a>
+        <a class="btn btn-ghost btn-sm" href="expansion.html#pools">Global Power pools</a>
+      </section>`;
+    document.title = "Team not found — PuckGold";
+    return;
+  }
   document.title = team.name + " — Team Vault | PuckGold";
 
   const vaultLink = (sectionId) =>
@@ -125,21 +139,24 @@
   ];
 
   const mascot = window.PGBCharacters?.teamMeta(team.slug)?.mascot;
-  const logoSvg = window.PGBCharacterArt?.logoSvg(team.slug, team, "hero") || "";
+  const logoWrap = window.PGBDivisionLogos?.logoHtml(team.slug, team, 88) || "";
+  const logoBlock = logoWrap
+    ? `<div class="tp-card-logo" style="width:88px;height:88px;margin-bottom:.75rem">${logoWrap}</div>`
+    : "";
 
   const root = document.getElementById("teamRoot");
   root.innerHTML = `
     <section class="team-hero">
       <div class="team-hero-bg" style="background:linear-gradient(120deg,${team.colorDeep} 0%, ${team.color} 45%, #0b1220 100%)"></div>
       <div class="team-hero-inner">
-        ${logoSvg ? `<div class="tp-card-logo" style="width:88px;height:88px;margin-bottom:.75rem">${logoSvg}</div>` : ""}
-        <span class="kicker">${team.expansion ? "Global Power Division" : "Underdog Division · Founding Four"} · ${team.code}${mascot ? ` · Mascot: ${mascot.name}` : ""}</span>
+        ${logoBlock}
+        <span class="kicker">${team.expansion ? `Global Power Division${team.pool ? " · Pool " + team.pool : ""}` : "Underdog Division · Founding Four"} · ${team.code}${mascot ? ` · Mascot: ${mascot.name}` : ""}</span>
         <h1>${team.name.toUpperCase()}</h1>
         <p class="motto">${team.tagline}</p>
         <div class="meta">
           <span>${team.arena}</span>
-          <span>Season ${team.position} · ${team.points} PTS</span>
-          <span>${team.record}</span>
+          <span>Season ${team.position || "—"}${team.points != null ? " · " + team.points + " PTS" : ""}</span>
+          <span>${team.record || ""}</span>
         </div>
         <div class="cta-row" style="margin-top:1.2rem">
           <a href="shop.html#best" class="btn btn-og btn-sm">Shop ${team.code}</a>
@@ -361,6 +378,7 @@
       })
       .join("");
   }
+  window.PGBDivisionLogos?.hydrate(root);
 })();
 </script>
 </body>
