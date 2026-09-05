@@ -22,7 +22,7 @@
   .lv-body{--lv-header-offset:72px}
 }
 .lv-body .ice-lines{opacity:.04;pointer-events:none}
-.lv-body .site-header{background:rgba(5,8,14,.94);border-bottom:1px solid var(--lv-line)}
+html:not([data-theme="light"]) .lv-body .site-header{background:rgba(5,8,14,.94);border-bottom:1px solid var(--lv-line)}
 
 /* —— Subnav (sticks under site header) —— */
 .lv-subnav{
@@ -400,3 +400,86 @@
 
 /* Retro band on home (if reused) */
 .lv-body .btn{touch-action:manipulation}
+
+/* —— Light mode (full page, not just site header) —— */
+html[data-theme="light"] .lv-body{
+  --lv-bg:#f4f6fa;
+  --lv-panel:#ffffff;
+  --lv-panel2:#eef1f6;
+  --lv-line:rgba(26,29,34,.1);
+  --lv-mute:#5c6473;
+  --lv-text:#121826;
+  --lv-gold:#8a6a1e;
+}
+html[data-theme="light"] .lv-body .ice-lines{
+  opacity:.05;
+  background-image:repeating-linear-gradient(115deg,transparent 0 58px,rgba(22,58,116,.06) 58px 59px);
+}
+html[data-theme="light"] .lv-subnav{
+  background:rgba(255,255,255,.96);
+  border-bottom-color:var(--lv-line);
+}
+html[data-theme="light"] .lv-brand{color:var(--lv-text)}
+html[data-theme="light"] .lv-subnav-links a:hover,
+html[data-theme="light"] .lv-subnav-links a.is-active{
+  color:var(--lv-text);
+  background:rgba(22,58,116,.06);
+  border-color:var(--lv-line);
+}
+html[data-theme="light"] .lv-team-bar{background:#eef1f6}
+html[data-theme="light"] .lv-team-pill.is-active,
+html[data-theme="light"] .lv-team-pill:hover{color:var(--lv-text)}
+html[data-theme="light"] .lv-hero{
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 0%,rgba(61,111,191,.14),transparent 70%),
+    linear-gradient(180deg,#eef3fa,var(--lv-bg));
+}
+html[data-theme="light"] .lv-hero h1{color:#0a162c}
+html[data-theme="light"] .lv-ed-tabs a.is-active,
+html[data-theme="light"] .lv-ed-tabs a:hover{
+  background:#163a74;
+  color:#fff;
+  border-color:#163a74;
+}
+@media(hover:hover){
+  html[data-theme="light"] .lv-kit-card:hover{border-color:rgba(22,58,116,.22)}
+}
+html[data-theme="light"] .lv-kit-stage{
+  background:radial-gradient(ellipse at 50% 80%,rgba(22,58,116,.06),transparent 55%);
+}
+html[data-theme="light"] .lv-kit-ice{
+  background:radial-gradient(ellipse,rgba(61,111,191,.14),transparent 70%);
+  border-color:rgba(22,58,116,.1);
+}
+html[data-theme="light"] .lv-kit-img,
+html[data-theme="light"] .lv-sil{
+  filter:drop-shadow(0 8px 14px rgba(18,24,38,.12));
+}
+html[data-theme="light"] .lv-main-visual{
+  background:
+    radial-gradient(ellipse at 50% 85%,rgba(22,58,116,.06),transparent 50%),
+    linear-gradient(180deg,rgba(22,58,116,.03),transparent);
+}
+html[data-theme="light"] .lv-main-visual img{
+  filter:drop-shadow(0 12px 20px rgba(18,24,38,.14));
+}
+html[data-theme="light"] .lv-info .lv-actions a,
+html[data-theme="light"] .lv-info .lv-actions button{color:var(--lv-text)}
+html[data-theme="light"] .lv-info .lv-actions a.primary{
+  background:#163a74;
+  color:#fff;
+  border-color:#163a74;
+}
+html[data-theme="light"] .lv-dock{
+  background:linear-gradient(180deg,transparent,rgba(244,246,250,.94) 28%,#f4f6fa);
+}
+html[data-theme="light"] .lv-dock a{color:var(--lv-text)}
+html[data-theme="light"] .lv-faq summary{color:var(--lv-text)}
+html[data-theme="light"] .lv-gear .tag{
+  background:rgba(22,58,116,.1);
+  color:#163a74;
+}
+html[data-theme="light"] .lv-drop-note{
+  border-color:rgba(138,106,30,.35);
+  background:rgba(255,255,255,.6);
+}
